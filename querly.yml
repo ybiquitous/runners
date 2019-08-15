@@ -1,0 +1,22 @@
+rules:
+  - id: sider.node_harness.exitstatus
+    pattern:
+      - _.exitstatus()
+    message: |
+      Process#exitstatus may be nil
+
+      Process#exitstatus is nil when the process does not exit.
+      This means the process is abort(2)-ed or coredumped.
+
+      Check Process#exited? to make sure exitstatus is a Integer.
+  - id: sider.node_harness.trace_writer_status
+    pattern:
+      - status(_, ...)
+    message: |
+      TraceWriter#status reads Process#exitstatus
+
+      ProcessStatus#exitstatus is nil when the process does not exit.
+      Check Process#exited? before passing a ProcessStatus object to the method.
+    examples:
+      - before: trace_writer.status(status)
+      - before: "trace_writer.status(status, recorded_at: Time.now)"

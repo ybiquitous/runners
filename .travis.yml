@@ -1,0 +1,14 @@
+sudo: false
+cache: bundler
+language: ruby
+before_install:
+  - gem install bundler
+  - nvm install
+  - npm install -g npm@6.10.1
+  - npm install -g yarn@1.17.3
+branches:
+  only:
+    - master
+script:
+  - bundle exec rake test
+  - bundle exec rake typecheck

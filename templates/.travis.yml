@@ -1,0 +1,12 @@
+rvm: $(< .ruby-version)
+sudo: required
+services:
+  - docker
+before_script:
+  - bundle exec rake docker:build
+script:
+  - bundle exec rake test:units
+  - bundle exec rake docker:smoke
+branches:
+  only:
+    - master

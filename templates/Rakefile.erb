@@ -1,0 +1,5 @@
+require "rake/testtask"
+
+require 'node_harness/tasks'
+
+NodeHarness::Tasks.define(runner_name: "<%= config[:runner_name] %>")
