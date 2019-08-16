@@ -1,0 +1,3 @@
+# Style/Tab cop is renamed with Layout/Tab in RuboCop 0.49.0.
+Style/Tab:
+  Enabled: true

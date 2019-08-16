@@ -1,0 +1,5 @@
+linter:
+  rubocop:
+    gems:
+      - rubocop-rspec
+      - onkcop

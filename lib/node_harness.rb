@@ -45,6 +45,9 @@ require "node_harness/schema/trace"
 require "node_harness/schema/runner_config"
 require "node_harness/schema/result"
 
+require "node_harness/runners/rubocop/processor"
+# TODO: Add more runners
+
 module NodeHarness
   def self.register_processor(processor)
     @processor = processor

@@ -1,0 +1,6 @@
+linter:
+  rubocop:
+    rails: true
+    gems:
+      - name: rubocop
+        version: 0.72.0
