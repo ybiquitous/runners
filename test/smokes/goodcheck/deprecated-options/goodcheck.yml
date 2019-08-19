@@ -1,0 +1,21 @@
+rules:
+  - id: com.sideci.example.no-todo
+    pattern:
+      - regexp: FIXME
+        case_insensitive: true
+      - regexp: TODO
+        case_insensitive: true
+    message: |
+      Complete all work!
+
+      Based on the comments it looks like some work was left for later.
+      Are you sure you want to continue?
+    fail:
+      - |
+        // FIXME: there is a bug!
+      - |
+        // Fixme: there is a bug!
+      - |
+        /* TODO: edge cases left */
+      - |
+        /* todO: edge cases left */

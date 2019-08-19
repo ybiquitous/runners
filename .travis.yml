@@ -7,6 +7,7 @@ env:
   - ANALYZER=none
   - ANALYZER=rubocop
   - ANALYZER=reek
+  - ANALYZER=goodcheck
 before_install:
   - gem install bundler
   - nvm install

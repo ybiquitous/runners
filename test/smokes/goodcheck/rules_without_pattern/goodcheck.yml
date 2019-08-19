@@ -1,0 +1,6 @@
+rules:
+  - id: com.goodcheck.without_pattern
+    message: |
+      Check the following documentation when editing this file.
+        * https://example.com/path/to/note
+    glob: "app/checks/*.rb"

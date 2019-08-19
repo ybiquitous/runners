@@ -1,0 +1,8 @@
+rules:
+  - id: com.goodcheck.hello
+    pattern: foo
+    message: foo is not a good name...
+    glob: "app/**/*"
+
+exclude:
+  - app/excludes

@@ -1,0 +1,7 @@
+FROM sider/devon_rex_ruby:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+RUN gem install goodcheck -v 2.4.0
+
+ENTRYPOINT ["node_harness", "--analyzer=goodcheck"]

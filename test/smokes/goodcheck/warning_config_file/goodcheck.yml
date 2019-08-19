@@ -1,0 +1,11 @@
+rules:
+  - id: com.example.github
+    pattern: Github
+    message: |
+      GitHub is GitHub, not Github
+      
+      You may misspelling the name of the service!
+    pass:
+      - <a>Signup via Github</a>
+    fail:
+      - <a>Signup via GitHub</a>

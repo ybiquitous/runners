@@ -47,6 +47,7 @@ require "node_harness/schema/result"
 
 require "node_harness/runners/rubocop/processor"
 require "node_harness/runners/reek/processor"
+require "node_harness/runners/goodcheck/processor"
 # TODO: Add more runners
 
 module NodeHarness

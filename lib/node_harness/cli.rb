@@ -86,6 +86,7 @@ module NodeHarness
       @processor_class ||= {
         rubocop: NodeHarness::Runners::Rubocop::Processor,
         reek: NodeHarness::Runners::Reek::Processor,
+        goodcheck: NodeHarness::Runners::Goodcheck::Processor,
       }[analyzer.to_sym]
     end
 

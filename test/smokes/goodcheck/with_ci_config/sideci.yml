@@ -1,0 +1,5 @@
+linter:
+  goodcheck:
+    config: config.yml
+    target:
+      - app
