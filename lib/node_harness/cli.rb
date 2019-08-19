@@ -83,7 +83,10 @@ module NodeHarness
 
     def processor_class
       # TODO: Add more runners
-      @processor_class ||= { rubocop: NodeHarness::Runners::Rubocop::Processor }[analyzer.to_sym]
+      @processor_class ||= {
+        rubocop: NodeHarness::Runners::Rubocop::Processor,
+        reek: NodeHarness::Runners::Reek::Processor,
+      }[analyzer.to_sym]
     end
 
     def run

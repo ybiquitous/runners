@@ -1,0 +1,7 @@
+directories:
+  "app/**/test/**":
+    NilCheck:
+      enabled: true
+  "app/**/production/**":
+    NilCheck:
+      enabled: false

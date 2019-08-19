@@ -1,0 +1,6 @@
+# PrimaDonnaMethod has been renamed at Reek v5.0.
+# The name changed to `MissingSafeMethod`.
+detectors:
+  PrimaDonnaMethod:
+    enable: true
+    exclude: []

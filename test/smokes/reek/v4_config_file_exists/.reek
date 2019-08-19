@@ -1,0 +1,5 @@
+# The fileanme has been unsupported Reek v5.0+
+# So, this settings are ignored.
+LongParameterList:
+  enabled: true
+  max_params: 3

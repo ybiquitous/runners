@@ -3,6 +3,10 @@ cache: bundler
 language: ruby
 services:
   - docker
+env:
+  - ANALYZER=none
+  - ANALYZER=rubocop
+  - ANALYZER=reek
 before_install:
   - gem install bundler
   - nvm install
@@ -10,19 +14,13 @@ before_install:
 branches:
   only:
     - master
-jobs:
-  include:
-    - stage: Test
-      script:
-        - bundle exec rake test
-        # TODO: Enable typecheck after migrating to this repository
-        # - bundle exec rake typecheck
-        - bundle exec rake dockerfile:generate
-        - bundle exec rake dockerfile:verify
-    - stage: Build
-      env:
-        - ANALYZER=rubocop
-      script:
-        - export TAG="${TRAVIS_TAG:-${TRAVIS_COMMIT}}"
-        - bundle exec rake docker:build
-        - bundle exec rake docker:smoke
+
+script:
+  - export TAG="${TRAVIS_TAG:-${TRAVIS_COMMIT}}"
+  - if [ "$ANALYZER" = 'none' ]; then bundle exec rake test; fi
+  # TODO: Enable typecheck after migrating to this repository
+  # - bundle exec rake typecheck
+  - if [ "$ANALYZER" = 'none' ]; then bundle exec rake dockerfile:generate; fi
+  - if [ "$ANALYZER" = 'none' ]; then bundle exec rake dockerfile:verify; fi
+  - if [ "$ANALYZER" != 'none' ]; then bundle exec rake docker:build; fi
+  - if [ "$ANALYZER" != 'none' ]; then bundle exec rake docker:smoke; fi
