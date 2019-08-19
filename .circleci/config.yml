@@ -1,0 +1,71 @@
+version: 2.1
+
+commands:
+  install_gems:
+    steps:
+      - restore_cache:
+          keys:
+            - v1-gems-{{ checksum "Gemfile.lock" }}
+            - v1-gems-
+      - run:
+          name: Bundle install
+          command: |
+            gem install bundler
+            bundle install --jobs=4 --retry=3 --path=vendor/bundle
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: v1-gems-{{ checksum "Gemfile.lock" }}
+  install_npm_and_yarn:
+    steps:
+      - run:
+          name: Install Node.js
+          command: |
+            curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+            curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+            sudo apt-get update && sudo apt-get install yarn
+
+runner_job: &runner_job
+  docker:
+    - image: circleci/ruby:2.5.3
+  steps:
+    - checkout
+    - install_gems
+    - setup_remote_docker
+    - run: echo 'export TAG="${CIRCLE_TAG:-${CIRCLE_SHA1}}"' >> $BASH_ENV
+    - run: bundle exec rake docker:build
+    - run: bundle exec rake docker:smoke
+
+jobs:
+  test-base:
+    docker:
+      - image: circleci/ruby:2.5.3
+    steps:
+      - checkout
+      - install_gems
+      - install_npm_and_yarn
+      - run: bundle exec rake test
+      - run: bundle exec rake dockerfile:generate
+      - run: bundle exec rake dockerfile:verify
+  runner_rubocop:
+    environment:
+      ANALYZER: rubocop
+    <<: *runner_job
+  runner_reek:
+    environment:
+      ANALYZER: reek
+    <<: *runner_job
+  runner_goodcheck:
+    environment:
+      ANALYZER: goodcheck
+    <<: *runner_job
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test-base
+      - runner_rubocop
+      - runner_reek
+      - runner_goodcheck
