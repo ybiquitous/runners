@@ -1,14 +1,28 @@
 sudo: false
 cache: bundler
 language: ruby
+services:
+  - docker
 before_install:
   - gem install bundler
   - nvm install
-  - npm install -g npm@6.10.1
-  - npm install -g yarn@1.17.3
+  - npm install -g yarn
 branches:
   only:
     - master
-script:
-  - bundle exec rake test
-  - bundle exec rake typecheck
+jobs:
+  include:
+    - stage: Test
+      script:
+        - bundle exec rake test
+        # TODO: Enable typecheck after migrating to this repository
+        # - bundle exec rake typecheck
+        - bundle exec rake dockerfile:generate
+        - bundle exec rake dockerfile:verify
+    - stage: Build
+      env:
+        - ANALYZER=rubocop
+      script:
+        - export TAG="${TRAVIS_TAG:-${TRAVIS_COMMIT}}"
+        - bundle exec rake docker:build
+        - bundle exec rake docker:smoke

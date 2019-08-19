@@ -2,11 +2,11 @@ require "optparse"
 
 module NodeHarness
   class CLI
-    # @dynamic stdout, stderr, guid, entrypoint, base, base_key, head, head_key, ssh_key, working_dir
+    # @dynamic stdout, stderr, guid, analyzer, base, base_key, head, head_key, ssh_key, working_dir
     attr_reader :stdout
     attr_reader :stderr
     attr_reader :guid
-    attr_reader :entrypoint
+    attr_reader :analyzer
     attr_reader :base
     attr_reader :base_key
     attr_reader :head
@@ -18,12 +18,12 @@ module NodeHarness
       @stdout = stdout
       @stderr = stderr
 
-      @entrypoint = Pathname("lib/entrypoint.rb")
+      @analyzer = nil
       @encryption_key = nil
 
       OptionParser.new do |opts|
-        opts.on("--entrypoint=PATH") do |path|
-          @entrypoint = Pathname(path)
+        opts.on("--analyzer=ANALYZER") do |analyzer|
+          @analyzer = analyzer
         end
         opts.on("--base=BASE") do |base|
           @base = base
@@ -72,19 +72,27 @@ module NodeHarness
 
       raise "base_key is given but base is missing" if !base && base_key
       raise "head_key is given but head is missing" if !head && head_key
-
+      validate_analyzer!
       self
     end
 
-    def run
-      load entrypoint.to_s
+    def validate_analyzer!
+      raise "--analyzer is required" unless analyzer
+      raise "The specified analyzer is not supported" unless processor_class
+    end
 
+    def processor_class
+      # TODO: Add more runners
+      @processor_class ||= { rubocop: NodeHarness::Runners::Rubocop::Processor }[analyzer.to_sym]
+    end
+
+    def run
       with_working_dir do |working_dir|
         writer = JSONSEQ::Writer.new(io: stdout)
         trace_writer = TraceWriter.new(writer: writer)
 
         Workspace.open(base: base, base_key: base_key, head: head, head_key: head_key, ssh_key: ssh_key, working_dir: working_dir, trace_writer: trace_writer) do |workspace|
-          harness = Harness.new(guid: guid, processor_class: NodeHarness.processor, workspace: workspace, trace_writer: trace_writer)
+          harness = Harness.new(guid: guid, processor_class: processor_class, workspace: workspace, trace_writer: trace_writer)
 
           result = harness.run
           warnings = harness.warnings

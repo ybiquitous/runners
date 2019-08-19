@@ -1,0 +1,2 @@
+inherit_from:
+  - "https://raw.githubusercontent.com/sideci/meowcop/v1.11.0/config/rubocop.yml"

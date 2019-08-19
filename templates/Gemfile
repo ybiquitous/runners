@@ -1,7 +1,0 @@
-source 'https://rubygems.org'
-
-require_relative 'lib/bundly.rb'
-gems File.join(__dir__, 'gems.yaml')
-
-gem "rake"
-gem "minitest"

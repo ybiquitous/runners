@@ -1,0 +1,6 @@
+linter:
+  rubocop:
+    gems:
+      - name: rubocop-rspec
+        version: 1.18.0
+      - onkcop

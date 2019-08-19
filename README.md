@@ -30,18 +30,14 @@ After you checkout the source code, install required gems at first.
 $ bundle install
 ```
 
-Next, install Node.js, npm and Yarn also. We recommend [`nvm`](https://github.com/nvm-sh/nvm) which can manage different Node.js versions. If you use unexpected `node`, `npm` and `yarn` versions, the tests will fail.
+Next, install Node.js, npm and Yarn also. We recommend [`nvm`](https://github.com/nvm-sh/nvm) which can manage different Node.js versions.
 
 ```
 $ nvm install
 ```
 
 ```
-$ npm install -g npm@<required_npm_version>
-```
-
-```
-$ npm install -g yarn@<required_yarn_version>
+$ npm install -g yarn
 ```
 
 ## Writing New Runner
