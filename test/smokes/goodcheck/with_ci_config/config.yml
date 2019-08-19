@@ -1,0 +1,5 @@
+rules:
+  - id: com.sample
+    pattern: foo
+    message: Foo
+    glob: "**/*.rb"
