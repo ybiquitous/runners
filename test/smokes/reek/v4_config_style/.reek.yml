@@ -1,0 +1,11 @@
+# In Reek v5, must use `detectors:` on top.
+# Otherwise, analysis is failed.
+# e.g.)
+#  detectors:
+#    TooManyMethods:
+#      ...
+#    TooManyInstanceVariables:
+#      ...
+TooManyMethods:
+  enabled: true
+  max_methods: 3

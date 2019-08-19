@@ -1,0 +1,9 @@
+detectors:
+  LongParameterList:
+    enabled: true
+    exclude: []
+    max_params: 2
+
+  NilCheck:
+    enabled: true
+    exclude: []
