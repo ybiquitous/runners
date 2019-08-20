@@ -1,0 +1,5 @@
+linter:
+  jshint:
+    options:
+      config:
+        - .myjshintrc
