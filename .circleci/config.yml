@@ -76,6 +76,10 @@ jobs:
     environment:
       ANALYZER: checkstyle
     <<: *runner_job
+  runner_pmd_java:
+    environment:
+      ANALYZER: pmd_java
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -89,3 +93,4 @@ workflows:
       - runner_phpmd
       - runner_phinder
       - runner_checkstyle
+      - runner_pmd_java

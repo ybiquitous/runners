@@ -91,6 +91,7 @@ module NodeHarness
         phpmd: NodeHarness::Runners::Phpmd::Processor,
         phinder: NodeHarness::Runners::Phinder::Processor,
         checkstyle: NodeHarness::Runners::Checkstyle::Processor,
+        pmd_java: NodeHarness::Runners::PmdJava::Processor,
       }[analyzer.to_sym]
     end
 

@@ -59,6 +59,7 @@ require "node_harness/runners/code_sniffer/processor"
 require "node_harness/runners/phpmd/processor"
 require "node_harness/runners/phinder/processor"
 require "node_harness/runners/checkstyle/processor"
+require "node_harness/runners/pmd_java/processor"
 # TODO: Add more runners
 
 module NodeHarness

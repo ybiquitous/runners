@@ -1,0 +1,7 @@
+linter:
+  pmd_java:
+    rulesets:
+      - category/java/codestyle.xml
+      - rulesets.xml
+    dir: src
+    min_priority: warning
