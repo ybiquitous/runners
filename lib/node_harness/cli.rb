@@ -105,6 +105,7 @@ module NodeHarness
         tyscan: NodeHarness::Runners::Tyscan::Processor,
         flake8: NodeHarness::Runners::Flake8::Processor,
         misspell: NodeHarness::Runners::Misspell::Processor,
+        go_vet: NodeHarness::Runners::GoVet::Processor,
       }[analyzer.to_sym]
     end
 

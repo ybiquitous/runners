@@ -74,6 +74,7 @@ require "node_harness/runners/tslint/processor"
 require "node_harness/runners/tyscan/processor"
 require "node_harness/runners/flake8/processor"
 require "node_harness/runners/misspell/processor"
+require "node_harness/runners/go_vet/processor"
 # TODO: Add more runners
 
 module NodeHarness

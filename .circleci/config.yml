@@ -132,6 +132,10 @@ jobs:
     environment:
       ANALYZER: misspell
     <<: *runner_job
+  runner_go_vet:
+    environment:
+      ANALYZER: go_vet
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -159,3 +163,4 @@ workflows:
       - runner_tyscan
       - runner_flake8
       - runner_misspell
+      - runner_go_vet
