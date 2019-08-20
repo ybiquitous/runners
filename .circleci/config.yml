@@ -136,6 +136,10 @@ jobs:
     environment:
       ANALYZER: go_vet
     <<: *runner_job
+  runner_golint:
+    environment:
+      ANALYZER: golint
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -164,3 +168,4 @@ workflows:
       - runner_flake8
       - runner_misspell
       - runner_go_vet
+      - runner_golint

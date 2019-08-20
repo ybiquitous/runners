@@ -106,6 +106,7 @@ module NodeHarness
         flake8: NodeHarness::Runners::Flake8::Processor,
         misspell: NodeHarness::Runners::Misspell::Processor,
         go_vet: NodeHarness::Runners::GoVet::Processor,
+        golint: NodeHarness::Runners::Golint::Processor,
       }[analyzer.to_sym]
     end
 
