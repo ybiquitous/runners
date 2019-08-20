@@ -159,7 +159,7 @@ module NodeHarness
         if subcommand == "ci"
           subcommand = "install"
           cli_options << "--package-lock=false"
-          trace_writer.warning <<~MSG.strip, file: "package.json"
+          add_warning <<~MSG.strip, file: "package.json"
             The 'npm ci --only=development' command doesn't install anything, so 'npm install --only=development' will be used instead.
             If you want to use 'npm ci', please change your install option from '#{INSTALL_OPTION_DEVELOPMENT}' to '#{INSTALL_OPTION_ALL}'.
             For details about the npm behavior, see https://npm.community/t/npm-ci-only-dev-does-not-install-anything/3068
@@ -199,7 +199,7 @@ module NodeHarness
       when INSTALL_OPTION_PRODUCTION
         cli_options << "--production"
       when INSTALL_OPTION_DEVELOPMENT
-        trace_writer.warning <<~MSG.strip, file: "yarn.lock"
+        add_warning <<~MSG.strip, file: "yarn.lock"
           Yarn doesn't have a same feature as 'npm install --only=development', so the option '#{INSTALL_OPTION_DEVELOPMENT}' will be ignored.
           See https://github.com/yarnpkg/yarn/issues/3254 for details.
         MSG
@@ -222,7 +222,7 @@ module NodeHarness
       installed_deps = JSON.parse(stdout)["dependencies"]
 
       warn_about_fallback_to_default = -> {
-        trace_writer.warning <<~MSG.strip, file: "package.json"
+        add_warning <<~MSG.strip, file: "package.json"
           No required dependencies for analysis were installed. Instead, the pre-installed '#{default_dependency}' will be used.
         MSG
       }
@@ -244,7 +244,7 @@ module NodeHarness
 
         version = installed_dep["version"]
         unless version
-          trace_writer.warning "The required dependency '#{name}' may not have been correctly installed. It may be a missing peer dependency."
+          add_warning "The required dependency '#{name}' may not have been correctly installed. It may be a missing peer dependency.", file: "package.json"
           next
         end
 
