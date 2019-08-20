@@ -1,0 +1,6 @@
+linter:
+  tyscan:
+    config: frontend/tyscan.yml
+    tsconfig: frontend/tsconfig.json
+    paths:
+      - frontend

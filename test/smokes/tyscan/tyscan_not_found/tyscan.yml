@@ -1,0 +1,4 @@
+rules:
+  - id: com.example.user_name
+    message: Note that the `name` is not full name, but nickname
+    pattern: '(_: User).name'

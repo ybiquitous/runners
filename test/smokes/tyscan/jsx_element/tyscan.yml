@@ -1,0 +1,4 @@
+rules:
+  - id: smoke.jsx
+    pattern: '<div id={_}>'
+    message: Est-ce que nous avons confirmé français au le `id`.
