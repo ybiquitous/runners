@@ -8,6 +8,7 @@ gem 'retryable'
 gem 'parallel'
 gem 'bundler', '>= 1.12', '< 3.0'
 gem 'nokogiri'
+gem 'locale'
 
 group :development, :test do
   gem 'minitest'
