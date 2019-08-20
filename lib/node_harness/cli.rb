@@ -104,6 +104,7 @@ module NodeHarness
         tslint: NodeHarness::Runners::Tslint::Processor,
         tyscan: NodeHarness::Runners::Tyscan::Processor,
         flake8: NodeHarness::Runners::Flake8::Processor,
+        misspell: NodeHarness::Runners::Misspell::Processor,
       }[analyzer.to_sym]
     end
 
