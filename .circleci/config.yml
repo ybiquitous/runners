@@ -60,6 +60,10 @@ jobs:
     environment:
       ANALYZER: goodcheck
     <<: *runner_job
+  runner_code_sniffer:
+    environment:
+      ANALYZER: code_sniffer
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -69,3 +73,4 @@ workflows:
       - runner_rubocop
       - runner_reek
       - runner_goodcheck
+      - runner_code_sniffer

@@ -87,6 +87,7 @@ module NodeHarness
         rubocop: NodeHarness::Runners::Rubocop::Processor,
         reek: NodeHarness::Runners::Reek::Processor,
         goodcheck: NodeHarness::Runners::Goodcheck::Processor,
+        code_sniffer: NodeHarness::Runners::CodeSniffer::Processor,
       }[analyzer.to_sym]
     end
 

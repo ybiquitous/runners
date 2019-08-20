@@ -18,6 +18,7 @@ require "set"
 require "active_support"
 require "active_support/core_ext/hash/deep_merge"
 require "active_support/core_ext/hash/indifferent_access"
+require "active_support/core_ext/string/filters"
 
 require "node_harness/location"
 require "node_harness/results"
@@ -48,6 +49,7 @@ require "node_harness/schema/result"
 require "node_harness/runners/rubocop/processor"
 require "node_harness/runners/reek/processor"
 require "node_harness/runners/goodcheck/processor"
+require "node_harness/runners/code_sniffer/processor"
 # TODO: Add more runners
 
 module NodeHarness

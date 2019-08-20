@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+  <description>The coding standard for PHP_CodeSniffer itself.</description>
+
+  <!-- <arg>を使うことでreport=summaryとしての結果を表示することができ、stdoutを普通にparseするとエラーになる出力がreport=json時に生成できる -->
+  <arg name="report" value="summary"/>
+  <arg value="np"/>
+
+  <rule ref="PEAR"/>
+  <rule ref="Zend"/>
+</ruleset>

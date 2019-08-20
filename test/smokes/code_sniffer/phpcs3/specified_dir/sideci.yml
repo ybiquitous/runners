@@ -1,0 +1,4 @@
+linter:
+  code_sniffer:
+    version: 3
+    dir: app/
