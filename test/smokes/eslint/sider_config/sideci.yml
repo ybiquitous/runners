@@ -1,0 +1,9 @@
+linter:
+  eslint:
+    npm_install: true
+    config: .myeslintrc.yml
+    ext: 'js,jsx'
+    ignore-pattern: /src/*
+    ignore-path: .gitignore
+    no-ignore: true
+    quiet: true

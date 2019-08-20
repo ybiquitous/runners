@@ -1,0 +1,10 @@
+{
+  "name": "prefer_npm_intall_true_to_eslintrc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@gitlab/eslint-config": "^1.1.0",
+    "eslint": "5.16.0"
+  }
+}

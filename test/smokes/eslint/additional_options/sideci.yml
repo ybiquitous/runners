@@ -1,0 +1,5 @@
+linter:
+  eslint:
+    npm_install: true
+    ignore-path: .jshintignore
+    ext: 'js,jsx'

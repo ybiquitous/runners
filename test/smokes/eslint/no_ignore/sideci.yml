@@ -1,0 +1,6 @@
+linter:
+  eslint:
+    npm_install: true
+    options:
+      ext: 'js,jsx'
+      no-ignore: true

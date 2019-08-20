@@ -1,0 +1,5 @@
+extends: eslint:recommended
+plugins:
+  - filenames
+rules:
+  filenames/no-index: 1
