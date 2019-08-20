@@ -464,6 +464,10 @@ class NodejsTest < Minitest::Test
       MSG
       actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
       assert_equal [expected_warning, expected_warning], actual_warnings
+      assert_equal [
+        { message: expected_warning, file: "package.json" },
+        { message: expected_warning, file: "package.json" },
+      ], processor.warnings
     end
   end
 
@@ -522,6 +526,7 @@ class NodejsTest < Minitest::Test
       MSG
       actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
       assert_equal [expected_warning], actual_warnings
+      assert_equal [{ message: expected_warning, file: "yarn.lock" }], processor.warnings
     end
   end
 
@@ -588,6 +593,11 @@ class NodejsTest < Minitest::Test
       ]
       actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
       assert_equal expected_warnings, actual_warnings
+      assert_equal [
+        { message: expected_warnings[0], file: "package.json" },
+        { message: expected_warnings[1], file: "package.json" },
+        { message: expected_warnings[2], file: "package.json" },
+      ], processor.warnings
 
       expected_errors = [
         "The installed dependency 'eslint@4.0.0' didn't satisfy the constraint '>= 5.0.0'.",
