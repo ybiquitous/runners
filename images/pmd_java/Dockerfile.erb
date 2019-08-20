@@ -1,0 +1,14 @@
+FROM sider/devon_rex_java:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+ENV PMD_VERSION 6.17.0
+USER root
+RUN curl -SL https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip > pmd-bin-${PMD_VERSION}.zip \
+    && unzip pmd-bin-${PMD_VERSION}.zip \
+    && mv pmd-bin-${PMD_VERSION} /usr/local/pmd \
+    && rm pmd-bin-${PMD_VERSION}.zip
+
+USER $RUNNER_USER
+
+ENTRYPOINT ["node_harness", "--analyzer=pmd_java"]

@@ -1,0 +1,3 @@
+linter:
+  pmd_java:
+    rulesets: invalid_rules.xml
