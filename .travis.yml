@@ -9,6 +9,7 @@ env:
   - ANALYZER=reek
   - ANALYZER=goodcheck
   - ANALYZER=code_sniffer
+  - ANALYZER=phpmd
 before_install:
   - gem install bundler
   - nvm install

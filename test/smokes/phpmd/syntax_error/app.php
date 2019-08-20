@@ -1,0 +1,4 @@
+<?php
+
+def main
+end

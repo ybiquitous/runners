@@ -1,0 +1,4 @@
+linter:
+  phpmd:
+    exclude: app/Controller/
+    strict: true

@@ -64,6 +64,10 @@ jobs:
     environment:
       ANALYZER: code_sniffer
     <<: *runner_job
+  runner_phpmd:
+    environment:
+      ANALYZER: phpmd
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -74,3 +78,4 @@ workflows:
       - runner_reek
       - runner_goodcheck
       - runner_code_sniffer
+      - runner_phpmd
