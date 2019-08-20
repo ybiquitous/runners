@@ -1,0 +1,3 @@
+linter:
+  tslint:
+    rules-dir: rules

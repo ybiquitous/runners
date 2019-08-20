@@ -100,6 +100,10 @@ jobs:
     environment:
       ANALYZER: stylelint
     <<: *runner_job
+  runner_tslint:
+    environment:
+      ANALYZER: tslint
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -119,3 +123,4 @@ workflows:
       - runner_coffeelint
       - runner_jshint
       - runner_stylelint
+      - runner_tslint
