@@ -1,3 +1,3 @@
 # Runners
 
-[![Build Status](https://travis-ci.com/sider/runners.svg?branch=master)](https://travis-ci.com/sider/runners)
+[![CircleCI](https://circleci.com/gh/sider/runners.svg?style=svg)](https://circleci.com/gh/sider/runners)
