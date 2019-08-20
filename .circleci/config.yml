@@ -72,6 +72,10 @@ jobs:
     environment:
       ANALYZER: phinder
     <<: *runner_job
+  runner_checkstyle:
+    environment:
+      ANALYZER: checkstyle
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -84,3 +88,4 @@ workflows:
       - runner_code_sniffer
       - runner_phpmd
       - runner_phinder
+      - runner_checkstyle

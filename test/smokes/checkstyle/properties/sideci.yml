@@ -1,0 +1,4 @@
+linter:
+  checkstyle:
+    config: myruleset.xml
+    properties: checkstyle.properties

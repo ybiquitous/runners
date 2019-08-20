@@ -90,6 +90,7 @@ module NodeHarness
         code_sniffer: NodeHarness::Runners::CodeSniffer::Processor,
         phpmd: NodeHarness::Runners::Phpmd::Processor,
         phinder: NodeHarness::Runners::Phinder::Processor,
+        checkstyle: NodeHarness::Runners::Checkstyle::Processor,
       }[analyzer.to_sym]
     end
 

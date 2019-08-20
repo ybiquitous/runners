@@ -1,0 +1,9 @@
+linter:
+  checkstyle:
+    config: sun
+    dir:
+      - src
+      - vendor
+    exclude:
+      - vendor/foo
+      - src/Ignore.java
