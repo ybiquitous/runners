@@ -92,6 +92,10 @@ jobs:
     environment:
       ANALYZER: coffeelint
     <<: *runner_job
+  runner_jshint:
+    environment:
+      ANALYZER: jshint
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -109,3 +113,4 @@ workflows:
       - runner_javasee
       - runner_eslint
       - runner_coffeelint
+      - runner_jshint

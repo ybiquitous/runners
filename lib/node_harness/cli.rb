@@ -95,6 +95,7 @@ module NodeHarness
         javasee: NodeHarness::Runners::Javasee::Processor,
         eslint: NodeHarness::Runners::Eslint::Processor,
         coffeelint: NodeHarness::Runners::Coffeelint::Processor,
+        jshint: NodeHarness::Runners::Jshint::Processor,
       }[analyzer.to_sym]
     end
 
