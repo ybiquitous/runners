@@ -3,7 +3,7 @@ require "node_harness/testing/smoke"
 
 class TestingSmokeTest < Minitest::Test
   def test_unify_result_success
-    smoke = NodeHarness::Testing::Smoke.new([])
+    smoke = NodeHarness::Testing::Smoke.new(['image', 'test/smokes/rubocop'])
     assert smoke.unify_result({
                                 guid: 'test-guid',
                                 timestamp: Time.now,
@@ -16,7 +16,7 @@ class TestingSmokeTest < Minitest::Test
   end
 
   def test_unify_result_failed
-    smoke = NodeHarness::Testing::Smoke.new([])
+    smoke = NodeHarness::Testing::Smoke.new(['image', 'test/smokes/rubocop'])
     refute smoke.unify_result({
                                 guid: 'test-guid',
                                 timestamp: Time.now,
@@ -29,7 +29,7 @@ class TestingSmokeTest < Minitest::Test
   end
 
   def test_unify_result_success_using_regexp
-    smoke = NodeHarness::Testing::Smoke.new([])
+    smoke = NodeHarness::Testing::Smoke.new(['image', 'test/smokes/rubocop'])
     assert smoke.unify_result({
                                 guid: 'test-guid',
                                 timestamp: Time.now,
@@ -42,7 +42,7 @@ class TestingSmokeTest < Minitest::Test
   end
 
   def test_unify_result_failed_using_regexp
-    smoke = NodeHarness::Testing::Smoke.new([])
+    smoke = NodeHarness::Testing::Smoke.new(['image', 'test/smokes/rubocop'])
     refute smoke.unify_result({
                                 guid: 'test-guid',
                                 timestamp: Time.now,

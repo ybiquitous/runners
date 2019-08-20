@@ -109,7 +109,7 @@ namespace :docker do
 
   desc 'Run smoke test on Docker'
   task :smoke do
-    sh "ruby ./bin/node_harness_smoke --docker #{image_name} test/smokes/#{analyzer}/expectations.rb"
+    sh "ruby ./bin/node_harness_smoke #{image_name} test/smokes/#{analyzer}/expectations.rb"
   end
 
   desc 'Run docker push'
