@@ -64,6 +64,10 @@ jobs:
     environment:
       ANALYZER: querly
     <<: *runner_job
+  runner_brakeman:
+    environment:
+      ANALYZER: brakeman
+    <<: *runner_job
   runner_code_sniffer:
     environment:
       ANALYZER: code_sniffer
@@ -122,6 +126,7 @@ workflows:
       - runner_reek
       - runner_goodcheck
       - runner_querly
+      - runner_brakeman
       - runner_code_sniffer
       - runner_phpmd
       - runner_phinder

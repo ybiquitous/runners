@@ -88,6 +88,7 @@ module NodeHarness
         reek: NodeHarness::Runners::Reek::Processor,
         goodcheck: NodeHarness::Runners::Goodcheck::Processor,
         querly: NodeHarness::Runners::Querly::Processor,
+        brakeman: NodeHarness::Runners::Brakeman::Processor,
         code_sniffer: NodeHarness::Runners::CodeSniffer::Processor,
         phpmd: NodeHarness::Runners::Phpmd::Processor,
         phinder: NodeHarness::Runners::Phinder::Processor,

@@ -1,0 +1,3 @@
+linter:
+  brakeman:
+    root_dir: 'rails_app'
