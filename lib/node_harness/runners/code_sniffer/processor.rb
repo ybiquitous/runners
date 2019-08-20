@@ -1,0 +1,214 @@
+module NodeHarness
+  module Runners
+    module CodeSniffer
+      class Processor < NodeHarness::Processor
+        Schema = StrongJSON.new do
+          let :runner_config, NodeHarness::Schema::RunnerConfig.base.update_fields { |fields|
+            fields.merge!({
+                            version: enum?(string, numeric),
+                            dir: string?,
+                            standard: string?,
+                            extensions: string?,
+                            encoding: string?,
+                            ignore: string?,
+                            # DO NOT ADD ANY OPTION under `options`.
+                            options: optional(object(
+                                                dir: string?,
+                                                standard: string?,
+                                                extensions: string?,
+                                                encoding: string?,
+                                                ignore: string?
+                                              ))
+                          })
+          }
+        end
+
+        def self.ci_config_section_name
+          # Section name in sideci.yml, Generally it is the name of analyzer tool.
+          "code_sniffer"
+        end
+
+        def analyze(changes)
+          ensure_runner_config_schema(Schema.runner_config) do |config|
+            check_runner_config(config) do |phpcs, options, target|
+              run_analyzer(phpcs, options, target)
+            end
+          end
+        end
+
+        private
+
+        attr_reader :phpcs_bin
+
+        def check_runner_config(config)
+          @phpcs_bin ||=
+            case config[:version].to_i
+            when 2
+              add_warning("Sider has no longer supported PHP_CodeSniffer v2. Sider executes v3 even if putting `2` as `version` option.", file: "sider.yml")
+              'phpcs3'
+            else
+              'phpcs3'
+            end
+          phpcs = phpcs_bin
+          options = additional_options(config)
+          target = directory(config)
+
+          yield phpcs, options, target
+        end
+
+        def analyzer
+          @analyzer ||= begin
+            stdout, _, = capture3!(phpcs_bin, '--version')
+            # stdout: "PHP_CodeSniffer version 3.3.0 (stable) by Squiz (http://www.squiz.net)"
+            version = stdout[/\s([0-9\.]+)\s/, 1]
+            NodeHarness::Analyzer.new(name: "code_sniffer", version: version)
+          end
+        end
+
+        def additional_options(config)
+          # If a repository doesn't have `sideci.yml`, use default configuration with `default_sideci_options` method.
+          if config.empty?
+            default_sideci_options['options'].map do |k, v|
+              "--#{k}=#{v}"
+            end
+          else
+            standard = standard_option(config)
+            extensions = extensions_option(config)
+            encoding = encoding_option(config)
+            ignore = ignore_option(config)
+
+            [standard, extensions, encoding, ignore].compact
+          end
+        end
+
+        def standard_option(config)
+          standard = config[:standard] || config.dig(:options, :standard) || default_sideci_options['options']['standard']
+          "--standard=#{standard}"
+        end
+
+        def extensions_option(config)
+          extensions = config[:extensions] || config.dig(:options, :extensions) || default_sideci_options['options']['extensions']
+          "--extensions=#{extensions}"
+        end
+
+        def encoding_option(config)
+          encoding = config[:encoding] || config.dig(:options, :encoding)
+          "--encoding=#{encoding}" if encoding
+        end
+
+        def ignore_option(config)
+          ignore = config[:ignore] || config.dig(:options, :ignore)
+          "--ignore=#{ignore}" if ignore
+        end
+
+        def directory(config)
+          config[:dir] ||
+            config.dig(:options, :dir)&.tap do
+              add_warning("`dir` key under the `options` is deprecated. Please declare it just under the `code_sniffer`. See https://help.sider.review/tools/php/codesniffer#options", file: "sideci.yml")
+            end ||
+            default_sideci_options['dir']
+        end
+
+        def default_sideci_options
+          @default_sideci_options ||= begin
+            config = {
+              'options' => {
+                'standard' => 'PSR2',
+                'extensions' => 'php',
+              },
+              'dir' => './',
+            }
+
+            case php_framework
+            when 'CakePHP'
+              config['options']['standard'] = 'CakePHP'
+              config['dir'] = 'app/'
+            when 'Symfony'
+              config['options']['standard'] = 'Symfony'
+              config['dir'] = 'src/'
+            end
+
+            config
+          end
+        end
+
+        def php_framework
+          frameworks = {
+            'CakePHP' => 'lib/Cake/Core/CakePlugin.php',
+            'FuelPHP' => 'oil',
+            'CodeIgniter' => 'system/core/CodeIgniter.php',
+            'Symfony' => 'app/SymfonyRequirements.php'
+          }
+
+          @framework ||= frameworks.find do |framework, file|
+            _, _, status = capture3('test', '-f', file)
+            break framework if status.success?
+          end
+        end
+
+        def print_large_string(str)
+          max_size = 24_000
+          if str.size <= max_size
+            trace_writer.message str
+          else
+            # データが大きい時に死ぬのを防ぐため、先頭と末尾だけを出力する
+            trace_writer.message str[0...(max_size / 2)]
+            trace_writer.message '......'
+            trace_writer.message str[(str.size - (max_size / 2))...str.size]
+          end
+        end
+
+        def run_analyzer(phpcs, options, target)
+          output = working_dir + 'output.txt'
+          # code_snifferは実行時に、警告がある場合にはstatus = 1を返すのでステータスコードは見ない
+          # directory not foundのような実行エラーはstdoutに吐き出される
+          # `--report-json`で指定しない場合、設定ファイルで<arg name="report" value="summary"/>
+          # などされたときの出力がstdoutに混ざるためファイル出力を経由する必要がある
+          capture3(
+            phpcs,
+            '--report=json',
+            "--report-json=#{output}",
+            *options,
+            target
+          )
+
+          stdout = output.read
+          trace_writer.message "Result Output:"
+          print_large_string(stdout)
+
+          NodeHarness::Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
+            issues = []
+
+            JSON.parse(stdout, symbolize_names: true)[:files].each do |path, suggests|
+              suggests[:messages].each do |suggest|
+                loc = NodeHarness::Location.new(
+                  start_line: suggest[:line].to_i,
+                  start_column: nil,
+                  end_line: nil,
+                  end_column: nil
+                )
+
+                issues << NodeHarness::Issues::Text.new(
+                  path: relative_path(path.to_s),
+                  location: loc,
+                  id: suggest[:source],
+                  message: suggest[:message],
+                  links: []
+                )
+              end
+            end
+
+            issues.uniq { |issue| [issue.path, issue.location, issue.id, issue.message] }.each do |issue|
+              result.add_issue issue
+            end
+          end
+        rescue JSON::ParserError => exn
+          trace_writer.message exn.inspect.truncate(1000)
+          NodeHarness::Results::Failure.new(guid: guid,
+                                            analyzer: analyzer,
+                                            message: "code sniffer output parsing failed")
+        end
+      end
+    end
+  end
+end
