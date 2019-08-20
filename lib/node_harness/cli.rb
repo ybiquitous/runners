@@ -92,6 +92,7 @@ module NodeHarness
         phinder: NodeHarness::Runners::Phinder::Processor,
         checkstyle: NodeHarness::Runners::Checkstyle::Processor,
         pmd_java: NodeHarness::Runners::PmdJava::Processor,
+        javasee: NodeHarness::Runners::Javasee::Processor,
       }[analyzer.to_sym]
     end
 

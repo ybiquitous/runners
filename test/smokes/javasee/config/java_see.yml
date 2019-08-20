@@ -1,0 +1,6 @@
+rules:
+  - id: hello
+    pattern:
+      System.out.println(...)
+    message: |
+      Hello world
