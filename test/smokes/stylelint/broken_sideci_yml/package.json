@@ -1,0 +1,14 @@
+{
+  "name": "broken_sideci_yml",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "stylelint": "*",
+    "stylelint-config-standard": "^18.0.0"
+  }
+}

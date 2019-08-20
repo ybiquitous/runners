@@ -64,6 +64,7 @@ require "node_harness/runners/javasee/processor"
 require "node_harness/runners/eslint/processor"
 require "node_harness/runners/coffeelint/processor"
 require "node_harness/runners/jshint/processor"
+require "node_harness/runners/stylelint/processor"
 # TODO: Add more runners
 
 module NodeHarness

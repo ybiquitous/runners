@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "declaration-block-trailing-semicolon": "always",
+    "block-closing-brace-empty-line-before": [
+      "always-multi-line", {
+        "except": ["after-closing-brace"]
+      }
+    ]
+  }
+}
