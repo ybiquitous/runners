@@ -93,6 +93,7 @@ module NodeHarness
         checkstyle: NodeHarness::Runners::Checkstyle::Processor,
         pmd_java: NodeHarness::Runners::PmdJava::Processor,
         javasee: NodeHarness::Runners::Javasee::Processor,
+        eslint: NodeHarness::Runners::Eslint::Processor,
       }[analyzer.to_sym]
     end
 

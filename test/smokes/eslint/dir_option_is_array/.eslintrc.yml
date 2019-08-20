@@ -1,0 +1,5 @@
+extends: airbnb
+plugins:
+  - filenames
+rules:
+  filenames/no-index: 2

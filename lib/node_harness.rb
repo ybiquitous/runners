@@ -61,6 +61,7 @@ require "node_harness/runners/phinder/processor"
 require "node_harness/runners/checkstyle/processor"
 require "node_harness/runners/pmd_java/processor"
 require "node_harness/runners/javasee/processor"
+require "node_harness/runners/eslint/processor"
 # TODO: Add more runners
 
 module NodeHarness

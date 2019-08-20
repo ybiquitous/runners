@@ -1,0 +1,6 @@
+linter:
+  eslint:
+    root_dir: '.'
+    options:
+      npm_install: true
+      ext: 'js,jsx'
