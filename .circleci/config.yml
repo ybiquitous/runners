@@ -140,6 +140,10 @@ jobs:
     environment:
       ANALYZER: golint
     <<: *runner_job
+  runner_gometalinter:
+    environment:
+      ANALYZER: gometalinter
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -169,3 +173,4 @@ workflows:
       - runner_misspell
       - runner_go_vet
       - runner_golint
+      - runner_gometalinter

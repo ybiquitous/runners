@@ -29,7 +29,7 @@ module NodeHarness
 
       def initialize(argv)
         @argv = argv
-        @data_container = 'data-container'
+        @data_container = SecureRandom.uuid
         @data_smoke_path = ROOT_DATA_DIR / expectations.parent.basename
       end
 
@@ -100,7 +100,7 @@ module NodeHarness
         system "docker cp #{expectations.parent} #{data_container}:#{ROOT_DATA_DIR}"
         yield
       ensure
-        system "docker rm --force #{data_container}"
+        system "docker rm --force #{data_container}" unless ENV["KEEP_DATA_CONTAINER"]
       end
 
       def command_line(name, config)
