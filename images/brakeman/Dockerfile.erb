@@ -1,0 +1,8 @@
+FROM sider/devon_rex_ruby:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+# Install the default version for caching
+RUN gem install brakeman -v 4.3.1
+
+ENTRYPOINT ["node_harness", "--analyzer=brakeman"]
