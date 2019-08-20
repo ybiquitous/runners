@@ -72,6 +72,10 @@ jobs:
     environment:
       ANALYZER: haml_lint
     <<: *runner_job
+  runner_scss_lint:
+    environment:
+      ANALYZER: scss_lint
+    <<: *runner_job
   runner_code_sniffer:
     environment:
       ANALYZER: code_sniffer
@@ -132,6 +136,7 @@ workflows:
       - runner_querly
       - runner_brakeman
       - runner_haml_lint
+      - runner_scss_lint
       - runner_code_sniffer
       - runner_phpmd
       - runner_phinder

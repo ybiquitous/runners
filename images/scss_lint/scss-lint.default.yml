@@ -1,0 +1,2 @@
+# This setting is used only if user does not put a .scss-lint.yml in a repository.
+scss_files: "**/*.scss"
