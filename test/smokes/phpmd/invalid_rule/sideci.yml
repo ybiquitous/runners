@@ -1,0 +1,3 @@
+linter:
+  phpmd:
+    rule: invalid_rule

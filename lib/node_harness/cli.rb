@@ -88,6 +88,7 @@ module NodeHarness
         reek: NodeHarness::Runners::Reek::Processor,
         goodcheck: NodeHarness::Runners::Goodcheck::Processor,
         code_sniffer: NodeHarness::Runners::CodeSniffer::Processor,
+        phpmd: NodeHarness::Runners::Phpmd::Processor,
       }[analyzer.to_sym]
     end
 
