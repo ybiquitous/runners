@@ -88,6 +88,10 @@ jobs:
     environment:
       ANALYZER: eslint
     <<: *runner_job
+  runner_coffeelint:
+    environment:
+      ANALYZER: coffeelint
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -104,3 +108,4 @@ workflows:
       - runner_pmd_java
       - runner_javasee
       - runner_eslint
+      - runner_coffeelint

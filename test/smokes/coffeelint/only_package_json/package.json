@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "coffeelint": "2.0.3"
+  }
+}
