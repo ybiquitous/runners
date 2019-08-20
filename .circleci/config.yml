@@ -68,6 +68,10 @@ jobs:
     environment:
       ANALYZER: phpmd
     <<: *runner_job
+  runner_phinder:
+    environment:
+      ANALYZER: phinder
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -79,3 +83,4 @@ workflows:
       - runner_goodcheck
       - runner_code_sniffer
       - runner_phpmd
+      - runner_phinder

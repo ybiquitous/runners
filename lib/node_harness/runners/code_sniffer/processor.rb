@@ -151,7 +151,7 @@ module NodeHarness
           if str.size <= max_size
             trace_writer.message str
           else
-            # データが大きい時に死ぬのを防ぐため、先頭と末尾だけを出力する
+            # NOTE: To avoid stalling, it outputs prefix and suffix only.
             trace_writer.message str[0...(max_size / 2)]
             trace_writer.message '......'
             trace_writer.message str[(str.size - (max_size / 2))...str.size]
@@ -160,10 +160,12 @@ module NodeHarness
 
         def run_analyzer(phpcs, options, target)
           output = working_dir + 'output.txt'
-          # code_snifferは実行時に、警告がある場合にはstatus = 1を返すのでステータスコードは見ない
-          # directory not foundのような実行エラーはstdoutに吐き出される
-          # `--report-json`で指定しない場合、設定ファイルで<arg name="report" value="summary"/>
-          # などされたときの出力がstdoutに混ざるためファイル出力を経由する必要がある
+          # code_sniffer always exists with "statsu = 1" when any warnings exist, so we don't see the status code.
+          #
+          # Runtime erros such as "directory not found" will be displayed in stdout.
+          #
+          # Without `--report-json`, if users configure with `<arg name="report" value="summary"/>`,
+          # all output is mixed in stdout. So, we have to write output to a file.
           capture3(
             phpcs,
             '--report=json',
