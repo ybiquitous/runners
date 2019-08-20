@@ -1,0 +1,10 @@
+rules:
+  - id: link_to
+    message: |
+      link_to
+
+      Some message.
+    pattern: link_to
+
+preprocessor:
+  .haml: querly-pp haml -I lib -r hello
