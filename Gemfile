@@ -7,7 +7,7 @@ gem 'activesupport'
 gem 'retryable'
 gem 'parallel'
 gem 'bundler', '>= 1.12', '< 3.0'
-gem 'nokogiri'
+gem 'nokogiri', '>= 1.10.4'
 gem 'locale'
 
 group :development, :test do
