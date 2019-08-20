@@ -94,6 +94,7 @@ module NodeHarness
         pmd_java: NodeHarness::Runners::PmdJava::Processor,
         javasee: NodeHarness::Runners::Javasee::Processor,
         eslint: NodeHarness::Runners::Eslint::Processor,
+        coffeelint: NodeHarness::Runners::Coffeelint::Processor,
       }[analyzer.to_sym]
     end
 
