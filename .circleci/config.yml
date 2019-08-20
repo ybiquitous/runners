@@ -128,6 +128,10 @@ jobs:
     environment:
       ANALYZER: flake8
     <<: *runner_job
+  runner_misspell:
+    environment:
+      ANALYZER: misspell
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -154,3 +158,4 @@ workflows:
       - runner_tslint
       - runner_tyscan
       - runner_flake8
+      - runner_misspell

@@ -1,0 +1,7 @@
+linter:
+  misspell:
+    exclude:
+      - exclude_dir
+      - partial_exclude_dir/**/*.rb
+      - foo_dir/exclude.rb
+      - jogai.rb

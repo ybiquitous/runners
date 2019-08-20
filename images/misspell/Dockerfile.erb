@@ -1,0 +1,12 @@
+FROM sider/devon_rex_base:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+USER root
+ENV MISSPELL_VERSION=v0.3.4
+RUN curl -L -o install-misspell.sh https://git.io/misspell && \
+    sh ./install-misspell.sh -b /usr/local/bin $MISSPELL_VERSION && \
+    rm ./install-misspell.sh
+USER $RUNNER_USER
+
+ENTRYPOINT ["node_harness", "--analyzer=misspell"]
