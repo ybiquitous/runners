@@ -72,6 +72,7 @@ require "node_harness/runners/jshint/processor"
 require "node_harness/runners/stylelint/processor"
 require "node_harness/runners/tslint/processor"
 require "node_harness/runners/tyscan/processor"
+require "node_harness/runners/flake8/processor"
 # TODO: Add more runners
 
 module NodeHarness
