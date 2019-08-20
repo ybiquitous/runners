@@ -1,0 +1,3 @@
+linter:
+  scss_lint:
+    config: 'my-scss-lint-conf.yml'
