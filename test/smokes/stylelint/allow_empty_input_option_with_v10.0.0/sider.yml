@@ -1,0 +1,3 @@
+linter:
+  stylelint:
+    npm_install: true

@@ -1,0 +1,4 @@
+linter:
+  stylelint:
+    npm_install: true
+    ignore-path: .stylelintignore

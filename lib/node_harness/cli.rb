@@ -96,6 +96,7 @@ module NodeHarness
         eslint: NodeHarness::Runners::Eslint::Processor,
         coffeelint: NodeHarness::Runners::Coffeelint::Processor,
         jshint: NodeHarness::Runners::Jshint::Processor,
+        stylelint: NodeHarness::Runners::Stylelint::Processor,
       }[analyzer.to_sym]
     end
 
