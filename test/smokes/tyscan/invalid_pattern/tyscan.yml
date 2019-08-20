@@ -1,0 +1,4 @@
+rules:
+  - id: com.example.broken_pattern
+    message: This is broken pattern
+    pattern: '(_: Foo).'

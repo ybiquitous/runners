@@ -98,6 +98,7 @@ module NodeHarness
         jshint: NodeHarness::Runners::Jshint::Processor,
         stylelint: NodeHarness::Runners::Stylelint::Processor,
         tslint: NodeHarness::Runners::Tslint::Processor,
+        tyscan: NodeHarness::Runners::Tyscan::Processor,
       }[analyzer.to_sym]
     end
 

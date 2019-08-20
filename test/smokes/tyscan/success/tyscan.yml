@@ -1,0 +1,19 @@
+rules:
+  - id: com.example.user_name
+    message: Note that the `name` is not full name, but nickname
+    pattern: '(_: User).name'
+    tests:
+      match: |
+        interface User {
+          name: string
+        }
+
+        const user : User = getUser()
+        user.name
+      unmatch: |
+        interface Organization {
+          name: string
+        }
+
+        const user : Organization = getOrganization()
+        user.name

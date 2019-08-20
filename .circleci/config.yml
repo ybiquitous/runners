@@ -104,6 +104,10 @@ jobs:
     environment:
       ANALYZER: tslint
     <<: *runner_job
+  runner_tyscan:
+    environment:
+      ANALYZER: tyscan
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -124,3 +128,4 @@ workflows:
       - runner_jshint
       - runner_stylelint
       - runner_tslint
+      - runner_tyscan
