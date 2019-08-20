@@ -166,7 +166,8 @@ module NodeHarness
                 https://help.sider.review/getting-started/custom-configuration#gems-option
               WARNING
             when /^\d+ errors? occurred:$/
-              # An error occurred.... は「エラーが発生した時」と「RuboCopの実行終了時」の2回表示されるため、「RuboCopの実行終了時」だけを拾うようにする。
+              # NOTE: "An error occurred... is displayed twice, "when an error happens", and "at the end of RuboCop runtime".
+              #       So, we handle "at the end of RuboCop runtime" only.
               error_occurred = true
             when /^(An error occurred while \S+ cop) was inspecting (.+):\d+:\d+\.$/
               next unless error_occurred

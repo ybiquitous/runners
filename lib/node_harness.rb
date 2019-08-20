@@ -17,6 +17,7 @@ require "fileutils"
 require "set"
 require "nokogiri"
 require "active_support"
+require 'active_support/inflector'
 require "active_support/core_ext/hash/deep_merge"
 require "active_support/core_ext/hash/indifferent_access"
 require "active_support/core_ext/string/filters"
@@ -52,6 +53,7 @@ require "node_harness/runners/reek/processor"
 require "node_harness/runners/goodcheck/processor"
 require "node_harness/runners/code_sniffer/processor"
 require "node_harness/runners/phpmd/processor"
+require "node_harness/runners/phinder/processor"
 # TODO: Add more runners
 
 module NodeHarness

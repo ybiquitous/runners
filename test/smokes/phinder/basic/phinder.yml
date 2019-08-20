@@ -1,0 +1,27 @@
+- id: sample.var_dump
+  pattern: var_dump(...)
+  message: Do not use var_dump.
+  justification: Allowed when debugging
+
+- id: sample.in_array_without_3rd_param
+  pattern: in_array(?, ?)
+  message: Specify 3rd parameter explicitly when calling in_array to avoid unexpected comparison results.
+  test:
+    fail:
+      - in_array(1, $arr)
+      - in_array(2, $arr)
+    pass:
+      - in_array(3, $arr, true)
+      - in_array(4, $arr, false)
+- id: compatibility.string_concatenation
+  pattern: console.log(...) # JavaScript?
+  message: Found
+- id: tokenize.array_function
+  pattern: array_merge(...) # array(_merge) is not T_ARRAY
+  message: Found
+- id: tokenize.variable_and_property
+  pattern: $this->Html->image(...)
+  message: Found
+- id: tokenize.paamayim_nekudotayim
+  pattern: Response::forge(...)
+  message: Found
