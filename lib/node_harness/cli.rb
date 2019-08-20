@@ -89,6 +89,7 @@ module NodeHarness
         goodcheck: NodeHarness::Runners::Goodcheck::Processor,
         querly: NodeHarness::Runners::Querly::Processor,
         brakeman: NodeHarness::Runners::Brakeman::Processor,
+        haml_lint: NodeHarness::Runners::HamlLint::Processor,
         code_sniffer: NodeHarness::Runners::CodeSniffer::Processor,
         phpmd: NodeHarness::Runners::Phpmd::Processor,
         phinder: NodeHarness::Runners::Phinder::Processor,

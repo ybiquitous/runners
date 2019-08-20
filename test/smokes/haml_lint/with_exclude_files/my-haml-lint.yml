@@ -1,0 +1,3 @@
+linters:
+  ClassesBeforeIds:
+    enabled: false

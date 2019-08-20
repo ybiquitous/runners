@@ -68,6 +68,10 @@ jobs:
     environment:
       ANALYZER: brakeman
     <<: *runner_job
+  runner_haml_lint:
+    environment:
+      ANALYZER: haml_lint
+    <<: *runner_job
   runner_code_sniffer:
     environment:
       ANALYZER: code_sniffer
@@ -127,6 +131,7 @@ workflows:
       - runner_goodcheck
       - runner_querly
       - runner_brakeman
+      - runner_haml_lint
       - runner_code_sniffer
       - runner_phpmd
       - runner_phinder

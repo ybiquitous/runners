@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+# haml_lint requires rubocop (>= 0.50.0), because the following error occurred:
+#
+# Bundler could not find compatible versions for gem "rubocop":
+#   In Gemfile:
+#     rubocop (= 0.36.0)
+#
+#     haml_lint (>= 0.26.0, = 0.28.0) was resolved to 0.28.0, which depends on
+#       rubocop (>= 0.50.0)
+#
+gem "rubocop", "0.36.0"
