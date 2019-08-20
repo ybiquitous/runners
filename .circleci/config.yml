@@ -60,6 +60,10 @@ jobs:
     environment:
       ANALYZER: goodcheck
     <<: *runner_job
+  runner_querly:
+    environment:
+      ANALYZER: querly
+    <<: *runner_job
   runner_code_sniffer:
     environment:
       ANALYZER: code_sniffer
@@ -117,6 +121,7 @@ workflows:
       - runner_rubocop
       - runner_reek
       - runner_goodcheck
+      - runner_querly
       - runner_code_sniffer
       - runner_phpmd
       - runner_phinder

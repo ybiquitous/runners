@@ -1,0 +1,10 @@
+rules:
+  - id: link_to
+    message: |
+      link_to
+
+      Some message.
+    pattern: link_to
+
+preprocessor:
+  .slim: slimrb --compile

@@ -87,6 +87,7 @@ module NodeHarness
         rubocop: NodeHarness::Runners::Rubocop::Processor,
         reek: NodeHarness::Runners::Reek::Processor,
         goodcheck: NodeHarness::Runners::Goodcheck::Processor,
+        querly: NodeHarness::Runners::Querly::Processor,
         code_sniffer: NodeHarness::Runners::CodeSniffer::Processor,
         phpmd: NodeHarness::Runners::Phpmd::Processor,
         phinder: NodeHarness::Runners::Phinder::Processor,

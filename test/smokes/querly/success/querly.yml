@@ -1,0 +1,16 @@
+rules:
+  - id: com.test.pathname
+    pattern: Pathname.new
+    message: Use Pathname method instead
+    tags: ruby
+    justification:
+      - Want to write this code.
+    examples:
+      - before: Pathname.new("path")
+        after: Pathname("path")
+  - id: com.method_chain
+    pattern: arr._
+    message: |
+      Method chain with `_`.
+
+      message...
