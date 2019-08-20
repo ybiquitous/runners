@@ -124,6 +124,10 @@ jobs:
     environment:
       ANALYZER: tyscan
     <<: *runner_job
+  runner_flake8:
+    environment:
+      ANALYZER: flake8
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -149,3 +153,4 @@ workflows:
       - runner_stylelint
       - runner_tslint
       - runner_tyscan
+      - runner_flake8

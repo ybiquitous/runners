@@ -103,6 +103,7 @@ module NodeHarness
         stylelint: NodeHarness::Runners::Stylelint::Processor,
         tslint: NodeHarness::Runners::Tslint::Processor,
         tyscan: NodeHarness::Runners::Tyscan::Processor,
+        flake8: NodeHarness::Runners::Flake8::Processor,
       }[analyzer.to_sym]
     end
 
