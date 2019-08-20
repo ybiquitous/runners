@@ -1,0 +1,7 @@
+linter:
+  javasee:
+    dir:
+      - src
+      - vendor
+      - 123
+    config: foo.yml

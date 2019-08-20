@@ -1,0 +1,4 @@
+linter:
+  javasee:
+    dir: src
+    config: java_see.yml
