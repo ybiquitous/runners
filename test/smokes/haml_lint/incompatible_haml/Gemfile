@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+# haml_lint does not work with Haml 4.1.a
+#
+# Cannot handle Haml version: ~> 4.1.a
+# /tmp/d20190327-7-k4l09i/vendor/bundle/ruby/2.5.0/gems/haml_lint-0.28.0/lib/haml_lint/adapter.rb:22:in `detect_class'
+# /tmp/d20190327-7-k4l09i/vendor/bundle/ruby/2.5.0/gems/haml_lint-0.28.0/lib/haml_lint/document.rb:48:in `process_source'
+# ...
+#
+gem "haml_lint", "0.28.0"
+gem "haml", "4.1.0.beta.1"

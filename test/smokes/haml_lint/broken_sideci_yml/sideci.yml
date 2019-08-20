@@ -1,0 +1,6 @@
+linter:
+  haml_lint:
+    file: test.haml
+    config:
+      - myrubocop.yml
+      - myhamllint.yml

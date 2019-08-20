@@ -9,6 +9,7 @@ gem 'parallel'
 gem 'bundler', '>= 1.12', '< 3.0'
 gem 'nokogiri', '>= 1.10.4'
 gem 'locale'
+gem 'sysexits', '~> 1.1'
 
 group :development, :test do
   gem 'minitest'

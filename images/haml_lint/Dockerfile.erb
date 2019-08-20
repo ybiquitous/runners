@@ -1,0 +1,13 @@
+FROM sider/devon_rex_ruby:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+# Install the latest version for caching
+RUN gem install haml_lint -v 0.32.0 && \
+    gem install rubocop -v 0.71.0 && \
+    gem install rubocop-rspec -v 1.33.0 && \
+    gem install rubocop-rails -v 2.0.1 && \
+    gem install meowcop -v 1.20.0
+
+COPY images/haml_lint/default_rubocop.yml $RUNNER_USER_HOME/
+ENTRYPOINT ["node_harness", "--analyzer=haml_lint"]
