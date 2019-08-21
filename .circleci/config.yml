@@ -36,6 +36,11 @@ runner_job: &runner_job
     - run: echo 'export TAG="${CIRCLE_TAG:-${CIRCLE_SHA1}}"' >> $BASH_ENV
     - run: bundle exec rake docker:build
     - run: bundle exec rake docker:smoke
+    - deploy:
+        command: |
+          if [ -n "${CIRCLE_TAG}" ]; then
+            echo "bundle exec rake docker:push"
+          fi
 
 jobs:
   test-base:
