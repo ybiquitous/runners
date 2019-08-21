@@ -152,3 +152,25 @@ NodeHarness::Testing::Smoke.add_test("config_not_found", {
     See also: https://help.sider.review/tools/php/phinder
   MESSAGE
 ])
+
+NodeHarness::Testing::Smoke.add_test("rule_option_as_config_file", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [
+    {
+      id: "no_var_dump",
+      path: "index.php",
+      location: { start_line: 2, start_column: 1, end_line: 2, end_column: 17 },
+      object: {
+        id: "no_var_dump",
+        message: "Do not use `var_dump`",
+        justifications: [],
+      },
+    },
+  ],
+  analyzer: {
+    name: "Phinder",
+    version: "0.9.2"
+  },
+})
