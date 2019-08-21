@@ -118,7 +118,10 @@ module NodeHarness
           @analyzer_version = stdout.match(/([0-9\.]+)/).captures.first
 
           ensure_runner_config_schema(Schema.runner_config) do |config|
-            ensure_phinder_config_files relative_path("phinder.yml") do
+            paths = []
+            paths << relative_path(config[:rule]) if config[:rule]
+            paths << relative_path("phinder.yml")
+            ensure_phinder_config_files(*paths) do
               test_phinder_config config
               run_phinder config
             end

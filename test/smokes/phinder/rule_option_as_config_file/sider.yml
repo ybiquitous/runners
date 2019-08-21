@@ -1,0 +1,3 @@
+linter:
+  phinder:
+    rule: my_phinder.yml
