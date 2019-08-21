@@ -1,0 +1,9 @@
+linter:
+  rails_best_practices:
+    vendor: false
+    spec: true
+    test: true
+    features: true
+    exclude: b.rb
+    only: a.rb
+    config: custome-config.yml

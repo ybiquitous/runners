@@ -52,6 +52,10 @@ jobs:
     environment:
       ANALYZER: rubocop
     <<: *runner_job
+  runner_rails_best_practices:
+    environment:
+      ANALYZER: rails_best_practices
+    <<: *runner_job
   runner_reek:
     environment:
       ANALYZER: reek
@@ -155,6 +159,7 @@ workflows:
     jobs:
       - test-base
       - runner_rubocop
+      - runner_rails_best_practices
       - runner_reek
       - runner_goodcheck
       - runner_querly

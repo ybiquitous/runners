@@ -85,6 +85,7 @@ module NodeHarness
       # TODO: Add more runners
       @processor_class ||= {
         rubocop: NodeHarness::Runners::Rubocop::Processor,
+        rails_best_practices: NodeHarness::Runners::RailsBestPractices::Processor,
         reek: NodeHarness::Runners::Reek::Processor,
         goodcheck: NodeHarness::Runners::Goodcheck::Processor,
         querly: NodeHarness::Runners::Querly::Processor,
