@@ -78,6 +78,7 @@ require "node_harness/runners/misspell/processor"
 require "node_harness/runners/go_vet/processor"
 require "node_harness/runners/golint/processor"
 require "node_harness/runners/gometalinter/processor"
+require "node_harness/runners/swiftlint/processor"
 # TODO: Add more runners
 
 module NodeHarness

@@ -1,0 +1,19 @@
+FROM sider/devon_rex_swift:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+ENV SWIFTLINT_VERSION="0.34.0"
+ARG SWIFTLINT_BUILD_DIR="/swiftlint_build"
+
+# Build SwiftLint
+USER root
+RUN git clone --branch ${SWIFTLINT_VERSION} --single-branch https://github.com/realm/SwiftLint.git ${SWIFTLINT_BUILD_DIR} && \
+    cd ${SWIFTLINT_BUILD_DIR} && \
+    git submodule update --init --recursive && \
+    make install && \
+    cd / && \
+    rm -rf "${SWIFTLINT_BUILD_DIR}"
+
+USER $RUNNER_USER
+
+ENTRYPOINT ["node_harness", "--analyzer=swiftlint"]

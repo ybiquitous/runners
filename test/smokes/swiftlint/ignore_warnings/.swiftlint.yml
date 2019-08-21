@@ -1,0 +1,3 @@
+force_cast: error
+redundant_discardable_let: warning
+
