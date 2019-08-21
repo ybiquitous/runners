@@ -12,7 +12,7 @@ USER root
 RUN chown -R $RUNNER_USER: $NODE_HARNESS_DIR
 USER $RUNNER_USER
 
-RUN cd $NODE_HARNESS_DIR && bundle install
+RUN cd $NODE_HARNESS_DIR && bundle install --without development test
 ENV BUNDLE_GEMFILE $NODE_HARNESS_DIR/Gemfile
 ENV PATH $NODE_HARNESS_DIR/bin:$PATH
 

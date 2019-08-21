@@ -13,7 +13,6 @@ gem 'sysexits', '~> 1.1'
 
 group :development, :test do
   gem 'minitest'
-  gem 'thor'
   gem 'rr'
   gem 'querly'
   gem 'steep'
