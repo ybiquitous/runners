@@ -107,6 +107,7 @@ module NodeHarness
         misspell: NodeHarness::Runners::Misspell::Processor,
         go_vet: NodeHarness::Runners::GoVet::Processor,
         golint: NodeHarness::Runners::Golint::Processor,
+        gometalinter: NodeHarness::Runners::Gometalinter::Processor,
       }[analyzer.to_sym]
     end
 

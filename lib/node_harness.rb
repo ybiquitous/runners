@@ -16,6 +16,7 @@ require "jsonseq"
 require "fileutils"
 require "set"
 require "rexml/document"
+require "shellwords"
 require "digest/sha2"
 require "locale"
 require "nokogiri"
@@ -76,6 +77,7 @@ require "node_harness/runners/flake8/processor"
 require "node_harness/runners/misspell/processor"
 require "node_harness/runners/go_vet/processor"
 require "node_harness/runners/golint/processor"
+require "node_harness/runners/gometalinter/processor"
 # TODO: Add more runners
 
 module NodeHarness

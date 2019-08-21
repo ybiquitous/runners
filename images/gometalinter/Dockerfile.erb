@@ -1,0 +1,18 @@
+FROM sider/devon_rex_go:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+ARG LINT_TOOL_VERSION="2.0.11"
+
+USER root
+RUN curl -L https://github.com/alecthomas/gometalinter/releases/download/v${LINT_TOOL_VERSION}/gometalinter-${LINT_TOOL_VERSION}-linux-amd64.tar.gz | \
+    tar -xzC . && \
+    cd gometalinter-${LINT_TOOL_VERSION}-linux-amd64/ && \
+    rm COPYING README.md && \
+    mv * /usr/local/bin/ && \
+    cd .. && \
+    rm -r gometalinter-${LINT_TOOL_VERSION}-linux-amd64/
+USER $RUNNER_USER
+
+COPY images/gometalinter/gometalinter.json $RUNNER_USER_HOME/
+ENTRYPOINT ["node_harness", "--analyzer=gometalinter"]

@@ -1,0 +1,3 @@
+linter:
+  gometalinter:
+    install_path: github.com/sideci/install_path_test
