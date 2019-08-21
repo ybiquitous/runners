@@ -163,29 +163,29 @@ workflows:
   build:
     jobs:
       - test-base
-      - runner_rubocop
-      - runner_rails_best_practices
-      - runner_reek
-      - runner_goodcheck
-      - runner_querly
-      - runner_brakeman
-      - runner_haml_lint
-      - runner_scss_lint
-      - runner_code_sniffer
-      - runner_phpmd
-      - runner_phinder
-      - runner_checkstyle
-      - runner_pmd_java
-      - runner_javasee
-      - runner_eslint
-      - runner_coffeelint
-      - runner_jshint
-      - runner_stylelint
-      - runner_tslint
-      - runner_tyscan
-      - runner_flake8
-      - runner_misspell
-      - runner_go_vet
-      - runner_golint
-      - runner_gometalinter
-      - runner_swiftlint
+      - runner_rubocop: { filters: { tags: { only: /.*/ } } }
+      - runner_rails_best_practices: { filters: { tags: { only: /.*/ } } }
+      - runner_reek: { filters: { tags: { only: /.*/ } } }
+      - runner_goodcheck: { filters: { tags: { only: /.*/ } } }
+      - runner_querly: { filters: { tags: { only: /.*/ } } }
+      - runner_brakeman: { filters: { tags: { only: /.*/ } } }
+      - runner_haml_lint: { filters: { tags: { only: /.*/ } } }
+      - runner_scss_lint: { filters: { tags: { only: /.*/ } } }
+      - runner_code_sniffer: { filters: { tags: { only: /.*/ } } }
+      - runner_phpmd: { filters: { tags: { only: /.*/ } } }
+      - runner_phinder: { filters: { tags: { only: /.*/ } } }
+      - runner_checkstyle: { filters: { tags: { only: /.*/ } } }
+      - runner_pmd_java: { filters: { tags: { only: /.*/ } } }
+      - runner_javasee: { filters: { tags: { only: /.*/ } } }
+      - runner_eslint: { filters: { tags: { only: /.*/ } } }
+      - runner_coffeelint: { filters: { tags: { only: /.*/ } } }
+      - runner_jshint: { filters: { tags: { only: /.*/ } } }
+      - runner_stylelint: { filters: { tags: { only: /.*/ } } }
+      - runner_tslint: { filters: { tags: { only: /.*/ } } }
+      - runner_tyscan: { filters: { tags: { only: /.*/ } } }
+      - runner_flake8: { filters: { tags: { only: /.*/ } } }
+      - runner_misspell: { filters: { tags: { only: /.*/ } } }
+      - runner_go_vet: { filters: { tags: { only: /.*/ } } }
+      - runner_golint: { filters: { tags: { only: /.*/ } } }
+      - runner_gometalinter: { filters: { tags: { only: /.*/ } } }
+      - runner_swiftlint: { filters: { tags: { only: /.*/ } } }
