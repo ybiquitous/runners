@@ -108,6 +108,7 @@ module NodeHarness
         go_vet: NodeHarness::Runners::GoVet::Processor,
         golint: NodeHarness::Runners::Golint::Processor,
         gometalinter: NodeHarness::Runners::Gometalinter::Processor,
+        swiftlint: NodeHarness::Runners::Swiftlint::Processor,
       }[analyzer.to_sym]
     end
 

@@ -1,0 +1,5 @@
+linter:
+  swiftlint:
+    path: 'test.swift'
+    lenient: true
+    enable-all-rules: true

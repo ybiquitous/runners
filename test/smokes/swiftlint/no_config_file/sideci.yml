@@ -1,0 +1,4 @@
+linter:
+  swiftlint:
+    options:
+      config: not_found.yml

@@ -144,6 +144,10 @@ jobs:
     environment:
       ANALYZER: gometalinter
     <<: *runner_job
+  runner_swiftlint:
+    environment:
+      ANALYZER: swiftlint
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -174,3 +178,4 @@ workflows:
       - runner_go_vet
       - runner_golint
       - runner_gometalinter
+      - runner_swiftlint
