@@ -1,0 +1,13 @@
+FROM sider/devon_rex_ruby:2.0.3
+
+<%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
+
+RUN gem install rails_best_practices -v 1.19.4 && \
+    gem install slim -v 4.0.1 && \
+    gem install haml -v 5.0.4 && \
+    gem install sass -v 3.7.3 && \
+    gem install sassc -v 2.0.1 && \
+    gem install require_all:1.5.0 require_all:2.0.0
+
+COPY images/rails_best_practices/sider_rails_best_practices.yml $RUNNER_USER_HOME/
+ENTRYPOINT ["node_harness", "--analyzer=rails_best_practices"]

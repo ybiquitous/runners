@@ -55,6 +55,7 @@ require "node_harness/schema/runner_config"
 require "node_harness/schema/result"
 
 require "node_harness/runners/rubocop/processor"
+require "node_harness/runners/rails_best_practices/processor"
 require "node_harness/runners/reek/processor"
 require "node_harness/runners/goodcheck/processor"
 require "node_harness/runners/querly/processor"
