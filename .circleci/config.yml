@@ -39,7 +39,7 @@ runner_job: &runner_job
     - deploy:
         command: |
           if [ -n "${CIRCLE_TAG}" ]; then
-            echo "bundle exec rake docker:push"
+            bundle exec rake docker:push
           fi
 
 jobs:
