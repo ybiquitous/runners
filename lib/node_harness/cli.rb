@@ -80,7 +80,7 @@ module NodeHarness
     def processor_class
       # TODO: Add more runners
       @processor_class ||= {
-        rubocop: NodeHarness::Runners::Rubocop::Processor,
+        rubocop: NodeHarness::Runners::RuboCop::Processor,
         rails_best_practices: NodeHarness::Runners::RailsBestPractices::Processor,
         reek: NodeHarness::Runners::Reek::Processor,
         goodcheck: NodeHarness::Runners::Goodcheck::Processor,
@@ -106,8 +106,7 @@ module NodeHarness
         golint: NodeHarness::Runners::Golint::Processor,
         gometalinter: NodeHarness::Runners::Gometalinter::Processor,
         swiftlint: NodeHarness::Runners::Swiftlint::Processor,
-      }
-      @processor_class.fetch(analyzer.to_sym)
+      }[analyzer.to_sym]
     end
 
     def run

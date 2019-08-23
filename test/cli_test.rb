@@ -69,12 +69,11 @@ class CLITest < Minitest::Test
   end
 
   def test_run
-    skip "Implement later because currently we are migrating to this repository."
-    NodeHarness.register_processor TestProcessor
-
     mktmpdir do |head_dir|
       head_dir.join('sider.yml').write(YAML.dump(sider_yml))
-      CLI.new(argv: ["--analyzer=rubocop", "--head=#{head_dir}", "test-guid"], stdout: stdout, stderr: stderr).run
+      cli = CLI.new(argv: ["--analyzer=rubocop", "--head=#{head_dir}", "test-guid"], stdout: stdout, stderr: stderr)
+      cli.instance_variable_set(:@processor_class, TestProcessor)
+      cli.run
 
       # It write JSON objects to stdout
 
@@ -89,17 +88,14 @@ class CLITest < Minitest::Test
       assert objects.find {|hash| hash[:warnings] == [{message: 'hogehogewarn', file: nil}]}
       assert objects.find {|hash| hash[:ci_config] == sider_yml}
     end
-  ensure
-    NodeHarness.register_processor nil
   end
 
   def test_run_when_sider_yml_is_broken
-    skip "Implement later because currently we are migrating to this repository."
-    NodeHarness.register_processor TestProcessor
-
     mktmpdir do |head_dir|
       head_dir.join('sider.yml').write("1: 1:")
-      CLI.new(argv: ["--entrypoint=#{__dir__}/data/empty.rb", "--head=#{head_dir}", "test-guid"], stdout: stdout, stderr: stderr).run
+      cli = CLI.new(argv: ["--analyzer=rubocop", "--head=#{head_dir}", "test-guid"], stdout: stdout, stderr: stderr)
+      cli.instance_variable_set(:@processor_class, TestProcessor)
+      cli.run
 
       # It write JSON objects to stdout
 
@@ -112,7 +108,5 @@ class CLITest < Minitest::Test
       assert objects.find {|hash| hash[:warnings] == []}
       assert objects.find {|hash| hash[:ci_config] == nil}
     end
-  ensure
-    NodeHarness.register_processor nil
   end
 end

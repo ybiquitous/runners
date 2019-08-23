@@ -1,6 +1,6 @@
 module NodeHarness
   module Runners
-    module Rubocop
+    module RuboCop
       class Processor < NodeHarness::Processor
         include NodeHarness::Ruby
 
@@ -29,7 +29,7 @@ module NodeHarness
 
         DEFAULT_GEMS = [
           GemInstaller::Spec.new(name: "rubocop", version: ["0.74.0"]),
-        ]
+        ].freeze
 
         # DEPRECATED: Implicit dependencies
         # @see https://help.sider.review/tools/ruby/rubocop#gems
@@ -58,11 +58,11 @@ module NodeHarness
           GemInstaller::Spec.new(name: "rubocop-rspec", version: []),
           GemInstaller::Spec.new(name: "rubocop-cask", version: []),
           GemInstaller::Spec.new(name: "rubocop-thread_safety", version: []),
-        ]
+        ].freeze
 
         CONSTRAINTS = {
           "rubocop" => [">= 0.35.0"]
-        }
+        }.freeze
 
         def self.ci_config_section_name
           'rubocop'

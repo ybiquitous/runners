@@ -9,7 +9,7 @@ class ResultTest < Minitest::Test
   Analyzer = NodeHarness::Analyzer
 
   def test_success_result
-    result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "Rubocop", version: "1.3.2pre"))
+    result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "RuboCop", version: "1.3.2pre"))
     result.add_issue Issues::Structured.new(
       path: Pathname("foo/bar/baz.rb"),
       location: Location.new(start_line: 1, start_column: nil, end_line: nil, end_column: nil),
@@ -36,12 +36,12 @@ class ResultTest < Minitest::Test
                            object: { args: [1,2,3] }
                          }
                        ],
-                       analyzer: { name: "Rubocop", version: "1.3.2pre" }
+                       analyzer: { name: "RuboCop", version: "1.3.2pre" }
                      })
   end
 
   def test_success_filter_issue
-    result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "Rubocop", version: "1.3.2pre"))
+    result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "RuboCop", version: "1.3.2pre"))
     result.add_issue Issues::Structured.new(
       path: Pathname("foo/bar/baz.rb"),
       location: Location.new(start_line: 1, start_column: nil, end_line: nil, end_column: nil),
@@ -82,7 +82,7 @@ class ResultTest < Minitest::Test
                            object: { args: [1,2,3] }
                          }
                        ],
-                       analyzer: { name: "Rubocop", version: "1.3.2pre" }
+                       analyzer: { name: "RuboCop", version: "1.3.2pre" }
                      })
 
   end
