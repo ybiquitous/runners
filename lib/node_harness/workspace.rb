@@ -91,7 +91,7 @@ module NodeHarness
           sleep: -> (n) { n + 1 },
           exception_cb: -> (_ex) { trace_writer.message "Retrying download..." }
         ) do
-          Tempfile.open do |io|
+          ::Tempfile.open do |io|
             trace_writer.message "Downloading source code..." do
               download(uri) do |response|
                 response.read_body do |chunk|
