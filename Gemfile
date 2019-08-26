@@ -12,6 +12,7 @@ gem 'locale'
 gem 'sysexits', '~> 1.1'
 
 group :development, :test do
+  gem 'rake'
   gem 'minitest'
   gem 'rr'
   gem 'querly'
