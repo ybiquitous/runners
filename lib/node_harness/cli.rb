@@ -2,7 +2,6 @@ require "optparse"
 
 module NodeHarness
   class CLI
-    # @dynamic stdout, stderr, guid, analyzer, base, base_key, head, head_key, ssh_key, working_dir
     attr_reader :stdout
     attr_reader :stderr
     attr_reader :guid
@@ -17,9 +16,6 @@ module NodeHarness
     def initialize(argv:, stdout:, stderr:)
       @stdout = stdout
       @stderr = stderr
-
-      @analyzer = nil
-      @encryption_key = nil
 
       OptionParser.new do |opts|
         opts.on("--analyzer=ANALYZER") do |analyzer|
@@ -110,7 +106,8 @@ module NodeHarness
         golint: NodeHarness::Runners::Golint::Processor,
         gometalinter: NodeHarness::Runners::Gometalinter::Processor,
         swiftlint: NodeHarness::Runners::Swiftlint::Processor,
-      }[analyzer.to_sym]
+      }
+      @processor_class.fetch(analyzer.to_sym)
     end
 
     def run
