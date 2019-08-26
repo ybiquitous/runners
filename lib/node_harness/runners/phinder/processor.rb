@@ -22,7 +22,20 @@ module NodeHarness
         end
 
         def analyzer
-          @analyzer ||= NodeHarness::Analyzer.new(name: "Phinder", version: @analyzer_version)
+          @analyzer ||= NodeHarness::Analyzer.new(name: "Phinder", version: analyzer_version)
+        end
+
+        def analyzer_version
+          @analyzer_version ||=
+            begin
+              stdout, _ = capture3! "phinder", "--version"
+              match = stdout.match(/([0-9\.]+)/)
+              if match
+                match.captures.first
+              else
+                raise "Not found version in #{stdout.inspect}"
+              end
+            end
         end
 
         def test_phinder_config(config)
@@ -69,11 +82,11 @@ module NodeHarness
           # 3: Error & Violation
           case status.exitstatus
           when 0
-            NodeHarness::Results::Success.new(guid: guid, analyzer: analyzer)
+            NodeHarness::Results::Success.new(guid: guid, analyzer: analyzer!)
           when 2
             json = JSON.parse(stdout, symbolize_names: true)
 
-            NodeHarness::Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
+            NodeHarness::Results::Success.new(guid: guid, analyzer: analyzer!).tap do |result|
               json[:result].each do |issue|
                 result.add_issue NodeHarness::Issues::Structured.new(
                   id: issue[:rule][:id],
@@ -112,10 +125,6 @@ module NodeHarness
 
         def analyze(changes)
           delete_unchanged_files(changes, except: ["*.yml", "*.yaml"])
-
-          # Print analyzer version to trace
-          stdout, _ = capture3!("phinder", "--version")
-          @analyzer_version = stdout.match(/([0-9\.]+)/).captures.first
 
           ensure_runner_config_schema(Schema.runner_config) do |config|
             paths = []
