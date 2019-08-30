@@ -34,6 +34,8 @@ end
 extension String (Polyfill)
   def strip: -> String
   def strip!: -> String
+  def casecmp?: (String) -> bool?
+  def delete: (*String) -> String
 end
 
 class Time
