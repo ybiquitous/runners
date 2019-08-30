@@ -34,7 +34,7 @@ module NodeHarness
       end
 
       def run
-        load expectations
+        load expectations.to_s
 
         threads = ENV["JOBS"]&.to_i || Parallel.processor_count * 2
         results = with_data_container do
@@ -55,10 +55,9 @@ module NodeHarness
         end
       end
 
-      # @return [true|false] Status of the test case
       def run_test(name, pattern, out)
         return true if ENV['ONLY'] && ENV['ONLY'] != name
-        commandline = command_line(name, self.class.configs[name])
+        commandline = command_line(name, self.class.configs.fetch(name))
         out.puts "$ #{commandline}"
         reader = JSONSEQ::Reader.new(io: StringIO.new(`#{commandline}`), decoder: -> (json) { JSON.parse(json, symbolize_names: true) })
         traces = reader.each_object.to_a
@@ -106,7 +105,8 @@ module NodeHarness
       def command_line(name, config)
         dir = data_smoke_path + name
         commands = %W[docker run --rm --volumes-from #{data_container} #{docker_image} --head=#{dir.expand_path}]
-        commands << "--ssh-key=#{dir.expand_path + config.ssh_key}" if config.ssh_key
+        ssh_key = config.ssh_key
+        commands << "--ssh-key=#{dir.expand_path + ssh_key}" if ssh_key
         commands << "test-guid"
         commands.join(" ")
       end

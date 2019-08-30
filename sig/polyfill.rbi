@@ -1,7 +1,6 @@
 class Pathname
   def self.glob: (Pathname, ?Integer) -> Array<Pathname>
-  def +: (Pathname) -> Pathname
-       | (String) -> Pathname
+  def +: (Pathname | String) -> Pathname
   alias / +
   def exist?: -> bool
   def file?: -> bool
@@ -17,16 +16,14 @@ class Pathname
   def write: (String) -> void
   def sub_ext: (String) -> self
   def expand_path: (*String) -> self
-end
-
-extension Object (Pathname)
-  def Pathname: (String) -> Pathname
+  def parent: -> self
+  def basename: -> self
 end
 
 extension Object (Polyfill)
   def instance_of?: (any) -> bool
   def Array: (any) -> Array<any>
-  def load: (String) -> bool
+  def Pathname: (String) -> Pathname
 end
 
 extension Module (Polyfill)
