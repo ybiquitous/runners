@@ -275,12 +275,14 @@ class NodeHarness::CLI
   attr_reader ssh_key: String
   attr_reader working_dir: String?
   attr_reader guid: String
-  @encryption_key: nil
+  attr_reader analyzer: String
 
   def initialize: (argv: Array<String>, stdout: IO, stderr: IO) -> any
 
   def with_working_dir: <'x> { (Pathname) -> 'x } -> 'x
+  def processor_class: () -> Processor.class
   def validate_options!: () -> self
+  def validate_analyzer!: () -> void
   def run: () -> void
 end
 
