@@ -361,4 +361,38 @@ class ProcessorTest < Minitest::Test
       refute processor.directory_traversal_attack?("foo/bar")
     end
   end
+
+  def test_analyzer_version
+    mktmpdir do |path|
+      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+
+      error = assert_raises(NotImplementedError) { processor.analyzer_version }
+      assert_equal <<~MSG, error.message
+        A typical implementation:
+
+        def analyzer_version
+          @analyzer_version ||= extract_version! "some_command"
+        end
+      MSG
+    end
+  end
+
+  def test_extract_version!
+    mktmpdir do |path|
+      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+
+      # from stdout
+      mock(processor).capture3!("foo", "--version") { ["Foo v10.20.1", ""] }
+      assert_equal "10.20.1", processor.extract_version!("foo")
+
+      # from stderr
+      mock(processor).capture3!("foo", "bar", "version") { ["", "7.8.20 version\n"] }
+      assert_equal "7.8.20", processor.extract_version!("foo", "bar", "version")
+
+      # not found
+      mock(processor).capture3!("foo", "-v") { ["2.1", ""] }
+      error = assert_raises { processor.extract_version!("foo", "-v") }
+      assert_equal "Not found version from 'foo -v'", error.message
+    end
+  end
 end
