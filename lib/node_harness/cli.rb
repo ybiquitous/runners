@@ -78,35 +78,9 @@ module NodeHarness
     end
 
     def processor_class
-      # TODO: Add more runners
-      @processor_class ||= {
-        rubocop: NodeHarness::Runners::RuboCop::Processor,
-        rails_best_practices: NodeHarness::Runners::RailsBestPractices::Processor,
-        reek: NodeHarness::Runners::Reek::Processor,
-        goodcheck: NodeHarness::Runners::Goodcheck::Processor,
-        querly: NodeHarness::Runners::Querly::Processor,
-        brakeman: NodeHarness::Runners::Brakeman::Processor,
-        haml_lint: NodeHarness::Runners::HamlLint::Processor,
-        scss_lint: NodeHarness::Runners::ScssLint::Processor,
-        code_sniffer: NodeHarness::Runners::CodeSniffer::Processor,
-        phpmd: NodeHarness::Runners::Phpmd::Processor,
-        phinder: NodeHarness::Runners::Phinder::Processor,
-        checkstyle: NodeHarness::Runners::Checkstyle::Processor,
-        pmd_java: NodeHarness::Runners::PmdJava::Processor,
-        javasee: NodeHarness::Runners::Javasee::Processor,
-        eslint: NodeHarness::Runners::Eslint::Processor,
-        coffeelint: NodeHarness::Runners::Coffeelint::Processor,
-        jshint: NodeHarness::Runners::Jshint::Processor,
-        stylelint: NodeHarness::Runners::Stylelint::Processor,
-        tslint: NodeHarness::Runners::Tslint::Processor,
-        tyscan: NodeHarness::Runners::Tyscan::Processor,
-        flake8: NodeHarness::Runners::Flake8::Processor,
-        misspell: NodeHarness::Runners::Misspell::Processor,
-        go_vet: NodeHarness::Runners::GoVet::Processor,
-        golint: NodeHarness::Runners::Golint::Processor,
-        gometalinter: NodeHarness::Runners::Gometalinter::Processor,
-        swiftlint: NodeHarness::Runners::Swiftlint::Processor,
-      }[analyzer.to_sym]
+      @processor_class ||= (NodeHarness::Processor.subclasses.detect do |cls|
+        "NodeHarness::Runners::#{analyzer.to_s.delete('_')}::Processor".casecmp? cls.name
+      end or raise "Not found processor class with '#{analyzer}'")
     end
 
     def run

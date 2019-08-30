@@ -109,4 +109,16 @@ class CLITest < Minitest::Test
       assert objects.find {|hash| hash[:ci_config] == nil}
     end
   end
+
+  def test_processor_class
+    cli = CLI.new(argv: ["--analyzer=rubocop"], stdout: stdout, stderr: stderr)
+    assert_equal NodeHarness::Runners::RuboCop::Processor, cli.processor_class
+
+    cli = CLI.new(argv: ["--analyzer=scss_lint"], stdout: stdout, stderr: stderr)
+    assert_equal NodeHarness::Runners::ScssLint::Processor, cli.processor_class
+
+    cli = CLI.new(argv: ["--analyzer=foo"], stdout: stdout, stderr: stderr)
+    error = assert_raises { cli.processor_class }
+    assert_equal "Not found processor class with 'foo'", error.message
+  end
 end
