@@ -33,7 +33,7 @@ module NodeHarness
         private
 
         def analyzer
-          NodeHarness::Analyzer.new(name: 'Flake8', version: flake8_version)
+          NodeHarness::Analyzer.new(name: 'Flake8', version: analyzer_version)
         end
 
         def prepare_config
@@ -96,8 +96,8 @@ module NodeHarness
           @python3_version ||= capture3!('pyenv', 'versions', '--bare').first.match(/^3[0-9\.]+$/m).to_s
         end
 
-        def flake8_version
-          @flake8_version ||= capture3!('flake8', '--version').first.split.first
+        def analyzer_version
+          @analyzer_version ||= extract_version! 'flake8'
         end
 
         def parse_result(output)

@@ -211,6 +211,8 @@ class NodeHarness::Processor
   def with_analyzer: <'x> (Analyzer?) { () -> 'x } -> 'x
   def analyzer: -> Analyzer?
   def analyzer!: -> Analyzer
+  def analyzer_version: -> String
+  def extract_version!: (String, String?) -> String
   def build_field_reference_from_path: (StrongJSON::Type::ErrorPath) -> String
   def root_dir: -> Pathname
   def directory_traversal_attack?: (String) -> bool

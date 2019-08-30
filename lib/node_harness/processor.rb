@@ -74,6 +74,26 @@ module NodeHarness
       analyzer or raise "No analyzer set"
     end
 
+    def analyzer_version
+      raise NotImplementedError, <<~MSG
+        A typical implementation:
+
+        def #{__method__}
+          @#{__method__} ||= extract_version! "some_command"
+        end
+      MSG
+    end
+
+    def extract_version!(command, version_option = "--version", *extra_options, pattern: /v?(\d+\.\d+\.\d+)/)
+      command_line = [command, version_option, *extra_options]
+      outputs = capture3!(*command_line)
+      outputs.each do |output|
+        match = pattern.match(output)
+        return match[1] if match
+      end
+      raise "Not found version from '#{command_line.join(' ')}'"
+    end
+
     def self.ci_config_section_name
       self.name
     end
