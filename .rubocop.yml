@@ -1,13 +1,6 @@
-AllCops:
-  Exclude:
-    - 'vendor/**/*'
-  DisplayCopNames: true
+inherit_gem:
+  meowcop:
+    - config/rubocop.yml
 
 Style/MutableConstant:
   Enabled: true
-
-Style/StringLiterals:
-  Enabled: false
-
-Metrics/LineLength:
-  Enabled: false

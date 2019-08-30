@@ -1,2 +1,7 @@
+linter:
+  rubocop:
+    gems:
+      - meowcop
+
 ignore:
   - test/smokes/
