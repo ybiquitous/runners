@@ -87,11 +87,25 @@ namespace :docker do
   end
 
   def analyzer
-    ENV.fetch('ANALYZER')
+    key = 'ANALYZER'
+    ENV.fetch(key).tap do |value|
+      abort <<~MSG if value.empty?
+        Error: `#{key}` environment variable must be required. For example, run as follow:
+
+            $ #{key}=rubocop bundle exec rake docker:build
+      MSG
+    end
   end
 
   def tag
-    ENV.fetch('TAG').tap { |value| raise 'Environment variable `TAG` must not be an empty string.' if value.empty? }
+    key = 'TAG'
+    ENV.fetch(key).tap do |value|
+      abort <<~MSG if value.empty?
+        Error: `#{key}` environment variable must be required. For example, run as follow:
+
+            $ #{key}=dev bundle exec rake docker:build
+      MSG
+    end
   end
 
   def docker_user
