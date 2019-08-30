@@ -84,14 +84,16 @@ module NodeHarness
       MSG
     end
 
-    def extract_version!(command, version_option = "--version", *extra_options, pattern: /v?(\d+\.\d+\.\d+)/)
-      command_line = [command, version_option, *extra_options]
-      outputs = capture3!(*command_line)
+    def extract_version!(command, version_option = "--version", pattern: /v?(\d+\.\d+\.\d+)/)
+      command_options = Array(version_option)
+      outputs = capture3!(command, *command_options)
       outputs.each do |output|
-        match = pattern.match(output)
-        return match[1] if match
+        pattern.match(output) do |match|
+          found = match[1]
+          return found if found
+        end
       end
-      raise "Not found version from '#{command_line.join(' ')}'"
+      raise "Not found version from '#{command} #{command_options.join(' ')}'"
     end
 
     def self.ci_config_section_name
