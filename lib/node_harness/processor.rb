@@ -84,11 +84,11 @@ module NodeHarness
       MSG
     end
 
-    def extract_version!(command, version_option = "--version", *extra_options)
+    def extract_version!(command, version_option = "--version", *extra_options, pattern: /v?(\d+\.\d+\.\d+)/)
       command_line = [command, version_option, *extra_options]
       outputs = capture3!(*command_line)
       outputs.each do |output|
-        match = /v?(\d+\.\d+\.\d+)/.match(output)
+        match = pattern.match(output)
         return match[1] if match
       end
       raise "Not found version from '#{command_line.join(' ')}'"
