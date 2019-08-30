@@ -1,0 +1,5 @@
+linter:
+  cppcheck:
+    target:
+      - "autoVariables.c"
+      - "src"

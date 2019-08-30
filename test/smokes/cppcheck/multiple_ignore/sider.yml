@@ -1,0 +1,5 @@
+linter:
+  cppcheck:
+    ignore:
+      - "autoVariables.c"
+      - "src"

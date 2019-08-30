@@ -18,6 +18,7 @@ task :default => [:test, :typecheck]
 task :typecheck do
   # FIXME: Must check all files.
   files = Dir.glob("lib/**/*.rb").reject { |f| f.include? "runners/" }
+  files += Dir.glob("lib/**/cppcheck/**/*.rb")
   sh "steep", "check", *files
 end
 
