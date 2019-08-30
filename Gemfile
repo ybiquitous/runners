@@ -17,4 +17,6 @@ group :development, :test do
   gem 'rr'
   gem 'querly'
   gem 'steep'
+  gem 'rubocop', require: false
+  gem 'meowcop', require: false
 end
