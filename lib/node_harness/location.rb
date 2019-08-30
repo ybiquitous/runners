@@ -1,7 +1,6 @@
 module NodeHarness
   class Location
     class InvalidLocationError < StandardError
-      # @dynamic location
       attr_reader :location
 
       def initialize(location:)
@@ -9,17 +8,16 @@ module NodeHarness
       end
     end
 
-    # @dynamic start_line, start_column, end_line, end_column
     attr_reader :start_line
     attr_reader :start_column
     attr_reader :end_line
     attr_reader :end_column
 
-    def initialize(start_line:, start_column:, end_line:, end_column:)
-      @start_line = start_line
-      @start_column = start_column
-      @end_line = end_line
-      @end_column = end_column
+    def initialize(start_line:, start_column: nil, end_line: nil, end_column: nil)
+      @start_line = Integer(start_line) if start_line
+      @start_column = Integer(start_column) if start_column
+      @end_line = Integer(end_line) if end_line
+      @end_column = Integer(end_column) if end_column
     end
 
     def ==(other)
@@ -52,15 +50,9 @@ module NodeHarness
       end
     end
 
-    # @type method ensure_validity: ?{ (self) -> any } -> any
     def ensure_validity
       raise InvalidLocationError.new(location: self) unless valid?
-
-      if block_given?
-        yield self
-      else
-        self
-      end
+      self
     end
 
     def self.from_json(json)
@@ -71,13 +63,12 @@ module NodeHarness
     end
 
     def as_json
-      ensure_validity do
-        {}.tap do |json|
-          json[:start_line] = start_line
-          json[:start_column] = start_column if start_column
-          json[:end_line] = end_line if end_line
-          json[:end_column] = end_column if end_column
-        end
+      ensure_validity
+      {}.tap do |json|
+        json[:start_line] = start_line
+        json[:start_column] = start_column if start_column
+        json[:end_line] = end_line if end_line
+        json[:end_column] = end_column if end_column
       end
     end
   end

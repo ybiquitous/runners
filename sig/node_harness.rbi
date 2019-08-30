@@ -1,22 +1,3 @@
-class NodeHarness::Location
-  attr_reader start_line: Integer
-  attr_reader start_column: Integer
-  attr_reader end_line: Integer
-  attr_reader end_column: Integer
-
-  def initialize: (start_line: Integer, start_column: Integer, end_line: Integer, end_column: Integer) -> any
-  def valid?: () -> bool
-  def ensure_validity: <'a> { (self) -> 'a } -> 'a
-                     | -> self
-  def as_json: () -> any
-  def self.from_json: (any) -> Location
-end
-
-class NodeHarness::Location::InvalidLocationError
-  attr_reader location: Location
-  def initialize: (location: Location) -> any
-end
-
 type issue = NodeHarness::Issues::Identified | NodeHarness::Issues::Text | NodeHarness::Issues::Structured
 
 class NodeHarness::Issues::InvalidIssueError
