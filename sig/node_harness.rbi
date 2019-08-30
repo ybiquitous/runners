@@ -270,8 +270,6 @@ class NodeHarness::CLI
 end
 
 module NodeHarness
-  def self.register_processor: (Processor.class constructor) -> void
-  def self.processor: () -> Processor.class constructor
 end
 
 NodeHarness::VERSION: String

@@ -84,11 +84,4 @@ require "node_harness/runners/swiftlint/processor"
 # TODO: Add more runners
 
 module NodeHarness
-  def self.register_processor(processor)
-    @processor = processor
-  end
-
-  def self.processor
-    @processor
-  end
 end
