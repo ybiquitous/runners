@@ -103,22 +103,23 @@ module NodeHarness
             *target,
           )
 
+          xml_output = Nokogiri::XML::Document.parse(stderr)
+
+          unless xml_output.errors.empty?
+            xml_syntax_errors = xml_output.errors.map(&:message).join("\n")
+            return NodeHarness::Results::Failure.new(guid: guid, analyzer: analyzer!, message: xml_syntax_errors)
+          end
+
           NodeHarness::Results::Success.new(guid: guid, analyzer: analyzer!).tap do |result|
-            parse_result(stderr) do |issue|
+            parse_result(xml_output) do |issue|
               result.add_issue issue
             end
           end
         end
 
         # @see https://github.com/danmar/cppcheck/blob/master/man/manual.md#xml-output
-        def parse_result(output)
-          doc = Nokogiri::XML(output)
-
-          doc.errors.map(&:message).join("\n").tap do |msg|
-            trace_writer.error msg if msg
-          end
-
-          doc.css("errors > error").each do |err|
+        def parse_result(xml_doc)
+          xml_doc.css("errors > error").each do |err|
             err.css("location").each do |loc|
               yield NodeHarness::Issues::Structured.new(
                 id: err[:id],

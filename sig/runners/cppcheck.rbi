@@ -17,7 +17,7 @@ class NodeHarness::Runners::Cppcheck::Processor < NodeHarness::Processor
   def project: -> Array<String>
   def language: -> Array<String>
   def run_analyzer: -> result
-  def parse_result: (String) { (NodeHarness::Issues::Structured) -> void } -> void
+  def parse_result: (Nokogiri::XML::Document) { (NodeHarness::Issues::Structured) -> void } -> void
 end
 
 NodeHarness::Runners::Cppcheck::Processor::DEFAULT_TARGET: String
