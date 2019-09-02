@@ -14,6 +14,15 @@ module NodeHarness
               language: string?,
             )
           }
+
+          let :rule, object(
+            severity: string,
+            message: string,
+            verbose: string?,
+            inconclusive: boolean,
+            cwe: string?,
+            location_info: string?,
+          )
         end
 
         DEFAULT_TARGET = ".".freeze
@@ -101,6 +110,7 @@ module NodeHarness
           end
         end
 
+        # @see https://github.com/danmar/cppcheck/blob/master/man/manual.md#xml-output
         def parse_result(output)
           doc = Nokogiri::XML(output)
 
@@ -110,12 +120,19 @@ module NodeHarness
 
           doc.css("errors > error").each do |err|
             err.css("location").each do |loc|
-              yield NodeHarness::Issues::Text.new(
+              yield NodeHarness::Issues::Structured.new(
                 id: err[:id],
-                message: "#{err[:msg]} (#{err[:severity]})",
                 path: relative_path(loc[:file]),
                 location: NodeHarness::Location.new(start_line: loc[:line]),
-                links: [],
+                object: {
+                  severity: err[:severity],
+                  message: err[:msg],
+                  verbose: err[:verbose] != err[:msg] ? err[:verbose] : nil,
+                  inconclusive: err[:inconclusive] == "true",
+                  cwe: err[:cwe],
+                  location_info: loc[:info] != err[:msg] ? loc[:info] : nil,
+                },
+                schema: Schema.rule,
               )
             end
           end
