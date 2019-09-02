@@ -13,8 +13,7 @@ RUN cd /tmp \
   && curl -sSL https://github.com/danmar/cppcheck/archive/${CPPCHECK_VERSION}.tar.gz \
   |  tar -xz \
   && cd cppcheck-${CPPCHECK_VERSION} \
-  && make -s MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" \
-  && make -s install MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck \
+  && make install -s MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" \
   && rm -rf cppcheck-${CPPCHECK_VERSION}
 USER $RUNNER_USER
 
