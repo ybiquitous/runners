@@ -1,0 +1,4 @@
+linter:
+  cppcheck:
+    enable: "warning"
+    std: "c99"

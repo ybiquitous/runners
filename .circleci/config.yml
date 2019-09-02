@@ -158,6 +158,10 @@ jobs:
     environment:
       ANALYZER: swiftlint
     <<: *runner_job
+  runner_cppcheck:
+    environment:
+      ANALYZER: cppcheck
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -190,3 +194,4 @@ workflows:
       - runner_golint: { filters: { tags: { only: /.*/ } } }
       - runner_gometalinter: { filters: { tags: { only: /.*/ } } }
       - runner_swiftlint: { filters: { tags: { only: /.*/ } } }
+      - runner_cppcheck: { filters: { tags: { only: /.*/ } } }

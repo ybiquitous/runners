@@ -82,7 +82,7 @@ require "node_harness/runners/go_vet/processor"
 require "node_harness/runners/golint/processor"
 require "node_harness/runners/gometalinter/processor"
 require "node_harness/runners/swiftlint/processor"
-# TODO: Add more runners
+require "node_harness/runners/cppcheck/processor"
 
 module NodeHarness
 end
