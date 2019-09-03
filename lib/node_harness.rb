@@ -1,5 +1,3 @@
-require "node_harness/version"
-
 require "bundler"
 require "pathname"
 require "open3"

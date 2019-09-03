@@ -272,8 +272,6 @@ end
 module NodeHarness
 end
 
-NodeHarness::VERSION: String
-
 type NodeHarness::gems_item = {
   "name" => String,
   "version" => String?,

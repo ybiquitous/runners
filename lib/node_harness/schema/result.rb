@@ -26,7 +26,7 @@ module NodeHarness
       let :missing_file_failure, object(guid: string, timestamp: string, type: literal("missing_files"), files: array(string))
       let :error, object(guid: string, timestamp: string, type: literal("error"), class: string, backtrace: array(string), inspect: string)
 
-      let :envelope, object(result: enum(success, failure, missing_file_failure, error), "harness-version": string, warnings: array(warning), ci_config: any?)
+      let :envelope, object(result: enum(success, failure, missing_file_failure, error), warnings: array(warning), ci_config: any?)
     end
   end
 end

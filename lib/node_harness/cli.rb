@@ -96,7 +96,6 @@ module NodeHarness
           ci_config = harness.ci_config
           json = {
             result: result.as_json,
-            "harness-version": VERSION,
             warnings: warnings,
             ci_config: ci_config,
           }
