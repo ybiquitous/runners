@@ -115,7 +115,6 @@ module NodeHarness
       @configs = {}
 
       def self.add_test(name, result, **others)
-        others[:'harness-version'] ||= :_
         others[:warnings] ||= []
         others[:ci_config] ||= :_
 

@@ -84,7 +84,6 @@ class CLITest < Minitest::Test
       assert objects.find {|hash| hash[:trace] == 'command_line' && hash[:command_line] == ["test", "command"] }
       assert objects.find {|hash| hash[:trace] == 'status' && hash[:status] == 31 }
       assert objects.find {|hash| hash[:trace] == 'warning' && hash[:message] == 'hogehogewarn' }
-      assert objects.find {|hash| hash[:"harness-version"] && hash[:result] }
       assert objects.find {|hash| hash[:warnings] == [{message: 'hogehogewarn', file: nil}]}
       assert objects.find {|hash| hash[:ci_config] == sider_yml}
     end
@@ -104,7 +103,6 @@ class CLITest < Minitest::Test
       objects = reader.each_object.to_a
 
       assert objects.find {|hash| hash[:trace] == 'error' && hash[:message].match?(/Parse error occurred/) }
-      assert objects.find {|hash| hash[:"harness-version"] && hash[:result] }
       assert objects.find {|hash| hash[:warnings] == []}
       assert objects.find {|hash| hash[:ci_config] == nil}
     end
