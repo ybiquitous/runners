@@ -58,7 +58,7 @@ module NodeHarness
         end
 
         def analyzer
-          @analyzer ||= NodeHarness::Analyzer.new(name: 'TSLint', version: nodejs_analyzer_version)
+          @analyzer ||= NodeHarness::Analyzer.new(name: 'TSLint', version: analyzer_version)
         end
 
         def analyze(_changes)

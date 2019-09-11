@@ -69,7 +69,7 @@ module NodeHarness
         end
 
         def analyzer
-          @analyzer ||= NodeHarness::Analyzer.new(name: 'stylelint', version: nodejs_analyzer_version)
+          @analyzer ||= NodeHarness::Analyzer.new(name: 'stylelint', version: analyzer_version)
         end
 
         def analyze(changes)
@@ -217,7 +217,7 @@ module NodeHarness
           # The `--allow-empty-input` option breaks with v10.0.0. Fixed with v10.0.1.
           # @see https://github.com/stylelint/stylelint/releases/tag/10.0.1
           # @see https://github.com/stylelint/stylelint/pull/4029
-          if Gem::Version.new(nodejs_analyzer_version) >= Gem::Version.new("10.0.1")
+          if Gem::Version.new(analyzer_version) >= Gem::Version.new("10.0.1")
             default_options << '--allow-empty-input'
           end
 

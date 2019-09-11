@@ -81,69 +81,25 @@ class NodejsTest < Minitest::Test
     end
   end
 
-  def test_nodejs_analyzer_locally_installed?
+  def test_analyzer_version_with_global
     mktmpdir do |path|
       processor = new_processor(working_dir: path)
 
-      assert_equal false, processor.nodejs_analyzer_locally_installed?
-
-      (path / "node_modules/.bin").mkpath
-      (path / "node_modules/.bin/eslint").write("")
-      assert_equal true, processor.nodejs_analyzer_locally_installed?
-    end
-  end
-
-  def test_nodejs_analyzer_version_via
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
-
-      processor.stub :capture3!, ["v1.2.3"] do
-        assert_equal "1.2.3", processor.nodejs_analyzer_version_via("foo")
-      end
-
-      processor.stub :capture3!, ["\n1.0.0\n"] do
-        assert_equal "1.0.0", processor.nodejs_analyzer_version_via("foo")
-      end
-
-      processor.stub :capture3!, ["x.y.z"] do
-        error = assert_raises { processor.nodejs_analyzer_version_via("foo") }
-        assert_equal "Not found version for 'foo'", error.message
+      processor.stub :nodejs_analyzer_locally_installed?, false do
+        processor.stub :nodejs_analyzer_global_version, "1.0.0" do
+          assert_equal "1.0.0", processor.analyzer_version
+        end
       end
     end
   end
 
-  def test_nodejs_analyzer_global_version
+  def test_analyzer_version_with_local
     mktmpdir do |path|
       processor = new_processor(working_dir: path)
 
-      processor.stub :capture3!, ["1.2.3"] do
-        assert_equal "1.2.3", processor.nodejs_analyzer_global_version
-      end
-    end
-  end
-
-  def test_nodejs_analyzer_local_version
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
-
-      processor.stub :capture3!, ["4.5.6"] do
-        assert_equal "4.5.6", processor.nodejs_analyzer_local_version
-      end
-    end
-  end
-
-  def test_nodejs_analyzer_version
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
-
-      processor.stub :nodejs_analyzer_global_version, "1.0.0" do
-        assert_equal "1.0.0", processor.nodejs_analyzer_version
-        assert_equal false, processor.nodejs_analyzer_locally_installed?
-      end
-
-      processor.stub :nodejs_analyzer_local_version, "2.0.0" do
-        processor.stub :nodejs_analyzer_locally_installed?, true do
-          assert_equal "2.0.0", processor.nodejs_analyzer_version
+      processor.stub :nodejs_analyzer_locally_installed?, true do
+        processor.stub :nodejs_analyzer_local_version, "2.0.0" do
+          assert_equal "2.0.0", processor.analyzer_version
         end
       end
     end
@@ -207,7 +163,7 @@ class NodejsTest < Minitest::Test
 
       option = NodeHarness::Nodejs::INSTALL_OPTION_ALL
 
-      processor.stub :nodejs_analyzer_version_via, defaults.main.version do
+      processor.stub :nodejs_analyzer_global_version, defaults.main.version do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
 
         stdout, _ = processor.capture3!(processor.nodejs_analyzer_bin, "-v")
@@ -220,46 +176,50 @@ class NodejsTest < Minitest::Test
 
   def test_install_nodejs_deps_with_option_nil
     mktmpdir do |path|
-      processor = new_processor(working_dir: path)
-
       defaults = DefaultDependencies.new(main: Dependency.new(name: "eslint", version: "5.15.0"))
       constraints = { "eslint" => Constraint.new(">= 5.0.0", "< 7.0.0") }
       option = nil
 
-      processor.stub :nodejs_analyzer_version_via, defaults.main.version do
-        # Without package.json
+      # Without package.json
+      processor = new_processor(working_dir: path)
+      processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
         refute processor.package_json_path.exist?
-        refute processor.nodejs_analyzer_locally_installed?
+        assert_equal "5.15.0", processor.analyzer_version
+      end
 
-        # With package.json
+      # With package.json
+      processor = new_processor(working_dir: path)
+      processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.0" }))
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
         assert processor.package_json_path.exist?
-        assert processor.nodejs_analyzer_locally_installed?
+        assert_equal "6.0.0", processor.analyzer_version
       end
     end
   end
 
   def test_install_nodejs_deps_with_option_none
     mktmpdir do |path|
-      processor = new_processor(working_dir: path)
-
       defaults = DefaultDependencies.new(main: Dependency.new(name: "eslint", version: "5.15.0"))
       constraints = { "eslint" => Constraint.new(">= 5.0.0", "< 7.0.0") }
       option = NodeHarness::Nodejs::INSTALL_OPTION_NONE
 
-      processor.stub :nodejs_analyzer_version_via, defaults.main.version do
-        # Without package.json
+      # Without package.json
+      processor = new_processor(working_dir: path)
+      processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
         refute processor.package_json_path.exist?
-        refute processor.nodejs_analyzer_locally_installed?
+        assert_equal "5.15.0", processor.analyzer_version
+      end
 
-        # With package.json
+      # With package.json
+      processor = new_processor(working_dir: path)
+      processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.0" }))
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
         assert processor.package_json_path.exist?
-        refute processor.nodejs_analyzer_locally_installed?
+        assert_equal "5.15.0", processor.analyzer_version
       end
     end
   end
@@ -279,7 +239,7 @@ class NodejsTest < Minitest::Test
       }
       option = NodeHarness::Nodejs::INSTALL_OPTION_ALL
 
-      processor.stub :nodejs_analyzer_version_via, defaults.main.version do
+      processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
 
         stdout, _ = processor.capture3!(processor.nodejs_analyzer_bin, "-v")
@@ -306,7 +266,7 @@ class NodejsTest < Minitest::Test
       }
       option = NodeHarness::Nodejs::INSTALL_OPTION_ALL
 
-      processor.stub :nodejs_analyzer_version_via, defaults.main.version do
+      processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         error = assert_raises DuplicateLockfiles do
           processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
         end
