@@ -116,8 +116,8 @@ desc "Release"
 task :release, [:version] do |_task, args|
   new_version = args[:version] or abort "Required version!"
 
-  sh "git pull origin master --quiet"
   sh "git checkout master --quiet"
+  sh "git pull origin master --quiet"
 
   current_version = `git describe --abbrev=0 --tags`.chomp
   unless Gem::Version.new(current_version) < Gem::Version.new(new_version)
