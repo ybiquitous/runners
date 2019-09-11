@@ -32,31 +32,8 @@ module NodeHarness
       nodejs_analyzer_locally_installed? ? nodejs_analyzer_local_command : nodejs_analyzer_command
     end
 
-    # Return `true` if the analyzer is locally installed.
-    def nodejs_analyzer_locally_installed?
-      (current_dir / nodejs_analyzer_local_command).exist?
-    end
-
-    # Return the analyzer version by using a given command.
-    # This is a default implementation. Please override this method if you need.
-    def nodejs_analyzer_version_via(command)
-      stdout, _ = capture3! command, "--version"
-      /v?(\d+\.\d+\.\d+)/.match(stdout) { |m| m[1] } or raise "Not found version for '#{command}'"
-    end
-
-    # Return the globally installed analyzer version.
-    def nodejs_analyzer_global_version
-      @nodejs_analyzer_global_version ||= nodejs_analyzer_version_via(nodejs_analyzer_command)
-    end
-
-    # Return the locally installed analyzer version.
-    def nodejs_analyzer_local_version
-      @nodejs_analyzer_local_version ||= nodejs_analyzer_version_via(nodejs_analyzer_local_command)
-    end
-
-    # Return the analyzer version which will actually be ran.
-    def nodejs_analyzer_version
-      nodejs_analyzer_locally_installed? ? nodejs_analyzer_local_version : nodejs_analyzer_global_version
+    def analyzer_version
+      @analyzer_version ||= nodejs_analyzer_locally_installed? ? nodejs_analyzer_local_version : nodejs_analyzer_global_version
     end
 
     # Return the actual file path of `package.json`.
@@ -101,6 +78,18 @@ module NodeHarness
     end
 
     private
+
+    def nodejs_analyzer_locally_installed?
+      (current_dir / nodejs_analyzer_local_command).exist?
+    end
+
+    def nodejs_analyzer_global_version
+      @nodejs_analyzer_global_version ||= extract_version!(nodejs_analyzer_command)
+    end
+
+    def nodejs_analyzer_local_version
+      @nodejs_analyzer_local_version ||= extract_version!(nodejs_analyzer_local_command)
+    end
 
     def check_nodejs_default_deps(defaults, constraints)
       defaults.all.each do |dependency|

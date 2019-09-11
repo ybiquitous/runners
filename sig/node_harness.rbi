@@ -380,11 +380,6 @@ module NodeHarness::Nodejs : Processor
   def nodejs_analyzer_command: -> String
   def nodejs_analyzer_local_command: -> String
   def nodejs_analyzer_bin: -> String
-  def nodejs_analyzer_locally_installed?: -> bool
-  def nodejs_analyzer_version_via: (String) -> String
-  def nodejs_analyzer_global_version: -> String
-  def nodejs_analyzer_local_version: -> String
-  def nodejs_analyzer_version: -> String
   def package_json_path: -> Pathname
   def package_json: -> Hash<Symbol, any>
   def package_lock_json_path: -> Pathname
@@ -393,6 +388,9 @@ module NodeHarness::Nodejs : Processor
                             install_option: npm_install_option | nil) -> void
 
   # private
+  def nodejs_analyzer_locally_installed?: -> bool
+  def nodejs_analyzer_global_version: -> String
+  def nodejs_analyzer_local_version: -> String
   def check_nodejs_runtime: -> void
   def check_nodejs_default_deps: (DefaultDependencies, Hash<String, Constraint>) -> void
   def check_duplicate_lockfiles: -> void

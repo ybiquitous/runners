@@ -34,7 +34,7 @@ module NodeHarness
         end
 
         def analyzer
-          @analyzer ||= NodeHarness::Analyzer.new(name: 'CoffeeLint', version: nodejs_analyzer_version)
+          @analyzer ||= NodeHarness::Analyzer.new(name: 'CoffeeLint', version: analyzer_version)
         end
 
         def setup

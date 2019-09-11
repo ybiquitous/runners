@@ -45,7 +45,7 @@ module NodeHarness
         end
 
         def analyzer
-          @analyzer ||= NodeHarness::Analyzer.new(name: 'ESLint', version: nodejs_analyzer_version)
+          @analyzer ||= NodeHarness::Analyzer.new(name: 'ESLint', version: analyzer_version)
         end
 
         def setup
