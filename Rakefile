@@ -111,3 +111,28 @@ namespace :docker do
     sh "docker push #{image_name_latest}"
   end
 end
+
+desc "Release"
+task :release, [:version] do |_task, args|
+  new_version = args[:version] or abort "Required version!"
+
+  sh "git checkout master --quiet"
+  sh "git pull origin master --quiet"
+
+  current_version = `git describe --abbrev=0 --tags`.chomp
+  unless Gem::Version.new(current_version) < Gem::Version.new(new_version)
+    abort "Invalid version! current=#{current_version} new=#{new_version}"
+  end
+
+  sh "git diff --exit-code --quiet" do |ok|
+    abort "Uncommitted changes found!" unless ok
+  end
+
+  unless File.readlines("CHANGELOG.md", chomp: true).include? "## #{new_version}"
+    abort "No entry of version #{new_version} in CHANGELOG.md!"
+  end
+
+  sh "git --no-pager log --oneline #{current_version}...HEAD"
+  sh "git tag -a #{new_version} -m 'Version #{new_version}'"
+  puts "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
+end
