@@ -79,7 +79,7 @@ module NodeHarness
 
     def processor_class
       @processor_class ||= (NodeHarness::Processor.subclasses.detect do |cls|
-        "NodeHarness::Runners::#{analyzer.to_s.delete('_')}::Processor".casecmp? cls.name
+        "NodeHarness::Processor::#{analyzer.to_s.delete('_')}".casecmp?(cls.name)
       end or raise "Not found processor class with '#{analyzer}'")
     end
 
