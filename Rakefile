@@ -128,6 +128,10 @@ task :release, [:version] do |_task, args|
     abort "Uncommitted changes found!" unless ok
   end
 
+  unless File.readlines("CHANGELOG.md", chomp: true).include? "## #{new_version}"
+    abort "No entry of version #{new_version} in CHANGELOG.md!"
+  end
+
   sh "git --no-pager log --oneline #{current_version}...HEAD"
   sh "git tag -a #{new_version} -m 'Version #{new_version}'"
   puts "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
