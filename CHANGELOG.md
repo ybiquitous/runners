@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.0.5...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.0.6...HEAD)
 
 ## 0.0.6
 
