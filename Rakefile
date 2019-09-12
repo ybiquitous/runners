@@ -118,7 +118,7 @@ task :release, [:version] do |_task, args|
 
   sh "git checkout master --quiet"
   sh "git pull origin master --quiet"
-  sh "bundle install"
+  sh "bundle install --quiet"
 
   current_version = `git describe --abbrev=0 --tags`.chomp
   unless Gem::Version.new(current_version) < Gem::Version.new(new_version)
@@ -129,16 +129,35 @@ task :release, [:version] do |_task, args|
     abort "Uncommitted changes found!" unless ok
   end
 
-  unless File.readlines("CHANGELOG.md", chomp: true).include? "## #{new_version}"
-    abort "No entry of version #{new_version} in CHANGELOG.md!"
-  end
-
   sh "git --no-pager log --oneline #{current_version}...HEAD"
 
   if ENV["DRYRUN"]
     puts "This is a dry-run mode. No actual changes."
   else
+    update_changelog current_version, new_version
+    sh "git commit -a -m 'Version #{new_version}' --quiet"
     sh "git tag -a #{new_version} -m 'Version #{new_version}'"
     puts "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
   end
+end
+
+def update_changelog(current_version, new_version)
+  file = "CHANGELOG.md"
+  new_lines = File.readlines(file, chomp: true).map do |line|
+    case
+    when line == "## Unreleased"
+      "## #{new_version}"
+    when line.include?("#{current_version}...HEAD")
+      line.sub("#{current_version}...HEAD", "#{current_version}...#{new_version}")
+    else
+      line
+    end
+  end
+  new_lines.insert(4,
+    "## Unreleased",
+    "",
+    "[Full diff](https://github.com/sider/runners/compare/#{new_version}...HEAD)",
+    "",
+  )
+  File.write(file, new_lines.join("\n") + "\n")
 end
