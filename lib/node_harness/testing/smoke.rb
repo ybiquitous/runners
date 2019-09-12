@@ -67,7 +67,7 @@ module NodeHarness
           end
         end
         result = traces.find { |object|
-          NodeHarness::Schema::Result.envelope =~ object
+          Schema::Result.envelope =~ object
         }
 
         unify_result(result, pattern, out)

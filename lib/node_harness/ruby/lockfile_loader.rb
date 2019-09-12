@@ -35,7 +35,7 @@ module NodeHarness
                                 end
                               end
                               generated_lockfile_path
-                            rescue NodeHarness::Shell::ExecError
+                            rescue Shell::ExecError
                               shell.trace_writer.error "An error was found in Gemfile. But Sider will continue the analysis process by ignoring your dependencies."
                               shell.trace_writer.error "If you want to make us aware of your dependencies, Fix the Gemfile according to the above error messages, or commit your Gemfile.lock."
                               nil
