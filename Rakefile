@@ -134,6 +134,11 @@ task :release, [:version] do |_task, args|
   end
 
   sh "git --no-pager log --oneline #{current_version}...HEAD"
-  sh "git tag -a #{new_version} -m 'Version #{new_version}'"
-  puts "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
+
+  if ENV["DRYRUN"]
+    puts "This is a dry-run mode. No actual changes."
+  else
+    sh "git tag -a #{new_version} -m 'Version #{new_version}'"
+    puts "The tag '#{new_version}' is added. Run 'git push --follow-tags'."
+  end
 end
