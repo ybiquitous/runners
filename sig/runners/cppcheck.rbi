@@ -1,4 +1,4 @@
-type NodeHarness::Runners::Cppcheck::config = {
+type NodeHarness::Processor::Cppcheck::config = {
   target: String | Array<String> | nil,
   ignore: String | Array<String> | nil,
   enable: String?,
@@ -7,7 +7,7 @@ type NodeHarness::Runners::Cppcheck::config = {
   language: String?,
 }
 
-class NodeHarness::Runners::Cppcheck::Processor < NodeHarness::Processor
+class NodeHarness::Processor::Cppcheck < NodeHarness::Processor
   def cppcheck: -> String
   def config: -> config
   def target: -> Array<String>
@@ -20,11 +20,11 @@ class NodeHarness::Runners::Cppcheck::Processor < NodeHarness::Processor
   def parse_result: (Nokogiri::XML::Document) { (NodeHarness::Issues::Structured) -> void } -> void
 end
 
-NodeHarness::Runners::Cppcheck::Processor::DEFAULT_TARGET: String
-NodeHarness::Runners::Cppcheck::Processor::DEFAULT_IGNORE: Array<String>
+NodeHarness::Processor::Cppcheck::DEFAULT_TARGET: String
+NodeHarness::Processor::Cppcheck::DEFAULT_IGNORE: Array<String>
 
-class NodeHarness::Runners::Cppcheck::Processor::JSONSchema < StrongJSON
-  def runner_config: -> StrongJSON::_Schema<NodeHarness::Runners::Cppcheck::config>
+class NodeHarness::Processor::Cppcheck::JSONSchema < StrongJSON
+  def runner_config: -> StrongJSON::_Schema<NodeHarness::Processor::Cppcheck::config>
   def rule: -> StrongJSON::_Schema<any>
 end
-NodeHarness::Runners::Cppcheck::Processor::Schema: NodeHarness::Runners::Cppcheck::Processor::JSONSchema
+NodeHarness::Processor::Cppcheck::Schema: NodeHarness::Processor::Cppcheck::JSONSchema

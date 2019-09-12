@@ -110,10 +110,10 @@ class CLITest < Minitest::Test
 
   def test_processor_class
     cli = CLI.new(argv: ["--analyzer=rubocop"], stdout: stdout, stderr: stderr)
-    assert_equal NodeHarness::Runners::RuboCop::Processor, cli.processor_class
+    assert_equal NodeHarness::Processor::RuboCop, cli.processor_class
 
     cli = CLI.new(argv: ["--analyzer=scss_lint"], stdout: stdout, stderr: stderr)
-    assert_equal NodeHarness::Runners::ScssLint::Processor, cli.processor_class
+    assert_equal NodeHarness::Processor::ScssLint, cli.processor_class
 
     cli = CLI.new(argv: ["--analyzer=foo"], stdout: stdout, stderr: stderr)
     error = assert_raises { cli.processor_class }
