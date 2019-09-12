@@ -194,6 +194,40 @@ class ProcessorTest < Minitest::Test
     end
   end
 
+  def test_check_root_dir_exist
+    klass = Class.new(Processor) do
+      def self.ci_config_section_name
+        "foo_tool"
+      end
+    end
+
+    mktmpdir do |path|
+      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "path/to/unknown" } } }))
+
+      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      result = processor.check_root_dir_exist
+      assert_instance_of NodeHarness::Results::Failure, result
+      assert_equal "`path/to/unknown` directory is not found! Please check `linter.foo_tool.root_dir` in your `sider.yml`", result.message
+      assert_nil result.analyzer
+    end
+  end
+
+  def test_check_root_dir_exist_with_success
+    klass = Class.new(Processor) do
+      def self.ci_config_section_name
+        "foo_tool"
+      end
+    end
+
+    mktmpdir do |path|
+      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "abc" } } }))
+      (path + "abc").mkpath
+
+      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      assert_nil processor.check_root_dir_exist
+    end
+  end
+
   def test_push_root_dir_with_config
     # when root_dir is given, run is invoked within the dir
 
