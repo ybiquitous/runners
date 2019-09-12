@@ -391,7 +391,7 @@ module NodeHarness::Nodejs : Processor
   def nodejs_analyzer_locally_installed?: -> bool
   def nodejs_analyzer_global_version: -> String
   def nodejs_analyzer_local_version: -> String
-  def check_nodejs_runtime: -> void
+  def show_runtime_versions: -> void
   def check_nodejs_default_deps: (DefaultDependencies, Hash<String, Constraint>) -> void
   def check_duplicate_lockfiles: -> void
   def npm_install: (npm_install_option) -> void
