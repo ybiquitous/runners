@@ -111,7 +111,7 @@ NodeHarness::Testing::Smoke.add_test("invalid_runner_config", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
-  message: "Invalid configuration in sideci.yml: unknown attribute at config: $.linter.phinder",
+  message: "Invalid configuration in `sideci.yml`: unknown attribute at config: `$.linter.phinder`",
   analyzer: nil,
 })
 

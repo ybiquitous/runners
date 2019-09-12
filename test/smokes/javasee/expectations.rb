@@ -55,5 +55,5 @@ NodeHarness::Testing::Smoke.add_test("broken_sider_yml", {
   timestamp: :_,
   type: "failure",
   analyzer: nil,
-  message: "Invalid configuration in sider.yml: unexpected value at config: $.linter.javasee.dir[2]"
+  message: "Invalid configuration in `sider.yml`: unexpected value at config: `$.linter.javasee.dir[2]`"
 })

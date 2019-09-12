@@ -318,7 +318,7 @@ class ProcessorTest < Minitest::Test
       processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.ensure_runner_config_schema(StrongJSON.new { let :config, object(root_dir: string?) }.config) { |c| c }
       assert_instance_of NodeHarness::Results::Failure, result
-      assert_equal "Invalid configuration in sider.yml: unknown attribute at config: $.linter.foo_tool", result.message
+      assert_equal "Invalid configuration in `sider.yml`: unknown attribute at config: `$.linter.foo_tool`", result.message
       assert_nil result.analyzer
     end
   end
@@ -336,7 +336,7 @@ class ProcessorTest < Minitest::Test
       processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.ensure_runner_config_schema(StrongJSON.new { let :config, object(root_dir: string?) }.config) { |c| c }
       assert_instance_of NodeHarness::Results::Failure, result
-      assert_equal "Invalid configuration in sider.yml: unexpected value at config: $.linter.foo_tool.root_dir", result.message
+      assert_equal "Invalid configuration in `sider.yml`: unexpected value at config: `$.linter.foo_tool.root_dir`", result.message
       assert_nil result.analyzer
     end
   end

@@ -109,7 +109,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   timestamp: :_,
   type: "failure",
   analyzer: nil,
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.pmd_java.min_priority"
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.pmd_java.min_priority`"
 })
 
 NodeHarness::Testing::Smoke.add_test("deprecated-rules", {

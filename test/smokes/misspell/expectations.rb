@@ -160,6 +160,6 @@ NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.misspell.locale",
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.misspell.locale`",
   analyzer: nil
 })

@@ -73,7 +73,7 @@ NodeHarness::Testing::Smoke.add_test("with_invalid_ci_config", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.goodcheck.config",
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.goodcheck.config`",
   analyzer: nil
 })
 
