@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Show Node.js runtime versions [#83](https://github.com/sider/runners/pull/83)
 - Improve error message when `root_dir` is not found [#84](https://github.com/sider/runners/pull/84)
+- Improve messages in markdown format [#85](https://github.com/sider/runners/pull/85)
 
 ## 0.0.6
 
