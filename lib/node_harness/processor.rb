@@ -133,6 +133,7 @@ module NodeHarness
 
         message = "`#{root_dir}` directory is not found!" \
           " Please check `linter.#{self.class.ci_config_section_name}.root_dir` in your `#{ci_config_path_name}`"
+        trace_writer.error message
         NodeHarness::Results::Failure.new(guid: guid, message: message)
       end
     end
@@ -174,7 +175,7 @@ module NodeHarness
         begin
           schema.coerce(ci_section.deep_symbolize_keys)
         rescue StrongJSON::Type::UnexpectedAttributeError => error
-          message = "Invalid configuration in #{ci_config_path_name}: unknown attribute at config: #{build_field_reference_from_path(error.path)}"
+          message = "Invalid configuration in `#{ci_config_path_name}`: unknown attribute at config: `#{build_field_reference_from_path(error.path)}`"
           trace_writer.error message
           return NodeHarness::Results::Failure.new(
             guid: guid,
@@ -182,7 +183,7 @@ module NodeHarness
             analyzer: nil
           )
         rescue StrongJSON::Type::TypeError => error
-          message = "Invalid configuration in #{ci_config_path_name}: unexpected value at config: #{build_field_reference_from_path(error.path)}"
+          message = "Invalid configuration in `#{ci_config_path_name}`: unexpected value at config: `#{build_field_reference_from_path(error.path)}`"
           trace_writer.error message
           return NodeHarness::Results::Failure.new(
             guid: guid,

@@ -173,7 +173,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.tslint.config",
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.tslint.config`",
   analyzer: nil
 })
 
@@ -236,7 +236,7 @@ NodeHarness::Testing::Smoke.add_test("invalid-tslint-version", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
-  message: /Your 'tslint' settings couldn't satisfy the required constraints/,
+  message: /Your `tslint` settings could not satisfy the required constraints/,
   analyzer: nil,
 })
 
@@ -268,6 +268,6 @@ NodeHarness::Testing::Smoke.add_test("mismatched_package_version", {
   guid: 'test-guid',
   timestamp: :_,
   type: "failure",
-  message: "'yarn install' failed. Please confirm 'yarn.lock' is consistent with 'package.json'.",
+  message: "`yarn install` failed. Please confirm `yarn.lock` is consistent with `package.json`.",
   analyzer: nil
 })

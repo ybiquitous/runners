@@ -63,7 +63,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   timestamp: :_,
   type: "failure",
   analyzer: nil,
-  message: "Invalid configuration in sideci.yml: unknown attribute at config: $.linter.code_sniffer.options"
+  message: "Invalid configuration in `sideci.yml`: unknown attribute at config: `$.linter.code_sniffer.options`"
 })
 
 NodeHarness::Testing::Smoke.add_test("version_2", {

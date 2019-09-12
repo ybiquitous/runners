@@ -72,7 +72,7 @@ NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
   timestamp: :_,
   type: 'failure',
   analyzer: nil,
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.rails_best_practices.options.exclude"
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.rails_best_practices.options.exclude`"
 })
 
 NodeHarness::Testing::Smoke.add_test('valid_sideci_yml', {

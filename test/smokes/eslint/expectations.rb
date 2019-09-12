@@ -230,7 +230,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.eslint.options.npm_install",
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.eslint.options.npm_install`",
   analyzer: nil
 })
 
@@ -413,7 +413,7 @@ NodeHarness::Testing::Smoke.add_test("mismatched_package_version", {
   guid: 'test-guid',
   timestamp: :_,
   type: "failure",
-  message: "'yarn install' failed. Please confirm 'yarn.lock' is consistent with 'package.json'.",
+  message: "`yarn install` failed. Please confirm `yarn.lock` is consistent with `package.json`.",
   analyzer: nil
 })
 

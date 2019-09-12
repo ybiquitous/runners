@@ -105,6 +105,6 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.phpmd.minimumpriority",
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.phpmd.minimumpriority`",
   analyzer: nil
 })

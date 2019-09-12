@@ -272,7 +272,7 @@ class NodejsTest < Minitest::Test
         end
 
         expected_message = <<~MSG.strip
-          There are two duplicate lockfiles ('package-lock.json' and 'yarn.lock'). Please remove either for accurate analysis.
+          There are two duplicate lockfiles (`package-lock.json` and `yarn.lock`). Please remove either for accurate analysis.
         MSG
         assert_equal expected_message, error.message
         assert_equal [expected_message], actual_errors
@@ -312,20 +312,20 @@ class NodejsTest < Minitest::Test
         error = assert_raises InvalidDefaultDependencies do
           processor.send(:check_nodejs_default_deps, defaults, constraints)
         end
-        assert_equal "The default dependency 'eslint@5.15.0' must satisfy the constraint '> 5.15.0'", error.message
+        assert_equal "The default dependency `eslint@5.15.0` must satisfy the constraint `> 5.15.0`", error.message
 
         constraints = { "eslint" => Constraint.new(">= 5.0.0", "< 5.15.0") }
         error = assert_raises InvalidDefaultDependencies do
           processor.send(:check_nodejs_default_deps, defaults, constraints)
         end
-        assert_equal "The default dependency 'eslint@5.15.0' must satisfy the constraint '>= 5.0.0, < 5.15.0'", error.message
+        assert_equal "The default dependency `eslint@5.15.0` must satisfy the constraint `>= 5.0.0, < 5.15.0`", error.message
       end
 
       processor.stub :nodejs_analyzer_global_version, "1.0.0" do
         error = assert_raises InvalidDefaultDependencies do
           processor.send(:check_nodejs_default_deps, defaults, { "eslint" => Constraint.new("= 5.15.0") })
         end
-        assert_equal "The default dependency 'eslint' version must be '5.15.0', but actually '1.0.0'", error.message
+        assert_equal "The default dependency `eslint` version must be `5.15.0`, but actually `1.0.0`", error.message
       end
     end
   end
@@ -418,8 +418,8 @@ class NodejsTest < Minitest::Test
       assert_equal expected_commands, actual_commands
 
       expected_warning = <<~MSG.strip
-        The 'npm ci --only=development' command doesn't install anything, so 'npm install --only=development' will be used instead.
-        If you want to use 'npm ci', please change your install option from 'development' to 'true'.
+        The `npm ci --only=development` command does not install anything, so `npm install --only=development` will be used instead.
+        If you want to use `npm ci`, please change your install option from `development` to `true`.
         For details about the npm behavior, see https://npm.community/t/npm-ci-only-dev-does-not-install-anything/3068
       MSG
       actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
@@ -441,8 +441,8 @@ class NodejsTest < Minitest::Test
         processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
       end
       expected_error_message = <<~MSG.strip
-        'npm install' failed. Please check the log for details.
-        If you want to explicitly disable the installation, please set 'npm_install: false' on your 'sider.yml'.
+        `npm install` failed. Please check the log for details.
+        If you want to explicitly disable the installation, please set `npm_install: false` on your `sider.yml`.
       MSG
       assert_equal expected_error_message, error.message
       assert_equal [expected_error_message], actual_errors
@@ -481,7 +481,7 @@ class NodejsTest < Minitest::Test
       assert_equal expected_commands, actual_commands
 
       expected_warning = <<~MSG.strip
-        Yarn doesn't have a same feature as 'npm install --only=development', so the option 'development' will be ignored.
+        Yarn does not have a same feature as `npm install --only=development`, so the option `development` will be ignored.
         See https://github.com/yarnpkg/yarn/issues/3254 for details.
       MSG
       actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
@@ -502,7 +502,7 @@ class NodejsTest < Minitest::Test
         processor.send(:yarn_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
       end
       expected_error_message = <<~MSG.strip
-        'yarn install' failed. Please confirm 'yarn.lock' is consistent with 'package.json'.
+        `yarn install` failed. Please confirm `yarn.lock` is consistent with `package.json`.
       MSG
       assert_equal expected_error_message, error.message
       assert_equal [expected_error_message], actual_errors
@@ -530,8 +530,8 @@ class NodejsTest < Minitest::Test
       pass "when no dependencies satisfying constraints"
 
       expected_error_message = <<~MSG.strip
-        Your 'eslint' settings couldn't satisfy the required constraints. Please check your 'package.json' again.
-        If you want to analyze via the Sider default settings, please configure your 'sider.yml'. For details, see the documentation.
+        Your `eslint` settings could not satisfy the required constraints. Please check your `package.json` again.
+        If you want to analyze via the Sider default settings, please configure your `sider.yml`. For details, see the documentation.
       MSG
 
       npm_install.call(dependencies: { "eslint-config-standard" => "10.0.0" })
@@ -547,9 +547,9 @@ class NodejsTest < Minitest::Test
       ### assert warnings output
 
       expected_warnings = [
-        "No required dependencies for analysis were installed. Instead, the pre-installed 'eslint@5.1.0' will be used.",
-        "No required dependencies for analysis were installed. Instead, the pre-installed 'eslint@5.1.0' will be used.",
-        "The required dependency 'eslint' may not have been correctly installed. It may be a missing peer dependency."
+        "No required dependencies for analysis were installed. Instead, the pre-installed `eslint@5.1.0` will be used.",
+        "No required dependencies for analysis were installed. Instead, the pre-installed `eslint@5.1.0` will be used.",
+        "The required dependency `eslint` may not have been correctly installed. It may be a missing peer dependency."
       ]
       actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
       assert_equal expected_warnings, actual_warnings
@@ -560,7 +560,7 @@ class NodejsTest < Minitest::Test
       ], processor.warnings
 
       expected_errors = [
-        "The installed dependency 'eslint@4.0.0' didn't satisfy the constraint '>= 5.0.0'.",
+        "The installed dependency `eslint@4.0.0` did not satisfy the constraint `>= 5.0.0`.",
         expected_error_message,
       ]
       assert_equal expected_errors, actual_errors

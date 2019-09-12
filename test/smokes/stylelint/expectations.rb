@@ -254,7 +254,7 @@ NodeHarness::Testing::Smoke.add_test('pinned_stylelint_version', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: /Your 'stylelint' settings couldn't satisfy the required constraints/
+  message: /Your `stylelint` settings could not satisfy the required constraints/
 })
 
 # Case: package.json が存在 && stylelintrc が不在 && npm_install: true
@@ -334,7 +334,7 @@ NodeHarness::Testing::Smoke.add_test('npm_install_without_stylelint', {
   ],
 }, {
   warnings: [
-    { message: /The required dependency 'stylelint' may not have been correctly installed/, file: "package.json" },
+    { message: /The required dependency `stylelint` may not have been correctly installed/, file: "package.json" },
   ],
 })
 
@@ -346,7 +346,7 @@ NodeHarness::Testing::Smoke.add_test('failed_to_npm_install', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: /'npm install' failed./,
+  message: /`npm install` failed./,
 })
 
 # Case: package.json が存在 && stylelintrc が存在 && npm_install オプションの記載なし
@@ -365,7 +365,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.stylelint.options.ignore-path"
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.stylelint.options.ignore-path`"
 })
 
 NodeHarness::Testing::Smoke.add_test("additional_options", {
@@ -405,7 +405,7 @@ NodeHarness::Testing::Smoke.add_test("mismatched_yarnlock_and_package_json", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: "'yarn install' failed. Please confirm 'yarn.lock' is consistent with 'package.json'."
+  message: "`yarn install` failed. Please confirm `yarn.lock` is consistent with `package.json`."
 })
 
 NodeHarness::Testing::Smoke.add_test("default_glob", {

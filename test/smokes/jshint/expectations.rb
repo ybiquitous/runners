@@ -87,7 +87,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   timestamp: :_,
   type: 'failure',
   analyzer: nil,
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.jshint.options.config"
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.jshint.options.config`"
 })
 
 NodeHarness::Testing::Smoke.add_test("with_options", {

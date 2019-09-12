@@ -189,6 +189,6 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.flake8.plugins",
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.flake8.plugins`",
   analyzer: nil
 })

@@ -293,7 +293,7 @@ NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
   timestamp: :_,
   type: 'failure',
   analyzer: nil,
-  message: "Invalid configuration in sideci.yml: unexpected value at config: $.linter.rubocop.gems[0]"
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.rubocop.gems[0]`"
 })
 
 NodeHarness::Testing::Smoke.add_test('with_safe_cops', {
