@@ -60,6 +60,7 @@ module NodeHarness
     def install_nodejs_deps(defaults, constraints:, install_option:)
       install_option = INSTALL_OPTION_ALL if install_option.nil?
 
+      show_runtime_versions
       check_nodejs_default_deps(defaults, constraints)
 
       return if install_option == INSTALL_OPTION_NONE
@@ -89,6 +90,12 @@ module NodeHarness
 
     def nodejs_analyzer_local_version
       @nodejs_analyzer_local_version ||= extract_version!(nodejs_analyzer_local_command)
+    end
+
+    def show_runtime_versions
+      capture3! "node", "-v"
+      capture3! "npm", "-v"
+      capture3! "yarn", "-v"
     end
 
     def check_nodejs_default_deps(defaults, constraints)
