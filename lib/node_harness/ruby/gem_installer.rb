@@ -40,7 +40,7 @@ module NodeHarness
             shell.capture3!("bundle", "lock")
             shell.capture3!("bundle", "install", "--deployment", "--binstubs")
             shell.capture3!("bundle", "list")
-          rescue NodeHarness::Shell::ExecError
+          rescue Shell::ExecError
             raise InstallationFailure.new(<<~MESSAGE)
               Failed to install gems. Sider automatically installs gems according to `#{ci_config_path_name}` and `Gemfile.lock`.
               You can select the version of gems you want to install via `#{ci_config_path_name}`.
