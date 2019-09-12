@@ -122,8 +122,23 @@ module NodeHarness
       default.deep_merge(Hash(section))
     end
 
+    def ci_section_root_dir
+      ci_section["root_dir"]
+    end
+
+    def check_root_dir_exist
+      root_dir = ci_section_root_dir
+      if root_dir
+        return if (working_dir / root_dir).directory?
+
+        message = "`#{root_dir}` directory is not found!" \
+          " Please check `linter.#{self.class.ci_config_section_name}.root_dir` in your `#{ci_config_path_name}`"
+        NodeHarness::Results::Failure.new(guid: guid, message: message)
+      end
+    end
+
     def push_root_dir(&block)
-      root_dir = ci_section["root_dir"]
+      root_dir = ci_section_root_dir
       if root_dir
         push_dir(working_dir + root_dir, &block)
       else
@@ -132,7 +147,7 @@ module NodeHarness
     end
 
     def root_dir
-      root_dir = ci_section["root_dir"]
+      root_dir = ci_section_root_dir
       if root_dir
         working_dir + root_dir
       else

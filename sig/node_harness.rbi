@@ -171,6 +171,8 @@ class NodeHarness::Processor
   def ci_config_path: () -> Pathname
   def ci_config_path_name: () -> String
   def ci_section: (?Hash<any, any>) -> Hash<any, any>
+  def ci_section_root_dir: () -> String?
+  def check_root_dir_exist: () -> result?
   def push_root_dir: <'x> { -> 'x } -> 'x
   def ensure_files: (*Pathname) { (Pathname) -> result } -> result
   def ensure_runner_config_schema: <'x> (any) { ('x) -> result } -> result
@@ -238,7 +240,7 @@ class NodeHarness::Harness
   attr_reader ci_config: any
 
   def initialize: (guid: String, processor_class: Processor.class constructor, workspace: Workspace, trace_writer: TraceWriter) -> any
-  def run: () -> any
+  def run: () -> result
   def ensure_result: { -> result } -> result
 end
 

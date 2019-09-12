@@ -34,6 +34,9 @@ module NodeHarness
         begin
           instance = processor_class.new(guid: guid, working_dir: workspace.working_dir, git_ssh_path: workspace.git_ssh_path, trace_writer: trace_writer)
 
+          root_dir_not_found = instance.check_root_dir_exist
+          return root_dir_not_found if root_dir_not_found
+
           instance.push_root_dir do
             trace_writer.header "Calculating changes between head and base"
             changes = trace_writer.message "Running..." do

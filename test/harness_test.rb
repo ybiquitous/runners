@@ -80,6 +80,15 @@ class HarnessTest < Minitest::Test
     end
   end
 
+  def test_run_when_root_dir_not_found
+    with_workspace(head: Pathname(__dir__).join("data/foo.tgz").to_s) do |workspace|
+      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { TestProcessor.ci_config_section_name => { "root_dir" => "foo" } } }))
+
+      harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: workspace, trace_writer: trace_writer)
+      assert_instance_of Results::Failure, harness.run
+    end
+  end
+
   def test_ensure_result_returns_succeee_result
     harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: nil, trace_writer: trace_writer)
 
