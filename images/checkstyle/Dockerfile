@@ -2,7 +2,7 @@
 # NOTE: DO *NOT* EDIT THIS FILE.  IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-FROM sider/devon_rex_java:2.1.0
+FROM sider/devon_rex_java:2.2.0
 
 ARG NODE_HARNESS_DIR=$RUNNER_USER_HOME/node_harness
 COPY Gemfile* Rakefile $NODE_HARNESS_DIR/

@@ -66,7 +66,7 @@ NodeHarness::Testing::Smoke.add_test("invalid_config_file", {
   type: "error",
   class: "JSON::ParserError",
   backtrace: :_,
-  inspect: "#<JSON::ParserError: 765: unexpected token at ''>"
+  inspect: "#<JSON::ParserError: 767: unexpected token at ''>"
 })
 
 NodeHarness::Testing::Smoke.add_test("with_invalid_ci_config", {
