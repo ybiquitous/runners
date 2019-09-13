@@ -7,6 +7,7 @@ require 'parallel'
 module NodeHarness
   module Testing
     class Smoke
+      include Minitest::Assertions
       include UnificationAssertion
 
       ROOT_DATA_DIR = Pathname('/data')
@@ -48,9 +49,9 @@ module NodeHarness
 
         puts "-" * 30
         if results.all?
-          puts "❤️  Smoke tests pass!"
+          puts "❤️  Smoke tests passed!"
         else
-          puts "⚠️  Smoke test failed"
+          puts "❌ Smoke tests failed! -- #{results.count(true)} passed, #{results.count(false)} failed, #{results.count} total"
           exit 1
         end
       end
@@ -80,12 +81,14 @@ module NodeHarness
           when (a.is_a?(Regexp) && !b.is_a?(Regexp)) || (!a.is_a?(Regexp) && b.is_a?(Regexp))
             unless a.match?(b)
               ok = false
-              out.puts "Pattern matching failed: #{path}, #{a.inspect}, #{b.inspect}"
+              out.puts "❌ Pattern matching failed at #{path}:"
+              out.puts diff(a, b)
             end
           else
             unless a == b
               ok = false
-              out.puts "Pattern matching failed: #{path}, #{a.inspect}, #{b.inspect}"
+              out.puts "❌ Pattern matching failed at #{path}:"
+              out.puts diff(a, b)
             end
           end
         end

@@ -1,4 +1,5 @@
 class NodeHarness::Testing::Smoke
+  include Minitest::Assertions
   include UnificationAssertion
 
   attr_reader argv: Array<String>
