@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Improve error message when `root_dir` is not found [#84](https://github.com/sider/runners/pull/84)
 - Improve messages in markdown format [#85](https://github.com/sider/runners/pull/85)
 - Show Ruby runtime versions [#87](https://github.com/sider/runners/pull/87)
+- Bump devon_rex images from 2.1.0 to 2.2.0 [#89](https://github.com/sider/runners/pull/89)
 
 ## 0.0.6
 
