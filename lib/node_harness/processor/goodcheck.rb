@@ -112,6 +112,7 @@ module NodeHarness
 
     def setup
       ret = ensure_runner_config_schema(Schema.runner_config) do
+        show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, constraints: CONSTRAINTS do |versions|
           @analyzer = Analyzer.new(name: 'goodcheck', version: versions["goodcheck"])
           yield

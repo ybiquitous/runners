@@ -294,6 +294,7 @@ module NodeHarness::Ruby : Processor
   def default_specs: (Array<GemInstaller::Spec>, Hash<String, Array<String>>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
   def optional_specs: (Array<GemInstaller::Spec>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
   def user_specs: (Array<GemInstaller::Spec>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
+  def show_ruby_runtime_versions: -> void
 end
 
 NodeHarness::Ruby::GemInstaller::DEFAULT_SOURCE: String
