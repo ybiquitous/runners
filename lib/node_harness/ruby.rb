@@ -61,5 +61,11 @@ module NodeHarness
         end
       end
     end
+
+    def show_ruby_runtime_versions
+      capture3! "ruby", "-v"
+      capture3! "gem", "-v"
+      capture3! "bundle", "-v"
+    end
   end
 end

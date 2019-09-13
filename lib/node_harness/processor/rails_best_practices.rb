@@ -52,6 +52,7 @@ module NodeHarness
 
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
+        show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           @analyzer = Analyzer.new(name: 'rails_best_practices', version: versions["rails_best_practices"])
           yield

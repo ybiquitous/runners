@@ -67,6 +67,8 @@ module NodeHarness
 
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
+        show_ruby_runtime_versions
+
         defaults = DEFAULT_GEMS
 
         if setup_default_config
