@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/ybiquitous/aufgaben.git
+  revision: a201e6c1ddef2dc5bc3b80d15c361a29dee9dc1c
+  specs:
+    aufgaben (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -83,6 +89,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  aufgaben!
   bundler (>= 1.12, < 3.0)
   jsonseq
   locale

@@ -19,4 +19,5 @@ group :development, :test do
   gem 'steep'
   gem 'rubocop', require: false
   gem 'meowcop', require: false
+  gem 'aufgaben', git: 'https://github.com/ybiquitous/aufgaben.git'
 end
