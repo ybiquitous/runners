@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Improve messages in markdown format [#85](https://github.com/sider/runners/pull/85)
 - Show Ruby runtime versions [#87](https://github.com/sider/runners/pull/87)
 - Bump devon_rex images from 2.1.0 to 2.2.0 [#89](https://github.com/sider/runners/pull/89)
+- Fix `stylelint-config-recommended` version [#93](https://github.com/sider/runners/pull/93)
 
 ## 0.0.6
 
