@@ -17,11 +17,17 @@ ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
-ARG LINT_TOOL_VERSION=0.2.1
-ARG TYPESCRIPT_VERSION=3.5.3
+# Install the default version
+COPY images/tyscan/package.json ${RUNNER_USER_HOME}/tyscan_package.json
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir tyscan && \
+    mv tyscan_package.json tyscan/package.json && \
+    cd tyscan && \
+    npm install --no-package-lock --ignore-scripts && \
+    node_modules/.bin/tyscan --version
+ENV PATH ${RUNNER_USER_HOME}/tyscan/node_modules/.bin:${PATH}
+# See https://nodejs.org/api/cli.html#cli_node_path_path
+ENV NODE_PATH ${RUNNER_USER_HOME}/tyscan/node_modules:${NODE_PATH}
 
-USER root
-RUN npm install -g tyscan@${LINT_TOOL_VERSION} typescript@${TYPESCRIPT_VERSION}
-USER $RUNNER_USER
 
 ENTRYPOINT ["runners", "--analyzer=tyscan"]

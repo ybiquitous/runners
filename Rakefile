@@ -29,6 +29,8 @@ namespace :dockerfile do
   desc 'Generate Dockerfile from a template'
   task :generate do
     ANALYZERS.each do |analyzer|
+      backup_analyzer = ENV['ANALYZER']
+      ENV['ANALYZER'] = analyzer
       path = Pathname('images') / analyzer
       template = ERB.new((path / 'Dockerfile.erb').read)
       result = <<~EOD
@@ -39,6 +41,12 @@ namespace :dockerfile do
         #{template.result.chomp}
       EOD
       File.write(path / 'Dockerfile', result)
+    ensure
+      if backup_analyzer
+        ENV['ANALYZER'] = backup_analyzer
+      else
+        ENV.delete 'ANALYZER'
+      end
     end
   end
 

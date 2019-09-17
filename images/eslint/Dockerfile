@@ -17,12 +17,18 @@ ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
-ARG ESLINT_VERSION=5.16.0
+# Install the default version
+COPY images/eslint/package.json ${RUNNER_USER_HOME}/eslint_package.json
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir eslint && \
+    mv eslint_package.json eslint/package.json && \
+    cd eslint && \
+    npm install --no-package-lock --ignore-scripts && \
+    node_modules/.bin/eslint --version
+ENV PATH ${RUNNER_USER_HOME}/eslint/node_modules/.bin:${PATH}
+# See https://nodejs.org/api/cli.html#cli_node_path_path
+ENV NODE_PATH ${RUNNER_USER_HOME}/eslint/node_modules:${NODE_PATH}
 
-# Install eslint globally
-USER root
-RUN npm install -g eslint@${ESLINT_VERSION}
-USER $RUNNER_USER
 
 # NOTE: ESLint uses a configuration file in the home directory if no other configuration files are found.
 #       See https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy

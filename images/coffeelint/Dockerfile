@@ -17,9 +17,17 @@ ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
-ARG COFFEELINT_VERSION=1.16.0
-USER root
-RUN npm install -g coffeelint@${COFFEELINT_VERSION}
-USER $RUNNER_USER
+# Install the default version
+COPY images/coffeelint/package.json ${RUNNER_USER_HOME}/coffeelint_package.json
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir coffeelint && \
+    mv coffeelint_package.json coffeelint/package.json && \
+    cd coffeelint && \
+    npm install --no-package-lock --ignore-scripts && \
+    node_modules/.bin/coffeelint --version
+ENV PATH ${RUNNER_USER_HOME}/coffeelint/node_modules/.bin:${PATH}
+# See https://nodejs.org/api/cli.html#cli_node_path_path
+ENV NODE_PATH ${RUNNER_USER_HOME}/coffeelint/node_modules:${NODE_PATH}
+
 
 ENTRYPOINT ["runners", "--analyzer=coffeelint"]

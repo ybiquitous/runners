@@ -1,12 +1,6 @@
 FROM sider/devon_rex_npm:2.2.0
 
 <%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
-
-ARG LINT_TOOL_VERSION=0.2.1
-ARG TYPESCRIPT_VERSION=3.5.3
-
-USER root
-RUN npm install -g tyscan@${LINT_TOOL_VERSION} typescript@${TYPESCRIPT_VERSION}
-USER $RUNNER_USER
+<%= ERB.new(File.read('images/Dockerfile.npm.erb')).result %>
 
 ENTRYPOINT ["runners", "--analyzer=tyscan"]
