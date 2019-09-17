@@ -55,12 +55,11 @@ module Runners
     end
 
     def analyzer
-      @analyzer ||= begin
-        stdout, _, = capture3!(phpcs_bin, '--version')
-        # stdout: "PHP_CodeSniffer version 3.3.0 (stable) by Squiz (http://www.squiz.net)"
-        version = stdout[/\s([0-9\.]+)\s/, 1]
-        Analyzer.new(name: "code_sniffer", version: version)
-      end
+      @analyzer ||= Analyzer.new(name: "code_sniffer", version: analyzer_version)
+    end
+
+    def analyzer_version
+      @analyzer_version ||= extract_version! phpcs_bin
     end
 
     def additional_options(config)

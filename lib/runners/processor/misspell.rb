@@ -21,11 +21,11 @@ module Runners
     end
 
     def analyzer
-      @analyzer ||= Analyzer.new(name: 'Misspell', version: misspell_version)
+      @analyzer ||= Analyzer.new(name: 'Misspell', version: analyzer_version)
     end
 
-    def misspell_version
-      capture3!('misspell', '-v').first.chomp
+    def analyzer_version
+      @analyzer_version ||= extract_version! 'misspell', '-v'
     end
 
     def setup

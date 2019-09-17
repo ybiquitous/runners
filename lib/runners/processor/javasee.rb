@@ -39,12 +39,8 @@ module Runners
                      *dirs.map(&:to_s))
     end
 
-    def javasee_version()
-      shell.capture3!(javasee, "version")
-    end
-
     def analyzer_version
-      @analyzer_version ||= javasee_version.first.split.last
+      @analyzer_version ||= extract_version! javasee, "version"
     end
 
     def analyzer

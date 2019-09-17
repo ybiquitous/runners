@@ -36,7 +36,7 @@ module Runners
     end
 
     def analyzer_version
-      @analyzer_version ||= capture3(tyscan_bin, '--version').first.strip
+      @analyzer_version ||= extract_version! tyscan_bin
     end
 
     def analyzer

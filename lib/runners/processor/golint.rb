@@ -41,9 +41,7 @@ module Runners
     end
 
     def analyzer_version
-      @analyzer_version if @analyzer_version
-      stdout, _ = capture3!('gometalinter', '--version')
-      @analyzer_version = stdout.strip
+      @analyzer_version ||= extract_version! "gometalinter"
     end
   end
 end
