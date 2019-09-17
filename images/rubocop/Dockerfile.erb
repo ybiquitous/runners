@@ -15,4 +15,4 @@ RUN rbenv install $GLOBAL_RUBY_VERSION && \
 
 RUN gem install rubocop -v 0.74.0
 
-ENTRYPOINT ["node_harness", "--analyzer=rubocop"]
+ENTRYPOINT ["runners", "--analyzer=rubocop"]

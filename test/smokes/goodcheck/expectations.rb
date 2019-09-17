@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -20,7 +22,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("with_ci_config", {
+Smoke.add_test("with_ci_config", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -41,7 +43,7 @@ NodeHarness::Testing::Smoke.add_test("with_ci_config", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("no_config_file", {
+Smoke.add_test("no_config_file", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -60,7 +62,7 @@ NodeHarness::Testing::Smoke.add_test("no_config_file", {
   MESSAGE
 ])
 
-NodeHarness::Testing::Smoke.add_test("invalid_config_file", {
+Smoke.add_test("invalid_config_file", {
   guid: "test-guid",
   timestamp: :_,
   type: "error",
@@ -69,7 +71,7 @@ NodeHarness::Testing::Smoke.add_test("invalid_config_file", {
   inspect: "#<JSON::ParserError: 767: unexpected token at ''>"
 })
 
-NodeHarness::Testing::Smoke.add_test("with_invalid_ci_config", {
+Smoke.add_test("with_invalid_ci_config", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -77,7 +79,7 @@ NodeHarness::Testing::Smoke.add_test("with_invalid_ci_config", {
   analyzer: nil
 })
 
-NodeHarness::Testing::Smoke.add_test('warning_config_file', {
+Smoke.add_test('warning_config_file', {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -100,7 +102,7 @@ NodeHarness::Testing::Smoke.add_test('warning_config_file', {
   MESSAGE
 ])
 
-NodeHarness::Testing::Smoke.add_test("deprecated-options", {
+Smoke.add_test("deprecated-options", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -113,7 +115,7 @@ NodeHarness::Testing::Smoke.add_test("deprecated-options", {
   { message: "👻 `case_insensitive` option is deprecated. Use `case_sensitive` option instead.", file: nil }
 ])
 
-NodeHarness::Testing::Smoke.add_test("lowest_deps", {
+Smoke.add_test("lowest_deps", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -135,7 +137,7 @@ NodeHarness::Testing::Smoke.add_test("lowest_deps", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("detect_there_is_no_content", {
+Smoke.add_test("detect_there_is_no_content", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -157,7 +159,7 @@ NodeHarness::Testing::Smoke.add_test("detect_there_is_no_content", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("rules_without_pattern", {
+Smoke.add_test("rules_without_pattern", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

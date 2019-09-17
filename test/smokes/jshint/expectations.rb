@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test(
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test(
   'sample1',
   guid: 'test-guid',
   timestamp: :_,
@@ -20,7 +22,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'es2015-code-without-config',
   guid: 'test-guid',
   timestamp: :_,
@@ -60,7 +62,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'dir',
   guid: 'test-guid',
   timestamp: :_,
@@ -82,7 +84,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -90,7 +92,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.jshint.options.config`"
 })
 
-NodeHarness::Testing::Smoke.add_test("with_options", {
+Smoke.add_test("with_options", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',

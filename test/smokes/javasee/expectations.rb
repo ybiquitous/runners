@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test(
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test(
   "success",
   {
     guid: "test-guid",
@@ -20,7 +22,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "config",
   {
     guid: "test-guid",
@@ -42,7 +44,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test("failure", {
+Smoke.add_test("failure", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -50,7 +52,7 @@ NodeHarness::Testing::Smoke.add_test("failure", {
   message: :_
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sider_yml", {
+Smoke.add_test("broken_sider_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",

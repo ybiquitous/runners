@@ -16,4 +16,4 @@ RUN git clone --branch ${SWIFTLINT_VERSION} --single-branch https://github.com/r
 
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=swiftlint"]
+ENTRYPOINT ["runners", "--analyzer=swiftlint"]

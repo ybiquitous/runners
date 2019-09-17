@@ -3,18 +3,18 @@ require_relative 'test_helper'
 class NodejsTest < Minitest::Test
   include TestHelper
 
-  Constraint = NodeHarness::Nodejs::Constraint
-  Dependency = NodeHarness::Nodejs::Dependency
-  DefaultDependencies = NodeHarness::Nodejs::DefaultDependencies
-  InvalidDefaultDependencies = NodeHarness::Nodejs::InvalidDefaultDependencies
-  DuplicateLockfiles = NodeHarness::Nodejs::DuplicateLockfiles
-  ConstraintsNotSatisfied = NodeHarness::Nodejs::ConstraintsNotSatisfied
-  NpmInstallFailed = NodeHarness::Nodejs::NpmInstallFailed
-  YarnInstallFailed = NodeHarness::Nodejs::YarnInstallFailed
+  Constraint = Runners::Nodejs::Constraint
+  Dependency = Runners::Nodejs::Dependency
+  DefaultDependencies = Runners::Nodejs::DefaultDependencies
+  InvalidDefaultDependencies = Runners::Nodejs::InvalidDefaultDependencies
+  DuplicateLockfiles = Runners::Nodejs::DuplicateLockfiles
+  ConstraintsNotSatisfied = Runners::Nodejs::ConstraintsNotSatisfied
+  NpmInstallFailed = Runners::Nodejs::NpmInstallFailed
+  YarnInstallFailed = Runners::Nodejs::YarnInstallFailed
 
   def processor_class
-    @processor_class ||= Class.new(NodeHarness::Processor) do
-      include NodeHarness::Nodejs
+    @processor_class ||= Class.new(Runners::Processor) do
+      include Runners::Nodejs
 
       def nodejs_analyzer_command
         "eslint"
@@ -23,7 +23,7 @@ class NodejsTest < Minitest::Test
   end
 
   def trace_writer
-    @trace_writer ||= NodeHarness::TraceWriter.new(writer: [])
+    @trace_writer ||= Runners::TraceWriter.new(writer: [])
   end
 
   def actual_commands
@@ -45,11 +45,11 @@ class NodejsTest < Minitest::Test
 
   def stub_const(name, value)
     begin
-      saved_value = NodeHarness::Nodejs.const_get(name)
-      silence_warnings { NodeHarness::Nodejs.const_set(name, value) }
+      saved_value = Runners::Nodejs.const_get(name)
+      silence_warnings { Runners::Nodejs.const_set(name, value) }
       yield
     ensure
-      silence_warnings { NodeHarness::Nodejs.const_set(name, saved_value) }
+      silence_warnings { Runners::Nodejs.const_set(name, saved_value) }
     end
   end
 
@@ -161,7 +161,7 @@ class NodejsTest < Minitest::Test
         "eslint-plugin-react" => Constraint.new(">= 4.2.1", "< 8.0.0"),
       }
 
-      option = NodeHarness::Nodejs::INSTALL_OPTION_ALL
+      option = Runners::Nodejs::INSTALL_OPTION_ALL
 
       processor.stub :nodejs_analyzer_global_version, defaults.main.version do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
@@ -203,7 +203,7 @@ class NodejsTest < Minitest::Test
     mktmpdir do |path|
       defaults = DefaultDependencies.new(main: Dependency.new(name: "eslint", version: "5.15.0"))
       constraints = { "eslint" => Constraint.new(">= 5.0.0", "< 7.0.0") }
-      option = NodeHarness::Nodejs::INSTALL_OPTION_NONE
+      option = Runners::Nodejs::INSTALL_OPTION_NONE
 
       # Without package.json
       processor = new_processor(working_dir: path)
@@ -237,7 +237,7 @@ class NodejsTest < Minitest::Test
       constraints = {
         "eslint" => Constraint.new(">= 5.0.0", "< 7.0.0"),
       }
-      option = NodeHarness::Nodejs::INSTALL_OPTION_ALL
+      option = Runners::Nodejs::INSTALL_OPTION_ALL
 
       processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
@@ -264,7 +264,7 @@ class NodejsTest < Minitest::Test
       constraints = {
         "eslint" => Constraint.new(">= 5.0.0", "< 7.0.0"),
       }
-      option = NodeHarness::Nodejs::INSTALL_OPTION_ALL
+      option = Runners::Nodejs::INSTALL_OPTION_ALL
 
       processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         error = assert_raises DuplicateLockfiles do
@@ -345,22 +345,22 @@ class NodejsTest < Minitest::Test
       processor.package_json_path.write(JSON.generate(package_json))
       (path / ".npmrc").write("engine-strict = true")
 
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_NONE)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_NONE)
       refute node_modules.exist?
 
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_ALL)
       assert typescript.exist?
 
       node_modules.rmtree
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_PRODUCTION)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_PRODUCTION)
       assert typescript.exist?
 
       node_modules.rmtree
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_DEVELOPMENT)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_DEVELOPMENT)
       refute node_modules.exist?
 
       processor.package_json_path.write(JSON.generate(devDependencies: { "typescript" => "3.5.3" }))
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_DEVELOPMENT)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_DEVELOPMENT)
       assert typescript.exist?
 
       expected_commands = [
@@ -383,28 +383,28 @@ class NodejsTest < Minitest::Test
       processor.package_json_path.write(JSON.generate(dependencies: { "typescript" => "3.5.3" }))
       FileUtils.cp data("package-lock.json"), processor.package_lock_json_path
 
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_ALL)
       assert typescript.exist?
 
       node_modules.rmtree
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_PRODUCTION)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_PRODUCTION)
       assert typescript.exist?
 
       node_modules.rmtree
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_DEVELOPMENT)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_DEVELOPMENT)
       refute typescript.exist?
 
       processor.package_json_path.write(JSON.generate(devDependencies: { "typescript" => "3.5.3" }))
       FileUtils.cp data("package-lock.dev.json"), processor.package_lock_json_path
 
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_ALL)
       assert typescript.exist?
 
       node_modules.rmtree
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_PRODUCTION)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_PRODUCTION)
       refute typescript.exist?
 
-      processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_DEVELOPMENT)
+      processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_DEVELOPMENT)
       assert typescript.exist?
 
       expected_commands = [
@@ -438,7 +438,7 @@ class NodejsTest < Minitest::Test
       processor.package_json_path.write(JSON.generate(dependencies: { "foo" => "github:sider/foo" }))
 
       error = assert_raises NpmInstallFailed do
-        processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
+        processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_ALL)
       end
       expected_error_message = <<~MSG.strip
         `npm install` failed. Please check the log for details.
@@ -459,18 +459,18 @@ class NodejsTest < Minitest::Test
       processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.1" }))
       FileUtils.cp data("yarn.lock"), processor.yarn_lock_path
 
-      processor.send(:yarn_install, NodeHarness::Nodejs::INSTALL_OPTION_NONE)
+      processor.send(:yarn_install, Runners::Nodejs::INSTALL_OPTION_NONE)
       refute eslint.exist?
 
-      processor.send(:yarn_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
+      processor.send(:yarn_install, Runners::Nodejs::INSTALL_OPTION_ALL)
       assert eslint.exist?
 
       eslint.rmtree
-      processor.send(:yarn_install, NodeHarness::Nodejs::INSTALL_OPTION_PRODUCTION)
+      processor.send(:yarn_install, Runners::Nodejs::INSTALL_OPTION_PRODUCTION)
       assert eslint.exist?
 
       node_modules.rmtree
-      processor.send(:yarn_install, NodeHarness::Nodejs::INSTALL_OPTION_DEVELOPMENT)
+      processor.send(:yarn_install, Runners::Nodejs::INSTALL_OPTION_DEVELOPMENT)
       assert eslint.exist?
 
       expected_commands = [
@@ -499,7 +499,7 @@ class NodejsTest < Minitest::Test
       FileUtils.cp incorrect_yarn_data("package.json"), processor.package_json_path
 
       error = assert_raises YarnInstallFailed do
-        processor.send(:yarn_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
+        processor.send(:yarn_install, Runners::Nodejs::INSTALL_OPTION_ALL)
       end
       expected_error_message = <<~MSG.strip
         `yarn install` failed. Please confirm `yarn.lock` is consistent with `package.json`.
@@ -515,7 +515,7 @@ class NodejsTest < Minitest::Test
 
       npm_install = ->(json) {
         processor.package_json_path.write(JSON.generate(json))
-        processor.send(:npm_install, NodeHarness::Nodejs::INSTALL_OPTION_ALL)
+        processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_ALL)
       }
 
       default = Dependency.new(name: "eslint", version: "5.1.0")

@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test(
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test(
   'gem_install/install_from_sideci.yml-version_is_guessed_from_Gemfile.lock',
   {
     guid: 'test-guid',
@@ -22,7 +24,7 @@ NodeHarness::Testing::Smoke.add_test(
 
 # It works correctly even if the specified gem not found in Gemfile.lock
 # Previously, "Gem version for onkcop is not specified" error occurred in such cases
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_sideci.yml-version_guessing_from_Gemfile.lock_is_failed',
   {
     guid: 'test-guid',
@@ -44,7 +46,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_sideci.yml-version_is_specified_in_sideci.yml',
   {
     guid: 'test-guid',
@@ -66,7 +68,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_sideci.yml-versions_are_specified_sideci.yml_or_guessed_from_Gemfile.lock',
   {
     guid: 'test-guid',
@@ -88,7 +90,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_Gemfile.lock',
   {
     guid: 'test-guid',
@@ -110,7 +112,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_Gemfile.lock-when_Gemfile.lock_is_generated_by_bundle_lock',
   {
     guid: 'test-guid',
@@ -132,7 +134,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_sideci.yml_and_bundler_v1_Gemfile.lock',
   {
     guid: 'test-guid',
@@ -154,7 +156,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_sideci.yml_when_installing_old_version_gems',
   {
     guid: 'test-guid',
@@ -169,7 +171,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_sideci.yml_and_Gemfile.lock_when_gemspec_exists',
   {
     guid: 'test-guid',
@@ -191,7 +193,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_git',
   {
     guid: 'test-guid',
@@ -220,7 +222,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'gem_install/install_from_other_source',
   {
     guid: 'test-guid',

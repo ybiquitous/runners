@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -17,7 +19,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("locale", {
+Smoke.add_test("locale", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -43,7 +45,7 @@ NodeHarness::Testing::Smoke.add_test("locale", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("ignore", {
+Smoke.add_test("ignore", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -62,7 +64,7 @@ NodeHarness::Testing::Smoke.add_test("ignore", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test('analyze_specific_targets', {
+Smoke.add_test('analyze_specific_targets', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -104,7 +106,7 @@ NodeHarness::Testing::Smoke.add_test('analyze_specific_targets', {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test('exclude_targets', {
+Smoke.add_test('exclude_targets', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -156,7 +158,7 @@ NodeHarness::Testing::Smoke.add_test('exclude_targets', {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
+Smoke.add_test('broken_sideci_yml', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',

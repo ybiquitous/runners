@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -15,7 +17,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
 ])
 
 # `java-optimizations` has become an old ruleset style since 6.0.0. However this style still kept for backwards-compatibility.
-NodeHarness::Testing::Smoke.add_test("old-rulesets-style", {
+Smoke.add_test("old-rulesets-style", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -42,7 +44,7 @@ NodeHarness::Testing::Smoke.add_test("old-rulesets-style", {
   { message: "Use Rule name category/java/performance.xml/UseStringBufferForStringAppends instead of the deprecated Rule name rulesets/java/optimizations.xml/UseStringBufferForStringAppends. PMD 7.0.0 will remove support for this deprecated Rule name usage.", file: nil }
 ])
 
-NodeHarness::Testing::Smoke.add_test("config", {
+Smoke.add_test("config", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -61,7 +63,7 @@ NodeHarness::Testing::Smoke.add_test("config", {
   ]
 })
 
-NodeHarness::Testing::Smoke.add_test("duplicate-rule-name", {
+Smoke.add_test("duplicate-rule-name", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -80,7 +82,7 @@ NodeHarness::Testing::Smoke.add_test("duplicate-rule-name", {
   ]
 })
 
-NodeHarness::Testing::Smoke.add_test("failure", {
+Smoke.add_test("failure", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -88,7 +90,7 @@ NodeHarness::Testing::Smoke.add_test("failure", {
   message: :_
 })
 
-NodeHarness::Testing::Smoke.add_test("deprecated-functions", {
+Smoke.add_test("deprecated-functions", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -104,7 +106,7 @@ NodeHarness::Testing::Smoke.add_test("deprecated-functions", {
   { message: "The XPath function typeof() is deprecated and will be removed in 7.0.0. Use typeIs() instead.", file: nil },
 ])
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -112,7 +114,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.pmd_java.min_priority`"
 })
 
-NodeHarness::Testing::Smoke.add_test("deprecated-rules", {
+Smoke.add_test("deprecated-rules", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

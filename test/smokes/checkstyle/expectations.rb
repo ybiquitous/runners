@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -35,7 +37,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test("config", {
+Smoke.add_test("config", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -72,7 +74,7 @@ NodeHarness::Testing::Smoke.add_test("config", {
   ]
 })
 
-NodeHarness::Testing::Smoke.add_test("failure", {
+Smoke.add_test("failure", {
   guid: "test-guid",
   timestamp: :_,
   type: "error",
@@ -81,7 +83,7 @@ NodeHarness::Testing::Smoke.add_test("failure", {
   inspect: :_
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -89,7 +91,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   analyzer: nil,
 })
 
-NodeHarness::Testing::Smoke.add_test("properties", {
+Smoke.add_test("properties", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

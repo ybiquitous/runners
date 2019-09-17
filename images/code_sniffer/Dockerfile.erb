@@ -40,4 +40,4 @@ RUN phpcs3 --config-set installed_paths /usr/share/php/PHP/CodeSniffer3/Standard
 
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=code_sniffer"]
+ENTRYPOINT ["runners", "--analyzer=code_sniffer"]

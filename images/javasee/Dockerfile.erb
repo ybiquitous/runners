@@ -12,4 +12,4 @@ RUN curl -O -L https://github.com/sider/JavaSee/releases/download/${JAVASEE_VERS
 
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=javasee"]
+ENTRYPOINT ["runners", "--analyzer=javasee"]

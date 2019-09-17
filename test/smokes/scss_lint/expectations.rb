@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -31,7 +33,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("no_scss_files", {
+Smoke.add_test("no_scss_files", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -45,7 +47,7 @@ NodeHarness::Testing::Smoke.add_test("no_scss_files", {
   {message: 'No files, paths, or patterns were specified', file: nil}
 ])
 
-NodeHarness::Testing::Smoke.add_test("with_config_option", {
+Smoke.add_test("with_config_option", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -73,7 +75,7 @@ NodeHarness::Testing::Smoke.add_test("with_config_option", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("syntax_error", {
+Smoke.add_test("syntax_error", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -90,7 +92,7 @@ NodeHarness::Testing::Smoke.add_test("syntax_error", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",

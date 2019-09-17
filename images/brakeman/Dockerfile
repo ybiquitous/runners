@@ -4,20 +4,20 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_ruby:2.2.0
 
-ARG NODE_HARNESS_DIR=$RUNNER_USER_HOME/node_harness
-COPY Gemfile* Rakefile $NODE_HARNESS_DIR/
-COPY bin ${NODE_HARNESS_DIR}/bin
-COPY lib ${NODE_HARNESS_DIR}/lib
+ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
+COPY Gemfile* Rakefile ${RUNNERS_DIR}/
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
 USER root
-RUN chown -R $RUNNER_USER: $NODE_HARNESS_DIR
+RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
 
-RUN cd $NODE_HARNESS_DIR && bundle install --without development test
-ENV BUNDLE_GEMFILE $NODE_HARNESS_DIR/Gemfile
-ENV PATH $NODE_HARNESS_DIR/bin:$PATH
+RUN cd ${RUNNERS_DIR} && bundle install --without development test
+ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
+ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
 # Install the default version for caching
 RUN gem install brakeman -v 4.3.1
 
-ENTRYPOINT ["node_harness", "--analyzer=brakeman"]
+ENTRYPOINT ["runners", "--analyzer=brakeman"]

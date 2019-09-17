@@ -3,7 +3,7 @@ require_relative "test_helper"
 class ChangesTest < Minitest::Test
   include TestHelper
 
-  Changes = NodeHarness::Changes
+  Changes = Runners::Changes
 
   def test_changed_files
     mktmpdir do |base_path|

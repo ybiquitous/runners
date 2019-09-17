@@ -1,7 +1,7 @@
 require "test_helper"
 
 class TraceWriterTest < Minitest::Test
-  TraceWriter = NodeHarness::TraceWriter
+  TraceWriter = Runners::TraceWriter
 
   def writer
     @writer ||= TraceWriter.new(writer: [])

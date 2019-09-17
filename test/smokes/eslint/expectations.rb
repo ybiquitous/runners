@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test(
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test(
   'no_config',
   guid: 'test-guid',
   timestamp: :_,
@@ -20,7 +22,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'sideci_valid_npm_install_option',
   guid: 'test-guid',
   timestamp: :_,
@@ -52,7 +54,7 @@ NodeHarness::Testing::Smoke.add_test(
 )
 
 # This test case's .eslintrc includes ESLint plugin, thus Sider fails because of the plugin unavailable.
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'only_eslintrc',
   guid: 'test-guid',
   timestamp: :_,
@@ -64,7 +66,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'dir_option_is_array',
   guid: 'test-guid',
   timestamp: :_,
@@ -101,7 +103,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'dir_option_is_string',
   guid: 'test-guid',
   timestamp: :_,
@@ -124,7 +126,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'pinned_eslint',
   guid: 'test-guid',
   timestamp: :_,
@@ -154,7 +156,7 @@ NodeHarness::Testing::Smoke.add_test(
   analyzer: { name: 'ESLint', version: '4.0.0'}
 )
 
-NodeHarness::Testing::Smoke.add_test("no_files", {
+Smoke.add_test("no_files", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -178,7 +180,7 @@ NodeHarness::Testing::Smoke.add_test("no_files", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("pinned_eslint5", {
+Smoke.add_test("pinned_eslint5", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -215,7 +217,7 @@ NodeHarness::Testing::Smoke.add_test("pinned_eslint5", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_config", {
+Smoke.add_test("broken_config", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -226,7 +228,7 @@ NodeHarness::Testing::Smoke.add_test("broken_config", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -234,7 +236,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   analyzer: nil
 })
 
-NodeHarness::Testing::Smoke.add_test("quiet", {
+Smoke.add_test("quiet", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -252,7 +254,7 @@ NodeHarness::Testing::Smoke.add_test("quiet", {
 })
 
 
-NodeHarness::Testing::Smoke.add_test("array_ignore_pattern", {
+Smoke.add_test("array_ignore_pattern", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -274,7 +276,7 @@ NodeHarness::Testing::Smoke.add_test("array_ignore_pattern", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("sider_config", {
+Smoke.add_test("sider_config", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -320,7 +322,7 @@ NodeHarness::Testing::Smoke.add_test("sider_config", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("no_ignore", {
+Smoke.add_test("no_ignore", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -345,7 +347,7 @@ NodeHarness::Testing::Smoke.add_test("no_ignore", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("additional_options", {
+Smoke.add_test("additional_options", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -370,7 +372,7 @@ NodeHarness::Testing::Smoke.add_test("additional_options", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("prefer_npm_install_true_to_eslintrc", {
+Smoke.add_test("prefer_npm_install_true_to_eslintrc", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -397,7 +399,7 @@ NodeHarness::Testing::Smoke.add_test("prefer_npm_install_true_to_eslintrc", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'default_version_is_used',
   guid: 'test-guid',
   timestamp: :_,
@@ -409,7 +411,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test("mismatched_package_version", {
+Smoke.add_test("mismatched_package_version", {
   guid: 'test-guid',
   timestamp: :_,
   type: "failure",
@@ -417,7 +419,7 @@ NodeHarness::Testing::Smoke.add_test("mismatched_package_version", {
   analyzer: nil
 })
 
-NodeHarness::Testing::Smoke.add_test("eslintrc_js", {
+Smoke.add_test("eslintrc_js", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

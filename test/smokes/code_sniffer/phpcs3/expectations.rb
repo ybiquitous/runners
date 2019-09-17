@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("phpcs3/success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("phpcs3/success", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -16,7 +18,7 @@ NodeHarness::Testing::Smoke.add_test("phpcs3/success", {
     },
 })
 
-NodeHarness::Testing::Smoke.add_test("phpcs3/specified_dir", {
+Smoke.add_test("phpcs3/specified_dir", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -34,7 +36,7 @@ NodeHarness::Testing::Smoke.add_test("phpcs3/specified_dir", {
     },
 })
 
-NodeHarness::Testing::Smoke.add_test("phpcs3/custom_argument", {
+Smoke.add_test("phpcs3/custom_argument", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -58,7 +60,7 @@ NodeHarness::Testing::Smoke.add_test("phpcs3/custom_argument", {
     },
 })
 
-NodeHarness::Testing::Smoke.add_test("phpcs3/cakephp", {
+Smoke.add_test("phpcs3/cakephp", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -100,7 +102,7 @@ NodeHarness::Testing::Smoke.add_test("phpcs3/cakephp", {
     },
 })
 
-NodeHarness::Testing::Smoke.add_test("phpcs3/wordpress", {
+Smoke.add_test("phpcs3/wordpress", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -125,7 +127,7 @@ NodeHarness::Testing::Smoke.add_test("phpcs3/wordpress", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("phpcs3/symfony", {
+Smoke.add_test("phpcs3/symfony", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -161,7 +163,7 @@ NodeHarness::Testing::Smoke.add_test("phpcs3/symfony", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("phpcs3/with_php_version", {
+Smoke.add_test("phpcs3/with_php_version", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

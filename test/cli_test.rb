@@ -1,9 +1,9 @@
 require_relative "test_helper"
-require "node_harness/cli"
+require "runners/cli"
 
 class CLITest < Minitest::Test
   include TestHelper
-  CLI = NodeHarness::CLI
+  CLI = Runners::CLI
 
   def stdout
     @stdout ||= StringIO.new
@@ -49,7 +49,7 @@ class CLITest < Minitest::Test
     }
   end
 
-  class TestProcessor < NodeHarness::Processor
+  class TestProcessor < Runners::Processor
     def self.version
       "1.0.0"
     end
@@ -64,7 +64,7 @@ class CLITest < Minitest::Test
 
       add_warning('hogehogewarn')
 
-      NodeHarness::Results::Success.new(guid: guid, analyzer: NodeHarness::Analyzer.new(name: "test-analyzer", version: "3.14"))
+      Runners::Results::Success.new(guid: guid, analyzer: Runners::Analyzer.new(name: "test-analyzer", version: "3.14"))
     end
   end
 
@@ -110,10 +110,10 @@ class CLITest < Minitest::Test
 
   def test_processor_class
     cli = CLI.new(argv: ["--analyzer=rubocop"], stdout: stdout, stderr: stderr)
-    assert_equal NodeHarness::Processor::RuboCop, cli.processor_class
+    assert_equal Runners::Processor::RuboCop, cli.processor_class
 
     cli = CLI.new(argv: ["--analyzer=scss_lint"], stdout: stdout, stderr: stderr)
-    assert_equal NodeHarness::Processor::ScssLint, cli.processor_class
+    assert_equal Runners::Processor::ScssLint, cli.processor_class
 
     cli = CLI.new(argv: ["--analyzer=foo"], stdout: stdout, stderr: stderr)
     error = assert_raises { cli.processor_class }

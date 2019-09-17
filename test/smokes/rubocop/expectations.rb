@@ -1,6 +1,8 @@
+Smoke = Runners::Testing::Smoke
+
 require_relative 'gem_install/expectations'
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'sandbox_rails',
   {
     guid: 'test-guid',
@@ -114,7 +116,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'without_display_cop_names',
   guid: 'test-guid',
   timestamp: :_,
@@ -153,7 +155,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'renamed-cop',
   {
     guid: 'test-guid',
@@ -183,7 +185,7 @@ NodeHarness::Testing::Smoke.add_test(
   warnings: [{:message=>"Style/Tab has the wrong namespace - should be Layout", :file=>".rubocop.yml"}],
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'crash',
   {
     guid: 'test-guid',
@@ -223,7 +225,7 @@ NodeHarness::Testing::Smoke.add_test(
   ],
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'inherit_from',
   {
     guid: 'test-guid',
@@ -245,7 +247,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'no_rubocop_yml',
   {
     guid: 'test-guid',
@@ -267,7 +269,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'exit2',
   {
     guid: 'test-guid',
@@ -288,7 +290,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
+Smoke.add_test('broken_sideci_yml', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -296,7 +298,7 @@ NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.rubocop.gems[0]`"
 })
 
-NodeHarness::Testing::Smoke.add_test('with_safe_cops', {
+Smoke.add_test('with_safe_cops', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -319,7 +321,7 @@ NodeHarness::Testing::Smoke.add_test('with_safe_cops', {
   analyzer: { name: 'RuboCop', version: '0.74.0' },
 })
 
-NodeHarness::Testing::Smoke.add_test("using_option_with_incorrect_rubocop_version", {
+Smoke.add_test("using_option_with_incorrect_rubocop_version", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -335,7 +337,7 @@ NodeHarness::Testing::Smoke.add_test("using_option_with_incorrect_rubocop_versio
   analyzer: { name: 'RuboCop', version: '0.59.2' },
 })
 
-NodeHarness::Testing::Smoke.add_test('v0.71_rails', {
+Smoke.add_test('v0.71_rails', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -357,7 +359,7 @@ NodeHarness::Testing::Smoke.add_test('v0.71_rails', {
   WARNING
 ])
 
-NodeHarness::Testing::Smoke.add_test('v0.72_rails', {
+Smoke.add_test('v0.72_rails', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -373,7 +375,7 @@ NodeHarness::Testing::Smoke.add_test('v0.72_rails', {
   analyzer: { name: 'RuboCop', version: '0.72.0' },
 })
 
-NodeHarness::Testing::Smoke.add_test('v0.72_rails_option', {
+Smoke.add_test('v0.72_rails_option', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',

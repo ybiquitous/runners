@@ -1,7 +1,9 @@
+Smoke = Runners::Testing::Smoke
+
 # Smoke test allows testing by input and output of the analysis.
 # Following example, create "success" directory and put files, configurations, etc in this directory.
 #
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -27,7 +29,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("with_config", {
+Smoke.add_test("with_config", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -38,7 +40,7 @@ NodeHarness::Testing::Smoke.add_test("with_config", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("with_config_deprecated", {
+Smoke.add_test("with_config_deprecated", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -51,7 +53,7 @@ NodeHarness::Testing::Smoke.add_test("with_config_deprecated", {
   {message: "`config` option is deprecated. Use `file` instead of.", file: 'sideci.yml'},
 ])
 
-NodeHarness::Testing::Smoke.add_test("syntax_error", {
+Smoke.add_test("syntax_error", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -85,7 +87,7 @@ NodeHarness::Testing::Smoke.add_test("syntax_error", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("v2", {
+Smoke.add_test("v2", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -111,7 +113,7 @@ NodeHarness::Testing::Smoke.add_test("v2", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("only_package_json", {
+Smoke.add_test("only_package_json", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -130,7 +132,7 @@ NodeHarness::Testing::Smoke.add_test("only_package_json", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("package_lock_json", {
+Smoke.add_test("package_lock_json", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -149,7 +151,7 @@ NodeHarness::Testing::Smoke.add_test("package_lock_json", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("yarn_lock", {
+Smoke.add_test("yarn_lock", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

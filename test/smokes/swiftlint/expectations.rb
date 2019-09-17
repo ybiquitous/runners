@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -12,7 +14,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   ]
 })
 
-NodeHarness::Testing::Smoke.add_test("sideciyml", {
+Smoke.add_test("sideciyml", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -73,7 +75,7 @@ NodeHarness::Testing::Smoke.add_test("sideciyml", {
   ]
 })
 
-NodeHarness::Testing::Smoke.add_test("ignore_warnings", {
+Smoke.add_test("ignore_warnings", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -89,7 +91,7 @@ NodeHarness::Testing::Smoke.add_test("ignore_warnings", {
 
 # TODO: This test sometimes fails for some reaason.
 #       We skip this test for now.
-# NodeHarness::Testing::Smoke.add_test("no_swift_file", {
+# Smoke.add_test("no_swift_file", {
 #   guid: "test-guid",
 #   timestamp: :_,
 #   type: "failure",
@@ -104,7 +106,7 @@ NodeHarness::Testing::Smoke.add_test("ignore_warnings", {
 #   analyzer: {name: 'swiftlint', version: '0.34.0'},
 # })
 
-NodeHarness::Testing::Smoke.add_test("no_config_file", {
+Smoke.add_test("no_config_file", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -112,7 +114,7 @@ NodeHarness::Testing::Smoke.add_test("no_config_file", {
   analyzer: {name: 'swiftlint', version: '0.34.0'},
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -122,7 +124,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
 
 # TODO: This test sometimes fails for some reaason.
 #       We skip this test for now.
-# NodeHarness::Testing::Smoke.add_test("wrong_swiftlint_version_set", {
+# Smoke.add_test("wrong_swiftlint_version_set", {
 #   guid: "test-guid",
 #   timestamp: :_,
 #   type: "failure",

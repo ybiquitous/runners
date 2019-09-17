@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -36,7 +38,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
     analyzer: { name: "TSLint", version: "5.18.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("with-tslint-json", {
+Smoke.add_test("with-tslint-json", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -50,7 +52,7 @@ NodeHarness::Testing::Smoke.add_test("with-tslint-json", {
     analyzer: { name: "TSLint", version: "5.18.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("npm-install", {
+Smoke.add_test("npm-install", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -76,7 +78,7 @@ NodeHarness::Testing::Smoke.add_test("npm-install", {
     analyzer: { name: "TSLint", version: "5.2.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("custom-rules", {
+Smoke.add_test("custom-rules", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -90,7 +92,7 @@ NodeHarness::Testing::Smoke.add_test("custom-rules", {
     analyzer: { name: "TSLint", version: "5.4.3" }
 })
 
-NodeHarness::Testing::Smoke.add_test("tsconfig", {
+Smoke.add_test("tsconfig", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -128,7 +130,7 @@ NodeHarness::Testing::Smoke.add_test("tsconfig", {
     analyzer: { name: "TSLint", version: "5.18.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("raise-deprecated", {
+Smoke.add_test("raise-deprecated", {
     guid: "test-guid",
     timestamp: :_,
     type: "failure",
@@ -143,7 +145,7 @@ NodeHarness::Testing::Smoke.add_test("raise-deprecated", {
     analyzer: { name: "TSLint", version: "5.18.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("deprecated-rules", {
+Smoke.add_test("deprecated-rules", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -169,7 +171,7 @@ NodeHarness::Testing::Smoke.add_test("deprecated-rules", {
   analyzer: { name: "TSLint", version: "5.11.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -177,7 +179,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   analyzer: nil
 })
 
-NodeHarness::Testing::Smoke.add_test("with_options", {
+Smoke.add_test("with_options", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -193,7 +195,7 @@ NodeHarness::Testing::Smoke.add_test("with_options", {
   analyzer: { name: "TSLint", version: "5.15.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("rules-dir", {
+Smoke.add_test("rules-dir", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -209,7 +211,7 @@ NodeHarness::Testing::Smoke.add_test("rules-dir", {
   analyzer: { name: "TSLint", version: "5.15.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("multiple-custom-rules", {
+Smoke.add_test("multiple-custom-rules", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -232,7 +234,7 @@ NodeHarness::Testing::Smoke.add_test("multiple-custom-rules", {
   analyzer: { name: "TSLint", version: "5.15.0" }
 })
 
-NodeHarness::Testing::Smoke.add_test("invalid-tslint-version", {
+Smoke.add_test("invalid-tslint-version", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -240,7 +242,7 @@ NodeHarness::Testing::Smoke.add_test("invalid-tslint-version", {
   analyzer: nil,
 })
 
-NodeHarness::Testing::Smoke.add_test("without-tslint-in-package-json", {
+Smoke.add_test("without-tslint-in-package-json", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -252,7 +254,7 @@ NodeHarness::Testing::Smoke.add_test("without-tslint-in-package-json", {
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test("without-tslint-and-with-typescript-in-package-json", {
+Smoke.add_test("without-tslint-and-with-typescript-in-package-json", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -264,7 +266,7 @@ NodeHarness::Testing::Smoke.add_test("without-tslint-and-with-typescript-in-pack
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test("mismatched_package_version", {
+Smoke.add_test("mismatched_package_version", {
   guid: 'test-guid',
   timestamp: :_,
   type: "failure",

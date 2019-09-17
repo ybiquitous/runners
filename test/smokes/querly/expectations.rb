@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -33,7 +35,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("no_config_file", {
+Smoke.add_test("no_config_file", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -52,7 +54,7 @@ NodeHarness::Testing::Smoke.add_test("no_config_file", {
   MESSAGE
 ])
 
-NodeHarness::Testing::Smoke.add_test("invalid_config_file", {
+Smoke.add_test("invalid_config_file", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -73,7 +75,7 @@ NodeHarness::Testing::Smoke.add_test("invalid_config_file", {
   {message: "com.test.pathname:\t1st *after* example matched with some of patterns", file: 'querly.yml'},
 ])
 
-NodeHarness::Testing::Smoke.add_test("slim", {
+Smoke.add_test("slim", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -96,7 +98,7 @@ NodeHarness::Testing::Smoke.add_test("slim", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("haml", {
+Smoke.add_test("haml", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -119,7 +121,7 @@ NodeHarness::Testing::Smoke.add_test("haml", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("lowest_deps", {
+Smoke.add_test("lowest_deps", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

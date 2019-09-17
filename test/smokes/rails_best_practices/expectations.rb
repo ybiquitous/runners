@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test(
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test(
   'sandbox_rails',
   guid: 'test-guid',
   timestamp: :_,
@@ -67,7 +69,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
+Smoke.add_test('broken_sideci_yml', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -75,7 +77,7 @@ NodeHarness::Testing::Smoke.add_test('broken_sideci_yml', {
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.rails_best_practices.options.exclude`"
 })
 
-NodeHarness::Testing::Smoke.add_test('valid_sideci_yml', {
+Smoke.add_test('valid_sideci_yml', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -89,7 +91,7 @@ NodeHarness::Testing::Smoke.add_test('valid_sideci_yml', {
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test('template_engine', {
+Smoke.add_test('template_engine', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -113,7 +115,7 @@ NodeHarness::Testing::Smoke.add_test('template_engine', {
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test('lowest_deps', {
+Smoke.add_test('lowest_deps', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -127,7 +129,7 @@ NodeHarness::Testing::Smoke.add_test('lowest_deps', {
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test('slim_with_sass', {
+Smoke.add_test('slim_with_sass', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -146,7 +148,7 @@ NodeHarness::Testing::Smoke.add_test('slim_with_sass', {
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test('sassc_v1', {
+Smoke.add_test('sassc_v1', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -160,7 +162,7 @@ NodeHarness::Testing::Smoke.add_test('sassc_v1', {
   ],
 })
 
-NodeHarness::Testing::Smoke.add_test('unsupported', {
+Smoke.add_test('unsupported', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',

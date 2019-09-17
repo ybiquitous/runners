@@ -3,10 +3,10 @@ require_relative "test_helper"
 class ResultTest < Minitest::Test
   include TestHelper
 
-  Results = NodeHarness::Results
-  Issues = NodeHarness::Issues
-  Location = NodeHarness::Location
-  Analyzer = NodeHarness::Analyzer
+  Results = Runners::Results
+  Issues = Runners::Issues
+  Location = Runners::Location
+  Analyzer = Runners::Analyzer
 
   def test_success_result
     result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "RuboCop", version: "1.3.2pre"))
@@ -22,7 +22,7 @@ class ResultTest < Minitest::Test
 
     assert result.valid?
 
-    assert NodeHarness::Schema::Result.success =~ result.as_json
+    assert Runners::Schema::Result.success =~ result.as_json
     assert_unifiable(result.as_json,
                      {
                        guid: result.guid,
@@ -68,7 +68,7 @@ class ResultTest < Minitest::Test
 
     assert result.valid?
 
-    assert NodeHarness::Schema::Result.success =~ result.as_json
+    assert Runners::Schema::Result.success =~ result.as_json
     assert_unifiable(result.as_json,
                      {
                        guid: result.guid,
@@ -101,7 +101,7 @@ class ResultTest < Minitest::Test
 
     assert result.valid?
 
-    assert NodeHarness::Schema::Result.success =~ result.as_json
+    assert Runners::Schema::Result.success =~ result.as_json
     assert_unifiable(result.as_json,
                      {
                        guid: result.guid,

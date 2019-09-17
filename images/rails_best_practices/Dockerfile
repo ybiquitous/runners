@@ -4,17 +4,17 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_ruby:2.2.0
 
-ARG NODE_HARNESS_DIR=$RUNNER_USER_HOME/node_harness
-COPY Gemfile* Rakefile $NODE_HARNESS_DIR/
-COPY bin ${NODE_HARNESS_DIR}/bin
-COPY lib ${NODE_HARNESS_DIR}/lib
+ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
+COPY Gemfile* Rakefile ${RUNNERS_DIR}/
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
 USER root
-RUN chown -R $RUNNER_USER: $NODE_HARNESS_DIR
+RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
 
-RUN cd $NODE_HARNESS_DIR && bundle install --without development test
-ENV BUNDLE_GEMFILE $NODE_HARNESS_DIR/Gemfile
-ENV PATH $NODE_HARNESS_DIR/bin:$PATH
+RUN cd ${RUNNERS_DIR} && bundle install --without development test
+ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
+ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
 RUN gem install rails_best_practices -v 1.19.4 && \
@@ -25,4 +25,4 @@ RUN gem install rails_best_practices -v 1.19.4 && \
     gem install require_all:1.5.0 require_all:2.0.0
 
 COPY images/rails_best_practices/sider_rails_best_practices.yml $RUNNER_USER_HOME/
-ENTRYPOINT ["node_harness", "--analyzer=rails_best_practices"]
+ENTRYPOINT ["runners", "--analyzer=rails_best_practices"]

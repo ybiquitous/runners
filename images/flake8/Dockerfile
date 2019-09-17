@@ -4,17 +4,17 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_python:2.2.0
 
-ARG NODE_HARNESS_DIR=$RUNNER_USER_HOME/node_harness
-COPY Gemfile* Rakefile $NODE_HARNESS_DIR/
-COPY bin ${NODE_HARNESS_DIR}/bin
-COPY lib ${NODE_HARNESS_DIR}/lib
+ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
+COPY Gemfile* Rakefile ${RUNNERS_DIR}/
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
 USER root
-RUN chown -R $RUNNER_USER: $NODE_HARNESS_DIR
+RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
 
-RUN cd $NODE_HARNESS_DIR && bundle install --without development test
-ENV BUNDLE_GEMFILE $NODE_HARNESS_DIR/Gemfile
-ENV PATH $NODE_HARNESS_DIR/bin:$PATH
+RUN cd ${RUNNERS_DIR} && bundle install --without development test
+ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
+ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
 ARG LINT_TOOL_VERSION=3.7.7
@@ -31,4 +31,4 @@ COPY images/flake8/ignored-config.ini $RUNNER_USER_HOME/.config/ignored-config.i
 RUN chown -R $RUNNER_USER $RUNNER_USER_HOME/.config
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=flake8"]
+ENTRYPOINT ["runners", "--analyzer=flake8"]

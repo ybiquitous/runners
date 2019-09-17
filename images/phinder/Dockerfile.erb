@@ -5,4 +5,4 @@ FROM sider/devon_rex_php:2.2.0
 COPY images/phinder/composer.json images/phinder/composer.lock $COMPOSER_HOME/
 RUN composer global install
 
-ENTRYPOINT ["node_harness", "--analyzer=phinder"]
+ENTRYPOINT ["runners", "--analyzer=phinder"]

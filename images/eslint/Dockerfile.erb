@@ -13,4 +13,4 @@ USER $RUNNER_USER
 #       See https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
 COPY images/eslint/sider_eslintrc.yml $RUNNER_USER_HOME/.eslintrc.yml
 
-ENTRYPOINT ["node_harness", "--analyzer=eslint"]
+ENTRYPOINT ["runners", "--analyzer=eslint"]

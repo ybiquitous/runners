@@ -1,24 +1,24 @@
-type NodeHarness::Schema::Types::location = {
+type Runners::Schema::Types::location = {
   start_line: Integer,
   start_column: Integer?,
   end_line: Integer?,
   end_column: Integer?
 }
 
-type NodeHarness::Schema::Types::identified_issue = {
+type Runners::Schema::Types::identified_issue = {
   id: String,
   path: String,
   location: location
 }
 
-type NodeHarness::Schema::Types::structured_issue<'a> = {
+type Runners::Schema::Types::structured_issue<'a> = {
   id: String,
   path: String,
   location: location,
   object: 'a
 }
 
-type NodeHarness::Schema::Types::text_issue = {
+type Runners::Schema::Types::text_issue = {
   id: String,
   path: String,
   location: location,
@@ -26,16 +26,16 @@ type NodeHarness::Schema::Types::text_issue = {
   links: Array<String>
 }
 
-class NodeHarness::Schema::Types::Issue < StrongJSON
+class Runners::Schema::Types::Issue < StrongJSON
   def location: -> StrongJSON::Type::Enum<location>
   def identified: -> StrongJSON::Type::Object<identified_issue>
   def structured: -> StrongJSON::Type::Object<structured_issue<any>>
   def text: -> StrongJSON::Type::Object<text_issue>
 end
 
-type NodeHarness::Schema::Types::analyzer = { name: String, version: String }
+type Runners::Schema::Types::analyzer = { name: String, version: String }
 
-type NodeHarness::Schema::Types::success_result = {
+type Runners::Schema::Types::success_result = {
   guid: String,
   timestamp: String,
   type: "success",
@@ -43,7 +43,7 @@ type NodeHarness::Schema::Types::success_result = {
   analyzer: analyzer
 }
 
-type NodeHarness::Schema::Types::failure_result = {
+type Runners::Schema::Types::failure_result = {
   guid: String,
   timestamp: String,
   type: "failure",
@@ -51,14 +51,14 @@ type NodeHarness::Schema::Types::failure_result = {
   analyzer: analyzer?
 }
 
-type NodeHarness::Schema::Types::missing_files_result = {
+type Runners::Schema::Types::missing_files_result = {
   guid: String,
   timestamp: String,
   type: "missing_files",
   files: Array<String>
 }
 
-type NodeHarness::Schema::Types::error_result = {
+type Runners::Schema::Types::error_result = {
   guid: String,
   timestamp: String,
   type: "error",
@@ -67,9 +67,9 @@ type NodeHarness::Schema::Types::error_result = {
   inspect: String
 }
 
-type NodeHarness::Schema::Types::warning = { message: String, file: String? }
+type Runners::Schema::Types::warning = { message: String, file: String? }
 
-class NodeHarness::Schema::Types::Result < StrongJSON
+class Runners::Schema::Types::Result < StrongJSON
   def issue: -> StrongJSON::Type::Enum<text_issue | structured_issue<any> | identified_issue>
   def warning: -> StrongJSON::Type::Object<warning>
   def analyzer: -> StrongJSON::Type::Object<analyzer>
@@ -84,62 +84,62 @@ class NodeHarness::Schema::Types::Result < StrongJSON
   }>
 end
 
-type NodeHarness::Schema::Types::command_line_trace = {
+type Runners::Schema::Types::command_line_trace = {
   trace: "command_line",
   command_line: Array<String>,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::status_trace = {
+type Runners::Schema::Types::status_trace = {
   trace: "status",
   status: Integer,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::stdout_trace = {
+type Runners::Schema::Types::stdout_trace = {
   trace: "stdout",
   string: String,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::stderr_trace = {
+type Runners::Schema::Types::stderr_trace = {
   trace: "stderr",
   string: String,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::message_trace = {
+type Runners::Schema::Types::message_trace = {
   trace: "message",
   message: String,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::header_trace = {
+type Runners::Schema::Types::header_trace = {
   trace: "header",
   message: String,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::warning_trace = {
+type Runners::Schema::Types::warning_trace = {
   trace: "warning",
   string: String,
   file: String?,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::ci_config_trace = {
+type Runners::Schema::Types::ci_config_trace = {
   trace: "ci_config",
   content: any,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::error_trace = {
+type Runners::Schema::Types::error_trace = {
   trace: "error",
   message: String,
   recorded_at: String
 }
 
-type NodeHarness::Schema::Types::any_trace = command_line_trace
+type Runners::Schema::Types::any_trace = command_line_trace
                                            | status_trace
                                            | stdout_trace
                                            | stderr_trace
@@ -149,7 +149,7 @@ type NodeHarness::Schema::Types::any_trace = command_line_trace
                                            | ci_config_trace
                                            | error_trace
 
-class NodeHarness::Schema::Types::Trace < StrongJSON
+class Runners::Schema::Types::Trace < StrongJSON
   def command_line: -> StrongJSON::Type::Object<command_line_trace>
   def status: -> StrongJSON::Type::Object<status_trace>
   def stdout: -> StrongJSON::Type::Object<stdout_trace>
@@ -162,60 +162,60 @@ class NodeHarness::Schema::Types::Trace < StrongJSON
   def anything: -> StrongJSON::Type::Enum<any_trace>
 end
 
-type NodeHarness::Schema::Types::base_runner_config = {
+type Runners::Schema::Types::base_runner_config = {
   root_dir: String?
 }
 
-type NodeHarness::Schema::Types::git_branch_runner_config = {
+type Runners::Schema::Types::git_branch_runner_config = {
   repo: String,
   branch: String
 }
 
-type NodeHarness::Schema::Types::git_tag_runner_config = {
+type Runners::Schema::Types::git_tag_runner_config = {
   repo: String,
   tag: String
 }
 
-type NodeHarness::Schema::Types::git_ref_runner_config = {
+type Runners::Schema::Types::git_ref_runner_config = {
   repo: String,
   ref: String
 }
 
-type NodeHarness::Schema::Types::git_runner_config = git_branch_runner_config | git_tag_runner_config | git_ref_runner_config
+type Runners::Schema::Types::git_runner_config = git_branch_runner_config | git_tag_runner_config | git_ref_runner_config
 
-type NodeHarness::Schema::Types::gem_source_runner_config = {
+type Runners::Schema::Types::gem_source_runner_config = {
   name: String,
   version: String,
   source: String?
 }
 
-type NodeHarness::Schema::Types::gem_git_runner_config = {
+type Runners::Schema::Types::gem_git_runner_config = {
   name: String,
   git: git_runner_config
 }
 
-type NodeHarness::Schema::Types::gem_runner_config = String | gem_source_runner_config | gem_git_runner_config
+type Runners::Schema::Types::gem_runner_config = String | gem_source_runner_config | gem_git_runner_config
 
-type NodeHarness::Schema::Types::ruby_runner_config = {
+type Runners::Schema::Types::ruby_runner_config = {
   root_dir: String?,
   gems: Array<gem_runner_config>?
 }
 
-type NodeHarness::Schema::Types::npm_install_runner_config = bool | "development" | "production"
+type Runners::Schema::Types::npm_install_runner_config = bool | "development" | "production"
 
-type NodeHarness::Schema::Types::npm_runner_config = {
+type Runners::Schema::Types::npm_runner_config = {
   root_dir: String?,
   npm_install: npm_install_runner_config?
 }
 
-class NodeHarness::Schema::Types::RunnerConfig < StrongJSON
+class Runners::Schema::Types::RunnerConfig < StrongJSON
   def base: -> StrongJSON::Type::Object<base_runner_config>
   def git: -> StrongJSON::Type::Enum<git_runner_config>
   def ruby: -> StrongJSON::Type::Object<ruby_runner_config>
   def npm: -> StrongJSON::Type::Object<npm_runner_config>
 end
 
-NodeHarness::Schema::Issue: NodeHarness::Schema::Types::Issue
-NodeHarness::Schema::Result: NodeHarness::Schema::Types::Result
-NodeHarness::Schema::Trace: NodeHarness::Schema::Types::Trace
-NodeHarness::Schema::RunnerConfig: NodeHarness::Schema::Types::RunnerConfig
+Runners::Schema::Issue: Runners::Schema::Types::Issue
+Runners::Schema::Result: Runners::Schema::Types::Result
+Runners::Schema::Trace: Runners::Schema::Types::Trace
+Runners::Schema::RunnerConfig: Runners::Schema::Types::RunnerConfig
