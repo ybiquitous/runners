@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -16,7 +18,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("specified_dir", {
+Smoke.add_test("specified_dir", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -36,7 +38,7 @@ NodeHarness::Testing::Smoke.add_test("specified_dir", {
 
 # Regression test for large output
 # See https://github.com/sideci/runner_code_sniffer/pull/27
-NodeHarness::Testing::Smoke.add_test("sideci_php_sandbox", {
+Smoke.add_test("sideci_php_sandbox", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -47,7 +49,7 @@ NodeHarness::Testing::Smoke.add_test("sideci_php_sandbox", {
     },
 })
 
-NodeHarness::Testing::Smoke.add_test("with_php_version", {
+Smoke.add_test("with_php_version", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -58,7 +60,7 @@ NodeHarness::Testing::Smoke.add_test("with_php_version", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -66,7 +68,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   message: "Invalid configuration in `sideci.yml`: unknown attribute at config: `$.linter.code_sniffer.options`"
 })
 
-NodeHarness::Testing::Smoke.add_test("version_2", {
+Smoke.add_test("version_2", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

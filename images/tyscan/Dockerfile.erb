@@ -9,4 +9,4 @@ USER root
 RUN npm install -g tyscan@${LINT_TOOL_VERSION} typescript@${TYPESCRIPT_VERSION}
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=tyscan"]
+ENTRYPOINT ["runners", "--analyzer=tyscan"]

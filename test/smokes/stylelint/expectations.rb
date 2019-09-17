@@ -1,10 +1,12 @@
+Smoke = Runners::Testing::Smoke
+
 # Smoke test allows testing by input and output of the analysis.
 # Following example, create "success" directory and put files, configurations, etc in this directory.
 #
 
 # Case: package.json が存在 && stylelintrc が存在
 # Analysis: package.jsonから必要なパッケージをインストールし、解析する
-NodeHarness::Testing::Smoke.add_test('success', {
+Smoke.add_test('success', {
   analyzer: {name: 'stylelint', version: '10.0.1'},
   guid: 'test-guid',
   timestamp: :_,
@@ -75,7 +77,7 @@ NodeHarness::Testing::Smoke.add_test('success', {
 
 # Case: package.json が不在 && stylelintrc が不在
 # Analysis: Global にインストールされた stylelint, stylelint-config-recommended を使って解析する
-NodeHarness::Testing::Smoke.add_test('no_config', {
+Smoke.add_test('no_config', {
   analyzer: {name: 'stylelint', version: '10.1.0'},
   guid: 'test-guid',
   timestamp: :_,
@@ -100,7 +102,7 @@ NodeHarness::Testing::Smoke.add_test('no_config', {
 
 # Case: package.json が不在 && stylelintrc が存在
 # Analysis: stylelint-config-standard が存在しないので、解析エラーになる。
-NodeHarness::Testing::Smoke.add_test('analyse-only-css', {
+Smoke.add_test('analyse-only-css', {
   analyzer: {name: 'stylelint', version: '10.1.0'},
   guid: 'test-guid',
   timestamp: :_,
@@ -110,7 +112,7 @@ NodeHarness::Testing::Smoke.add_test('analyse-only-css', {
 
 # Case: package.json が不在 && stylelintrc が不在
 # Analysis: Global にインストールされた stylelint, stylelint-config-recommended を使って解析する
-NodeHarness::Testing::Smoke.add_test('without-css', {
+Smoke.add_test('without-css', {
   analyzer: {name: 'stylelint', version: '10.1.0'},
   guid: 'test-guid',
   timestamp: :_,
@@ -118,7 +120,7 @@ NodeHarness::Testing::Smoke.add_test('without-css', {
   issues: [],
 })
 
-NodeHarness::Testing::Smoke.add_test('without-css-v9', {
+Smoke.add_test('without-css-v9', {
   analyzer: {name: 'stylelint', version: '9.10.1'},
   guid: 'test-guid',
   timestamp: :_,
@@ -129,7 +131,7 @@ NodeHarness::Testing::Smoke.add_test('without-css-v9', {
 # Case: package.json が存在 && stylelintrc が存在 && npm_install: true
 #       package.json 中に stylelint, stylelint-config-standard が記載
 # Analysis: npm でインストールした stylelint, stylelint-config-standard を使って解析する
-NodeHarness::Testing::Smoke.add_test('with_options', {
+Smoke.add_test('with_options', {
   analyzer: { name: 'stylelint', version: '8.4.0' },
   guid: 'test-guid',
   timestamp: :_,
@@ -160,7 +162,7 @@ NodeHarness::Testing::Smoke.add_test('with_options', {
 
 # Case: package.json が不在 && stylelintrc が不在
 # Analysis: Global にインストールされた stylelint, stylelint-config-recommended を使って解析する
-NodeHarness::Testing::Smoke.add_test('syntax-error', {
+Smoke.add_test('syntax-error', {
   analyzer: {name: 'stylelint', version: '10.1.0'},
   guid: 'test-guid',
   timestamp: :_,
@@ -181,7 +183,7 @@ NodeHarness::Testing::Smoke.add_test('syntax-error', {
 
 # Case: package.json が不在 && stylelintrc が存在
 # Analysis: Global にインストールされた stylelint, .stylelintrc の extends を元にインストールした stylelint-config-recommended を使って解析する
-NodeHarness::Testing::Smoke.add_test('only_stylelintrc', {
+Smoke.add_test('only_stylelintrc', {
   analyzer: { name: 'stylelint', version: '10.1.0' },
   guid: 'test-guid',
   timestamp: :_,
@@ -208,7 +210,7 @@ NodeHarness::Testing::Smoke.add_test('only_stylelintrc', {
 # Case: package.json が不在 && stylelintrc が存在
 #       stylelintrc は extends や plugins などを持たず、純粋にルールのみが記載
 # Analysis: Global にインストールされた stylelint を使って解析する
-NodeHarness::Testing::Smoke.add_test('only_stylelintrc_without_packages', {
+Smoke.add_test('only_stylelintrc_without_packages', {
   analyzer: { name: 'stylelint', version: '10.1.0' },
   guid: 'test-guid',
   timestamp: :_,
@@ -249,7 +251,7 @@ NodeHarness::Testing::Smoke.add_test('only_stylelintrc_without_packages', {
 
 # Case: package.json が存在 && stylelintrc が存在 && npm_install: true
 # Analysis: バージョンが古すぎて、インストールエラーとなる。
-NodeHarness::Testing::Smoke.add_test('pinned_stylelint_version', {
+Smoke.add_test('pinned_stylelint_version', {
   analyzer: nil,
   guid: 'test-guid',
   timestamp: :_,
@@ -259,7 +261,7 @@ NodeHarness::Testing::Smoke.add_test('pinned_stylelint_version', {
 
 # Case: package.json が存在 && stylelintrc が不在 && npm_install: true
 # Analysis: npm でインストールした stylelint と Global にインストールされた stylelint-config-recommended を使って解析する
-NodeHarness::Testing::Smoke.add_test('only_stylelint_in_package_json', {
+Smoke.add_test('only_stylelint_in_package_json', {
   analyzer: { name: 'stylelint', version: '8.4.0' },
   guid: 'test-guid',
   timestamp: :_,
@@ -285,7 +287,7 @@ NodeHarness::Testing::Smoke.add_test('only_stylelint_in_package_json', {
 
 # Case: package.json が存在 && stylelintrc が存在 && npm_install: true
 # Analysis: peer dep が存在しないので、デフォルトにフォールバックする。
-NodeHarness::Testing::Smoke.add_test('npm_install_without_stylelint', {
+Smoke.add_test('npm_install_without_stylelint', {
   analyzer: { name: "stylelint", version: "10.1.0" },
   guid: 'test-guid',
   timestamp: :_,
@@ -341,7 +343,7 @@ NodeHarness::Testing::Smoke.add_test('npm_install_without_stylelint', {
 # Case: package.json が存在 && stylelintrc が存在 && npm_install: true
 #       ただし、 package.json に不正な値が入っているため、npm install 自体は失敗する
 # Analysis: インストールエラーになる。
-NodeHarness::Testing::Smoke.add_test('failed_to_npm_install', {
+Smoke.add_test('failed_to_npm_install', {
   analyzer: nil,
   guid: 'test-guid',
   timestamp: :_,
@@ -351,7 +353,7 @@ NodeHarness::Testing::Smoke.add_test('failed_to_npm_install', {
 
 # Case: package.json が存在 && stylelintrc が存在 && npm_install オプションの記載なし
 # Analysis: 設定に書かれてるパッケージがインストールされないので、エラーになる。
-NodeHarness::Testing::Smoke.add_test('without_npm_install', {
+Smoke.add_test('without_npm_install', {
   analyzer: { 'name': 'stylelint', version: '8.4.0' },
   guid: 'test-guid',
   timestamp: :_,
@@ -360,7 +362,7 @@ NodeHarness::Testing::Smoke.add_test('without_npm_install', {
 })
 
 # Case: Failed to check sideci.yml schema because it has been broken.
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   analyzer: nil,
   guid: 'test-guid',
   timestamp: :_,
@@ -368,7 +370,7 @@ NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.stylelint.options.ignore-path`"
 })
 
-NodeHarness::Testing::Smoke.add_test("additional_options", {
+Smoke.add_test("additional_options", {
   analyzer: { 'name': 'stylelint', version: '9.10.1' },
   guid: 'test-guid',
   timestamp: :_,
@@ -392,7 +394,7 @@ NodeHarness::Testing::Smoke.add_test("additional_options", {
   ]
 })
 
-NodeHarness::Testing::Smoke.add_test("allow_empty_input_option_with_v10.0.0", {
+Smoke.add_test("allow_empty_input_option_with_v10.0.0", {
   analyzer: { 'name': 'stylelint', version: '10.0.0' },
   guid: 'test-guid',
   timestamp: :_,
@@ -400,7 +402,7 @@ NodeHarness::Testing::Smoke.add_test("allow_empty_input_option_with_v10.0.0", {
   issues: [],
 })
 
-NodeHarness::Testing::Smoke.add_test("mismatched_yarnlock_and_package_json", {
+Smoke.add_test("mismatched_yarnlock_and_package_json", {
   analyzer: nil,
   guid: 'test-guid',
   timestamp: :_,
@@ -408,7 +410,7 @@ NodeHarness::Testing::Smoke.add_test("mismatched_yarnlock_and_package_json", {
   message: "`yarn install` failed. Please confirm `yarn.lock` is consistent with `package.json`."
 })
 
-NodeHarness::Testing::Smoke.add_test("default_glob", {
+Smoke.add_test("default_glob", {
   analyzer: { name: "stylelint", version: "10.1.0" },
   guid: 'test-guid',
   timestamp: :_,

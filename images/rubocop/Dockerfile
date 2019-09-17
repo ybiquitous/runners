@@ -15,19 +15,19 @@ RUN rbenv install $GLOBAL_RUBY_VERSION && \
     gem install bundler --version $BUNDLER2_VERSION && \
     bundle -v | grep -q "$BUNDLER2_VERSION"
 
-ARG NODE_HARNESS_DIR=$RUNNER_USER_HOME/node_harness
-COPY Gemfile* Rakefile $NODE_HARNESS_DIR/
-COPY bin ${NODE_HARNESS_DIR}/bin
-COPY lib ${NODE_HARNESS_DIR}/lib
+ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
+COPY Gemfile* Rakefile ${RUNNERS_DIR}/
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
 USER root
-RUN chown -R $RUNNER_USER: $NODE_HARNESS_DIR
+RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
 
-RUN cd $NODE_HARNESS_DIR && bundle install --without development test
-ENV BUNDLE_GEMFILE $NODE_HARNESS_DIR/Gemfile
-ENV PATH $NODE_HARNESS_DIR/bin:$PATH
+RUN cd ${RUNNERS_DIR} && bundle install --without development test
+ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
+ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
 RUN gem install rubocop -v 0.74.0
 
-ENTRYPOINT ["node_harness", "--analyzer=rubocop"]
+ENTRYPOINT ["runners", "--analyzer=rubocop"]

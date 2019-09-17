@@ -12,4 +12,4 @@ USER $RUNNER_USER
 
 COPY images/stylelint/sider_recommended_config.yaml images/stylelint/sider_recommended_stylelintignore $RUNNER_USER_HOME/
 
-ENTRYPOINT ["node_harness", "--analyzer=stylelint"]
+ENTRYPOINT ["runners", "--analyzer=stylelint"]

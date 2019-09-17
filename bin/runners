@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require "pathname"
+
+$LOAD_PATH << Pathname(__dir__).parent + "lib"
+
+require "runners"
+require "runners/cli"
+
+Runners::CLI.new(argv: ARGV, stdout: STDOUT, stderr: STDERR).validate_options!.run

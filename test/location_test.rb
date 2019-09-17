@@ -1,7 +1,7 @@
 require_relative "test_helper"
 
 class LocationTest < Minitest::Test
-  Location = NodeHarness::Location
+  Location = Runners::Location
 
   def test_valid_with_every_attributes
     loc = Location.new(start_line: 1, start_column: 1, end_line: 3, end_column: 2)

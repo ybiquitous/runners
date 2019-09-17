@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -16,16 +18,16 @@ NodeHarness::Testing::Smoke.add_test("success", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("invalid_rule", {
+Smoke.add_test("invalid_rule", {
   guid: "test-guid",
   timestamp: :_,
   type: "error",
-  class: "NodeHarness::Shell::ExecError",
+  class: "Runners::Shell::ExecError",
   backtrace: :_,
   inspect: :_
 })
 
-NodeHarness::Testing::Smoke.add_test("valid_options", {
+Smoke.add_test("valid_options", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -43,7 +45,7 @@ NodeHarness::Testing::Smoke.add_test("valid_options", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("syntax_error", {
+Smoke.add_test("syntax_error", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -54,7 +56,7 @@ NodeHarness::Testing::Smoke.add_test("syntax_error", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("php_7.1", {
+Smoke.add_test("php_7.1", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -72,7 +74,7 @@ NodeHarness::Testing::Smoke.add_test("php_7.1", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("php_7.3", {
+Smoke.add_test("php_7.3", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -90,7 +92,7 @@ NodeHarness::Testing::Smoke.add_test("php_7.3", {
   },
 })
 
-NodeHarness::Testing::Smoke.add_test("with_php_version", {
+Smoke.add_test("with_php_version", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -101,7 +103,7 @@ NodeHarness::Testing::Smoke.add_test("with_php_version", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("broken_sideci_yml", {
+Smoke.add_test("broken_sideci_yml", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",

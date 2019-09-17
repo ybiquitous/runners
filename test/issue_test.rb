@@ -3,8 +3,8 @@ require_relative "test_helper"
 class IssueTest < Minitest::Test
   include TestHelper
 
-  Issues = NodeHarness::Issues
-  Location = NodeHarness::Location
+  Issues = Runners::Issues
+  Location = Runners::Location
 
   def test_identified_issue
     issue = Issues::Identified.new(path: Pathname("foo/bar.rb"),

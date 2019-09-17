@@ -9,4 +9,4 @@ RUN curl -L -o install-misspell.sh https://git.io/misspell && \
     rm ./install-misspell.sh
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=misspell"]
+ENTRYPOINT ["runners", "--analyzer=misspell"]

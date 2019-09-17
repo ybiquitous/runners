@@ -17,4 +17,4 @@ RUN cd /tmp \
   && rm -rf cppcheck-${CPPCHECK_VERSION}
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=cppcheck"]
+ENTRYPOINT ["runners", "--analyzer=cppcheck"]

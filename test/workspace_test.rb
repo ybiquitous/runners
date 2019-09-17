@@ -3,10 +3,10 @@ require_relative "test_helper"
 class WorkspaceTest < Minitest::Test
   include TestHelper
 
-  Workspace = NodeHarness::Workspace
+  Workspace = Runners::Workspace
 
   def trace_writer
-    @trace_writer ||= NodeHarness::TraceWriter.new(writer: [])
+    @trace_writer ||= Runners::TraceWriter.new(writer: [])
   end
 
   def test_prepare_from_http
@@ -30,7 +30,7 @@ class WorkspaceTest < Minitest::Test
 
   def test_prepare_from_http_with_retry_on_download_error
     stub(Net::HTTP).get_response.with_any_args.yields(Net::HTTPResponse.new('1.1', 500, 'error'))
-    assert_raises(NodeHarness::Workspace::DownloadError) do
+    assert_raises(Workspace::DownloadError) do
       mktmpdir do |path|
         Workspace.prepare_in_dir(:dummy, "http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, path, trace_writer: trace_writer)
       end

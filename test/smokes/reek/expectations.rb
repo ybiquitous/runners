@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test(
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test(
   'multiline',
   guid: 'test-guid',
   timestamp: :_,
@@ -44,7 +46,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
     'recommend_config',
     guid: 'test-guid',
     timestamp: :_,
@@ -68,7 +70,7 @@ NodeHarness::Testing::Smoke.add_test(
     }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'syntax_error',
   {
     guid: 'test-guid',
@@ -97,7 +99,7 @@ NodeHarness::Testing::Smoke.add_test(
   ]
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'exist_reek_config',
   guid: 'test-guid',
   timestamp: :_,
@@ -130,27 +132,27 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'renamed_rule',
   guid: 'test-guid',
   timestamp: :_,
   type: 'error',
-  class: 'NodeHarness::Shell::ExecError',
+  class: 'Runners::Shell::ExecError',
   backtrace: :_,
   inspect: :_,
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'v4_config_style',
   guid: 'test-guid',
   timestamp: :_,
   type: 'error',
-  class: 'NodeHarness::Shell::ExecError',
+  class: 'Runners::Shell::ExecError',
   backtrace: :_,
   inspect: :_,
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'v4_config_file_exists',
   guid: 'test-guid',
   timestamp: :_,
@@ -174,7 +176,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'lowest_deps',
   guid: 'test-guid',
   timestamp: :_,
@@ -198,7 +200,7 @@ NodeHarness::Testing::Smoke.add_test(
   }
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   'unsupported',
   {
     guid: 'test-guid',
@@ -233,7 +235,7 @@ NodeHarness::Testing::Smoke.add_test(
   ]
 )
 
-NodeHarness::Testing::Smoke.add_test("regex_directory_directive", {
+Smoke.add_test("regex_directory_directive", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',

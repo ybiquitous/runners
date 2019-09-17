@@ -3,11 +3,11 @@ require_relative "test_helper"
 class ProcessorTest < Minitest::Test
   include TestHelper
 
-  Processor = NodeHarness::Processor
-  Results = NodeHarness::Results
-  TraceWriter = NodeHarness::TraceWriter
-  Analyzer = NodeHarness::Analyzer
-  Shell = NodeHarness::Shell
+  Processor = Runners::Processor
+  Results = Runners::Results
+  TraceWriter = Runners::TraceWriter
+  Analyzer = Runners::Analyzer
+  Shell = Runners::Shell
 
   def trace_writer
     @trace_writer ||= TraceWriter.new(writer: [])
@@ -90,7 +90,7 @@ class ProcessorTest < Minitest::Test
     _, _, status = Open3.capture3("rmdir", "/no/such/path")
     error = Shell::ExecError.new(type: :capture3, args: ["/bin/echo", "hello"], stdout_str: "hello", stderr_str: "some error message", status: status, dir: Pathname("/"))
 
-    assert_equal "#<NodeHarness::Shell::ExecError: type=capture3, args=[\"/bin/echo\", \"hello\"], status=#{status.inspect}, dir=#<Pathname:/>, stdout_str=..., stderr_str=...>", error.inspect
+    assert_equal "#<Runners::Shell::ExecError: type=capture3, args=[\"/bin/echo\", \"hello\"], status=#{status.inspect}, dir=#<Pathname:/>, stdout_str=..., stderr_str=...>", error.inspect
   end
 
   def test_relative_path_from
@@ -206,7 +206,7 @@ class ProcessorTest < Minitest::Test
 
       processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.check_root_dir_exist
-      assert_instance_of NodeHarness::Results::Failure, result
+      assert_instance_of Runners::Results::Failure, result
       assert_equal "`path/to/unknown` directory is not found! Please check `linter.foo_tool.root_dir` in your `sider.yml`", result.message
       assert_nil result.analyzer
     end
@@ -317,7 +317,7 @@ class ProcessorTest < Minitest::Test
 
       processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.ensure_runner_config_schema(StrongJSON.new { let :config, object(root_dir: string?) }.config) { |c| c }
-      assert_instance_of NodeHarness::Results::Failure, result
+      assert_instance_of Runners::Results::Failure, result
       assert_equal "Invalid configuration in `sider.yml`: unknown attribute at config: `$.linter.foo_tool`", result.message
       assert_nil result.analyzer
     end
@@ -335,7 +335,7 @@ class ProcessorTest < Minitest::Test
 
       processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.ensure_runner_config_schema(StrongJSON.new { let :config, object(root_dir: string?) }.config) { |c| c }
-      assert_instance_of NodeHarness::Results::Failure, result
+      assert_instance_of Runners::Results::Failure, result
       assert_equal "Invalid configuration in `sider.yml`: unexpected value at config: `$.linter.foo_tool.root_dir`", result.message
       assert_nil result.analyzer
     end

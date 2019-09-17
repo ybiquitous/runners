@@ -1,5 +1,5 @@
 rules:
-  - id: sider.node_harness.exitstatus
+  - id: sider.runners.exitstatus
     pattern:
       - _.exitstatus()
     message: |
@@ -9,7 +9,7 @@ rules:
       This means the process is abort(2)-ed or coredumped.
 
       Check Process#exited? to make sure exitstatus is a Integer.
-  - id: sider.node_harness.trace_writer_status
+  - id: sider.runners.trace_writer_status
     pattern:
       - status(_, ...)
     message: |

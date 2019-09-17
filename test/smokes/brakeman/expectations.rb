@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -35,7 +37,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("subdir", {
+Smoke.add_test("subdir", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -72,7 +74,7 @@ NodeHarness::Testing::Smoke.add_test("subdir", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("not_rails", {
+Smoke.add_test("not_rails", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -83,7 +85,7 @@ NodeHarness::Testing::Smoke.add_test("not_rails", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("lowest_deps", {
+Smoke.add_test("lowest_deps", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -110,7 +112,7 @@ NodeHarness::Testing::Smoke.add_test("lowest_deps", {
 
 # Brakeman v4.4.0 and later is distributed under a non-OSS license.
 # See https://brakemanscanner.org/blog/2019/01/17/brakeman-4-dot-4-dot-0-released
-NodeHarness::Testing::Smoke.add_test("new_licensed", {
+Smoke.add_test("new_licensed", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

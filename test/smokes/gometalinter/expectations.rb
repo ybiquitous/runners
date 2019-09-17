@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("success", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -9,7 +11,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("require_install", {
+Smoke.add_test("require_install", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -27,7 +29,7 @@ NodeHarness::Testing::Smoke.add_test("require_install", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("private_dependency", {
+Smoke.add_test("private_dependency", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -47,7 +49,7 @@ NodeHarness::Testing::Smoke.add_test("private_dependency", {
   config.ssh_key = "ssh_key"
 end
 
-NodeHarness::Testing::Smoke.add_test("specify_config", {
+Smoke.add_test("specify_config", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -86,7 +88,7 @@ NodeHarness::Testing::Smoke.add_test("specify_config", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("install_path", {
+Smoke.add_test("install_path", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -100,7 +102,7 @@ NodeHarness::Testing::Smoke.add_test("install_path", {
   file: 'sideci.yml',
 }])
 
-NodeHarness::Testing::Smoke.add_test("import_path", {
+Smoke.add_test("import_path", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -111,7 +113,7 @@ NodeHarness::Testing::Smoke.add_test("import_path", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("import_path_and_install_path", {
+Smoke.add_test("import_path_and_install_path", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",

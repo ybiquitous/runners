@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test(
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test(
   "default",
   guid: "test-guid",
   timestamp: :_,
@@ -219,17 +221,17 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "no_target",
   guid: "test-guid",
   timestamp: :_,
   type: "error",
-  class: "NodeHarness::Shell::ExecError",
+  class: "Runners::Shell::ExecError",
   backtrace: :_,
   inspect: :_,
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "single_target",
   guid: "test-guid",
   timestamp: :_,
@@ -255,7 +257,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "multiple_target",
   guid: "test-guid",
   timestamp: :_,
@@ -294,7 +296,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "single_ignore",
   guid: "test-guid",
   timestamp: :_,
@@ -320,7 +322,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "multiple_ignore",
   guid: "test-guid",
   timestamp: :_,
@@ -346,7 +348,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "enable",
   guid: "test-guid",
   timestamp: :_,
@@ -398,7 +400,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "std",
   guid: "test-guid",
   timestamp: :_,
@@ -424,7 +426,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "project",
   guid: "test-guid",
   timestamp: :_,
@@ -450,7 +452,7 @@ NodeHarness::Testing::Smoke.add_test(
   },
 )
 
-NodeHarness::Testing::Smoke.add_test(
+Smoke.add_test(
   "language",
   guid: "test-guid",
   timestamp: :_,

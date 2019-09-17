@@ -1,4 +1,6 @@
-NodeHarness::Testing::Smoke.add_test("basic", {
+Smoke = Runners::Testing::Smoke
+
+Smoke.add_test("basic", {
     guid: "test-guid",
     timestamp: :_,
     type: "success",
@@ -30,7 +32,7 @@ NodeHarness::Testing::Smoke.add_test("basic", {
     }
 })
 
-NodeHarness::Testing::Smoke.add_test("options", {
+Smoke.add_test("options", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -62,7 +64,7 @@ NodeHarness::Testing::Smoke.add_test("options", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("test_failed", {
+Smoke.add_test("test_failed", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -92,7 +94,7 @@ NodeHarness::Testing::Smoke.add_test("test_failed", {
   MESSAGE
 ])
 
-NodeHarness::Testing::Smoke.add_test("analyzer_failed", {
+Smoke.add_test("analyzer_failed", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -107,7 +109,7 @@ NodeHarness::Testing::Smoke.add_test("analyzer_failed", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("invalid_runner_config", {
+Smoke.add_test("invalid_runner_config", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -115,7 +117,7 @@ NodeHarness::Testing::Smoke.add_test("invalid_runner_config", {
   analyzer: nil,
 })
 
-NodeHarness::Testing::Smoke.add_test("ctp_file", {
+Smoke.add_test("ctp_file", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -137,7 +139,7 @@ NodeHarness::Testing::Smoke.add_test("ctp_file", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("config_not_found", {
+Smoke.add_test("config_not_found", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -153,7 +155,7 @@ NodeHarness::Testing::Smoke.add_test("config_not_found", {
   MESSAGE
 ])
 
-NodeHarness::Testing::Smoke.add_test("rule_option_as_config_file", {
+Smoke.add_test("rule_option_as_config_file", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

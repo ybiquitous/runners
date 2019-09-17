@@ -11,4 +11,4 @@ RUN curl -SL https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_V
 
 USER $RUNNER_USER
 
-ENTRYPOINT ["node_harness", "--analyzer=pmd_java"]
+ENTRYPOINT ["runners", "--analyzer=pmd_java"]

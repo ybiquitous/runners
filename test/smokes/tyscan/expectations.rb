@@ -1,7 +1,9 @@
+Smoke = Runners::Testing::Smoke
+
 # Smoke test allows testing by input and output of the analysis.
 # Following example, create "success" directory and put files, configurations, etc in this directory.
 #
-NodeHarness::Testing::Smoke.add_test("success", {
+Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -18,7 +20,7 @@ NodeHarness::Testing::Smoke.add_test("success", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("default_config_not_found", {
+Smoke.add_test("default_config_not_found", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -36,7 +38,7 @@ NodeHarness::Testing::Smoke.add_test("default_config_not_found", {
   MESSAGE
 ])
 
-NodeHarness::Testing::Smoke.add_test("package_json_not_found", {
+Smoke.add_test("package_json_not_found", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -53,7 +55,7 @@ NodeHarness::Testing::Smoke.add_test("package_json_not_found", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("typescript_not_found", {
+Smoke.add_test("typescript_not_found", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -70,7 +72,7 @@ NodeHarness::Testing::Smoke.add_test("typescript_not_found", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("tyscan_not_found", {
+Smoke.add_test("tyscan_not_found", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -87,7 +89,7 @@ NodeHarness::Testing::Smoke.add_test("tyscan_not_found", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("invalid_pattern", {
+Smoke.add_test("invalid_pattern", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
@@ -105,7 +107,7 @@ NodeHarness::Testing::Smoke.add_test("invalid_pattern", {
   { message: '`tyscan test` failed. It may cause an unintended match.', file: "tyscan.yml" }
 ])
 
-NodeHarness::Testing::Smoke.add_test("options", {
+Smoke.add_test("options", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -127,7 +129,7 @@ NodeHarness::Testing::Smoke.add_test("options", {
   }
 })
 
-NodeHarness::Testing::Smoke.add_test("tests_failed", {
+Smoke.add_test("tests_failed", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -146,7 +148,7 @@ NodeHarness::Testing::Smoke.add_test("tests_failed", {
   { message: "`tyscan test` failed. It may cause an unintended match.", file: "tyscan.yml" }
 ])
 
-NodeHarness::Testing::Smoke.add_test("jsx_element", {
+Smoke.add_test("jsx_element", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",

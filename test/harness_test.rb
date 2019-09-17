@@ -3,14 +3,14 @@ require_relative "test_helper"
 class HarnessTest < Minitest::Test
   include TestHelper
 
-  Harness = NodeHarness::Harness
-  Processor = NodeHarness::Processor
-  Results = NodeHarness::Results
-  Issues = NodeHarness::Issues
-  Location = NodeHarness::Location
-  Analyzer = NodeHarness::Analyzer
-  TraceWriter = NodeHarness::TraceWriter
-  Workspace = NodeHarness::Workspace
+  Harness = Runners::Harness
+  Processor = Runners::Processor
+  Results = Runners::Results
+  Issues = Runners::Issues
+  Location = Runners::Location
+  Analyzer = Runners::Analyzer
+  TraceWriter = Runners::TraceWriter
+  Workspace = Runners::Workspace
 
   def trace_writer
     @trace_writer ||= TraceWriter.new(writer: [])

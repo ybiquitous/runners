@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'node_harness'
+require 'runners'
 
 require 'minitest/autorun'
 require "unification_assertion"

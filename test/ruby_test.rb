@@ -3,15 +3,15 @@ require_relative 'test_helper'
 class RubyTest < Minitest::Test
   include TestHelper
 
-  GemInstaller = NodeHarness::Ruby::GemInstaller
-  LockfileLoader = NodeHarness::Ruby::LockfileLoader
+  GemInstaller = Runners::Ruby::GemInstaller
+  LockfileLoader = Runners::Ruby::LockfileLoader
 
   def trace_writer
-    @trace_writer ||= NodeHarness::TraceWriter.new(writer: [])
+    @trace_writer ||= Runners::TraceWriter.new(writer: [])
   end
 
   def shell
-    @shell ||= NodeHarness::Shell.new(
+    @shell ||= Runners::Shell.new(
       current_dir: __dir__,
       env_hash: {},
       trace_writer: trace_writer
@@ -22,7 +22,7 @@ class RubyTest < Minitest::Test
     specs = [
       GemInstaller::Spec.new(name: "strong_json", version: ["0.4.0"]),
       GemInstaller::Spec.new(name: "rubocop", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop.git")),
-      GemInstaller::Spec.new(name: "node_harness", version: [], source:  GemInstaller::GitSource.new(repo: "git@github.com:sider/node_harness.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
+      GemInstaller::Spec.new(name: "runners", version: [], source:  GemInstaller::GitSource.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
       GemInstaller::Spec.new(name: "rubocop-rails", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
       GemInstaller::Spec.new(name: "rubocop-rspec", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
       GemInstaller::Spec.new(name: "rubocop-sider", version: [], source: GemInstaller::RubygemsSource.new("https://gems.sider.review")),
@@ -46,8 +46,8 @@ class RubyTest < Minitest::Test
                      'git "https://github.com/rubocop-hq/rubocop.git", ref: nil, branch: nil, tag: nil do',
                      '  gem("rubocop", ">= 0.55.0")',
                      'end',
-                     'git "git@github.com:sider/node_harness.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d", branch: nil, tag: nil do',
-                     '  gem("node_harness", )',
+                     'git "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d", branch: nil, tag: nil do',
+                     '  gem("runners", )',
                      'end',
                      'git "https://github.com/rubocop-hq/rubocop-rails.git", ref: nil, branch: "dev", tag: nil do',
                      '  gem("rubocop-rails", )',
@@ -141,7 +141,7 @@ class RubyTest < Minitest::Test
                                            "rubocop",
                                            { "name" => "strong_json", "version" => "0.7.0", "source" => "https://my.gems.org" },
                                            { "name" => "rubocop-sider", "git" => { "repo" => "https://github.com/sider/rubocop-sider.git" } },
-                                           { "name" => "node_harness", "git" => { "repo" => "git@github.com:sider/node_harness.git", "ref" => "e66806c02849a0d0bdea66be88b5967d5eb3305d" } },
+                                           { "name" => "runners", "git" => { "repo" => "git@github.com:sider/runners.git", "ref" => "e66806c02849a0d0bdea66be88b5967d5eb3305d" } },
                                            { "name" => "rubocop-rails", "git" => { "repo" => "https://github.com/rubocop-hq/rubocop-rails.git", "branch" => "dev" } },
                                            { "name" => "rubocop-rspec", "git" => { "repo" => "https://github.com/rubocop-hq/rubocop-rspec.git", "tag" => "v1.13.0" } },
                                          ])
@@ -150,7 +150,7 @@ class RubyTest < Minitest::Test
                    GemInstaller::Spec.new(name: "rubocop", version: []),
                    GemInstaller::Spec.new(name: "strong_json", version: ["0.7.0"], source: GemInstaller::RubygemsSource.new("https://my.gems.org")),
                    GemInstaller::Spec.new(name: "rubocop-sider", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/sider/rubocop-sider.git")),
-                   GemInstaller::Spec.new(name: "node_harness", version: [], source: GemInstaller::GitSource.new(repo: "git@github.com:sider/node_harness.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
+                   GemInstaller::Spec.new(name: "runners", version: [], source: GemInstaller::GitSource.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
                    GemInstaller::Spec.new(name: "rubocop-rails", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
                    GemInstaller::Spec.new(name: "rubocop-rspec", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
                  ], specs
@@ -249,37 +249,37 @@ EOF
       (path + "Gemfile.lock").write(<<EOF)
 GEM
   remote: https://rubygems.org/                                                                                                                 [33/1947]
-  specs:                                                                                                                                                 
-    activesupport (5.2.2)                                                                                                                                
-      concurrent-ruby (~> 1.0, >= 1.0.2)                                                                                                                 
-      i18n (>= 0.7, < 2)                                                                                                                                 
-      minitest (~> 5.1)                                                                                                                                  
-      tzinfo (~> 1.1)                                                                                                                                    
-    ast (2.4.0)                                                                                                                                          
-    concurrent-ruby (1.1.4)                                                                                                                              
-<<<<<<< HEAD                                                                                                                                             
-    goodcheck (1.4.1)                                                                                                                                    
-      activesupport (~> 5.0)                                                                                                                             
-      httpclient (~> 2.8.3)                                                                                                                              
-      rainbow (~> 3.0.0)                                                                                                                                 
-      strong_json (~> 0.7.1)                                                                                                                             
-    httpclient (2.8.3)                                                                                                                                   
-    i18n (1.5.3)                                                                                                                                         
-      concurrent-ruby (~> 1.0)                                                                                                                           
-    jaro_winkler (1.5.2)                                                                                                                                 
-    minitest (5.11.3)                                                                                                                                    
-    parallel (1.13.0)                                                                                                                                    
-    parser (2.6.0.0)                                                                                                                                     
-=======                                                                                                                                                  
-    i18n (1.5.3)                                                                                                                                         
-      concurrent-ruby (~> 1.0)                                                                                                                           
-    minitest (5.11.3)                                                                                                                                    
-    parser (2.5.3.0)                                                                                                                                     
->>>>>>> add_querly                                                                                                                                       
-      ast (~> 2.4.0)                                                                                                                                     
-    querly (0.14.0)                                                                                                                                      
-      activesupport (~> 5.0)                                                                                                                             
-      parser (~> 2.5.0)                                                                                                                                  
+  specs:
+    activesupport (5.2.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    ast (2.4.0)
+    concurrent-ruby (1.1.4)
+<<<<<<< HEAD
+    goodcheck (1.4.1)
+      activesupport (~> 5.0)
+      httpclient (~> 2.8.3)
+      rainbow (~> 3.0.0)
+      strong_json (~> 0.7.1)
+    httpclient (2.8.3)
+    i18n (1.5.3)
+      concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.2)
+    minitest (5.11.3)
+    parallel (1.13.0)
+    parser (2.6.0.0)
+=======
+    i18n (1.5.3)
+      concurrent-ruby (~> 1.0)
+    minitest (5.11.3)
+    parser (2.5.3.0)
+>>>>>>> add_querly
+      ast (~> 2.4.0)
+    querly (0.14.0)
+      activesupport (~> 5.0)
+      parser (~> 2.5.0)
       rainbow (>= 2.1)
       thor (>= 0.19.0, < 0.21.0)
     rainbow (3.0.0)
@@ -348,8 +348,8 @@ EOF
   end
 
   def test_install_no_gems
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         { }
@@ -371,8 +371,8 @@ EOF
   end
 
   def test_install_gems_with_gems
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         { "gems" => ["strong_json"] }
@@ -409,8 +409,8 @@ EOF
   end
 
   def test_install_gems_with_gems_failure
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         { "gems" => ["no such gem"] }
@@ -434,8 +434,8 @@ EOF
   end
 
   def test_install_gems_with_invalid_gem_definition
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         { "gems" => [{ "version" => "0.62.0" }] }
@@ -459,8 +459,8 @@ EOF
   end
 
   def test_install_gems_with_optionals
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
     end
 
     mktmpdir do |path|
@@ -492,8 +492,8 @@ EOF
   end
 
   def test_install_gems_with_gemfile_lock
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         {
@@ -542,8 +542,8 @@ EOF
 
 
   def test_install_gems_with_gemfile_lock_which_does_not_satisfy_constraints
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
     end
 
     mktmpdir do |path|
@@ -582,8 +582,8 @@ EOF
   end
 
   def test_install_gems_with_gems_which_does_not_satisfy_constraints
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         {
@@ -610,8 +610,8 @@ EOF
   end
 
   def test_install_gems_with_other_sources
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         {
@@ -638,8 +638,8 @@ EOF
   end
 
   def test_install_gems_with_git_sources
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         {
@@ -654,7 +654,7 @@ EOF
     end
 
     mktmpdir do |path|
-      NodeHarness::Workspace.open(base: nil, base_key: nil,
+      Runners::Workspace.open(base: nil, base_key: nil,
                                   head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
                                   working_dir: path,
                                   ssh_key: (Pathname(__dir__) + "data/ruby_private_gem_deploy_key").to_s,
@@ -678,8 +678,8 @@ EOF
   end
 
   def test_install_gems_with_only_git_sources
-    klass = Class.new(NodeHarness::Processor) do
-      include NodeHarness::Ruby
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
 
       def ci_section
         {

@@ -9,4 +9,4 @@ USER $RUNNER_USER
 
 COPY images/jshint/sider_jshintignore images/jshint/sider_jshintrc $RUNNER_USER_HOME/
 
-ENTRYPOINT ["node_harness", "--analyzer=jshint"]
+ENTRYPOINT ["runners", "--analyzer=jshint"]
