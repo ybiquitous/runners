@@ -22,7 +22,7 @@ ARG STYLELINT_CONFIG_RECOMMENDED_VERSION=2.2.0
 
 # Install stylelint globally
 USER root
-RUN npm install -g stylelint@${STYLELINT_VERSION} stylelint-config-recommended@${STYLELINT_CONFIG_STANDARD_VERSION}
+RUN npm install -g stylelint@${STYLELINT_VERSION} stylelint-config-recommended@${STYLELINT_CONFIG_RECOMMENDED_VERSION}
 USER $RUNNER_USER
 
 COPY images/stylelint/sider_recommended_config.yaml images/stylelint/sider_recommended_stylelintignore $RUNNER_USER_HOME/
