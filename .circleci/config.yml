@@ -28,7 +28,7 @@ commands:
 
 runner_job: &runner_job
   docker:
-    - image: circleci/ruby:2.5.3
+    - image: circleci/ruby:2.6.4
   steps:
     - checkout
     - install_gems
@@ -45,7 +45,7 @@ runner_job: &runner_job
 jobs:
   test-base:
     docker:
-      - image: circleci/ruby:2.5.3
+      - image: circleci/ruby:2.6.4
     steps:
       - checkout
       - install_gems
