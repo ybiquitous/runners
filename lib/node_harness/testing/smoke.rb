@@ -82,13 +82,13 @@ module NodeHarness
             unless a.match?(b)
               ok = false
               out.puts "❌ Pattern matching failed at #{path}:"
-              out.puts diff(a, b)
+              out.puts diff(b, a)
             end
           else
             unless a == b
               ok = false
               out.puts "❌ Pattern matching failed at #{path}:"
-              out.puts diff(a, b)
+              out.puts diff(b, a)
             end
           end
         end
