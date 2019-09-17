@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ybiquitous/aufgaben.git
-  revision: a201e6c1ddef2dc5bc3b80d15c361a29dee9dc1c
+  revision: b353533652315682541d2b9a1716f07516963906
   specs:
     aufgaben (0.1.0)
 
