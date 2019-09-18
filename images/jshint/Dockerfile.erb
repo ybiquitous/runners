@@ -1,11 +1,7 @@
 FROM sider/devon_rex_npm:2.2.0
 
 <%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
-
-ENV JSHINT_VERSION 2.10.2
-USER root
-RUN npm install -g jshint@${JSHINT_VERSION}
-USER $RUNNER_USER
+<%= ERB.new(File.read('images/Dockerfile.npm.erb')).result %>
 
 COPY images/jshint/sider_jshintignore images/jshint/sider_jshintrc $RUNNER_USER_HOME/
 

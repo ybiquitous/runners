@@ -1,13 +1,7 @@
 FROM sider/devon_rex_npm:2.2.0
 
 <%= ERB.new(File.read('images/Dockerfile.base.erb')).result %>
-
-ARG ESLINT_VERSION=5.16.0
-
-# Install eslint globally
-USER root
-RUN npm install -g eslint@${ESLINT_VERSION}
-USER $RUNNER_USER
+<%= ERB.new(File.read('images/Dockerfile.npm.erb')).result %>
 
 # NOTE: ESLint uses a configuration file in the home directory if no other configuration files are found.
 #       See https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy

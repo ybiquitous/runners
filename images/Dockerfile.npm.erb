@@ -1,0 +1,12 @@
+<% analyzer = ENV.fetch('ANALYZER') %>
+# Install the default version
+COPY images/<%= analyzer %>/package.json ${RUNNER_USER_HOME}/<%= analyzer %>_package.json
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir <%= analyzer %> && \
+    mv <%= analyzer %>_package.json <%= analyzer %>/package.json && \
+    cd <%= analyzer %> && \
+    npm install --no-package-lock --ignore-scripts && \
+    node_modules/.bin/<%= analyzer %> --version
+ENV PATH ${RUNNER_USER_HOME}/<%= analyzer %>/node_modules/.bin:${PATH}
+# See https://nodejs.org/api/cli.html#cli_node_path_path
+ENV NODE_PATH ${RUNNER_USER_HOME}/<%= analyzer %>/node_modules:${NODE_PATH}

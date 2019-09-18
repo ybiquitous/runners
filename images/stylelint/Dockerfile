@@ -17,13 +17,18 @@ ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
-ARG STYLELINT_VERSION=10.1.0
-ARG STYLELINT_CONFIG_RECOMMENDED_VERSION=2.2.0
+# Install the default version
+COPY images/stylelint/package.json ${RUNNER_USER_HOME}/stylelint_package.json
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir stylelint && \
+    mv stylelint_package.json stylelint/package.json && \
+    cd stylelint && \
+    npm install --no-package-lock --ignore-scripts && \
+    node_modules/.bin/stylelint --version
+ENV PATH ${RUNNER_USER_HOME}/stylelint/node_modules/.bin:${PATH}
+# See https://nodejs.org/api/cli.html#cli_node_path_path
+ENV NODE_PATH ${RUNNER_USER_HOME}/stylelint/node_modules:${NODE_PATH}
 
-# Install stylelint globally
-USER root
-RUN npm install -g stylelint@${STYLELINT_VERSION} stylelint-config-recommended@${STYLELINT_CONFIG_RECOMMENDED_VERSION}
-USER $RUNNER_USER
 
 COPY images/stylelint/sider_recommended_config.yaml images/stylelint/sider_recommended_stylelintignore $RUNNER_USER_HOME/
 

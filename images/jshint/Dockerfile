@@ -17,10 +17,18 @@ ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 
-ENV JSHINT_VERSION 2.10.2
-USER root
-RUN npm install -g jshint@${JSHINT_VERSION}
-USER $RUNNER_USER
+# Install the default version
+COPY images/jshint/package.json ${RUNNER_USER_HOME}/jshint_package.json
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir jshint && \
+    mv jshint_package.json jshint/package.json && \
+    cd jshint && \
+    npm install --no-package-lock --ignore-scripts && \
+    node_modules/.bin/jshint --version
+ENV PATH ${RUNNER_USER_HOME}/jshint/node_modules/.bin:${PATH}
+# See https://nodejs.org/api/cli.html#cli_node_path_path
+ENV NODE_PATH ${RUNNER_USER_HOME}/jshint/node_modules:${NODE_PATH}
+
 
 COPY images/jshint/sider_jshintignore images/jshint/sider_jshintrc $RUNNER_USER_HOME/
 
