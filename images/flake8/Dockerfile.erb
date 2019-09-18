@@ -1,19 +1,9 @@
-FROM sider/devon_rex_python:2.2.0
+FROM sider/devon_rex_python:2.2.1
 
 <%= render_erb 'images/Dockerfile.base.erb' %>
+<%= render_erb 'images/Dockerfile.python.erb' %>
 
-ARG LINT_TOOL_VERSION=3.7.7
-RUN PYTHON2_VERSION=`pyenv versions --bare | grep '^2' --color=none` && \
-    PYTHON3_VERSION=`pyenv versions --bare | grep '^3' --color=none` && \
-    pyenv global $PYTHON2_VERSION && \
-    pip install flake8==$LINT_TOOL_VERSION && \
-    pyenv global $PYTHON3_VERSION && \
-    pip install flake8==$LINT_TOOL_VERSION
-
-USER root
 COPY images/flake8/sider_config.ini $RUNNER_USER_HOME/.config/flake8
 COPY images/flake8/ignored-config.ini $RUNNER_USER_HOME/.config/ignored-config.ini
-RUN chown -R $RUNNER_USER $RUNNER_USER_HOME/.config
-USER $RUNNER_USER
 
 <%= render_erb 'images/Dockerfile.end.erb' %>

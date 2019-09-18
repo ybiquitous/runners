@@ -2,7 +2,7 @@
 # NOTE: DO *NOT* EDIT THIS FILE.  IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-FROM sider/devon_rex_python:2.2.0
+FROM sider/devon_rex_python:2.2.1
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 COPY Gemfile* Rakefile ${RUNNERS_DIR}/
@@ -20,19 +20,19 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-ARG LINT_TOOL_VERSION=3.7.7
-RUN PYTHON2_VERSION=`pyenv versions --bare | grep '^2' --color=none` && \
-    PYTHON3_VERSION=`pyenv versions --bare | grep '^3' --color=none` && \
-    pyenv global $PYTHON2_VERSION && \
-    pip install flake8==$LINT_TOOL_VERSION && \
-    pyenv global $PYTHON3_VERSION && \
-    pip install flake8==$LINT_TOOL_VERSION
+# Install the default version
+COPY images/flake8/Pipfile ${RUNNER_USER_HOME}/flake8_Pipfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir flake8 && \
+    mv flake8_Pipfile flake8/Pipfile && \
+    cd flake8 && \
+    pipenv install --python ${PYTHON2_VERSION} --system --skip-lock && \
+    pipenv install --python ${PYTHON3_VERSION} --system --skip-lock && \
+    pyenv rehash && \
+    pyenv whence flake8
 
-USER root
 COPY images/flake8/sider_config.ini $RUNNER_USER_HOME/.config/flake8
 COPY images/flake8/ignored-config.ini $RUNNER_USER_HOME/.config/ignored-config.ini
-RUN chown -R $RUNNER_USER $RUNNER_USER_HOME/.config
-USER $RUNNER_USER
 
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}

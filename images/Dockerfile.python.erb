@@ -1,0 +1,11 @@
+<% analyzer = ENV.fetch('ANALYZER') %>
+# Install the default version
+COPY images/<%= analyzer %>/Pipfile ${RUNNER_USER_HOME}/<%= analyzer %>_Pipfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir <%= analyzer %> && \
+    mv <%= analyzer %>_Pipfile <%= analyzer %>/Pipfile && \
+    cd <%= analyzer %> && \
+    pipenv install --python ${PYTHON2_VERSION} --system --skip-lock && \
+    pipenv install --python ${PYTHON3_VERSION} --system --skip-lock && \
+    pyenv rehash && \
+    pyenv whence <%= analyzer %>
