@@ -52,12 +52,8 @@ namespace :dockerfile do
 
   desc 'Verify Dockerfile is committed'
   task :verify do
-    begin
-      sh 'git diff --exit-code'
-    rescue
-      STDERR.puts 'Run `bundle exec rake dockerfile:generate` and include the changes in commit'
-      exit(1)
-    end
+    system('git diff --exit-code') or
+      abort "\nError: Run `bundle exec rake dockerfile:generate` and include the changes in commit"
   end
 end
 
@@ -76,8 +72,8 @@ namespace :docker do
 
   def analyzer
     key = 'ANALYZER'
-    ENV.fetch(key).tap do |value|
-      abort <<~MSG if value.empty?
+    ENV[key].tap do |value|
+      abort <<~MSG if value.nil? || value.empty?
         Error: `#{key}` environment variable must be required. For example, run as follow:
 
             $ #{key}=rubocop bundle exec rake docker:build
@@ -87,8 +83,8 @@ namespace :docker do
 
   def tag
     key = 'TAG'
-    ENV.fetch(key).tap do |value|
-      abort <<~MSG if value.empty?
+    ENV[key].tap do |value|
+      abort <<~MSG if value.nil? || value.empty?
         Error: `#{key}` environment variable must be required. For example, run as follow:
 
             $ #{key}=dev bundle exec rake docker:build
