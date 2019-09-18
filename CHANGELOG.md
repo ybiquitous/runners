@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.0.7...HEAD)
 
 - Rename namespace: `NodeHarness` -> `Runners` [#96](https://github.com/sider/runners/pull/96)
+-  Install default npm tools via `package.json` [#99](https://github.com/sider/runners/pull/99)
 
 ## 0.0.7
 
