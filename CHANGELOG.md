@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Rename namespace: `NodeHarness` -> `Runners` [#96](https://github.com/sider/runners/pull/96)
 - Install default npm tools via `package.json` [#99](https://github.com/sider/runners/pull/99)
 - Set Bundler config: `jobs`, `retry` [#107](https://github.com/sider/runners/pull/107)
+- Change owner and group of runner's home directory [#109](https://github.com/sider/runners/pull/109)
 
 ## 0.0.7
 
