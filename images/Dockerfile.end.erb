@@ -1,0 +1,5 @@
+USER root
+RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
+USER $RUNNER_USER
+
+ENTRYPOINT ["runners", "--analyzer=<%= ENV.fetch('ANALYZER') %>"]
