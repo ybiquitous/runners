@@ -20,10 +20,17 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-RUN gem install querly -v 1.0.0 && \
-    gem install slim -v 4.0.1 && \
-    gem install haml -v 5.1.2
-
+# Install the default version
+COPY images/querly/Gemfile ${RUNNER_USER_HOME}/querly_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir querly && \
+    mv querly_Gemfile querly/Gemfile && \
+    cd querly && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf querly && \
+    gem list querly
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER

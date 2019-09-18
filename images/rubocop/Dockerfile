@@ -31,8 +31,17 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-RUN gem install rubocop -v 0.74.0
-
+# Install the default version
+COPY images/rubocop/Gemfile ${RUNNER_USER_HOME}/rubocop_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir rubocop && \
+    mv rubocop_Gemfile rubocop/Gemfile && \
+    cd rubocop && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf rubocop && \
+    gem list rubocop
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER

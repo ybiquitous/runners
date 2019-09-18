@@ -20,9 +20,20 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
+# Install the default version
+COPY images/reek/Gemfile ${RUNNER_USER_HOME}/reek_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir reek && \
+    mv reek_Gemfile reek/Gemfile && \
+    cd reek && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf reek && \
+    gem list reek
+
 COPY images/reek/v5.reek.yml $RUNNER_USER_HOME/.reek.yml
 COPY images/reek/v4.reek.yml $RUNNER_USER_HOME/config.reek
-RUN gem install reek -v 5.4.0
 
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}

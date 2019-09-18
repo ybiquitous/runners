@@ -20,8 +20,17 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-RUN gem install goodcheck -v 2.4.0
-
+# Install the default version
+COPY images/goodcheck/Gemfile ${RUNNER_USER_HOME}/goodcheck_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir goodcheck && \
+    mv goodcheck_Gemfile goodcheck/Gemfile && \
+    cd goodcheck && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf goodcheck && \
+    gem list goodcheck
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER

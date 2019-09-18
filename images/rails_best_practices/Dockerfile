@@ -20,12 +20,20 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-RUN gem install rails_best_practices -v 1.19.4 && \
-    gem install slim -v 4.0.1 && \
-    gem install haml -v 5.0.4 && \
-    gem install sass -v 3.7.3 && \
-    gem install sassc -v 2.0.1 && \
-    gem install require_all:1.5.0 require_all:2.0.0
+# Install the default version
+COPY images/rails_best_practices/Gemfile ${RUNNER_USER_HOME}/rails_best_practices_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir rails_best_practices && \
+    mv rails_best_practices_Gemfile rails_best_practices/Gemfile && \
+    cd rails_best_practices && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf rails_best_practices && \
+    gem list rails_best_practices
+
+# For backward compatibility
+RUN gem install require_all:1.5.0
 
 COPY images/rails_best_practices/sider_rails_best_practices.yml $RUNNER_USER_HOME/
 

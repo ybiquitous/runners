@@ -1,9 +1,5 @@
 FROM sider/devon_rex_ruby:2.2.0
 
 <%= render_erb 'images/Dockerfile.base.erb' %>
-
-RUN gem install querly -v 1.0.0 && \
-    gem install slim -v 4.0.1 && \
-    gem install haml -v 5.1.2
-
+<%= render_erb 'images/Dockerfile.ruby.erb' %>
 <%= render_erb 'images/Dockerfile.end.erb' %>
