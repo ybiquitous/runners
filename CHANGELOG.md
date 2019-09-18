@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.0.7...HEAD)
 
+- Rename namespace: `NodeHarness` -> `Runners` [#96](https://github.com/sider/runners/pull/96)
+
 ## 0.0.7
 
 [Full diff](https://github.com/sider/runners/compare/0.0.6...0.0.7)
