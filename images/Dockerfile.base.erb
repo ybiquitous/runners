@@ -6,6 +6,10 @@ USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
 
-RUN cd ${RUNNERS_DIR} && bundle install --without development test
+RUN cd ${RUNNERS_DIR} && \
+    bundle config --global jobs 4 && \
+    bundle config --global retry 3 && \
+    bundle config && \
+    bundle install --without='development test'
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
