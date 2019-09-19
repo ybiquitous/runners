@@ -1,7 +1,5 @@
 FROM sider/devon_rex_ruby:2.2.0
 
 <%= render_erb 'images/Dockerfile.base.erb' %>
-
-RUN gem install goodcheck -v 2.4.0
-
+<%= render_erb 'images/Dockerfile.ruby.erb' %>
 <%= render_erb 'images/Dockerfile.end.erb' %>

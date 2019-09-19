@@ -20,9 +20,17 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-# Install the default version for caching
-RUN gem install brakeman -v 4.3.1
-
+# Install the default version
+COPY images/brakeman/Gemfile ${RUNNER_USER_HOME}/brakeman_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir brakeman && \
+    mv brakeman_Gemfile brakeman/Gemfile && \
+    cd brakeman && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf brakeman && \
+    gem list brakeman
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER

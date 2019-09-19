@@ -20,7 +20,18 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-RUN gem install scss_lint -v 0.57.1
+# Install the default version
+COPY images/scss_lint/Gemfile ${RUNNER_USER_HOME}/scss_lint_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir scss_lint && \
+    mv scss_lint_Gemfile scss_lint/Gemfile && \
+    cd scss_lint && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf scss_lint && \
+    gem list scss_lint
+
 COPY images/scss_lint/scss-lint.default.yml $RUNNER_USER_HOME/.scss-lint.yml
 
 USER root

@@ -20,12 +20,17 @@ RUN cd ${RUNNERS_DIR} && \
 ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-# Install the latest version for caching
-RUN gem install haml_lint -v 0.32.0 && \
-    gem install rubocop -v 0.71.0 && \
-    gem install rubocop-rspec -v 1.33.0 && \
-    gem install rubocop-rails -v 2.0.1 && \
-    gem install meowcop -v 1.20.0
+# Install the default version
+COPY images/haml_lint/Gemfile ${RUNNER_USER_HOME}/haml_lint_Gemfile
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir haml_lint && \
+    mv haml_lint_Gemfile haml_lint/Gemfile && \
+    cd haml_lint && \
+    bundle install --system --gemfile=Gemfile && \
+    rbenv rehash && \
+    cd ${RUNNER_USER_HOME} && \
+    rm -rf haml_lint && \
+    gem list haml_lint
 
 COPY images/haml_lint/default_rubocop.yml $RUNNER_USER_HOME/
 
