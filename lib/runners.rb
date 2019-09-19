@@ -27,6 +27,7 @@ require "active_support/core_ext/hash/deep_merge"
 require "active_support/core_ext/hash/indifferent_access"
 require "active_support/core_ext/module/attribute_accessors"
 require "active_support/core_ext/string/filters"
+require "active_support/core_ext/module/delegation"
 
 require "runners/location"
 require "runners/results"

@@ -10,6 +10,9 @@ module Runners
     attr_reader :ci_config_for_collect
     attr_reader :shell
 
+    delegate :push_dir, :current_dir, :capture3, :capture3!, :capture3_trace, :capture3_with_retry!, to: :shell
+    delegate :env_hash, :push_env_hash, to: :shell
+
     def initialize(guid:, working_dir:, git_ssh_path:, trace_writer:)
       @guid = guid
       @working_dir = working_dir
@@ -200,44 +203,12 @@ module Runners
       path.to_s.sub('$', "$.linter.#{self.class.ci_config_section_name}")
     end
 
-    def push_dir(path, &block)
-      shell.push_dir(path, &block)
-    end
-
-    def current_dir
-      shell.current_dir
-    end
-
-    def capture3(command, *args)
-      shell.capture3(command, *args)
-    end
-
-    def capture3!(command, *args)
-      shell.capture3!(command, *args)
-    end
-
-    def capture3_trace(command, *args)
-      shell.capture3_trace(command, *args)
-    end
-
-    def capture3_with_retry!(command, *args, tries: 3)
-      shell.capture3_with_retry!(command, *args, tries: tries)
-    end
-
     def delete_unchanged_files(changes, except: [], only: [])
       trace_writer.message "Deleting unchanged files from working copy..." do
         changes.delete_unchanged(dir: working_dir, except: except, only: only) do |path|
           trace_writer.message "Deleted #{path}"
         end
       end
-    end
-
-    def env_hash
-      shell.env_hash
-    end
-
-    def push_env_hash(env, &block)
-      shell.push_env_hash(env, &block)
     end
 
     def add_warning(message, file: nil)
