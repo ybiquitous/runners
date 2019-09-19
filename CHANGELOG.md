@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Remove useless `BUNDLE_GEMFILE` from `Dockerfile` [#122](https://github.com/sider/runners/pull/122)
 - Install default gems via `Gemfile` [#110](https://github.com/sider/runners/pull/110)
 - Use Pipenv to address the dependency of Flake8 [#111](https://github.com/sider/runners/pull/111)
+- Normalize version strings of Go tools [#123](https://github.com/sider/runners/pull/123)
 
 ## 0.0.7
 
