@@ -23,7 +23,7 @@ module Runners
     end
 
     def analyzer_version
-      @analyzer_version ||= capture3!('swiftlint', 'version').first.chomp
+      @analyzer_version ||= extract_version! 'swiftlint', 'version'
     end
 
     def analyzer

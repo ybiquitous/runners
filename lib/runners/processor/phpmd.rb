@@ -27,17 +27,15 @@ module Runners
     end
 
     def analyzer
-      @analyzer ||= begin
-        stdout, _, = capture3!('phpmd', '--version')
-        # stdout: "PHPMD 2.4.3"
-        version = stdout.strip.scan(/PHPMD\s([0-9\.]+)/).flatten.first
-        Analyzer.new(name: "phpmd", version: version)
-      end
+      @analyzer ||= Analyzer.new(name: "phpmd", version: analyzer_version)
+    end
+
+    def analyzer_version
+      @analyzer_version ||= extract_version! 'phpmd'
     end
 
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
-        capture3!('phpmd', '--version')
         prepare_analysis_files(changes)
 
         check_runner_config(config) do |targets, rule, options|

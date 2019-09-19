@@ -14,12 +14,12 @@ module Runners
     # https://github.com/brigade/scss-lint#exit-status-codes
     EXIT_CODE_FILES_NOT_EXIST = 80
 
-    def scss_lint_version
-      @scss_lint_version ||= capture3('scss-lint', '--version').first[/scss-lint ([0-9.]+)/, 1]
+    def analyzer_version
+      @analyzer_version ||= extract_version! 'scss-lint'
     end
 
     def analyzer
-      Analyzer.new(name: "SCSS-Lint", version: scss_lint_version)
+      Analyzer.new(name: "SCSS-Lint", version: analyzer_version)
     end
 
     def self.ci_config_section_name

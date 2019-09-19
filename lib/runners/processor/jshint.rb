@@ -27,7 +27,7 @@ module Runners
     private
 
     def analyzer
-      Analyzer.new(name: 'JSHint', version: jshint_version)
+      Analyzer.new(name: 'JSHint', version: analyzer_version)
     end
 
     def prepare_config(config)
@@ -49,9 +49,8 @@ module Runners
       config[:config] || config.dig(:options, :config)
     end
 
-    def jshint_version
-      # jshint outputs version into stderr
-      @jshint_version ||= capture3!('jshint', '--version').last.split.last[1..-1]
+    def analyzer_version
+      @analyzer_version ||= extract_version! 'jshint'
     end
 
     def parse_result(stdout)

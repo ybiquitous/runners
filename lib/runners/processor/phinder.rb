@@ -24,16 +24,7 @@ module Runners
     end
 
     def analyzer_version
-      @analyzer_version ||=
-        begin
-          stdout, _ = capture3! "phinder", "--version"
-          match = stdout.match(/([0-9\.]+)/)
-          if match
-            match.captures.first
-          else
-            raise "Not found version in #{stdout.inspect}"
-          end
-        end
+      @analyzer_version ||= extract_version! "phinder"
     end
 
     def test_phinder_config(config)
