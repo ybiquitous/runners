@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Install default npm tools via `package.json` [#99](https://github.com/sider/runners/pull/99)
 - Set Bundler config: `jobs`, `retry` [#107](https://github.com/sider/runners/pull/107)
 - Change owner and group of runner's home directory [#109](https://github.com/sider/runners/pull/109)
+- Remove useless `BUNDLE_GEMFILE` from `Dockerfile` [#122](https://github.com/sider/runners/pull/122)
 
 ## 0.0.7
 
