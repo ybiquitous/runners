@@ -26,10 +26,15 @@ RUN cd ${RUNNER_USER_HOME} && \
     mkdir flake8 && \
     mv flake8_Pipfile flake8/Pipfile && \
     cd flake8 && \
-    pipenv install --python ${PYTHON2_VERSION} --system --skip-lock && \
-    pipenv install --python ${PYTHON3_VERSION} --system --skip-lock && \
-    pyenv rehash && \
-    pyenv whence flake8
+    for version in "${PYTHON2_VERSION}" "${PYTHON3_VERSION}"; do \
+      pyenv global ${version} && \
+      pipenv install --system --skip-lock && \
+      pyenv rehash && \
+      echo "In '$(python --version 2>&1)', the version of the analyzer 'flake8' is ..." && \
+      flake8 --version && \
+      : ; \
+    done && \
+    echo "The default Python runtime version is '$(python --version)'"
 
 COPY images/flake8/sider_config.ini $RUNNER_USER_HOME/.config/flake8
 COPY images/flake8/ignored-config.ini $RUNNER_USER_HOME/.config/ignored-config.ini
