@@ -6,7 +6,7 @@ module Runners
 
         def initialize(lockfile_path)
           @specs = if lockfile_path
-                    ::Bundler::LockfileParser.new(lockfile_path.read).specs
+                     LockfileParser.parse(lockfile_path.read).specs
                    else
                      []
                    end

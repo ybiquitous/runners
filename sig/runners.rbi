@@ -377,6 +377,10 @@ class Runners::Ruby::LockfileLoader::Lockfile::UnsupportedSourceError < Standard
   def initialize: (name: String, source: any) -> any
 end
 
+module Runners::Ruby::LockfileParser
+  def self.parse: (String) -> Bundler::LockfileParser
+end
+
 type npm_install_option = bool | String
 
 module Runners::Nodejs : Processor
