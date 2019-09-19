@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Change owner and group of runner's home directory [#109](https://github.com/sider/runners/pull/109)
 - Remove useless `BUNDLE_GEMFILE` from `Dockerfile` [#122](https://github.com/sider/runners/pull/122)
 - Install default gems via `Gemfile` [#110](https://github.com/sider/runners/pull/110)
+- Use Pipenv to address the dependency of Flake8 [#111](https://github.com/sider/runners/pull/111)
 
 ## 0.0.7
 
