@@ -14,6 +14,6 @@ Smoke.add_test("success", {
   ],
   analyzer: {
     name: "go_vet",
-    version: "gometalinter version 3.0.0 built from df395bfa67c5d0630d936c0044cf07ff05086655 on 2019-01-29T22:44:16Z"
+    version: "3.0.0"
   }
 })

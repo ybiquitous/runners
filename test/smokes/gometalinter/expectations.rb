@@ -7,7 +7,7 @@ Smoke.add_test("success", {
     issues: [],
     analyzer: {
         name: "gometalinter",
-        version: "gometalinter version 2.0.11 built from 17a7ffa42374937bfecabfb8d2efbd4db0c26741 on 2018-09-09T06:19:21Z"
+        version: "2.0.11"
     }
 })
 
@@ -25,7 +25,7 @@ Smoke.add_test("require_install", {
     ],
     analyzer: {
         name: "gometalinter",
-        version: "gometalinter version 2.0.11 built from 17a7ffa42374937bfecabfb8d2efbd4db0c26741 on 2018-09-09T06:19:21Z"
+        version: "2.0.11"
     }
 })
 
@@ -43,7 +43,7 @@ Smoke.add_test("private_dependency", {
     ],
     analyzer: {
         name: "gometalinter",
-        version: "gometalinter version 2.0.11 built from 17a7ffa42374937bfecabfb8d2efbd4db0c26741 on 2018-09-09T06:19:21Z"
+        version: "2.0.11"
     }
 }) do |config|
   config.ssh_key = "ssh_key"
@@ -84,7 +84,7 @@ Smoke.add_test("specify_config", {
       :location=>{:start_line=>19}}],
     analyzer: {
         name: "gometalinter",
-        version: "gometalinter version 2.0.11 built from 17a7ffa42374937bfecabfb8d2efbd4db0c26741 on 2018-09-09T06:19:21Z"
+        version: "2.0.11"
     }
 })
 
@@ -95,7 +95,7 @@ Smoke.add_test("install_path", {
     issues: [],
     analyzer: {
         name: "gometalinter",
-        version: "gometalinter version 2.0.11 built from 17a7ffa42374937bfecabfb8d2efbd4db0c26741 on 2018-09-09T06:19:21Z"
+        version: "2.0.11"
     }
 }, warnings: [{
   message: '`install_path` option is deprecated. Use `import_path` instead.',
@@ -109,7 +109,7 @@ Smoke.add_test("import_path", {
     issues: [],
     analyzer: {
         name: "gometalinter",
-        version: "gometalinter version 2.0.11 built from 17a7ffa42374937bfecabfb8d2efbd4db0c26741 on 2018-09-09T06:19:21Z"
+        version: "2.0.11"
     }
 })
 
@@ -120,6 +120,6 @@ Smoke.add_test("import_path_and_install_path", {
     issues: [],
     analyzer: {
         name: "gometalinter",
-        version: "gometalinter version 2.0.11 built from 17a7ffa42374937bfecabfb8d2efbd4db0c26741 on 2018-09-09T06:19:21Z"
+        version: "2.0.11"
     }
 })
