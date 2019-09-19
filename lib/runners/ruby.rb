@@ -67,5 +67,9 @@ module Runners
       capture3! "gem", "-v"
       capture3! "bundle", "-v"
     end
+
+    def ruby_analyzer_bin
+      ["bundle", "exec", analyzer_bin]
+    end
   end
 end

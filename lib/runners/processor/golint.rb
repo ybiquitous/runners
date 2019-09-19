@@ -5,6 +5,10 @@ module Runners
       "golint"
     end
 
+    def analyzer_bin
+      "gometalinter"
+    end
+
     def analyzer
       @analyzer ||= Analyzer.new(name: "golint", version: analyzer_version)
     end
@@ -12,7 +16,7 @@ module Runners
     def analyze(changes)
       # NOTE: go_vet cannot output with JSON format, so we use Gometalinter.
       stdout, _, _ = capture3(
-        'gometalinter',
+        analyzer_bin,
         '--disable-all',
         '--enable=golint',
         '--enable-gc',
@@ -38,10 +42,6 @@ module Runners
           )
         end
       end
-    end
-
-    def analyzer_version
-      @analyzer_version ||= extract_version! "gometalinter"
     end
   end
 end

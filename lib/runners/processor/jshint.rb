@@ -49,10 +49,6 @@ module Runners
       config[:config] || config.dig(:options, :config)
     end
 
-    def analyzer_version
-      @analyzer_version ||= extract_version! 'jshint'
-    end
-
     def parse_result(stdout)
       doc = Nokogiri::XML(stdout)
       doc.errors.each do |error|
@@ -78,10 +74,11 @@ module Runners
     end
 
     def run_analyzer(config)
-      args = %w(jshint --reporter=checkstyle)
+      args = []
+      args << "--reporter=checkstyle"
       args << "--config=#{config_path(config)}" if config_path(config)
       args << (config[:dir] || "./")
-      stdout, stderr, status = capture3(*args)
+      stdout, stderr, status = capture3(analyzer_bin, *args)
       # If command is succeeded, status.exitstatus is 0 or 2(issues are found).
       return Results::Failure.new(guid: guid, message: stderr, analyzer: analyzer) if status.exitstatus == 1
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|

@@ -23,15 +23,11 @@ module Runners
       @analyzer ||= Analyzer.new(name: "Phinder", version: analyzer_version)
     end
 
-    def analyzer_version
-      @analyzer_version ||= extract_version! "phinder"
-    end
-
     def test_phinder_config(config)
       args = []
       args.push("--config", config[:rule]) if config[:rule]
 
-      _, stderr, status = capture3("phinder", "test", *args)
+      _, stderr, status = capture3(analyzer_bin, "test", *args)
 
       # 0: Success (No configuration error & no test failure)
       # 1: Configuration error
@@ -63,7 +59,7 @@ module Runners
       args.push("--config", config[:rule]) if config[:rule]
       args << config[:php] if config[:php]
 
-      stdout, stderr, status = capture3("phinder", "find", "-f", "json", *args)
+      stdout, stderr, status = capture3(analyzer_bin, "find", "-f", "json", *args)
 
       # 0: Success (No error & no violations are found)
       # 1: Error (Error & no violations are found)

@@ -1,5 +1,7 @@
 module Runners
   class Processor::Tyscan < Processor
+    include Nodejs
+
     # Define schema in sider.yml
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.npm.update_fields { |fields|
@@ -25,18 +27,6 @@ module Runners
 
     def self.ci_config_section_name
       'tyscan'
-    end
-
-    def tyscan_bin
-      @tyscan_bin ||= if (current_dir + 'node_modules/.bin/tyscan').exist? && (current_dir + 'node_modules/.bin/tsc').exist?
-                        'node_modules/.bin/tyscan'
-                      else
-                        'tyscan'
-                      end
-    end
-
-    def analyzer_version
-      @analyzer_version ||= extract_version! tyscan_bin
     end
 
     def analyzer
@@ -83,7 +73,7 @@ module Runners
       args.unshift("-t", config[:tsconfig]) if config[:tsconfig]
       args.unshift("-c", config[:config]) if config[:config]
 
-      _, _, status = capture3(tyscan_bin, "test", *args)
+      _, _, status = capture3(nodejs_analyzer_bin, "test", *args)
 
       if status.nil? || !status.success?
         msg = <<~MESSAGE.chomp
@@ -99,7 +89,7 @@ module Runners
       args.unshift("-t", config[:tsconfig]) if config[:tsconfig]
       args.unshift("-c", config[:config]) if config[:config]
 
-      stdout, stderr, status = capture3(tyscan_bin, "scan", "--json", *args)
+      stdout, stderr, status = capture3(nodejs_analyzer_bin, "scan", "--json", *args)
 
       # TyScan exited with 0 when finishing an analysis correctly.
       unless status.exitstatus == 0

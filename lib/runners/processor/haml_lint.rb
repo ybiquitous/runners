@@ -65,6 +65,10 @@ module Runners
       'haml_lint'
     end
 
+    def analyzer_bin
+      "haml-lint"
+    end
+
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
@@ -175,9 +179,7 @@ module Runners
 
     def run_analyzer(targets, options)
       stdout, stderr, status = capture3(
-        'bundle',
-        'exec',
-        'haml-lint',
+        *ruby_analyzer_bin,
         targets,
         '--reporter',
         'json',

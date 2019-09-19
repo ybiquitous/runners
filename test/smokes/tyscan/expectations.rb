@@ -68,7 +68,7 @@ Smoke.add_test("typescript_not_found", {
   ],
   analyzer: {
     name: 'TyScan',
-    version: '0.2.1'
+    version: '0.1.3'
   }
 })
 

@@ -194,6 +194,7 @@ class Runners::Processor
   def with_analyzer: <'x> (Analyzer?) { () -> 'x } -> 'x
   def analyzer: -> Analyzer?
   def analyzer!: -> Analyzer
+  def analyzer_bin: -> String
   def analyzer_version: -> String
   def extract_version!: (String, ?(String | Array<String>), ?pattern: Regexp) -> String
   def build_field_reference_from_path: (StrongJSON::Type::ErrorPath) -> String
@@ -295,6 +296,7 @@ module Runners::Ruby : Processor
   def optional_specs: (Array<GemInstaller::Spec>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
   def user_specs: (Array<GemInstaller::Spec>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
   def show_ruby_runtime_versions: -> void
+  def ruby_analyzer_bin: -> Array<String>
 end
 
 Runners::Ruby::GemInstaller::DEFAULT_SOURCE: String
@@ -384,7 +386,6 @@ end
 type npm_install_option = bool | String
 
 module Runners::Nodejs : Processor
-  def nodejs_analyzer_command: -> String
   def nodejs_analyzer_local_command: -> String
   def nodejs_analyzer_bin: -> String
   def package_json_path: -> Pathname

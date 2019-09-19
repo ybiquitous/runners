@@ -5,6 +5,10 @@ module Runners
       "gometalinter"
     end
 
+    def analyzer_bin
+      "gometalinter"
+    end
+
     def analyzer
       @analyzer ||= Analyzer.new(name: "gometalinter", version: analyzer_version)
     end
@@ -31,7 +35,7 @@ module Runners
       push_import_path_dir do
         # NOTE: Ignore status code because gometalinter exits with 1 when any issues exist.
         stdout, _, _ = capture3(
-          'gometalinter',
+          analyzer_bin,
           *additional_options,
           '--enable-gc',
           '--json',
@@ -61,10 +65,6 @@ module Runners
     end
 
     private
-
-    def analyzer_version
-      @analyzer_version ||= extract_version! "gometalinter"
-    end
 
     def with_import_path
       return yield(nil) unless import_path

@@ -25,7 +25,7 @@ module Runners
     end
 
     def analyzer_version
-      @analyzer_version ||= extract_version! 'misspell', '-v'
+      @analyzer_version ||= extract_version! analyzer_bin, '-v'
     end
 
     def setup
@@ -56,7 +56,7 @@ module Runners
 
     def run_analyzer(options, targets)
       # NOTE: Prevent command injection with `'--'`.
-      stdout, _stderr, _status = capture3!('misspell', *options, '--', *targets)
+      stdout, _stderr, _status = capture3!(analyzer_bin, *options, '--', *targets)
 
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
         stdout.split("\n").each do |line|

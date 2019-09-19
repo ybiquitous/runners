@@ -16,7 +16,7 @@ class NodejsTest < Minitest::Test
     @processor_class ||= Class.new(Runners::Processor) do
       include Runners::Nodejs
 
-      def nodejs_analyzer_command
+      def analyzer_bin
         "eslint"
       end
     end
@@ -50,14 +50,6 @@ class NodejsTest < Minitest::Test
       yield
     ensure
       silence_warnings { Runners::Nodejs.const_set(name, saved_value) }
-    end
-  end
-
-  def test_nodejs_analyzer_command
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
-
-      assert_equal "eslint", processor.nodejs_analyzer_command
     end
   end
 

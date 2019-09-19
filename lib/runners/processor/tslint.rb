@@ -38,10 +38,6 @@ module Runners
       'tslint'
     end
 
-    def nodejs_analyzer_command
-      "tslint"
-    end
-
     def setup
       ensure_runner_config_schema(Schema.runner_config) do |config|
         begin

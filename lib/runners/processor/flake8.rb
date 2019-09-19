@@ -94,10 +94,6 @@ module Runners
       @python3_version ||= capture3!('pyenv', 'versions', '--bare').first.match(/^3[0-9\.]+$/m).to_s
     end
 
-    def analyzer_version
-      @analyzer_version ||= extract_version! 'flake8'
-    end
-
     def parse_result(output)
       # Output example:
       #
@@ -128,7 +124,7 @@ module Runners
         output = Dir.mktmpdir do |tmpdir|
           output_path = Pathname(tmpdir) + 'output.txt'
           capture3!(
-            'flake8',
+            analyzer_bin,
             '--exit-zero',
             "--output-file=#{output_path}",
             "--format=#{FLAKE8_OUTPUT_FORMAT}",

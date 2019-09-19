@@ -44,7 +44,7 @@ module Runners
     end
 
     def goodcheck_test(config)
-      stdout, _, status = capture3("bundle", "exec", "goodcheck", "test", *(config[:config] ? ["--config", config[:config]] : []))
+      stdout, _, status = capture3(*ruby_analyzer_bin, "test", *(config[:config] ? ["--config", config[:config]] : []))
 
       if !status.success? && !stdout.empty?
         msg = <<~MESSAGE.chomp
@@ -64,7 +64,7 @@ module Runners
       config = config[:config]
       args = (config ? ["--config", config] : []) + targets
 
-      stdout, stderr, _ = capture3("bundle", "exec", "goodcheck", "check", "--format=json", *args)
+      stdout, stderr, _ = capture3(*ruby_analyzer_bin, "check", "--format=json", *args)
 
       json = JSON.parse(stdout, symbolize_names: true)
 
@@ -141,7 +141,7 @@ module Runners
     def analyze(changes)
       delete_unchanged_files(changes, except: ["*.yml", "*.yaml"])
 
-      capture3!("bundle", "exec", "goodcheck", "version")
+      capture3!(*ruby_analyzer_bin, "version")
 
       ensure_config do |config|
         goodcheck_test config do

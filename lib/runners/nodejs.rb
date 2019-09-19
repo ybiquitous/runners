@@ -17,19 +17,14 @@ module Runners
     INSTALL_OPTION_PRODUCTION = "production"
     INSTALL_OPTION_DEVELOPMENT = "development"
 
-    # Return the just analyzer command name.
-    def nodejs_analyzer_command
-      raise NotImplementedError
-    end
-
     # Return the locally installed analyzer command.
     def nodejs_analyzer_local_command
-      "node_modules/.bin/#{nodejs_analyzer_command}"
+      "node_modules/.bin/#{analyzer_bin}"
     end
 
     # Return the analyzer command which will actually be ran.
     def nodejs_analyzer_bin
-      nodejs_analyzer_locally_installed? ? nodejs_analyzer_local_command : nodejs_analyzer_command
+      nodejs_analyzer_locally_installed? ? nodejs_analyzer_local_command : analyzer_bin
     end
 
     def analyzer_version
@@ -85,7 +80,7 @@ module Runners
     end
 
     def nodejs_analyzer_global_version
-      @nodejs_analyzer_global_version ||= extract_version!(nodejs_analyzer_command)
+      @nodejs_analyzer_global_version ||= extract_version!(analyzer_bin)
     end
 
     def nodejs_analyzer_local_version
@@ -254,7 +249,7 @@ module Runners
 
       unless all_constraints_satisfied
         message = <<~MSG.strip
-          Your `#{nodejs_analyzer_command}` settings could not satisfy the required constraints. Please check your `package.json` again.
+          Your `#{analyzer_bin}` settings could not satisfy the required constraints. Please check your `package.json` again.
           If you want to analyze via the Sider default settings, please configure your `#{ci_config_path_name}`. For details, see the documentation.
         MSG
         trace_writer.error message

@@ -38,10 +38,6 @@ module Runners
       'eslint'
     end
 
-    def nodejs_analyzer_command
-      "eslint"
-    end
-
     def analyzer
       @analyzer ||= Analyzer.new(name: 'ESLint', version: analyzer_version)
     end
