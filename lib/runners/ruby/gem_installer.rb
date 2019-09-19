@@ -48,11 +48,11 @@ module Runners
             MESSAGE
           end
 
-          shell.push_env_hash env_hash do
-            versions = Bundler::LockfileParser.new(lockfile_path.read).specs.each.with_object({}) do |spec, versions|
-              versions[spec.name] = spec.version.version
-            end
+          versions = LockfileParser.parse(lockfile_path.read).specs.each_with_object({}) do |spec, versions|
+            versions[spec.name] = spec.version.version
+          end
 
+          shell.push_env_hash env_hash do
             yield versions
           end
         end

@@ -17,7 +17,6 @@ RUN cd ${RUNNERS_DIR} && \
     bundle config --global retry 3 && \
     bundle config && \
     bundle install --without='development test'
-ENV BUNDLE_GEMFILE ${RUNNERS_DIR}/Gemfile
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 ENV PMD_VERSION 6.17.0
