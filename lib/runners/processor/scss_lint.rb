@@ -14,8 +14,8 @@ module Runners
     # https://github.com/brigade/scss-lint#exit-status-codes
     EXIT_CODE_FILES_NOT_EXIST = 80
 
-    def analyzer_version
-      @analyzer_version ||= extract_version! 'scss-lint'
+    def analyzer_bin
+      'scss-lint'
     end
 
     def analyzer
@@ -74,7 +74,7 @@ module Runners
     end
 
     def run_analyzer(options)
-      stdout, stderr, status = capture3('scss-lint', '--format=JSON', *options)
+      stdout, stderr, status = capture3(analyzer_bin, '--format=JSON', *options)
       # https://github.com/brigade/scss-lint#exit-status-codes
       case status.exitstatus
       when 0..2

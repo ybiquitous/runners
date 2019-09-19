@@ -44,10 +44,6 @@ module Runners
       'stylelint'.freeze
     end
 
-    def nodejs_analyzer_command
-      "stylelint"
-    end
-
     def setup
       prepare_ignore_file
 
@@ -179,13 +175,13 @@ module Runners
       else
         # @see https://github.com/stylelint/stylelint/blob/master/docs/user-guide/configuration.md
         candidates = %w[
-    .stylelintrc
-    .stylelintrc.js
-    .stylelintrc.json
-    .stylelintrc.yaml
-    .stylelintrc.yml
-    stylelint.config.js
-  ]
+          .stylelintrc
+          .stylelintrc.js
+          .stylelintrc.json
+          .stylelintrc.yaml
+          .stylelintrc.yml
+          stylelint.config.js
+        ]
         candidates.map { |filename| current_dir / filename }.find(&:exist?)
       end
     end

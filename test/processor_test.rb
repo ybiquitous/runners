@@ -396,18 +396,20 @@ class ProcessorTest < Minitest::Test
     end
   end
 
+  def test_analyzer_bin
+    mktmpdir do |path|
+      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+
+      assert_equal "Runners::Processor", processor.analyzer_bin
+    end
+  end
+
   def test_analyzer_version
     mktmpdir do |path|
       processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
 
-      error = assert_raises(NotImplementedError) { processor.analyzer_version }
-      assert_equal <<~MSG, error.message
-        A typical implementation:
-
-        def analyzer_version
-          @analyzer_version ||= extract_version! "some_command"
-        end
-      MSG
+      mock(processor).capture3!("Runners::Processor", "--version") { ["1.2.3", ""] }
+      assert_equal "1.2.3", processor.analyzer_version
     end
   end
 

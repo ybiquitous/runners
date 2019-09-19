@@ -179,12 +179,7 @@ module Runners
     end
 
     def run_analyzer(options)
-      stdout, stderr, status = capture3(
-        'bundle',
-        'exec',
-        'rubocop',
-        *options
-      )
+      stdout, stderr, status = capture3(*ruby_analyzer_bin, *options)
       check_rubocop_yml_warning(stderr)
       # 0: no offences
       # 1: offences exist

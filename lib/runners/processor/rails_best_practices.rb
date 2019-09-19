@@ -141,9 +141,7 @@ module Runners
         #       when some issues are found.
         #       We use `capture3` instead of `capture3!`
         stdout, _, _ = capture3(
-          'bundle',
-          'exec',
-          'rails_best_practices',
+          *ruby_analyzer_bin,
           '--without-color',
           '--silent',
           '--output-file=/dev/stdout',

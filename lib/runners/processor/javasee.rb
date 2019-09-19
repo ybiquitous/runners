@@ -24,7 +24,7 @@ module Runners
       'javasee'
     end
 
-    def javasee
+    def analyzer_bin
       ENV["JAVASEE_EXECUTABLE"] || "javasee"
     end
 
@@ -32,7 +32,7 @@ module Runners
       args = []
       args.push("-config", config_path.to_s)
 
-      shell.capture3(javasee,
+      shell.capture3(analyzer_bin,
                      "check",
                      "-config", config_path.to_s,
                      "-format", "json",
@@ -40,7 +40,7 @@ module Runners
     end
 
     def analyzer_version
-      @analyzer_version ||= extract_version! javasee, "version"
+      @analyzer_version ||= extract_version! analyzer_bin, "version"
     end
 
     def analyzer

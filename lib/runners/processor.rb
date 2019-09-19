@@ -77,14 +77,12 @@ module Runners
       analyzer or raise "No analyzer set"
     end
 
-    def analyzer_version
-      raise NotImplementedError, <<~MSG
-        A typical implementation:
+    def analyzer_bin
+      self.class.ci_config_section_name
+    end
 
-        def #{__method__}
-          @#{__method__} ||= extract_version! "some_command"
-        end
-      MSG
+    def analyzer_version
+      @analyzer_version ||= extract_version! analyzer_bin
     end
 
     def extract_version!(command, version_option = "--version", pattern: /v?(\d+\.\d+(\.\d+)?)\b/)

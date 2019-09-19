@@ -35,9 +35,7 @@ module Runners
 
     def analyze(changes)
       stdout, stderr = capture3!(
-        'bundle',
-        'exec',
-        'reek',
+        *ruby_analyzer_bin,
         '--no-color',
         '--failure-exit-code=0',
         v4? ? '--wiki-links' : '--documentation',

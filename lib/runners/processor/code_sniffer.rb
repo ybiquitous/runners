@@ -28,38 +28,31 @@ module Runners
 
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
-        check_runner_config(config) do |phpcs, options, target|
-          run_analyzer(phpcs, options, target)
+        check_runner_config(config) do |options, target|
+          run_analyzer(options, target)
         end
       end
     end
 
     private
 
-    attr_reader :phpcs_bin
-
     def check_runner_config(config)
-      @phpcs_bin ||=
-        case config[:version].to_i
-        when 2
-          add_warning("Sider has no longer supported PHP_CodeSniffer v2. Sider executes v3 even if putting `2` as `version` option.", file: "sider.yml")
-          'phpcs3'
-        else
-          'phpcs3'
-        end
-      phpcs = phpcs_bin
+      if config[:version].to_i == 2
+        add_warning("Sider has no longer supported PHP_CodeSniffer v2. Sider executes v3 even if putting `2` as `version` option.", file: ci_config_path_name)
+      end
+
       options = additional_options(config)
       target = directory(config)
 
-      yield phpcs, options, target
+      yield options, target
     end
 
     def analyzer
       @analyzer ||= Analyzer.new(name: "code_sniffer", version: analyzer_version)
     end
 
-    def analyzer_version
-      @analyzer_version ||= extract_version! phpcs_bin
+    def analyzer_bin
+      "phpcs3"
     end
 
     def additional_options(config)
@@ -155,7 +148,7 @@ module Runners
       end
     end
 
-    def run_analyzer(phpcs, options, target)
+    def run_analyzer(options, target)
       output = working_dir + 'output.txt'
       # code_sniffer always exists with "statsu = 1" when any warnings exist, so we don't see the status code.
       #
@@ -164,7 +157,7 @@ module Runners
       # Without `--report-json`, if users configure with `<arg name="report" value="summary"/>`,
       # all output is mixed in stdout. So, we have to write output to a file.
       capture3(
-        phpcs,
+        analyzer_bin,
         '--report=json',
         "--report-json=#{output}",
         *options,

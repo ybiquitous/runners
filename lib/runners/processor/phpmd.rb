@@ -30,10 +30,6 @@ module Runners
       @analyzer ||= Analyzer.new(name: "phpmd", version: analyzer_version)
     end
 
-    def analyzer_version
-      @analyzer_version ||= extract_version! 'phpmd'
-    end
-
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
         prepare_analysis_files(changes)
@@ -119,7 +115,7 @@ module Runners
       # PHPMD exits 1 when some violations are found.
       # The `--ignore-violation-on-exit` will exit with a zero code, even if any violations are found.
       # See. https://phpmd.org/documentation/index.html
-      commandline = ['phpmd', targets, 'xml', rule, '--ignore-violations-on-exit'] + options
+      commandline = [analyzer_bin, targets, 'xml', rule, '--ignore-violations-on-exit'] + options
       stdout, _ = capture3!(*commandline)
 
       change_paths = changes.changed_files.map(&:path)

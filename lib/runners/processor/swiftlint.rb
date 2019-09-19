@@ -23,7 +23,7 @@ module Runners
     end
 
     def analyzer_version
-      @analyzer_version ||= extract_version! 'swiftlint', 'version'
+      @analyzer_version ||= extract_version! analyzer_bin, 'version'
     end
 
     def analyzer
@@ -103,7 +103,7 @@ module Runners
 
     def run_analyzer(ignore_warnings, options)
       stdout, stderr, status = capture3(
-        'swiftlint',
+        analyzer_bin,
         'lint',
         '--reporter', 'json',
         *options,

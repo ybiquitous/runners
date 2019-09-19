@@ -27,10 +27,6 @@ module Runners
       'coffeelint'
     end
 
-    def nodejs_analyzer_command
-      "coffeelint"
-    end
-
     def analyzer
       @analyzer ||= Analyzer.new(name: 'CoffeeLint', version: analyzer_version)
     end

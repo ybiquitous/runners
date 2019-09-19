@@ -60,13 +60,13 @@ module Runners
     end
 
     def analyze(changes)
-      capture3!("bundle", "exec", "querly", "version")
+      capture3!(*ruby_analyzer_bin, "version")
 
       ensure_files relative_path("querly.yml"), relative_path("querly.yaml") do |config_file|
         test_config_file(config_file)
 
         Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
-          stdout, _ = capture3!("bundle", "exec", "querly", "check", "--format=json", ".")
+          stdout, _ = capture3!(*ruby_analyzer_bin, "check", "--format=json", ".")
 
           json = JSON.parse(stdout, symbolize_names: true)
           Array(json[:issues]).each do |hash|
@@ -89,7 +89,7 @@ module Runners
     end
 
     def test_config_file(config_file)
-      stdout, _stderr, _status = capture3('bundle', 'exec', 'querly', 'test')
+      stdout, _stderr, _status = capture3(*ruby_analyzer_bin, 'test')
 
       warnings = stdout.each_line.map do |line|
         match = line.match(/\A  (\S+:\t.+)\Z/)

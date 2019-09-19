@@ -34,10 +34,6 @@ module Runners
       @analyzer ||= Analyzer.new(name: "Cppcheck", version: analyzer_version)
     end
 
-    def analyzer_version
-      @analyzer_version ||= extract_version! cppcheck
-    end
-
     def setup
       analyzer!
       yield
@@ -51,10 +47,6 @@ module Runners
     end
 
     private
-
-    def cppcheck
-      "cppcheck"
-    end
 
     def config
       @config or raise "Must be initialized!"
@@ -90,7 +82,7 @@ module Runners
 
     def run_analyzer
       _stdout, stderr = capture3!(
-        cppcheck,
+        analyzer_bin,
         "--quiet",
         "--xml",
         *ignore,
