@@ -1,0 +1,6 @@
+linter:
+  ktlint:
+    maven:
+      goal: verify
+      reporter: checkstyle
+      output: target/ktlint.xml
