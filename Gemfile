@@ -9,6 +9,7 @@ gem 'parallel'
 gem 'bundler', '>= 1.12', '< 3.0'
 gem 'locale'
 gem 'sysexits', '~> 1.1'
+gem 'aws-sdk-s3'
 
 group :development, :test do
   gem 'rake'
