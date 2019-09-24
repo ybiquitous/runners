@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Fix `npm install` for TyScan [#163](https://github.com/sider/runners/pull/163)
 - Support ktlint [#192](https://github.com/sider/runners/pull/192)
 - Optimize Cppcheck Docker image via multi-stage [#195](https://github.com/sider/runners/pull/195)
+- Bump devon_rex images from 2.2.0 to 2.2.2 (thanks to Dependabot!)
 
 ## 0.1.0
 
