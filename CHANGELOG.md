@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.1.0...HEAD)
 
 - Fix `npm install` for TyScan [#163](https://github.com/sider/runners/pull/163)
+- Support ktlint [#192](https://github.com/sider/runners/pull/192)
 
 ## 0.1.0
 
