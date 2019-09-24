@@ -1,0 +1,8 @@
+linter:
+  ktlint:
+    cli:
+      patterns:
+        "src/**/*.kt"
+    gradle:
+      task: "ktlint"
+      reporter: "json"
