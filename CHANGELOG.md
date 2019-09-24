@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.1.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.2.0...HEAD)
+
+## 0.2.0
+
+[Full diff](https://github.com/sider/runners/compare/0.1.0...0.2.0)
 
 - Fix `npm install` for TyScan [#163](https://github.com/sider/runners/pull/163)
 - Support ktlint [#192](https://github.com/sider/runners/pull/192)
