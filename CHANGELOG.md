@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.2.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.3.0...HEAD)
+
+## 0.3.0
+
+[Full diff](https://github.com/sider/runners/compare/0.2.1...0.3.0)
 
 - Add IO::AwsS3 to upload traces to AWS S3 [#162](https://github.com/sider/runners/pull/162)
 - Fix ktlint bug [#201](https://github.com/sider/runners/pull/201)
