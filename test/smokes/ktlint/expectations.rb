@@ -34,6 +34,32 @@ Smoke.add_test(
 )
 
 Smoke.add_test(
+  "cli_with_options",
+  {
+    guid: "test-guid",
+    timestamp: :_,
+    type: "success",
+    analyzer: { name: 'ktlint', version: "0.34.2" },
+    issues: [
+      {
+        id: "experimental:package-name",
+        path: "src/App.kt",
+        location: { start_line: 1 },
+        message: "Package name must not contain underscore (cannot be auto-corrected)",
+        links: []
+      },
+      {
+        id: "no-semi",
+        path: "src/App.kt",
+        location: { start_line: 6 },
+        message: "Unnecessary semicolon",
+        links: []
+      },
+    ],
+  }
+)
+
+Smoke.add_test(
   "gradle",
   {
     guid: "test-guid",

@@ -93,11 +93,11 @@ module Runners
     def run_cli
       args = ["--reporter=json"]
 
-      cli_config[:ruleset].each do |rule|
-        args.push("--ruleset", rule.to_s)
+      cli_config[:ruleset].each do |ruleset|
+        args.push("--ruleset", ruleset.to_s)
       end
       unless cli_config[:disabled_rules].empty?
-        args.push("--disabled_rules", options[:disabled_rules].join(","))
+        args.push("--disabled_rules", cli_config[:disabled_rules].join(","))
       end
       if cli_config[:experimental]
         args.push("--experimental")
