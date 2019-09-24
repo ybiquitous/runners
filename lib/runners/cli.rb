@@ -12,10 +12,13 @@ module Runners
     attr_reader :head_key
     attr_reader :ssh_key
     attr_reader :working_dir
+    attr_reader :s3_uri
+    attr_reader :outputs
 
     def initialize(argv:, stdout:, stderr:)
       @stdout = stdout
       @stderr = stderr
+      @outputs = []
 
       OptionParser.new do |opts|
         opts.on("--analyzer=ANALYZER") do |analyzer|
@@ -38,6 +41,10 @@ module Runners
         end
         opts.on("--working=WORKING") do |working|
           @working_dir = working
+        end
+        opts.on("--output=OUTPUT",
+                "The output destination. Currently, the valid formats are 'stdout', 'stderr', and 's3://BUCKET/KEY'") do |output|
+          @outputs << output
         end
       end.parse!(argv)
 
@@ -85,7 +92,7 @@ module Runners
 
     def run
       with_working_dir do |working_dir|
-        writer = JSONSEQ::Writer.new(io: stdout)
+        writer = JSONSEQ::Writer.new(io: io)
         trace_writer = TraceWriter.new(writer: writer)
 
         Workspace.open(base: base, base_key: base_key, head: head, head_key: head_key, ssh_key: ssh_key, working_dir: working_dir, trace_writer: trace_writer) do |workspace|
@@ -104,7 +111,28 @@ module Runners
             writer << Schema::Result.envelope.coerce(json)
           end
         end
+        io.finalize!
       end
+    end
+
+    def io
+      @io ||= if outputs.empty?
+                Runners::IO.new(stdout)
+              else
+                ios = outputs.map do |output|
+                  case output
+                  when 'stdout'
+                    stdout
+                  when 'stderr'
+                    stderr
+                  when /^s3:/
+                    Runners::IO::AwsS3.new(output)
+                  else
+                    raise "Invalid output option. You set with '--output=#{output}'"
+                  end
+                end
+                Runners::IO.new(*ios)
+              end
     end
   end
 end

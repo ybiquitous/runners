@@ -14,7 +14,7 @@ class CLITest < Minitest::Test
   end
 
   def test_parsing_options
-    cli = CLI.new(argv: %w(--analyzer=rubocop --base=base.tgz --head=https://example.com/head --base-key=basekey --head-key=headkey --ssh-key=id_rsa --working=/working/dir test-guid), stdout: stdout, stderr: stderr)
+    cli = CLI.new(argv: %w(--analyzer=rubocop --base=base.tgz --head=https://example.com/head --base-key=basekey --head-key=headkey --ssh-key=id_rsa --working=/working/dir --output=s3://bucket/a/b/c test-guid), stdout: stdout, stderr: stderr)
 
     # Given parameters
     assert_equal "test-guid", cli.guid
@@ -25,6 +25,7 @@ class CLITest < Minitest::Test
     assert_equal "id_rsa", cli.ssh_key
     assert_equal "/working/dir", cli.working_dir
     assert_equal 'rubocop', cli.analyzer
+    assert_equal ['s3://bucket/a/b/c'], cli.outputs
   end
 
   def test_validate_options!
@@ -105,6 +106,21 @@ class CLITest < Minitest::Test
       assert objects.find {|hash| hash[:trace] == 'error' && hash[:message].match?(/Parse error occurred/) }
       assert objects.find {|hash| hash[:warnings] == []}
       assert objects.find {|hash| hash[:ci_config] == nil}
+    end
+  end
+
+  def test_run_when_s3_uri_is_passed
+    mktmpdir do |head_dir|
+      s3_mock = Object.new
+      mock(s3_mock).write.with_any_args.at_least(1)
+      mock(s3_mock).flush.at_least(1)
+      mock(s3_mock).finalize!
+      mock(Runners::IO::AwsS3).new("s3://dev-bucket/abc") { s3_mock }
+      mock.proxy(Runners::IO).new(stdout, s3_mock)
+      head_dir.join('sider.yml').write(YAML.dump(sider_yml))
+      cli = CLI.new(argv: ["--analyzer=rubocop", "--head=#{head_dir}", "--output=stdout", "--output=s3://dev-bucket/abc", "test-guid"], stdout: stdout, stderr: stderr)
+      cli.instance_variable_set(:@processor_class, TestProcessor)
+      cli.run
     end
   end
 

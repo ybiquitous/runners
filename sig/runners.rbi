@@ -262,6 +262,7 @@ class Runners::CLI
   attr_reader working_dir: String?
   attr_reader guid: String
   attr_reader analyzer: String
+  attr_reader outputs: Array<String>
 
   def initialize: (argv: Array<String>, stdout: IO, stderr: IO) -> any
 
@@ -270,6 +271,7 @@ class Runners::CLI
   def validate_options!: () -> self
   def validate_analyzer!: () -> void
   def run: () -> void
+  def io: () -> any
 end
 
 module Runners
