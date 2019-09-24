@@ -46,14 +46,17 @@ module Runners
           end
         end
 
+        passed = results.count { |result,| result == "passed" }
+        failed = results.count { |result,| result == "failed" }
+        skipped = results.count { |result,| result == "skipped" }
+        total = results.count
+        summary = "#{passed} passed, #{failed} failed, #{skipped} skipped, #{total} total"
+
         puts "-" * 30
-        if results.all? { |result,| result }
-          puts "❤️  Smoke tests passed!"
+        if failed == 0
+          puts "❤️  Smoke tests passed! -- #{summary}"
         else
-          passed = results.count{ |result,| result == true }
-          failed = results.count{ |result,| result == false }
-          skipped = results.count{ |result,| result == nil }
-          puts "❌ Smoke tests failed! -- #{passed} passed, #{failed} failed, #{skipped} skipped, #{results.count} total"
+          puts "❌ Smoke tests failed! -- #{summary}"
           marks = { true => '✅', false => '❌', nil => '⚠️' }
           results.each { |result, name| puts "--> #{marks[result]} #{name}" }
           exit 1
@@ -61,7 +64,8 @@ module Runners
       end
 
       def run_test(name, pattern, out)
-        return if ENV['ONLY'] && ENV['ONLY'] != name
+        return "skipped" if ENV['ONLY'] && ENV['ONLY'] != name
+
         commandline = command_line(name, self.class.configs.fetch(name))
         out.puts "$ #{commandline}"
         reader = JSONSEQ::Reader.new(io: StringIO.new(`#{commandline}`), decoder: -> (json) { JSON.parse(json, symbolize_names: true) })
@@ -75,7 +79,7 @@ module Runners
           Schema::Result.envelope =~ object
         }
 
-        unify_result(result, pattern, out)
+        unify_result(result, pattern, out) ? "passed" : "failed"
       end
 
       def unify_result(result, pattern, out)
