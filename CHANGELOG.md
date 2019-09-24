@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.2.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.2.1...HEAD)
+
+## 0.2.1
+
+[Full diff](https://github.com/sider/runners/compare/0.2.0...0.2.1)
 
 - Fix missing ktlint settings in CircleCI [#198](https://github.com/sider/runners/pull/198)
 
