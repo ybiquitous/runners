@@ -18,7 +18,7 @@ Smoke.add_test(
      :location=>{:start_line=>1}}],
   analyzer: {
     name: 'ESLint',
-    version: '5.16.0'
+    version: '6.4.0'
   }
 )
 
@@ -62,7 +62,7 @@ Smoke.add_test(
   message: :_,
   analyzer: {
     name: 'ESLint',
-    version: "5.16.0"
+    version: "6.4.0"
   }
 )
 
@@ -168,7 +168,8 @@ Smoke.add_test("no_files", {
 
     Oops! Something went wrong! :(
 
-    ESLint: 5.16.0.
+    ESLint: 6.4.0.
+
     No files matching the pattern "." were found.
     Please check for typing mistakes in the pattern.
 
@@ -176,7 +177,7 @@ Smoke.add_test("no_files", {
   MESSAGE
   analyzer: {
     name: 'ESLint',
-    version: '5.16.0'
+    version: '6.4.0'
   }
 })
 
@@ -249,7 +250,7 @@ Smoke.add_test("quiet", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: :_
+    version: '6.4.0'
   }
 })
 
@@ -259,7 +260,7 @@ Smoke.add_test("array_ignore_pattern", {
   timestamp: :_,
   type: 'success',
   issues: [
-    { message: "Warning - Line 1 exceeds the maximum line length of 10. (max-len)",
+    { message: "Warning - This line has a length of 82. Maximum allowed is 10. (max-len)",
       links: [],
       id: "max-len",
       path: "app.js",
@@ -272,7 +273,7 @@ Smoke.add_test("array_ignore_pattern", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: :_
+    version: '6.4.0'
   }
 })
 
@@ -407,7 +408,7 @@ Smoke.add_test(
   issues: [],
   analyzer: {
     name: 'ESLint',
-    version: '5.16.0', # Default version
+    version: '6.4.0', # Default version
   }
 )
 
@@ -434,6 +435,6 @@ Smoke.add_test("eslintrc_js", {
   ],
   analyzer: {
     name: "ESLint",
-    version: "5.16.0",
+    version: "6.4.0",
   },
 })
