@@ -46,9 +46,9 @@ module Runners
           end
         end
 
-        passed = results.count { |result,| result == "passed" }
-        failed = results.count { |result,| result == "failed" }
-        skipped = results.count { |result,| result == "skipped" }
+        passed = results.count { |result,| result == :passed }
+        failed = results.count { |result,| result == :failed }
+        skipped = results.count { |result,| result == :skipped }
         total = results.count
         summary = "#{passed} passed, #{failed} failed, #{skipped} skipped, #{total} total"
 
@@ -57,14 +57,14 @@ module Runners
           puts "❤️  Smoke tests passed! -- #{summary}"
         else
           puts "❌ Smoke tests failed! -- #{summary}"
-          marks = { true => '✅', false => '❌', nil => '⚠️' }
-          results.each { |result, name| puts "--> #{marks[result]} #{name}" }
+          marks = { passed: '✅', failed: '❌', skipped: '⚠️' }
+          results.each { |result, name| puts "--> #{marks.fetch(result)} #{name}" }
           exit 1
         end
       end
 
       def run_test(name, pattern, out)
-        return "skipped" if ENV['ONLY'] && ENV['ONLY'] != name
+        return :skipped if ENV['ONLY'] && ENV['ONLY'] != name
 
         commandline = command_line(name, self.class.configs.fetch(name))
         out.puts "$ #{commandline}"
@@ -79,7 +79,7 @@ module Runners
           Schema::Result.envelope =~ object
         }
 
-        unify_result(result, pattern, out) ? "passed" : "failed"
+        unify_result(result, pattern, out) ? :passed : :failed
       end
 
       def unify_result(result, pattern, out)
