@@ -149,6 +149,7 @@ class Runners::Workspace
   def self.decrypt_by_openssl: (Pathname, String, Pathname) -> void
   def self.extract: (Pathname, Pathname, trace_writer: TraceWriter) -> void
   def self.download: <'a> (URI) { (any) -> 'a } -> 'a
+  def self.ssh_key_content: () -> String
 end
 
 class Runners::Workspace::DownloadError
