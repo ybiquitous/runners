@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.3.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.3.1...HEAD)
+
+## 0.3.1
+
+[Full diff](https://github.com/sider/runners/compare/0.3.0...0.3.1)
 
 - Make #presence available [#204](https://github.com/sider/runners/pull/204)
 
