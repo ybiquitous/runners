@@ -11,7 +11,7 @@ class Runners::Testing::Smoke
   def expectations: -> Pathname
   def initialize: (Array<String>) -> any
   def run: () -> void
-  def run_test: (String, any, IO) -> String
+  def run_test: (String, any, IO) -> Symbol
   def unify_result: (any, any, IO) -> bool
   def with_data_container: <'x> { () -> 'x } -> 'x
   def command_line: (String, Configuration) -> String
