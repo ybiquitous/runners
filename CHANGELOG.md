@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.3.0...HEAD)
 
+- Make #presence available [#204](https://github.com/sider/runners/pull/204)
+
 ## 0.3.0
 
 [Full diff](https://github.com/sider/runners/compare/0.2.1...0.3.0)
