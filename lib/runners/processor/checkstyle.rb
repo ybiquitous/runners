@@ -41,10 +41,6 @@ module Runners
       args
     end
 
-    def jar_path
-      ENV["CHECKSTYLE_JAR_PATH"] || "/usr/local/share/checkstyle-all.jar"
-    end
-
     def checkstyle(*args, config: nil, format: nil, excludes: nil, properties: nil)
       capture3("java", *checkstyle_common_options, *checkstyle_args(*args, config: config, format: format, excludes: excludes, properties: properties))
     end
@@ -54,7 +50,11 @@ module Runners
     end
 
     def checkstyle_common_options
-      ["-Duser.country=#{locale.country}", "-Duser.language=#{locale.language}", "-jar", jar_path]
+      %W[
+        -Duser.country=#{locale.country}
+        -Duser.language=#{locale.language}
+        com.puppycrawl.tools.checkstyle.Main
+      ]
     end
 
     def analyzer_version
