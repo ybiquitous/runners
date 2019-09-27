@@ -24,9 +24,9 @@ module Runners
     end
 
     DEFAULT_DEPS = DefaultDependencies.new(
-      main: Dependency.new(name: "tslint", version: "5.18.0"),
+      main: Dependency.new(name: "tslint", version: "5.20.0"),
       extras: [
-        Dependency.new(name: "typescript", version: "3.4.3"),
+        Dependency.new(name: "typescript", version: "3.5.3"),
       ],
     )
 
