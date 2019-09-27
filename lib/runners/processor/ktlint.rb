@@ -205,7 +205,7 @@ module Runners
                      run_cli
                    end
 
-          Results::Success.new(guid: guid, analyzer: analyzer!).tap do |result|
+          Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
             issues.each do |issue|
               result.add_issue issue
             end

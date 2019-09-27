@@ -79,7 +79,7 @@ module Runners
         end
 
         install_gems defaults, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
-          analyzer!
+          analyzer
           yield
         end
       end

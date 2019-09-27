@@ -69,10 +69,6 @@ module Runners
       @analyzer ||= Analyzer.new(name: analyzer_name, version: analyzer_version)
     end
 
-    def analyzer!
-      analyzer or raise "No analyzer set"
-    end
-
     def analyzer_bin
       self.class.ci_config_section_name
     end

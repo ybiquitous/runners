@@ -35,7 +35,7 @@ module Runners
     end
 
     def setup
-      analyzer!
+      analyzer
       yield
     end
 
@@ -96,10 +96,10 @@ module Runners
       xml_output = REXML::Document.new(stderr)
 
       unless xml_output.root
-        return Results::Failure.new(guid: guid, analyzer: analyzer!, message: "Invalid XML output!")
+        return Results::Failure.new(guid: guid, analyzer: analyzer, message: "Invalid XML output!")
       end
 
-      Results::Success.new(guid: guid, analyzer: analyzer!).tap do |result|
+      Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
         parse_result(xml_output) do |issue|
           result.add_issue issue
         end
