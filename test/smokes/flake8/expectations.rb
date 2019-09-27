@@ -81,7 +81,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: "Flake8",
-    version: "3.7.7"
+    version: "3.7.8"
   }
 )
 
@@ -112,7 +112,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: "Flake8",
-    version: "3.7.7"
+    version: "3.7.8"
   }
 )
 
@@ -124,7 +124,7 @@ Smoke.add_test(
   issues: [],  # W191 is not issued.
   analyzer: {
     name: "Flake8",
-    version: "3.7.7"
+    version: "3.7.8"
   }
 )
 
@@ -146,7 +146,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: "Flake8",
-    version: "3.7.7"
+    version: "3.7.8"
   }
 )
 
@@ -183,7 +183,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: "Flake8",
-    version: "3.7.7"
+    version: "3.7.8"
   }
 )
 
