@@ -2,6 +2,6 @@ source 'https://rubygems.org'
 
 gem 'haml_lint', '0.32.0'
 gem 'rubocop', '0.71.0'
-gem 'rubocop-rspec', '1.33.0'
+gem 'rubocop-rspec', '1.35.0'
 gem 'rubocop-rails', '2.0.1'
 gem 'meowcop', '1.20.0'
