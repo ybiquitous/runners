@@ -27,14 +27,14 @@ module Runners
     end
 
     DEFAULT_DEPS = DefaultDependencies.new(
-      main: Dependency.new(name: "stylelint", version: "10.1.0"),
+      main: Dependency.new(name: "stylelint", version: "11.0.0"),
       extras: [
-        Dependency.new(name: "stylelint-config-recommended", version: "2.2.0"),
+        Dependency.new(name: "stylelint-config-recommended", version: "3.0.0"),
       ],
     )
 
     CONSTRAINTS = {
-      "stylelint" => Constraint.new(">= 8.3.0", "< 11.0.0"),
+      "stylelint" => Constraint.new(">= 8.3.0", "< 12.0.0"),
     }.freeze
 
     DEFAULT_TARGET_FILE_EXTENSIONS = ["css", "less", "sass", "scss", "sss"].freeze
@@ -153,7 +153,13 @@ module Runners
 
     def prepare_config_file(config)
       return if config_file_path(config)
-      src = (Pathname(Dir.home) / 'sider_recommended_config.yaml').realpath
+
+      # NOTE: `stylelint-config-recommended@2` does not work with `stylelint@11`.
+      src = if Gem::Version.create(analyzer_version) >= Gem::Version.create("11.0.0")
+              (Pathname(Dir.home) / 'sider_recommended_config.yaml').realpath
+            else
+              (Pathname(Dir.home) / 'sider_recommended_config.old.yaml').realpath
+            end
       dst = current_dir.join('.stylelintrc.yaml')
       FileUtils.copy(src, dst)
     end

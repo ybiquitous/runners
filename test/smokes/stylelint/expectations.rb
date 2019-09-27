@@ -78,7 +78,7 @@ Smoke.add_test('success', {
 # Case: package.json が不在 && stylelintrc が不在
 # Analysis: Global にインストールされた stylelint, stylelint-config-recommended を使って解析する
 Smoke.add_test('no_config', {
-  analyzer: {name: 'stylelint', version: '10.1.0'},
+  analyzer: {name: 'stylelint', version: '11.0.0'},
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -103,7 +103,7 @@ Smoke.add_test('no_config', {
 # Case: package.json が不在 && stylelintrc が存在
 # Analysis: stylelint-config-standard が存在しないので、解析エラーになる。
 Smoke.add_test('analyse-only-css', {
-  analyzer: {name: 'stylelint', version: '10.1.0'},
+  analyzer: {name: 'stylelint', version: '11.0.0'},
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
@@ -113,7 +113,7 @@ Smoke.add_test('analyse-only-css', {
 # Case: package.json が不在 && stylelintrc が不在
 # Analysis: Global にインストールされた stylelint, stylelint-config-recommended を使って解析する
 Smoke.add_test('without-css', {
-  analyzer: {name: 'stylelint', version: '10.1.0'},
+  analyzer: {name: 'stylelint', version: '11.0.0'},
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -163,7 +163,7 @@ Smoke.add_test('with_options', {
 # Case: package.json が不在 && stylelintrc が不在
 # Analysis: Global にインストールされた stylelint, stylelint-config-recommended を使って解析する
 Smoke.add_test('syntax-error', {
-  analyzer: {name: 'stylelint', version: '10.1.0'},
+  analyzer: {name: 'stylelint', version: '11.0.0'},
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -184,7 +184,7 @@ Smoke.add_test('syntax-error', {
 # Case: package.json が不在 && stylelintrc が存在
 # Analysis: Global にインストールされた stylelint, .stylelintrc の extends を元にインストールした stylelint-config-recommended を使って解析する
 Smoke.add_test('only_stylelintrc', {
-  analyzer: { name: 'stylelint', version: '10.1.0' },
+  analyzer: { name: 'stylelint', version: '11.0.0' },
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -211,7 +211,7 @@ Smoke.add_test('only_stylelintrc', {
 #       stylelintrc は extends や plugins などを持たず、純粋にルールのみが記載
 # Analysis: Global にインストールされた stylelint を使って解析する
 Smoke.add_test('only_stylelintrc_without_packages', {
-  analyzer: { name: 'stylelint', version: '10.1.0' },
+  analyzer: { name: 'stylelint', version: '11.0.0' },
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -288,7 +288,7 @@ Smoke.add_test('only_stylelint_in_package_json', {
 # Case: package.json が存在 && stylelintrc が存在 && npm_install: true
 # Analysis: peer dep が存在しないので、デフォルトにフォールバックする。
 Smoke.add_test('npm_install_without_stylelint', {
-  analyzer: { name: "stylelint", version: "10.1.0" },
+  analyzer: { name: "stylelint", version: "11.0.0" },
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -411,7 +411,7 @@ Smoke.add_test("mismatched_yarnlock_and_package_json", {
 })
 
 Smoke.add_test("default_glob", {
-  analyzer: { name: "stylelint", version: "10.1.0" },
+  analyzer: { name: "stylelint", version: "11.0.0" },
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
