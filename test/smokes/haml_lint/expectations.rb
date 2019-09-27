@@ -17,7 +17,7 @@ Smoke.add_test(
     path: 'test.haml',
     location: { start_line: 4 }
   }],
-  analyzer: {name: 'haml_lint', version: '0.32.0'})
+  analyzer: {name: 'haml_lint', version: '0.33.0'})
 
 Smoke.add_test(
   'with-sideci.yml',
@@ -31,7 +31,7 @@ Smoke.add_test(
     path: 'test.haml',
     location: { start_line: 4 }
   }],
-  analyzer: {name: 'haml_lint', version: '0.32.0'})
+  analyzer: {name: 'haml_lint', version: '0.33.0'})
 
 Smoke.add_test(
   'plain-rubocop',
@@ -45,7 +45,7 @@ Smoke.add_test(
     path: "test.haml",
     location: {start_line: 3}
   }],
-  analyzer: {name: 'haml_lint', version: '0.32.0'})
+  analyzer: {name: 'haml_lint', version: '0.33.0'})
 
 Smoke.add_test(
   'with-inherit-gem',
@@ -75,7 +75,7 @@ Smoke.add_test(
     path: 'test.haml',
     location: { start_line: 4 }
   }],
-  analyzer: {name: 'haml_lint', version: '0.32.0'})
+  analyzer: {name: 'haml_lint', version: '0.33.0'})
 
 Smoke.add_test("with_exclude_files", {
   guid: 'test-guid',
@@ -97,7 +97,7 @@ Smoke.add_test("with_exclude_files", {
       location: { start_line: 3 }
     }
   ],
-  analyzer: { name: 'haml_lint', version: '0.32.0' }
+  analyzer: { name: 'haml_lint', version: '0.33.0' }
 })
 
 Smoke.add_test("broken_sideci_yml", {
@@ -134,7 +134,7 @@ Smoke.add_test(
              path: 'test.haml',
              location: { start_line: 4 }
            }],
-  analyzer: {name: 'haml_lint', version: '0.32.0'})
+  analyzer: {name: 'haml_lint', version: '0.33.0'})
 
 # This test case, `incompatible_haml`, will be failed if updating HAML-Lint version,
 # because HAML-Lint 4.1 beta support was dropped.
@@ -154,7 +154,7 @@ Smoke.add_test(
   analyzer: {name: 'haml_lint', version: '0.28.0'}
 )
 
-# HAML-Lint v0.32.0 has supported HAML 5.1, therefore this test case checks brand-new HAML version.
+# HAML-Lint v0.33.0 has supported HAML 5.1, therefore this test case checks brand-new HAML version.
 # When HAML-Lint supports upper HAML version than 5.1, feel free to change pinned version such as `5.2`, `5.3`, ....
 Smoke.add_test('pinned_haml_version', {
   guid: 'test-guid',

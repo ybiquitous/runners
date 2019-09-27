@@ -25,7 +25,7 @@ module Runners
     end
 
     DEFAULT_GEMS = [
-      GemInstaller::Spec.new(name: "haml_lint", version: ["0.32.0"]),
+      GemInstaller::Spec.new(name: "haml_lint", version: ["0.33.0"]),
     ].freeze
 
     # DEPRECATED: Implicit dependencies
