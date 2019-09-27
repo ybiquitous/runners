@@ -33,6 +33,7 @@ module Runners
     CONSTRAINTS = {
       "eslint" => Constraint.new(">= 3.19.0", "< 7.0.0")
     }.freeze
+    RECOMMENDED_MINIMUM_VERSION = "4.19.1".freeze
 
     def self.ci_config_section_name
       'eslint'
@@ -50,6 +51,7 @@ module Runners
           return Results::Failure.new(guid: guid, message: exn.message, analyzer: nil)
         end
         analyzer
+        add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "package.json")
         yield
       end
     end
@@ -197,7 +199,6 @@ module Runners
       # NOTE: ESLint v5 returns 2 as exit status when fatal error is occurred.
       #       However, this runner doesn't depends on this behavior because it also supports ESLint v4
       output = working_dir + 'output.json'
-
 
       stdout, stderr, status = capture3(
         nodejs_analyzer_bin,
