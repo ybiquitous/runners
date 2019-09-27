@@ -25,7 +25,10 @@ RUN cd ${RUNNER_USER_HOME} && \
     mkdir jshint && \
     mv jshint_package.json jshint/package.json && \
     cd jshint && \
-    npm install --no-package-lock --ignore-scripts && \
+    npm config set ignore-scripts true && \
+    npm config set progress false && \
+    npm config set package-lock false && \
+    npm install && \
     node_modules/.bin/jshint --version
 ENV PATH ${RUNNER_USER_HOME}/jshint/node_modules/.bin:${PATH}
 # See https://nodejs.org/api/cli.html#cli_node_path_path

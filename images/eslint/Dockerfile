@@ -25,7 +25,10 @@ RUN cd ${RUNNER_USER_HOME} && \
     mkdir eslint && \
     mv eslint_package.json eslint/package.json && \
     cd eslint && \
-    npm install --no-package-lock --ignore-scripts && \
+    npm config set ignore-scripts true && \
+    npm config set progress false && \
+    npm config set package-lock false && \
+    npm install && \
     node_modules/.bin/eslint --version
 ENV PATH ${RUNNER_USER_HOME}/eslint/node_modules/.bin:${PATH}
 # See https://nodejs.org/api/cli.html#cli_node_path_path

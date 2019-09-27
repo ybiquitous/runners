@@ -25,7 +25,10 @@ RUN cd ${RUNNER_USER_HOME} && \
     mkdir stylelint && \
     mv stylelint_package.json stylelint/package.json && \
     cd stylelint && \
-    npm install --no-package-lock --ignore-scripts && \
+    npm config set ignore-scripts true && \
+    npm config set progress false && \
+    npm config set package-lock false && \
+    npm install && \
     node_modules/.bin/stylelint --version
 ENV PATH ${RUNNER_USER_HOME}/stylelint/node_modules/.bin:${PATH}
 # See https://nodejs.org/api/cli.html#cli_node_path_path
@@ -35,7 +38,7 @@ ENV NODE_PATH ${RUNNER_USER_HOME}/stylelint/node_modules:${NODE_PATH}
 RUN cd ${RUNNER_USER_HOME} && \
     mkdir stylelint-config-recommended.old && \
     cd stylelint-config-recommended.old && \
-    npm install --no-package-lock --ignore-scripts stylelint-config-recommended@2
+    npm install stylelint-config-recommended@2
 COPY images/stylelint/sider_recommended_config.old.yaml ${RUNNER_USER_HOME}/
 
 COPY images/stylelint/sider_recommended_config.yaml images/stylelint/sider_recommended_stylelintignore ${RUNNER_USER_HOME}/
