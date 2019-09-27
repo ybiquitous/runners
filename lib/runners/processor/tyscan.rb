@@ -21,7 +21,7 @@ module Runners
     DEFAULT_DEPS = DefaultDependencies.new(
       main: Dependency.new(name: "tyscan", version: "0.2.1"),
       extras: [
-        Dependency.new(name: "typescript", version: "3.5.3"),
+        Dependency.new(name: "typescript", version: "3.6.3"),
       ],
     ).freeze
 
