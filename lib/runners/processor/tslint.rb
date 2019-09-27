@@ -26,7 +26,7 @@ module Runners
     DEFAULT_DEPS = DefaultDependencies.new(
       main: Dependency.new(name: "tslint", version: "5.20.0"),
       extras: [
-        Dependency.new(name: "typescript", version: "3.5.3"),
+        Dependency.new(name: "typescript", version: "3.6.3"),
       ],
     )
 
