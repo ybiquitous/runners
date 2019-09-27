@@ -2,8 +2,6 @@ module Runners
   class Processor::RailsBestPractices < Processor
     include Ruby
 
-    attr_reader :analyzer
-
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.ruby.update_fields { |fields|
         fields.merge!({
@@ -50,11 +48,15 @@ module Runners
       'rails_best_practices'
     end
 
+    def analyzer
+      @analyzer ||= Analyzer.new(name: 'rails_best_practices', version: analyzer_version)
+    end
+
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
-          @analyzer = Analyzer.new(name: 'rails_best_practices', version: versions["rails_best_practices"])
+          analyzer!
           yield
         end
       end

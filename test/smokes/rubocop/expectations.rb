@@ -1,5 +1,3 @@
-Smoke = Runners::Testing::Smoke
-
 require_relative 'gem_install/expectations'
 
 Smoke.add_test(

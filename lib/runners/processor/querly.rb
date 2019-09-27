@@ -2,8 +2,6 @@ module Runners
   class Processor::Querly < Processor
     include Ruby
 
-    attr_reader :analyzer
-
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.ruby
 
@@ -32,11 +30,19 @@ module Runners
       'querly'
     end
 
+    def analyzer
+      @analyzer ||= Analyzer.new(name: 'querly', version: analyzer_version)
+    end
+
+    def analyzer_version
+      @analyzer_version ||= extract_version! ruby_analyzer_bin, "version"
+    end
+
     def setup
       ret = ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
-          @analyzer = Analyzer.new(name: 'querly', version: versions["querly"])
+          analyzer!
           yield
         end
       end
