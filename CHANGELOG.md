@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Bump default stylelint and stylelint-config-recommended [#210](https://github.com/sider/runners/pull/210)
 - Add `.npmrc` for common settings [#211](https://github.com/sider/runners/pull/211)
 - Update rubocop-rspec from 1.33.0 to 1.35.0 for HAML-Lint [#116](https://github.com/sider/runners/pull/116)
+- Update typescript from 3.5.3 to 3.6.3 for TyScan [#103](https://github.com/sider/runners/pull/103)
 
 ## 0.3.1
 
