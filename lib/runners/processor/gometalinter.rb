@@ -9,8 +9,8 @@ module Runners
       "gometalinter"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "gometalinter", version: analyzer_version)
+    def analyzer_name
+      "gometalinter"
     end
 
     def setup

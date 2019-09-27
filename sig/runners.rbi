@@ -194,6 +194,7 @@ class Runners::Processor
   def self.ci_config_section_name: () -> String
   def analyzer: -> Analyzer?
   def analyzer!: -> Analyzer
+  def analyzer_name: -> String
   def analyzer_bin: -> String
   def analyzer_version: -> String
   def extract_version!: (String | Array<String>, ?(String | Array<String>), ?pattern: Regexp) -> String

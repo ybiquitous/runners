@@ -183,8 +183,8 @@ module Runners
       end
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'ktlint', version: analyzer_version)
+    def analyzer_name
+      'ktlint'
     end
 
     def analyze(changes)

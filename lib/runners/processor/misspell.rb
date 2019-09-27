@@ -20,8 +20,8 @@ module Runners
       'misspell'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'Misspell', version: analyzer_version)
+    def analyzer_name
+      'Misspell'
     end
 
     def analyzer_version

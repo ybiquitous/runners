@@ -30,8 +30,8 @@ module Runners
       "cppcheck"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "Cppcheck", version: analyzer_version)
+    def analyzer_name
+      "Cppcheck"
     end
 
     def setup

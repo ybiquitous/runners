@@ -30,8 +30,8 @@ module Runners
       'querly'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'querly', version: analyzer_version)
+    def analyzer_name
+      'querly'
     end
 
     def analyzer_version

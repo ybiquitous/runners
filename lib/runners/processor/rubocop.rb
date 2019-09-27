@@ -64,8 +64,8 @@ module Runners
       'rubocop'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'RuboCop', version: analyzer_version)
+    def analyzer_name
+      'RuboCop'
     end
 
     def setup

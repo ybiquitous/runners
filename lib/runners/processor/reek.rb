@@ -18,8 +18,8 @@ module Runners
       'reek'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'Reek', version: analyzer_version)
+    def analyzer_name
+      'Reek'
     end
 
     def setup

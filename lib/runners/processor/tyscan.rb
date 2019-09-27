@@ -40,8 +40,8 @@ module Runners
       'tyscan'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "TyScan", version: analyzer_version)
+    def analyzer_name
+      "TyScan"
     end
 
     def setup

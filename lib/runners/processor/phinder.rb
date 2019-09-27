@@ -19,8 +19,8 @@ module Runners
       "phinder"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "Phinder", version: analyzer_version)
+    def analyzer_name
+      "Phinder"
     end
 
     def test_phinder_config(config)

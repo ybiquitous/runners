@@ -67,8 +67,8 @@ module Runners
       "haml-lint"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'haml_lint', version: analyzer_version)
+    def analyzer_name
+      'haml_lint'
     end
 
     def setup

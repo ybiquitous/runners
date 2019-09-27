@@ -17,6 +17,10 @@ module Runners
       'jshint'
     end
 
+    def analyzer_name
+      'JSHint'
+    end
+
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
         prepare_config(config)
@@ -25,10 +29,6 @@ module Runners
     end
 
     private
-
-    def analyzer
-      Analyzer.new(name: 'JSHint', version: analyzer_version)
-    end
 
     def prepare_config(config)
       return if jshintrc_exist?(config)

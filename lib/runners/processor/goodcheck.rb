@@ -29,8 +29,8 @@ module Runners
       "goodcheck"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'goodcheck', version: analyzer_version)
+    def analyzer_name
+      'goodcheck'
     end
 
     def analyzer_version

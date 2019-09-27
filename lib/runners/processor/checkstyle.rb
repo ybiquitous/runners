@@ -61,8 +61,8 @@ module Runners
       @analyzer_version ||= extract_version! "java", [*checkstyle_common_options, "--version"]
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'checkstyle', version: analyzer_version)
+    def analyzer_name
+      'checkstyle'
     end
 
     def analyze(changes)

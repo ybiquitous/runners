@@ -15,12 +15,11 @@ module Runners
     }.freeze
 
     def self.ci_config_section_name
-      # Section name in sideci.yml, Generally it is the name of analyzer tool.
       "brakeman"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'brakeman', version: analyzer_version)
+    def analyzer_name
+      'brakeman'
     end
 
     def setup
