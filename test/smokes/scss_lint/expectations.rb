@@ -29,7 +29,7 @@ Smoke.add_test("success", {
     ],
     analyzer: {
       name: 'SCSS-Lint',
-      version: '0.57.1'
+      version: '0.58.0'
     }
 })
 
@@ -41,7 +41,7 @@ Smoke.add_test("no_scss_files", {
     ],
     analyzer: {
       name: 'SCSS-Lint',
-      version: '0.57.1'
+      version: '0.58.0'
     }
 }, warnings: [
   {message: 'No files, paths, or patterns were specified', file: nil}
@@ -71,7 +71,7 @@ Smoke.add_test("with_config_option", {
     ],
     analyzer: {
       name: 'SCSS-Lint',
-      version: '0.57.1'
+      version: '0.58.0'
     }
 })
 
@@ -88,7 +88,7 @@ Smoke.add_test("syntax_error", {
     ],
     analyzer: {
       name: 'SCSS-Lint',
-      version: '0.57.1'
+      version: '0.58.0'
     }
 })
 
