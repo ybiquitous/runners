@@ -37,8 +37,8 @@ module Runners
       ENV['PMD_VERSION'] || '0.0.0'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'pmd_java', version: analyzer_version)
+    def analyzer_name
+      'pmd_java'
     end
 
     def analyze(changes)

@@ -64,8 +64,8 @@ module Runners
       'rubocop'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'RuboCop', version: analyzer_version)
+    def analyzer_name
+      'RuboCop'
     end
 
     def setup
@@ -79,7 +79,7 @@ module Runners
         end
 
         install_gems defaults, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
-          analyzer!
+          analyzer
           yield
         end
       end

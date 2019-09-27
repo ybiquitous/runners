@@ -62,8 +62,8 @@ module Runners
       end
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'stylelint', version: analyzer_version)
+    def analyzer_name
+      'stylelint'
     end
 
     def analyze(changes)

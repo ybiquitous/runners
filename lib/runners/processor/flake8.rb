@@ -15,6 +15,10 @@ module Runners
       'flake8'
     end
 
+    def analyzer_name
+      'Flake8'
+    end
+
     def setup
       prepare_config
       yield
@@ -29,10 +33,6 @@ module Runners
     end
 
     private
-
-    def analyzer
-      Analyzer.new(name: 'Flake8', version: analyzer_version)
-    end
 
     def prepare_config
       default_config = (Pathname(Dir.home) / '.config/flake8').realpath

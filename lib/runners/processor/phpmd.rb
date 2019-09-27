@@ -22,12 +22,11 @@ module Runners
     end
 
     def self.ci_config_section_name
-      # Section name in sideci.yml, Generally it is the name of analyzer tool.
       "phpmd"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "phpmd", version: analyzer_version)
+    def analyzer_name
+      "phpmd"
     end
 
     def analyze(changes)

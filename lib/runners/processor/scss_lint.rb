@@ -18,8 +18,8 @@ module Runners
       'scss-lint'
     end
 
-    def analyzer
-      Analyzer.new(name: "SCSS-Lint", version: analyzer_version)
+    def analyzer_name
+      "SCSS-Lint"
     end
 
     def self.ci_config_section_name

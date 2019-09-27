@@ -47,8 +47,8 @@ module Runners
       yield options, target
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "code_sniffer", version: analyzer_version)
+    def analyzer_name
+      "code_sniffer"
     end
 
     def analyzer_bin

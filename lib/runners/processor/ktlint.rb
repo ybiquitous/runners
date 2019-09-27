@@ -183,8 +183,8 @@ module Runners
       end
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'ktlint', version: analyzer_version)
+    def analyzer_name
+      'ktlint'
     end
 
     def analyze(changes)
@@ -205,7 +205,7 @@ module Runners
                      run_cli
                    end
 
-          Results::Success.new(guid: guid, analyzer: analyzer!).tap do |result|
+          Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
             issues.each do |issue|
               result.add_issue issue
             end

@@ -39,8 +39,8 @@ module Runners
       'eslint'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'ESLint', version: analyzer_version)
+    def analyzer_name
+      'ESLint'
     end
 
     def setup

@@ -27,8 +27,8 @@ module Runners
       'coffeelint'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'CoffeeLint', version: analyzer_version)
+    def analyzer_name
+      'CoffeeLint'
     end
 
     def setup

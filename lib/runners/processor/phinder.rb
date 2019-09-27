@@ -19,8 +19,8 @@ module Runners
       "phinder"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "Phinder", version: analyzer_version)
+    def analyzer_name
+      "Phinder"
     end
 
     def test_phinder_config(config)
@@ -67,11 +67,11 @@ module Runners
       # 3: Error & Violation
       case status.exitstatus
       when 0
-        Results::Success.new(guid: guid, analyzer: analyzer!)
+        Results::Success.new(guid: guid, analyzer: analyzer)
       when 2
         json = JSON.parse(stdout, symbolize_names: true)
 
-        Results::Success.new(guid: guid, analyzer: analyzer!).tap do |result|
+        Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
           json[:result].each do |issue|
             result.add_issue Issues::Structured.new(
               id: issue[:rule][:id],

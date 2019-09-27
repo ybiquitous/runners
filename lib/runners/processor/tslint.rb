@@ -51,8 +51,8 @@ module Runners
       end
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'TSLint', version: analyzer_version)
+    def analyzer_name
+      'TSLint'
     end
 
     def analyze(_changes)

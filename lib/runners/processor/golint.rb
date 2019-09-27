@@ -9,8 +9,8 @@ module Runners
       "gometalinter"
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: "golint", version: analyzer_version)
+    def analyzer_name
+      "golint"
     end
 
     def analyze(changes)

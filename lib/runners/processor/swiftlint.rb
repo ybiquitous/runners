@@ -26,8 +26,8 @@ module Runners
       @analyzer_version ||= extract_version! analyzer_bin, 'version'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'swiftlint', version: analyzer_version)
+    def analyzer_name
+      'swiftlint'
     end
 
     def analyze(_changes)

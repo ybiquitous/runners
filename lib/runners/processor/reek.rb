@@ -18,15 +18,15 @@ module Runners
       'reek'
     end
 
-    def analyzer
-      @analyzer ||= Analyzer.new(name: 'Reek', version: analyzer_version)
+    def analyzer_name
+      'Reek'
     end
 
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, constraints: CONSTRAINTS do |versions|
-          analyzer!
+          analyzer
           yield
         end
       end
