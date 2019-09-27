@@ -1,0 +1,1 @@
+extends: "/home/analyzer_runner/stylelint-config-recommended.old/node_modules/stylelint-config-recommended"

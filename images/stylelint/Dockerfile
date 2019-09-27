@@ -31,7 +31,14 @@ ENV PATH ${RUNNER_USER_HOME}/stylelint/node_modules/.bin:${PATH}
 # See https://nodejs.org/api/cli.html#cli_node_path_path
 ENV NODE_PATH ${RUNNER_USER_HOME}/stylelint/node_modules:${NODE_PATH}
 
-COPY images/stylelint/sider_recommended_config.yaml images/stylelint/sider_recommended_stylelintignore $RUNNER_USER_HOME/
+# NOTE: Install the older version to run `stylelint-config-recommended` with stylelint v8.
+RUN cd ${RUNNER_USER_HOME} && \
+    mkdir stylelint-config-recommended.old && \
+    cd stylelint-config-recommended.old && \
+    npm install --no-package-lock --ignore-scripts stylelint-config-recommended@2
+COPY images/stylelint/sider_recommended_config.old.yaml ${RUNNER_USER_HOME}/
+
+COPY images/stylelint/sider_recommended_config.yaml images/stylelint/sider_recommended_stylelintignore ${RUNNER_USER_HOME}/
 
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
