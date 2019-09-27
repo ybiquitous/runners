@@ -61,14 +61,6 @@ module Runners
       raise NotImplementedError, "No implementation: #{self.class}#analyze"
     end
 
-    def with_analyzer(analyzer)
-      old_analyzer = @analyzer
-      @analyzer = analyzer
-      yield
-    ensure
-      @analyzer = old_analyzer
-    end
-
     def analyzer
       @analyzer
     end

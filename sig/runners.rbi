@@ -192,7 +192,6 @@ class Runners::Processor
   def add_warning: (String, ?file: String?) -> void
   def add_warning_if_deprecated_version: (minimum: String, ?file: String?) -> void
   def self.ci_config_section_name: () -> String
-  def with_analyzer: <'x> (Analyzer?) { () -> 'x } -> 'x
   def analyzer: -> Analyzer?
   def analyzer!: -> Analyzer
   def analyzer_bin: -> String
