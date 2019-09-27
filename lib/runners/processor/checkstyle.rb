@@ -46,15 +46,19 @@ module Runners
     end
 
     def checkstyle(*args, config: nil, format: nil, excludes: nil, properties: nil)
-      capture3("java", "-Duser.country=#{locale.country}", "-Duser.language=#{locale.language}", "-jar", jar_path, "com.puppycrawl.tools.checkstyle.Main", *checkstyle_args(*args, config: config, format: format, excludes: excludes, properties: properties))
+      capture3("java", *checkstyle_common_options, *checkstyle_args(*args, config: config, format: format, excludes: excludes, properties: properties))
     end
 
     def checkstyle!(*args, config: nil, format: nil, excludes: nil, properties: nil)
-      capture3!("java", "-Duser.country=#{locale.country}", "-Duser.language=#{locale.language}", "-jar", jar_path, "com.puppycrawl.tools.checkstyle.Main", *checkstyle_args(*args, config: config, format: format, excludes: excludes, properties: properties))
+      capture3!("java", *checkstyle_common_options, *checkstyle_args(*args, config: config, format: format, excludes: excludes, properties: properties))
+    end
+
+    def checkstyle_common_options
+      ["-Duser.country=#{locale.country}", "-Duser.language=#{locale.language}", "-jar", jar_path]
     end
 
     def analyzer_version
-      @analyzer_version ||= extract_version! "java", ["-jar", jar_path, "--version"]
+      @analyzer_version ||= extract_version! "java", [*checkstyle_common_options, "--version"]
     end
 
     def analyzer
