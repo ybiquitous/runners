@@ -25,7 +25,10 @@ RUN cd ${RUNNER_USER_HOME} && \
     mkdir coffeelint && \
     mv coffeelint_package.json coffeelint/package.json && \
     cd coffeelint && \
-    npm install --no-package-lock --ignore-scripts && \
+    npm config set ignore-scripts true && \
+    npm config set progress false && \
+    npm config set package-lock false && \
+    npm install && \
     node_modules/.bin/coffeelint --version
 ENV PATH ${RUNNER_USER_HOME}/coffeelint/node_modules/.bin:${PATH}
 # See https://nodejs.org/api/cli.html#cli_node_path_path

@@ -25,7 +25,10 @@ RUN cd ${RUNNER_USER_HOME} && \
     mkdir tslint && \
     mv tslint_package.json tslint/package.json && \
     cd tslint && \
-    npm install --no-package-lock --ignore-scripts && \
+    npm config set ignore-scripts true && \
+    npm config set progress false && \
+    npm config set package-lock false && \
+    npm install && \
     node_modules/.bin/tslint --version
 ENV PATH ${RUNNER_USER_HOME}/tslint/node_modules/.bin:${PATH}
 # See https://nodejs.org/api/cli.html#cli_node_path_path
