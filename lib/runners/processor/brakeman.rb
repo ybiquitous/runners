@@ -2,8 +2,6 @@ module Runners
   class Processor::Brakeman < Processor
     include Ruby
 
-    attr_reader :analyzer
-
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.ruby
     end
@@ -21,11 +19,15 @@ module Runners
       "brakeman"
     end
 
+    def analyzer
+      @analyzer ||= Analyzer.new(name: 'brakeman', version: analyzer_version)
+    end
+
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, constraints: CONSTRAINTS do |versions|
-          @analyzer = Analyzer.new(name: 'brakeman', version: versions["brakeman"])
+          analyzer!
           yield
         end
       end

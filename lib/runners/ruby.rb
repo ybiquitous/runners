@@ -71,5 +71,9 @@ module Runners
     def ruby_analyzer_bin
       ["bundle", "exec", analyzer_bin]
     end
+
+    def analyzer_version
+      @analyzer_version ||= extract_version! ruby_analyzer_bin
+    end
   end
 end

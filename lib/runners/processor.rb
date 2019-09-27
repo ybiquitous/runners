@@ -86,15 +86,16 @@ module Runners
     end
 
     def extract_version!(command, version_option = "--version", pattern: /v?(\d+\.\d+(\.\d+)?)\b/)
-      command_options = Array(version_option)
-      outputs = capture3!(command, *command_options)
+      single_command, *extra_commands = Array(command)
+      command_options = extra_commands + Array(version_option)
+      outputs = capture3!(single_command, *command_options)
       outputs.each do |output|
         pattern.match(output) do |match|
           found = match[1]
           return found if found
         end
       end
-      raise "Not found version from '#{command} #{command_options.join(' ')}'"
+      raise "Not found version from '#{single_command} #{command_options.join(' ')}'"
     end
 
     def self.ci_config_section_name

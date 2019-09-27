@@ -2,8 +2,6 @@ module Runners
   class Processor::RuboCop < Processor
     include Ruby
 
-    attr_reader :analyzer
-
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.ruby.update_fields { |fields|
         fields.merge!({
@@ -66,6 +64,10 @@ module Runners
       'rubocop'
     end
 
+    def analyzer
+      @analyzer ||= Analyzer.new(name: 'RuboCop', version: analyzer_version)
+    end
+
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
@@ -77,7 +79,7 @@ module Runners
         end
 
         install_gems defaults, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
-          @analyzer = Analyzer.new(name: 'RuboCop', version: versions["rubocop"])
+          analyzer!
           yield
         end
       end

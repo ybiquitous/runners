@@ -2,8 +2,6 @@ module Runners
   class Processor::Goodcheck < Processor
     include Ruby
 
-    attr_reader :analyzer
-
     Schema = StrongJSON.new do
       let :rule, object(
         id: string,
@@ -29,6 +27,14 @@ module Runners
 
     def self.ci_config_section_name
       "goodcheck"
+    end
+
+    def analyzer
+      @analyzer ||= Analyzer.new(name: 'goodcheck', version: analyzer_version)
+    end
+
+    def analyzer_version
+      @analyzer_version ||= extract_version! ruby_analyzer_bin, "version"
     end
 
     def ensure_config
@@ -114,7 +120,7 @@ module Runners
       ret = ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, constraints: CONSTRAINTS do |versions|
-          @analyzer = Analyzer.new(name: 'goodcheck', version: versions["goodcheck"])
+          analyzer!
           yield
         end
       end

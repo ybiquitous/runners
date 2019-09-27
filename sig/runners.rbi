@@ -197,7 +197,7 @@ class Runners::Processor
   def analyzer!: -> Analyzer
   def analyzer_bin: -> String
   def analyzer_version: -> String
-  def extract_version!: (String, ?(String | Array<String>), ?pattern: Regexp) -> String
+  def extract_version!: (String | Array<String>, ?(String | Array<String>), ?pattern: Regexp) -> String
   def build_field_reference_from_path: (StrongJSON::Type::ErrorPath) -> String
   def root_dir: -> Pathname
   def directory_traversal_attack?: (String) -> bool

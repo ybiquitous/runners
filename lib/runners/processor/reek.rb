@@ -2,8 +2,6 @@ module Runners
   class Processor::Reek < Processor
     include Ruby
 
-    attr_reader :analyzer
-
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.ruby
     end
@@ -20,11 +18,15 @@ module Runners
       'reek'
     end
 
+    def analyzer
+      @analyzer ||= Analyzer.new(name: 'Reek', version: analyzer_version)
+    end
+
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
         install_gems DEFAULT_GEMS, constraints: CONSTRAINTS do |versions|
-          @analyzer = Analyzer.new(name: 'Reek', version: versions["reek"])
+          analyzer!
           yield
         end
       end

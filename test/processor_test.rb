@@ -464,6 +464,10 @@ class ProcessorTest < Minitest::Test
       mock(processor).capture3!("foo", "bar", "-v") { ["ver 1.2", ""] }
       assert_equal "1.2", processor.extract_version!("foo", ["bar", "-v"], pattern: /ver (\d+.\d+)\b/)
 
+      # receive array command
+      mock(processor).capture3!("foo", "bar", "--version") { ["v1.2.3", ""] }
+      assert_equal "1.2.3", processor.extract_version!(["foo", "bar"])
+
       # not found
       mock(processor).capture3!("foo", "-v") { ["no version", ""] }
       error = assert_raises { processor.extract_version!("foo", "-v") }
