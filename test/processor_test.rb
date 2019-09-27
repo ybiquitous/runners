@@ -289,6 +289,37 @@ class ProcessorTest < Minitest::Test
     end
   end
 
+  def test_add_warning_if_deprecated_version
+    mktmpdir do |path|
+      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+
+      stub(processor).analyzer_version { '1.0.0' }
+
+      processor.add_warning_if_deprecated_version(minimum: '0.9.9')
+      processor.add_warning_if_deprecated_version(minimum: '1.0.0')
+      processor.add_warning_if_deprecated_version(minimum: '1.0.1')
+      processor.add_warning_if_deprecated_version(minimum: '2.0.0', file: "foo")
+
+      expected_message = ->(v) {
+        "The version `1.0.0` is deprecated on Sider. `>= #{v}` is required. Please consider upgrading to a new version."
+      }
+      assert_equal(
+        [
+          { trace: "warning", message: expected_message.call("1.0.1"), file: nil },
+          { trace: "warning", message: expected_message.call("2.0.0"), file: "foo" },
+        ],
+        trace_writer.writer.map { |hash| hash.slice(:trace, :message, :file) },
+      )
+      assert_equal(
+        [
+          { message: expected_message.call("1.0.1"), file: nil },
+          { message: expected_message.call("2.0.0"), file: "foo" },
+        ],
+        processor.warnings,
+      )
+    end
+  end
+
   def test_ensure_runner_config_schema_with_expected_fields
     klass = Class.new(Processor) do
       def self.ci_config_section_name

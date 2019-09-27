@@ -214,6 +214,14 @@ module Runners
       @warnings << {message: message, file: file}
     end
 
+    def add_warning_if_deprecated_version(minimum:, file: nil)
+      unless Gem::Version.create(minimum) <= Gem::Version.create(analyzer_version)
+        add_warning <<~MSG.strip, file: file
+          The version `#{analyzer_version}` is deprecated on Sider. `>= #{minimum}` is required. Please consider upgrading to a new version.
+        MSG
+      end
+    end
+
     # Prohibit directory traversal attack, e.g.
     # - '../../etc/passwd'
     # - 'config/../../../etc/passwd'
