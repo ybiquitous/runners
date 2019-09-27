@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Update eslint requirement from 5.16.0 to 6.4.0 [#100](https://github.com/sider/runners/pull/100)
 - Show deprecation warning for too old ESLint [#209](https://github.com/sider/runners/pull/209)
+- Update tslint requirement from 5.18.0 to 5.20.0 [#101](https://github.com/sider/runners/pull/101)
 
 ## 0.3.1
 
