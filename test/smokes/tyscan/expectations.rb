@@ -27,7 +27,7 @@ Smoke.add_test("default_config_not_found", {
   issues: [],
   analyzer: {
     name: 'TyScan',
-    version: '0.2.1'
+    version: '0.3.1'
   }
 }, warnings: [
   { message: <<~MESSAGE, file: nil }
@@ -51,7 +51,7 @@ Smoke.add_test("package_json_not_found", {
   ],
   analyzer: {
     name: 'TyScan',
-    version: '0.2.1'
+    version: '0.3.1'
   }
 })
 
@@ -76,7 +76,7 @@ Smoke.add_test("tyscan_not_found", {
   ],
   analyzer: {
     name: 'TyScan',
-    version: '0.2.1'
+    version: '0.3.1'
   }
 }, {
   warnings: [
