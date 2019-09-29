@@ -23,44 +23,6 @@ module Runners
       'checkstyle'
     end
 
-    def checkstyle_args(*args, config:, format:, excludes:, properties:)
-      args.unshift("-c", config) if config
-      args.unshift("-f", format.to_s) if format
-      if excludes
-        excludes.each do |exclude|
-          case
-          when exclude.key?(:string)
-            args.unshift("-e", exclude[:string])
-          when exclude.key?(:pattern)
-            args.unshift("-x", exclude[:pattern])
-          end
-        end
-      end
-      args.unshift("-p", properties) if properties
-
-      args
-    end
-
-    def checkstyle(*args, config: nil, format: nil, excludes: nil, properties: nil)
-      capture3("java", *checkstyle_common_options, *checkstyle_args(*args, config: config, format: format, excludes: excludes, properties: properties))
-    end
-
-    def checkstyle!(*args, config: nil, format: nil, excludes: nil, properties: nil)
-      capture3!("java", *checkstyle_common_options, *checkstyle_args(*args, config: config, format: format, excludes: excludes, properties: properties))
-    end
-
-    def checkstyle_common_options
-      %W[
-        -Duser.country=#{locale.country}
-        -Duser.language=#{locale.language}
-        com.puppycrawl.tools.checkstyle.Main
-      ]
-    end
-
-    def analyzer_version
-      @analyzer_version ||= extract_version! "java", [*checkstyle_common_options, "--version"]
-    end
-
     def analyzer_name
       'checkstyle'
     end
@@ -90,11 +52,29 @@ module Runners
         properties = properties_file()
         trace_writer.message("Properties file: #{properties}") if properties
 
-        output, _, _ = checkstyle(*dir, config: config_file, format: :xml, excludes: excludes, properties: properties)
+        output, _, _ = capture3(analyzer_bin, *dir, *checkstyle_args(config: config_file, excludes: excludes, properties: properties))
 
         Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
           construct_result(result, output)
         end
+      end
+    end
+
+    private
+
+    def checkstyle_args(config:, excludes:, properties:)
+      [].tap do |args|
+        args << "-f" << "xml"
+        args << "-c" << config if config
+        excludes.each do |exclude|
+          case
+          when exclude.key?(:string)
+            args << "-e"<< exclude[:string]
+          when exclude.key?(:pattern)
+            args << "-x" << exclude[:pattern]
+          end
+        end
+        args << "-p" << properties if properties
       end
     end
 
@@ -165,11 +145,6 @@ module Runners
 
     def properties_file
       configuration[:properties]
-    end
-
-    def locale
-      locale_string = configuration[:locale] || "en_US"
-      Locale::Tag.parse(locale_string)
     end
 
     def ignored_severities
