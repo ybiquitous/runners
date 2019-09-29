@@ -1,19 +1,6 @@
-FROM sider/devon_rex_java:2.2.2
+<%= render_erb 'images/Dockerfile.java.erb' %>
 
-# Install the default version
-ARG KTLINT_VERSION=0.34.2
-USER root
-RUN WORKDIR=/tmp/ktlint_work && \
-    mkdir -p ${WORKDIR} && \
-    cd ${WORKDIR} && \
-    BASE_URL=https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION} && \
-    curl -fsSLO --compressed ${BASE_URL}/ktlint && \
-    curl -fsSLO --compressed ${BASE_URL}/ktlint.asc && \
-    curl -fsSL https://keybase.io/pinterestandroid/pgp_keys.asc | gpg --import && gpg --verify ktlint.asc && \
-    chmod a+x ktlint && \
-    mv ktlint /usr/local/bin/ && \
-    ktlint --version && \
-    rm -rf ${WORKDIR}
+COPY images/ktlint/ktlint /usr/local/bin/
 
 <%= render_erb 'images/Dockerfile.base.erb' %>
 <%= render_erb 'images/Dockerfile.end.erb' %>
