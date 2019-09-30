@@ -1,5 +1,7 @@
 module Runners
   class Processor::Checkstyle < Processor
+    include Java
+
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.base.update_fields { |fields|
         fields.merge!({
@@ -28,6 +30,8 @@ module Runners
     end
 
     def analyze(changes)
+      show_java_runtime_versions
+
       ensure_runner_config_schema(Schema.runner_config) do
         analyzer_version
 
