@@ -4,7 +4,7 @@ Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'checkstyle', version: '8.23'},
+  analyzer: {name: 'checkstyle', version: '8.25'},
   issues: [
     {
       message: "The name of the outer type and the file do not match.",
@@ -41,7 +41,7 @@ Smoke.add_test("config", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'checkstyle', version: '8.23'},
+  analyzer: {name: 'checkstyle', version: '8.25'},
   issues: [
     {
       message: "Parameter args should be final.",
@@ -102,7 +102,28 @@ Smoke.add_test("properties", {
       id: "com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck#446163",
       path: "src/Main.java",
       location: { start_line: 3 }
-    }
+    },
+    {
+      message: "Line is longer than 50 characters (found 63).",
+      links: [],
+      id: "com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck#6a9962",
+      path: "myruleset.xml",
+      location: { start_line: 4 }
+    },
+    {
+      message: "Line is longer than 50 characters (found 54).",
+      links: [],
+      id: "com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck#8de3eb",
+      path: "myruleset.xml",
+      location: { start_line: 8 }
+    },
+    {
+      message: "Line is longer than 50 characters (found 57).",
+      links: [],
+      id: "com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck#a134cc",
+      path: "myruleset.xml",
+      location: { start_line: 3 }
+    },
   ],
-  analyzer: {name: 'checkstyle', version: '8.23'}
+  analyzer: {name: 'checkstyle', version: '8.25'}
 })
