@@ -2,8 +2,22 @@
 # NOTE: DO *NOT* EDIT THIS FILE.  IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+FROM sider/devon_rex_java:2.2.2 AS builder
+
+# NOTE: Download required dependency JAR files via maven-dependency-plugin.
+#       Also, this image uses a build layer because Maven downloads too many files to `~/.m2` directory.
+#
+#       See https://maven.apache.org/plugins/maven-dependency-plugin/copy-dependencies-mojo.html
+USER root
+COPY images/pmd_java/pom.xml ${RUNNER_USER_HOME}/pmd_java/pom.xml
+RUN cd "${RUNNER_USER_HOME}/pmd_java" && \
+    mvn -ntp -B -T 4 dependency:copy-dependencies -DoutputDirectory=.
+
 FROM sider/devon_rex_java:2.2.2
 
+COPY --from=builder ${RUNNER_USER_HOME}/pmd_java/*.jar ${RUNNER_USER_HOME}/pmd_java/
+ENV CLASSPATH ${RUNNER_USER_HOME}/pmd_java/*:${CLASSPATH}
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 COPY Gemfile* Rakefile ${RUNNERS_DIR}/
 COPY bin ${RUNNERS_DIR}/bin
@@ -19,14 +33,7 @@ RUN cd ${RUNNERS_DIR} && \
     bundle install --without='development test'
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-ENV PMD_VERSION 6.17.0
-USER root
-RUN curl -SL https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-bin-${PMD_VERSION}.zip > pmd-bin-${PMD_VERSION}.zip \
-    && unzip pmd-bin-${PMD_VERSION}.zip \
-    && mv pmd-bin-${PMD_VERSION} /usr/local/pmd \
-    && rm pmd-bin-${PMD_VERSION}.zip
-
-USER $RUNNER_USER
+COPY images/pmd_java/pmd /usr/local/bin/
 
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}

@@ -15,10 +15,6 @@ module Runners
       'pmd_java'
     end
 
-    def pmd_path
-      Pathname(ENV["PMD_PATH"] || "/usr/local/pmd")
-    end
-
     def pmd(dir:, rulesets:, encoding:, min_priority:)
       args = []
       args.unshift("-dir", dir)
@@ -26,19 +22,20 @@ module Runners
       args.unshift("-minimumpriority", min_priority.to_s) if min_priority
       args.unshift("-encoding", encoding) if encoding
 
-      capture3((pmd_path + "bin/run.sh").to_s,
-               "pmd",
-               "-language", "java",
-               "-format", "xml",
-               *args)
+      capture3(analyzer_bin, "-language", "java", "-format", "xml", *args)
     end
 
     def analyzer_version
-      ENV['PMD_VERSION'] || '0.0.0'
+      # NOTE: PMD does not have a command to display the version...
+      '6.17.0'
     end
 
     def analyzer_name
       'pmd_java'
+    end
+
+    def analyzer_bin
+      "pmd"
     end
 
     def analyze(changes)
@@ -60,13 +57,7 @@ module Runners
           construct_result(result, stdout, stderr)
         end
       else
-        Results::Failure.new(guid: guid, analyzer: analyzer, message: <<~MESSAGE)
-          stdout:
-          #{stdout}
-
-          stderr:
-          #{stderr}
-        MESSAGE
+        Results::Failure.new(guid: guid, analyzer: analyzer, message: "Unexpected error occurred. Please see the analysis log.")
       end
     end
 

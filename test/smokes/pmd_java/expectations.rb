@@ -7,7 +7,7 @@ Smoke.add_test("success", {
   analyzer: { name: 'pmd_java', version: "6.17.0" },   # This is only one place testing the version number. Cannot be deleted!
   issues: [
     { message: "System.out.println is used",
-      links: ["https://pmd.github.io/pmd/pmd_rules_java_bestpractices.html#systemprintln"],
+      links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_bestpractices.html#systemprintln"],
       id: "Best Practices-SystemPrintln-df6e8cab6195f150091bd209ddf59cb021c1253f",
       path: "src/Hello.java",
       location: { start_line: 6, start_column: 9, end_line: 6, end_column: 26 } }
@@ -21,10 +21,10 @@ Smoke.add_test("old-rulesets-style", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: { name: 'pmd_java', version: :_ },
+  analyzer: { name: 'pmd_java', version: "6.17.0" },
   issues: [
     { message: "Parameter 'args' is not assigned and could be declared final",
-      links: ["https://pmd.github.io/pmd/pmd_rules_java_codestyle.html#methodargumentcouldbefinal"],
+      links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_codestyle.html#methodargumentcouldbefinal"],
       id: "Code Style-MethodArgumentCouldBeFinal-f7008600fe4fd7c0e84e4910bcd4a4b7b8c41b67",
       path: "Main.java",
       location: { start_line: 5, start_column: 29, end_line: 5, end_column: 41 } }
@@ -48,15 +48,15 @@ Smoke.add_test("config", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: { name: 'pmd_java', version: :_ },
+  analyzer: { name: 'pmd_java', version: "6.17.0" },
   issues: [
     { message: "Parameter 'args' is not assigned and could be declared final",
-      links: ["https://pmd.github.io/pmd/pmd_rules_java_codestyle.html#methodargumentcouldbefinal"],
+      links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_codestyle.html#methodargumentcouldbefinal"],
       id: "Code Style-MethodArgumentCouldBeFinal-f7008600fe4fd7c0e84e4910bcd4a4b7b8c41b67",
       path: "src/Main.java",
       location: { start_line: 5, start_column: 29, end_line: 5, end_column: 41 } },
     { message: "Avoid short class names like Main",
-      links: ["https://pmd.github.io/pmd/pmd_rules_java_codestyle.html#shortclassname"],
+      links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_codestyle.html#shortclassname"],
       id: "Code Style-ShortClassName-06b374edd6bbc3bb8ea848f704304de5f14ca11a",
       path: "src/Main.java",
       location: { start_line: 3, start_column: 8, end_line: 8, end_column: 1 } }
@@ -67,15 +67,15 @@ Smoke.add_test("duplicate-rule-name", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: { name: 'pmd_java', version: :_ },
+  analyzer: { name: 'pmd_java', version: "6.17.0" },
   issues: [
     { message: "Comment is too large: Too many lines",
-      links: ["https://pmd.github.io/pmd/pmd_rules_java_documentation.html#commentsize"],
+      links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_documentation.html#commentsize"],
       id: "Documentation-CommentSize-10c545bd6ffe0bb7c6551a1191762accb45679b9",
       path: "Main.java",
       location: { start_line: 10, start_column: 1, end_line: 34, end_column: 2 } },
     { message: "Comment is too large: Line too long",
-      links: ["https://pmd.github.io/pmd/pmd_rules_java_documentation.html#commentsize"],
+      links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_documentation.html#commentsize"],
       id: "Documentation-CommentSize-ae3f424f4ea74990ded4b6dc9ae2cdc55048b9a6",
       path: "Main.java",
       location: { start_line: 10, start_column: 1, end_line: 10, end_column: 2} },
@@ -86,15 +86,15 @@ Smoke.add_test("failure", {
   guid: "test-guid",
   timestamp: :_,
   type: "failure",
-  analyzer: { name: 'pmd_java', version: :_ },
-  message: :_
+  analyzer: { name: 'pmd_java', version: "6.17.0" },
+  message: "Unexpected error occurred. Please see the analysis log.",
 })
 
 Smoke.add_test("deprecated-functions", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: { name: 'pmd_java', version: :_ },
+  analyzer: { name: 'pmd_java', version: "6.17.0" },
   issues: [
     { message: "violation message",
       links: [],
@@ -118,11 +118,11 @@ Smoke.add_test("deprecated-rules", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: { name: 'pmd_java', version: :_ },
+  analyzer: { name: 'pmd_java', version: "6.17.0" },
   issues: [
     {
       message: "The String literal \"Howdy\" appears 4 times in this file; the first occurrence is on line 3",
-     links: ["https://pmd.github.io/pmd/pmd_rules_java_errorprone.html#avoidduplicateliterals"],
+     links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_errorprone.html#avoidduplicateliterals"],
      id: "Error Prone-AvoidDuplicateLiterals-28a11656e010dd99ee7ca2fa590407e3007bee18",
      path: "AvoidDupliatedLiterals.java",
      location: { start_line: 3, start_column: 13, end_line: 3, end_column: 19 }
