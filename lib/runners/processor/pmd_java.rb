@@ -11,6 +11,14 @@ module Runners
       }
     end
 
+    DEFAULT_RULESETS = %w[
+      category/java/bestpractices.xml
+      category/java/errorprone.xml
+      category/java/multithreading.xml
+      category/java/performance.xml
+      category/java/security.xml
+    ].freeze
+
     def self.ci_config_section_name
       'pmd_java'
     end
@@ -125,16 +133,7 @@ module Runners
     end
 
     def rulesets(config)
-      default_rulesets = [
-        "category/java/bestpractices.xml",
-        # "category/java/codestyle.xml",
-        # "category/java/design.xml",
-        # "category/java/documentation.xml",
-        "category/java/errorprone.xml",
-        "category/java/multithreading.xml",
-        "category/java/performance.xml",
-      ]
-      array(config[:rulesets] || default_rulesets)
+      array(config[:rulesets] || DEFAULT_RULESETS)
     end
 
     def check_directory(config)
