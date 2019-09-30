@@ -60,6 +60,8 @@ module Runners
       "rubocop" => [">= 0.35.0"]
     }.freeze
 
+    RECOMMENDED_MINIMUM_VERSION = "0.61.0".freeze
+
     def self.ci_config_section_name
       'rubocop'
     end
@@ -80,6 +82,7 @@ module Runners
 
         install_gems defaults, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           analyzer
+          add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "Gemfile")
           yield
         end
       end
