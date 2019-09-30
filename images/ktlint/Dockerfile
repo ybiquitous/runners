@@ -2,22 +2,24 @@
 # NOTE: DO *NOT* EDIT THIS FILE.  IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+FROM sider/devon_rex_java:2.2.2 AS builder
+
+# NOTE: Download required dependency JAR files via maven-dependency-plugin.
+#       Also, this image uses a build layer because Maven downloads too many files to `~/.m2` directory.
+#
+#       See https://maven.apache.org/plugins/maven-dependency-plugin/copy-dependencies-mojo.html
+USER root
+COPY images/ktlint/pom.xml ${RUNNER_USER_HOME}/ktlint/pom.xml
+RUN cd "${RUNNER_USER_HOME}/ktlint" && \
+    mvn -ntp -B -T 4 dependency:copy-dependencies -DoutputDirectory=.
+
 FROM sider/devon_rex_java:2.2.2
 
-# Install the default version
-ARG KTLINT_VERSION=0.34.2
-USER root
-RUN WORKDIR=/tmp/ktlint_work && \
-    mkdir -p ${WORKDIR} && \
-    cd ${WORKDIR} && \
-    BASE_URL=https://github.com/pinterest/ktlint/releases/download/${KTLINT_VERSION} && \
-    curl -fsSLO --compressed ${BASE_URL}/ktlint && \
-    curl -fsSLO --compressed ${BASE_URL}/ktlint.asc && \
-    curl -fsSL https://keybase.io/pinterestandroid/pgp_keys.asc | gpg --import && gpg --verify ktlint.asc && \
-    chmod a+x ktlint && \
-    mv ktlint /usr/local/bin/ && \
-    ktlint --version && \
-    rm -rf ${WORKDIR}
+COPY --from=builder ${RUNNER_USER_HOME}/ktlint/*.jar ${RUNNER_USER_HOME}/ktlint/
+ENV CLASSPATH ${RUNNER_USER_HOME}/ktlint/*:${CLASSPATH}
+
+COPY images/ktlint/ktlint /usr/local/bin/
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 COPY Gemfile* Rakefile ${RUNNERS_DIR}/
