@@ -1,5 +1,7 @@
 module Runners
   class Processor::PmdJava < Processor
+    include Java
+
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.base.update_fields { |fields|
         fields.merge!({
@@ -47,6 +49,8 @@ module Runners
     end
 
     def analyze(changes)
+      show_java_runtime_versions
+
       ensure_runner_config_schema(Schema.runner_config) do |config|
         trace_writer.message("PMD version: #{analyzer_version}")
         delete_unchanged_files changes, only: [".java"]
