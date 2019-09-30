@@ -2,6 +2,7 @@
 # NOTE: DO *NOT* EDIT THIS FILE.  IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 FROM sider/devon_rex_java:2.2.2 AS builder
 
 # NOTE: Download required dependency JAR files via maven-dependency-plugin.
@@ -17,6 +18,8 @@ FROM sider/devon_rex_java:2.2.2
 
 COPY --from=builder ${RUNNER_USER_HOME}/checkstyle/*.jar ${RUNNER_USER_HOME}/checkstyle/
 ENV CLASSPATH ${RUNNER_USER_HOME}/checkstyle/*:${CLASSPATH}
+
+COPY images/checkstyle/checkstyle /usr/local/bin/
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 COPY Gemfile* Rakefile ${RUNNERS_DIR}/

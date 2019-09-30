@@ -1,18 +1,6 @@
-FROM sider/devon_rex_java:2.2.2 AS builder
+<%= render_erb 'images/Dockerfile.java.erb' %>
 
-# NOTE: Download required dependency JAR files via maven-dependency-plugin.
-#       Also, this image uses a build layer because Maven downloads too many files to `~/.m2` directory.
-#
-#       See https://maven.apache.org/plugins/maven-dependency-plugin/copy-dependencies-mojo.html
-USER root
-COPY images/checkstyle/pom.xml ${RUNNER_USER_HOME}/checkstyle/pom.xml
-RUN cd "${RUNNER_USER_HOME}/checkstyle" && \
-    mvn -ntp -B -T 4 dependency:copy-dependencies -DoutputDirectory=.
-
-FROM sider/devon_rex_java:2.2.2
-
-COPY --from=builder ${RUNNER_USER_HOME}/checkstyle/*.jar ${RUNNER_USER_HOME}/checkstyle/
-ENV CLASSPATH ${RUNNER_USER_HOME}/checkstyle/*:${CLASSPATH}
+COPY images/checkstyle/checkstyle /usr/local/bin/
 
 <%= render_erb 'images/Dockerfile.base.erb' %>
 <%= render_erb 'images/Dockerfile.end.erb' %>
