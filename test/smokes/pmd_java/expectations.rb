@@ -4,16 +4,21 @@ Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: { name: 'pmd_java', version: "6.17.0" },   # This is only one place testing the version number. Cannot be deleted!
+  analyzer: { name: 'pmd_java', version: "6.17.0" },
   issues: [
     { message: "System.out.println is used",
       links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_bestpractices.html#systemprintln"],
       id: "Best Practices-SystemPrintln-df6e8cab6195f150091bd209ddf59cb021c1253f",
       path: "src/Hello.java",
-      location: { start_line: 6, start_column: 9, end_line: 6, end_column: 26 } }
+      location: { start_line: 6, start_column: 9, end_line: 6, end_column: 26 } },
+    { message: "Do not use hard coded encryption keys",
+      links: ["https://pmd.github.io/pmd-6.17.0/pmd_rules_java_security.html#hardcodedcryptokey"],
+      id: "Security-HardCodedCryptoKey-56ecc791913c2de643028e865009d40653205dcf",
+      path: "src/Hello.java",
+      location: { start_line: 10, start_column: 27, end_line: 10, end_column: 42 } },
   ],
 }, warnings: [
-  { message: :_, file: "src/Broken.java" }   # The error message is like "Error while parsing /tmp/d20171130-1-1px25r0/src/Broken.java", which contains tmpdir path, so that it cannot be tested here
+  { message: %r{PMDException: Error while parsing .+/src/Broken\.java}, file: "src/Broken.java" }
 ])
 
 # `java-optimizations` has become an old ruleset style since 6.0.0. However this style still kept for backwards-compatibility.
