@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - Update tyscan from 0.2.1 to 0.3.1 [#212](https://github.com/sider/runners/pull/212)
 - Bump checkstyle from 8.23 to 8.25 [#221](https://github.com/sider/runners/pull/221)
 - Add "security" to the default rulesets of PMD Java [#226](https://github.com/sider/runners/pull/226)
+- Bump pmd-java from 6.17.0 to 6.18.0 [#225](https://github.com/sider/runners/pull/225)
 
 ## 0.3.1
 
