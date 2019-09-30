@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - Update haml from 5.0.4 to 5.1.2 for rails_best_practices [#120](https://github.com/sider/runners/pull/120)
 - Update haml_lint from 0.32.0 to 0.33.0 [#118](https://github.com/sider/runners/pull/118)
 - Update tyscan from 0.2.1 to 0.3.1 [#212](https://github.com/sider/runners/pull/212)
+- Bump checkstyle from 8.23 to 8.25 [#221](https://github.com/sider/runners/pull/221)
 
 ## 0.3.1
 
