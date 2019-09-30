@@ -35,7 +35,7 @@ module Runners
 
     def analyzer_version
       # NOTE: PMD does not have a command to display the version...
-      '6.17.0'
+      '6.18.0'
     end
 
     def analyzer_name
