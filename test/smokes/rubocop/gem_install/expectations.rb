@@ -19,7 +19,10 @@ Smoke.add_test(
       name: 'RuboCop',
       version: '0.50.0',
     },
-  }
+  },
+  warnings: [
+    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 # It works correctly even if the specified gem not found in Gemfile.lock
@@ -43,7 +46,10 @@ Smoke.add_test(
       name: 'RuboCop',
       version: '0.50.0',
     },
-  }
+  },
+  warnings: [
+    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 Smoke.add_test(
@@ -65,7 +71,10 @@ Smoke.add_test(
       name: 'RuboCop',
       version: '0.50.0',
     },
-  }
+  },
+  warnings: [
+    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 Smoke.add_test(
@@ -87,7 +96,10 @@ Smoke.add_test(
       name: 'RuboCop',
       version: '0.50.0',
     },
-  }
+  },
+  warnings: [
+    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 Smoke.add_test(
@@ -109,7 +121,10 @@ Smoke.add_test(
       name: 'RuboCop',
       version: '0.50.0',
     },
-  }
+  },
+  warnings: [
+    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 Smoke.add_test(
@@ -131,7 +146,10 @@ Smoke.add_test(
       name: 'RuboCop',
       version: '0.50.0',
     },
-  }
+  },
+  warnings: [
+    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 Smoke.add_test(
@@ -154,6 +172,9 @@ Smoke.add_test(
       version: '0.60.0',
     },
   },
+  warnings: [
+    { message: "The version `0.60.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 Smoke.add_test(
@@ -190,7 +211,10 @@ Smoke.add_test(
       name: 'RuboCop',
       version: '0.60.0',
     },
-  }
+  },
+  warnings: [
+    { message: "The version `0.60.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
 )
 
 Smoke.add_test(
@@ -242,4 +266,7 @@ Smoke.add_test(
       version: '0.60.0',
     },
   },
-  )
+  warnings: [
+    { message: "The version `0.60.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+  ],
+)
