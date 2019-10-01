@@ -60,6 +60,7 @@ end
 
 extension File (Polyfill)
   def self.basename: (String | Pathname) -> String
+  def self.write: (String, String, ?perm: Integer) -> Integer
 end
 
 class Digest

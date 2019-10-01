@@ -37,6 +37,7 @@ module Runners
           @head_key = head_key
         end
         opts.on("--ssh-key=SSH_KEY") do |ssh_key|
+          warn '--ssh-key is deprecated. Use the environment variable `BASE64_SSH_KEY`'
           @ssh_key = ssh_key
         end
         opts.on("--working=WORKING") do |working|
