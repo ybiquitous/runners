@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - Add "security" to the default rulesets of PMD Java [#226](https://github.com/sider/runners/pull/226)
 - Bump pmd-java from 6.17.0 to 6.18.0 [#225](https://github.com/sider/runners/pull/225)
 - Show Java runtime versions for Java based tools [#227](https://github.com/sider/runners/pull/227)
+- Receive an SSH key with an environment variable [#206](https://github.com/sider/runners/pull/206)
 
 ## 0.3.1
 
