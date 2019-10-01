@@ -60,7 +60,7 @@ Smoke.add_test(
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: "...",
+  message: /ESLint couldn't find the plugin "eslint-plugin-filenames"/,
   analyzer: {
     name: 'ESLint',
     version: "6.5.1"
