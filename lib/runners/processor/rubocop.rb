@@ -24,7 +24,7 @@ module Runners
     YAML
 
     DEFAULT_GEMS = [
-      GemInstaller::Spec.new(name: "rubocop", version: ["0.74.0"]),
+      GemInstaller::Spec.new(name: "rubocop", version: ["0.75.0"]),
     ].freeze
 
     # DEPRECATED: Implicit dependencies
