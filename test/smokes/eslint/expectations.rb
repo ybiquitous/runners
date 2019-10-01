@@ -18,7 +18,7 @@ Smoke.add_test(
      :location=>{:start_line=>1}}],
   analyzer: {
     name: 'ESLint',
-    version: '6.4.0'
+    version: '6.5.1'
   }
 )
 
@@ -60,10 +60,10 @@ Smoke.add_test(
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: :_,
+  message: "...",
   analyzer: {
     name: 'ESLint',
-    version: "6.4.0"
+    version: "6.5.1"
   }
 )
 
@@ -172,7 +172,7 @@ Smoke.add_test("no_files", {
 
     Oops! Something went wrong! :(
 
-    ESLint: 6.4.0.
+    ESLint: 6.5.1.
 
     No files matching the pattern "." were found.
     Please check for typing mistakes in the pattern.
@@ -181,7 +181,7 @@ Smoke.add_test("no_files", {
   MESSAGE
   analyzer: {
     name: 'ESLint',
-    version: '6.4.0'
+    version: '6.5.1'
   }
 })
 
@@ -254,7 +254,7 @@ Smoke.add_test("quiet", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.4.0'
+    version: '6.5.1'
   }
 })
 
@@ -277,7 +277,7 @@ Smoke.add_test("array_ignore_pattern", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.4.0'
+    version: '6.5.1'
   }
 })
 
@@ -412,7 +412,7 @@ Smoke.add_test(
   issues: [],
   analyzer: {
     name: 'ESLint',
-    version: '6.4.0', # Default version
+    version: '6.5.1', # Default version
   }
 )
 
@@ -439,6 +439,6 @@ Smoke.add_test("eslintrc_js", {
   ],
   analyzer: {
     name: "ESLint",
-    version: "6.4.0",
+    version: "6.5.1",
   },
 })
