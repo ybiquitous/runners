@@ -29,7 +29,7 @@ module Runners
       }
     end
 
-    DEFAULT_DEPS = DefaultDependencies.new(main: Dependency.new(name: "eslint", version: "6.4.0"))
+    DEFAULT_DEPS = DefaultDependencies.new(main: Dependency.new(name: "eslint", version: "6.5.1"))
     CONSTRAINTS = {
       "eslint" => Constraint.new(">= 3.19.0", "< 7.0.0")
     }.freeze
