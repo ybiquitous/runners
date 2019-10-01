@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
 - Receive an SSH key with an environment variable [#206](https://github.com/sider/runners/pull/206)
 - Add deprecation warning for too old RuboCop versions [#228](https://github.com/sider/runners/pull/228)
 - Update rubocop-rails from 2.0.1 to 2.3.2 for haml_lint [#232](https://github.com/sider/runners/pull/232)
+- Update rubocop-rspec from 1.35.0 to 1.36.0 for haml_lint [#233](https://github.com/sider/runners/pull/233)
 
 ## 0.3.1
 
