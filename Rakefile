@@ -72,7 +72,7 @@ namespace :dockerfile do
     Dir['images/**/*.erb'].sort.each do |file|
       content = File.read(file)
       if content.match? pattern
-        content = content.gsub(%r{^FROM sider/devon_rex_(.+):[a-z0-9\.]+}, "FROM sider/devon_rex_\\1:#{next_version}")
+        content = content.gsub(pattern, "FROM sider/devon_rex_\\1:#{next_version}")
         File.write(file, content)
         puts "`#{file}` updated."
       end
