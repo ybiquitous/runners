@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.4.0...HEAD)
 
+- Retrieve --head, --head-key, --base, and --base-key from env [#249](https://github.com/sider/runners/pull/249)
+
 ## 0.4.0
 
 [Full diff](https://github.com/sider/runners/compare/0.3.1...0.4.0)
