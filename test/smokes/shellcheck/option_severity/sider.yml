@@ -1,0 +1,3 @@
+linter:
+  shellcheck:
+    severity: error

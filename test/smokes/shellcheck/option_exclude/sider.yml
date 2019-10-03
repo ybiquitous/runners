@@ -1,0 +1,5 @@
+linter:
+  shellcheck:
+    exclude:
+      - SC2104
+      - SC2105
