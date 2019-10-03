@@ -17,7 +17,7 @@ See also another related project, called [devon_rex](https://github.com/sider/de
 - ESLint
 - Flake8
 - go vet
-- golint
+- Golint
 - Go Meta Linter
 - Goodcheck
 - HAML-Lint
