@@ -28,6 +28,26 @@ class CLITest < Minitest::Test
     assert_equal ['s3://bucket/a/b/c'], cli.outputs
   end
 
+  def test_parsing_options_without_commits
+    h, hk, b, bk = %w[HEAD HEAD_KEY BASE BASE_KEY].map { |key| ENV[key] }
+    [['HEAD', 'head url'], ['HEAD_KEY', 'h secret'], ['BASE', 'base url'], ['BASE_KEY', 'b secret']].each { |k, v| ENV[k] = v }
+
+    cli = CLI.new(argv: %w(--analyzer=rubocop test-guid), stdout: stdout, stderr: stderr)
+
+    # Given parameters
+    assert_equal "test-guid", cli.guid
+    assert_equal "base url", cli.base
+    assert_equal "head url", cli.head
+    assert_equal "b secret", cli.base_key
+    assert_equal "h secret", cli.head_key
+    assert_nil cli.ssh_key
+    assert_nil cli.working_dir
+    assert_equal 'rubocop', cli.analyzer
+    assert_equal [], cli.outputs
+  ensure
+    [['HEAD', h], ['HEAD_KEY', hk], ['BASE', b], ['BASE_KEY', bk]].each { |k, v| ENV[k] = v }
+  end
+
   def test_validate_options!
     assert_raises RuntimeError do
       # head is missing

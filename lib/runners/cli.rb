@@ -19,6 +19,10 @@ module Runners
       @stdout = stdout
       @stderr = stderr
       @outputs = []
+      @base = ENV['BASE']
+      @base_key = ENV['BASE_KEY']
+      @head = ENV['HEAD']
+      @head_key = ENV['HEAD_KEY']
 
       OptionParser.new do |opts|
         opts.on("--analyzer=ANALYZER") do |analyzer|
