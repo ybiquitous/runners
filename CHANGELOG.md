@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.4.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.4.1...HEAD)
+
+## 0.4.1
+
+[Full diff](https://github.com/sider/runners/compare/0.4.0...0.4.1)
 
 - Retrieve --head, --head-key, --base, and --base-key from env [#249](https://github.com/sider/runners/pull/249)
 
