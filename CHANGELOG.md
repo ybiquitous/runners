@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.3.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.4.0...HEAD)
+
+## 0.4.0
+
+[Full diff](https://github.com/sider/runners/compare/0.3.1...0.4.0)
 
 - Update eslint requirement from 5.16.0 to 6.4.0 [#100](https://github.com/sider/runners/pull/100)
 - Show deprecation warning for too old ESLint [#209](https://github.com/sider/runners/pull/209)
