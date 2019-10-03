@@ -37,6 +37,7 @@ All notable changes to this project will be documented in this file.
 - Update rubocop from 0.74.0 to 0.75.0 for haml_lint [#236](https://github.com/sider/runners/pull/236)
 - Bump default eslint from 6.4.0 to 6.5.1 [#235](https://github.com/sider/runners/pull/235)
 - Bump devon_rex images to 2.3.1 [#244](https://github.com/sider/runners/pull/244)
+- Bump rubocop from 0.74.0 to 0.75.0 [#229](https://github.com/sider/runners/pull/229)
 
 ## 0.3.1
 
