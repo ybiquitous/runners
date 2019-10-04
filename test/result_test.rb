@@ -121,7 +121,7 @@ class ResultTest < Minitest::Test
 
   def test_success_result_raises_error_if_invalid_issue_added
     result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "Querly", version: "0.1.3"))
-    assert_raises Results::Success::InvalidIssue do
+    assert_raises Issues::InvalidIssueError do
       result.add_issue Issues::Structured.new(
         path: Pathname("foo/bar/baz.rb"),
         location: Location.new(start_line: nil, start_column: nil, end_line: nil, end_column: nil),

@@ -13,6 +13,12 @@ module Runners
       attr_reader :location
       attr_reader :id
 
+      def initialize(path:, location:, id:)
+        @path = path
+        @location = location
+        @id = id
+      end
+
       def ensure_validity
         if valid?
           yield
@@ -57,32 +63,13 @@ module Runners
       end
     end
 
-    # Issue with id, but no other information.
-    # Do we really need this??
-    class Identified < Base
-      def initialize(path:, location:, id:)
-        @path = path
-        @location = location
-        @id = id
-      end
-
-      def ==(other)
-        other.class == self.class &&
-          other.path == path &&
-          other.location == location &&
-          other.id == id
-      end
-    end
-
     # Issue with structure, will be formatted later, maybe by frontend
     class Structured < Base
       attr_reader :object
       attr_reader :schema
 
       def initialize(path:, location:, id:, object:, schema:)
-        @path = path
-        @location = location
-        @id = id
+        super(path: path, location: location, id: id)
         @object = object
         @schema = schema
       end
@@ -130,11 +117,11 @@ module Runners
 
     # Issue with plain text message, will be displayed to end-users as is.
     class Text < Base
-      # @dynamic message, links
       attr_reader :message
       attr_reader :links
 
       def initialize(path:, location:, id:, message:, links:)
+        super(path: path, location: location, id: id)
         @path = path
         @location = location
         @id = id

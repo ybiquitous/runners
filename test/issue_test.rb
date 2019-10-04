@@ -6,20 +6,6 @@ class IssueTest < Minitest::Test
   Issues = Runners::Issues
   Location = Runners::Location
 
-  def test_identified_issue
-    issue = Issues::Identified.new(path: Pathname("foo/bar.rb"),
-                                   location: Location.new(start_line: 1, start_column: nil, end_line: nil, end_column: nil),
-                                   id: "foo.bar")
-
-    assert issue.valid?
-
-    assert_unifiable(issue.as_json, {
-      path: "foo/bar.rb",
-      location: :_,
-      id: "foo.bar"
-    })
-  end
-
   def test_structured_issue
     s = StrongJSON.new do
       let :object, array(string)
