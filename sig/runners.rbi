@@ -1,8 +1,8 @@
-type issue = Runners::Issues::Identified | Runners::Issues::Text | Runners::Issues::Structured
+type issue = Runners::Issues::Text | Runners::Issues::Structured
 
 class Runners::Issues::InvalidIssueError
-  attr_reader issue: issue
-  def initialize: (issue: issue) -> issue
+  attr_reader issue: Runners::Issues::Base
+  def initialize: (issue: Runners::Issues::Base) -> any
 end
 
 class Runners::Issues::Base
@@ -10,16 +10,13 @@ class Runners::Issues::Base
   attr_reader location: Location?
   attr_reader id: String
 
+  def initialize: (path: Pathname, location: Location?, id: String) -> any
   def ensure_validity: <'a> { () -> 'a } -> 'a
   def eql?: (any) -> any
   def hash: () -> any
   def valid?: () -> bool
   def errors: () -> Array<String>
   def as_json: () -> any
-end
-
-class Runners::Issues::Identified < Runners::Issues::Base
-  def initialize: (path: Pathname, location: Location?, id: String) -> any
 end
 
 class Runners::Issues::Structured < Runners::Issues::Base
@@ -92,11 +89,6 @@ class Runners::Results::Success < Runners::Results::Base
   def initialize: (guid: String, analyzer: Analyzer) -> any
   def add_issue: (issue) -> void
   def (constructor) filter_issue: { (issue) -> bool } -> instance
-end
-
-class Runners::Results::Success::InvalidIssue
-  attr_reader issue: issue
-  def initialize: (issue: issue) -> any
 end
 
 class Runners::Results::Failure < Runners::Results::Base

@@ -25,19 +25,6 @@ module Runners
     # Result to indicate that processing finished successfully
     # Client programs may return this result.
     class Success < Base
-      class InvalidIssue < StandardError
-        # @dynamic issue
-        attr_reader :issue
-
-        def initialize(issue:)
-          @issue = issue
-        end
-
-        def inspect
-          "#<#{self.class.name}: issue=#{issue.inspect}>"
-        end
-      end
-
       # @dynamic issues, analyzer
       attr_reader :issues
       attr_reader :analyzer
@@ -61,8 +48,7 @@ module Runners
       end
 
       def add_issue(issue)
-        raise InvalidIssue.new(issue: issue) unless issue.valid?
-        issues << issue
+        issue.ensure_validity { issues << issue }
       end
 
       def filter_issue
