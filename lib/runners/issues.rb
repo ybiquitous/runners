@@ -1,7 +1,6 @@
 module Runners
   module Issues
     class InvalidIssueError < StandardError
-      # @dynamic issue
       attr_reader :issue
 
       def initialize(issue:)
@@ -10,19 +9,15 @@ module Runners
     end
 
     class Base
-      # @dynamic path, location, id
       attr_reader :path
       attr_reader :location
       attr_reader :id
 
-      # @type method ensure_validity: ?{ (self) -> any } -> any
       def ensure_validity
-        raise InvalidIssueError.new(issue: self) unless valid?
-
-        if block_given?
-          yield self
+        if valid?
+          yield
         else
-          self
+          raise InvalidIssueError.new(issue: self), errors.join("\n")
         end
       end
 
@@ -35,16 +30,20 @@ module Runners
       end
 
       def valid?
-        case
-        when !path.instance_of?(Pathname)
-          false
-        when (loc = location) && !loc.valid?
-          false
-        when !id
-          false
-        else
-          true
+        unless path.instance_of?(Pathname)
+          errors << "Invalid path: #{path.inspect}"
         end
+        if (loc = location) && !loc.valid?
+          errors << "Invalid location: #{loc}"
+        end
+        if id.nil? || id.empty?
+          errors << "Empty `id`"
+        end
+        errors.empty?
+      end
+
+      def errors
+        @errors ||= []
       end
 
       def as_json
@@ -77,28 +76,15 @@ module Runners
 
     # Issue with structure, will be formatted later, maybe by frontend
     class Structured < Base
-      class InvalidObject < StandardError
-        # @dynamic object
-        attr_reader :object
-
-        def initialize(object:)
-          @object = object
-        end
-      end
-
-      # @dynamic object
       attr_reader :object
+      attr_reader :schema
 
       def initialize(path:, location:, id:, object:, schema:)
         @path = path
         @location = location
         @id = id
         @object = object
-
-        ss = Array(schema)
-        unless ss.empty? || ss.any? {|s| test_schema(object, s) }
-          raise InvalidObject.new(object: object)
-        end
+        @schema = schema
       end
 
       def ==(other)
@@ -114,7 +100,18 @@ module Runners
       end
 
       def valid?
-        super && object
+        super
+
+        if object
+          ss = Array(schema)
+          unless ss.empty? || ss.any? { |s| test_schema(object, s) }
+            errors << "Invalid `object`: #{object.inspect}"
+          end
+        else
+          errors << "Empty `object`"
+        end
+
+        errors.empty?
       end
 
       def as_json
@@ -159,7 +156,19 @@ module Runners
       end
 
       def valid?
-        super && message && links.is_a?(Array) && links.all? {|link| link.is_a?(String) }
+        super
+
+        unless message && !message.empty?
+          errors << "Empty `message`"
+        end
+        unless links.is_a?(Array)
+          errors << "Not an array: `links`"
+        end
+        unless links.all? {|link| link.is_a?(String) }
+          errors << "Not a string array: `links`"
+        end
+
+        errors.empty?
       end
 
       def as_json

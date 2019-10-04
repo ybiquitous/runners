@@ -10,11 +10,11 @@ class Runners::Issues::Base
   attr_reader location: Location?
   attr_reader id: String
 
-  def ensure_validity: () -> self
-                     | <'a> { (self) -> 'a } -> 'a
+  def ensure_validity: <'a> { () -> 'a } -> 'a
   def eql?: (any) -> any
   def hash: () -> any
   def valid?: () -> bool
+  def errors: () -> Array<String>
   def as_json: () -> any
 end
 
@@ -24,6 +24,7 @@ end
 
 class Runners::Issues::Structured < Runners::Issues::Base
   attr_reader object: any
+  attr_reader schema: any
 
   def initialize: (path: Pathname, location: Location?, id: String, object: any, schema: any) -> any
   def test_schema: (any, any) -> bool

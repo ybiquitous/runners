@@ -71,5 +71,15 @@ module Runners
         json[:end_column] = end_column if end_column
       end
     end
+
+    def to_s
+      attrs = %W[
+        start_line=#{start_line.inspect}
+        start_column=#{start_column.inspect}
+        end_line=#{end_line.inspect}
+        end_column=#{end_column.inspect}
+      ].join(", ")
+      "{ #{attrs} }"
+    end
   end
 end

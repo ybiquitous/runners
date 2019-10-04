@@ -67,13 +67,15 @@ class IssueTest < Minitest::Test
       let :object, array(string)
     end
 
-    assert_raises Issues::Structured::InvalidObject do
-      Issues::Structured.new(path: Pathname("app/models/person.rb"),
-                             location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
-                             id: "foo.bar",
-                             object: [3],
-                             schema: s.object)
-    end
+    issue = Issues::Structured.new(
+      path: Pathname("app/models/person.rb"),
+      location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
+      id: "foo.bar",
+      object: [3],
+      schema: s.object,
+    )
+    refute issue.valid?
+    assert_equal ["Invalid `object`: [3]"], issue.errors
   end
 
   def test_structured_issue_with_object_schemes
@@ -113,5 +115,45 @@ class IssueTest < Minitest::Test
       message: "Comment is missing??",
       links: ["https://github.com/foo.bar"]
     })
+  end
+
+  def test_validaion_errors_of_text_issue
+    issue = Issues::Text.new(
+      path: "foo/bar",
+      location: Location.new(start_line: 1, start_column: 1, end_line: 2, end_column: nil),
+      id: "",
+      message: "",
+      links: [1],
+    )
+
+    error = assert_raises(Issues::InvalidIssueError) { issue.ensure_validity }
+    assert_equal <<~MSG.chomp, error.message
+      Invalid path: "foo/bar"
+      Invalid location: { start_line=1, start_column=1, end_line=2, end_column=nil }
+      Empty `id`
+      Empty `message`
+      Not a string array: `links`
+    MSG
+  end
+
+  def test_validaion_errors_of_structured_issue
+    schema = StrongJSON.new do
+      let :object, array(string)
+    end
+    issue = Issues::Structured.new(
+      path: "foo/bar",
+      location: Location.new(start_line: 1, start_column: 1, end_line: 2, end_column: nil),
+      id: "",
+      object: nil,
+      schema: schema.object,
+    )
+
+    error = assert_raises(Issues::InvalidIssueError) { issue.ensure_validity }
+    assert_equal <<~MSG.chomp, error.message
+      Invalid path: "foo/bar"
+      Invalid location: { start_line=1, start_column=1, end_line=2, end_column=nil }
+      Empty `id`
+      Empty `object`
+    MSG
   end
 end
