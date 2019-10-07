@@ -173,11 +173,10 @@ class Runners::Processor
   def push_dir: <'x> (Pathname) { -> 'x } -> 'x
   def current_dir: () -> Pathname
 
-  def capture3: (String, *String) -> [String, String, Process::Status]
-  def capture3!: (String, *String) -> [String, String]
+  def capture3: (String, *String, **capture3_options) -> [String, String, Process::Status]
+  def capture3!: (String, *String, **capture3_options) -> [String, String]
   def capture3_with_retry!: (String, *String, ?tries: Integer) -> [String, String]
-
-  def capture3_trace: (String, *String) -> [String, String, Process::Status]
+  def capture3_trace: (String, *String, **capture3_options) -> [String, String, Process::Status]
 
   def push_env_hash: <'x> (Hash<String, String?>) { -> 'x } -> 'x
   def env_hash: -> Hash<String, String?>
@@ -196,6 +195,8 @@ class Runners::Processor
   def directory_traversal_attack?: (String) -> bool
 end
 
+type capture3_options = bool | Proc
+
 class Runners::Shell
   attr_reader trace_writer: TraceWriter
   attr_reader env_hash_stack: Array<Hash<String, String?>>
@@ -203,10 +204,10 @@ class Runners::Shell
 
   def initialize: (current_dir: Pathname, env_hash: Hash<String, String?>, trace_writer: TraceWriter) -> any
 
-  def capture3: (String, *String) -> [String, String, Process::Status]
-  def capture3!: (String, *String) -> [String, String]
+  def capture3: (String, *String, **capture3_options) -> [String, String, Process::Status]
+  def capture3!: (String, *String, **capture3_options) -> [String, String]
   def capture3_with_retry!: (String, *String, ?tries: Integer) -> [String, String]
-  def capture3_trace: (String, *String) -> [String, String, Process::Status]
+  def capture3_trace: (String, *String, **capture3_options) -> [String, String, Process::Status]
 
   def push_dir: <'x> (Pathname) { -> 'x } -> 'x
   def current_dir: () -> Pathname

@@ -1,7 +1,6 @@
 module Runners
   class Shell
     class ExecError < StandardError
-      # @dynamic type, args, stdout_str, stderr_str, status, dir
       attr_reader :type
       attr_reader :args
       attr_reader :stdout_str
@@ -58,22 +57,12 @@ module Runners
       end
     end
 
-    def capture3(command, *args)
-      capture3_trace(command, *args)
+    def capture3(command, *args, **options)
+      capture3_trace(command, *args, **options)
     end
 
-    def capture3!(command, *args)
-      stdout, stderr, status = capture3_trace(command, *args)
-
-      unless status.success?
-        raise ExecError.new(type: :capture3,
-                            args: [command] + args,
-                            stdout_str: stdout,
-                            stderr_str: stderr,
-                            status: status,
-                            dir: current_dir)
-      end
-
+    def capture3!(command, *args, **options)
+      stdout, stderr, = capture3_trace(command, *args, **options.merge(raise_on_failure: true))
       [stdout, stderr]
     end
 
@@ -88,12 +77,31 @@ module Runners
       end
     end
 
-    def capture3_trace(command, *args)
-      trace_writer.command_line([command] + args)
+    def capture3_trace(command, *args, **options)
+      # @type var options: any
+      trace_stdout = options.fetch(:trace_stdout, true)
+      trace_stderr = options.fetch(:trace_stderr, true)
+      raise_on_failure = options.fetch(:raise_on_failure, false)
+      is_success = options.fetch(:is_success) { ->(status) { status.success? } }
+
+      command_line = [command] + args
+      trace_writer.command_line(command_line)
 
       Open3.capture3(env_hash, command, *args, { chdir: current_dir.to_s }).tap do |stdout_str, stderr_str, status|
-        trace_writer.stdout stdout_str
-        trace_writer.stderr stderr_str
+        trace_writer.stdout stdout_str if trace_stdout
+        trace_writer.stderr stderr_str if trace_stderr
+
+        unless is_success.call(status)
+          if raise_on_failure
+            raise ExecError.new(type: :capture3,
+                                args: command_line,
+                                stdout_str: stdout_str,
+                                stderr_str: stderr_str,
+                                status: status,
+                                dir: current_dir)
+          end
+        end
+
         if status.exited?
           trace_writer.status status
         else

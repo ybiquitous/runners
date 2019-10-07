@@ -20,6 +20,7 @@ class ProcessorTest < Minitest::Test
                            { chdir: path.to_s }) do
         status = Process::Status.allocate
 
+        def status.success?; false end
         def status.exited?; true end
         def status.exitstatus; 3 end
 
@@ -379,6 +380,10 @@ class ProcessorTest < Minitest::Test
       # Simulate aborted status
       stub(Open3).capture3 do
         status = Process::Status.allocate.tap do |object|
+          def object.success?
+            false
+          end
+
           def object.exited?
             false
           end
