@@ -5,13 +5,12 @@
 FROM sider/devon_rex_npm:2.4.0
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
-COPY Gemfile* Rakefile ${RUNNERS_DIR}/
-COPY bin ${RUNNERS_DIR}/bin
-COPY lib ${RUNNERS_DIR}/lib
+
+# Install required gems first (due to slow download)
+COPY Gemfile* ${RUNNERS_DIR}/
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
-
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -36,6 +35,11 @@ ENV NODE_PATH ${RUNNER_USER_HOME}/jshint/node_modules:${NODE_PATH}
 
 COPY images/jshint/sider_jshintignore images/jshint/sider_jshintrc $RUNNER_USER_HOME/
 
+# Copy the main source code
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
+
+# Change owner and group of all files
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER

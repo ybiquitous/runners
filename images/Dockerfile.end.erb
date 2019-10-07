@@ -1,3 +1,8 @@
+# Copy the main source code
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
+
+# Change owner and group of all files
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER

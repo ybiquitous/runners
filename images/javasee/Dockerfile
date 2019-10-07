@@ -5,13 +5,12 @@
 FROM sider/devon_rex_java:2.4.0
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
-COPY Gemfile* Rakefile ${RUNNERS_DIR}/
-COPY bin ${RUNNERS_DIR}/bin
-COPY lib ${RUNNERS_DIR}/lib
+
+# Install required gems first (due to slow download)
+COPY Gemfile* ${RUNNERS_DIR}/
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
-
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -29,6 +28,11 @@ RUN curl -O -L https://github.com/sider/JavaSee/releases/download/${JAVASEE_VERS
 
 USER $RUNNER_USER
 
+# Copy the main source code
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
+
+# Change owner and group of all files
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER
