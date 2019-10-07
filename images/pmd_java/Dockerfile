@@ -19,13 +19,12 @@ FROM sider/devon_rex_java:2.4.0
 COPY --from=builder ${RUNNER_USER_HOME}/pmd_java/*.jar ${RUNNER_USER_HOME}/pmd_java/
 ENV CLASSPATH ${RUNNER_USER_HOME}/pmd_java/*:${CLASSPATH}
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
-COPY Gemfile* Rakefile ${RUNNERS_DIR}/
-COPY bin ${RUNNERS_DIR}/bin
-COPY lib ${RUNNERS_DIR}/lib
+
+# Install required gems first (due to slow download)
+COPY Gemfile* ${RUNNERS_DIR}/
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
-
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -35,6 +34,11 @@ ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 COPY images/pmd_java/pmd /usr/local/bin/
 
+# Copy the main source code
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
+
+# Change owner and group of all files
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER

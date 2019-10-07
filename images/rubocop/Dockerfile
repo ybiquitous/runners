@@ -16,13 +16,12 @@ RUN rbenv install $GLOBAL_RUBY_VERSION && \
     bundle -v | grep -q "$BUNDLER2_VERSION"
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
-COPY Gemfile* Rakefile ${RUNNERS_DIR}/
-COPY bin ${RUNNERS_DIR}/bin
-COPY lib ${RUNNERS_DIR}/lib
+
+# Install required gems first (due to slow download)
+COPY Gemfile* ${RUNNERS_DIR}/
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
 USER $RUNNER_USER
-
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -41,6 +40,11 @@ RUN cd ${RUNNER_USER_HOME} && \
     cd ${RUNNER_USER_HOME} && \
     rm -rf rubocop && \
     gem list rubocop
+# Copy the main source code
+COPY bin ${RUNNERS_DIR}/bin
+COPY lib ${RUNNERS_DIR}/lib
+
+# Change owner and group of all files
 USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER
