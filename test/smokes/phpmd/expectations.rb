@@ -14,7 +14,7 @@ Smoke.add_test("success", {
   ],
   analyzer: {
     name: "phpmd",
-    version: "2.6.1"
+    version: "2.7.0"
   },
 })
 
@@ -41,7 +41,7 @@ Smoke.add_test("valid_options", {
   ],
   analyzer: {
     name: "phpmd",
-    version: "2.6.1"
+    version: "2.7.0"
   },
 })
 
@@ -52,7 +52,7 @@ Smoke.add_test("syntax_error", {
   message: :_,
   analyzer: {
     name: "phpmd",
-    version: "2.6.1",
+    version: "2.7.0",
   },
 })
 
@@ -70,7 +70,7 @@ Smoke.add_test("php_7.1", {
   ],
   analyzer: {
     name: "phpmd",
-    version: "2.6.1",
+    version: "2.7.0",
   }
 })
 
@@ -88,7 +88,7 @@ Smoke.add_test("php_7.3", {
   ],
   analyzer: {
     name: "phpmd",
-    version: "2.6.1"
+    version: "2.7.0"
   },
 })
 
@@ -99,7 +99,7 @@ Smoke.add_test("with_php_version", {
   issues: [],
   analyzer: {
     name: "phpmd",
-    version: "2.6.1",
+    version: "2.7.0",
   }
 })
 
