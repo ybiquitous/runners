@@ -4,6 +4,17 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_php:2.4.0
 
+
+# Install PHP packages via Composer
+COPY images/code_sniffer/composer.json images/code_sniffer/composer.lock ${COMPOSER_HOME}/
+RUN composer global install
+
+# Set install paths
+RUN basepath=${COMPOSER_HOME}/vendor && \
+    phpcs --config-set installed_paths \
+      ${basepath}/cakephp/cakephp-codesniffer,${basepath}/escapestudios/symfony2-coding-standard,${basepath}/wp-coding-standards/wpcs && \
+    phpcs -i
+
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
@@ -17,45 +28,6 @@ RUN cd ${RUNNERS_DIR} && \
     bundle config && \
     bundle install --without='development test'
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
-
-ENV PHPCS3_VERSION="3.4.2" \
-    CAKEPHP_CS3_VERSION="3.1.1" \
-    SYMFONY_CS3_VERSION="3.4.1" \
-    WORDPRESS_CS3_VERSION="2.0.0"
-
-# Installation requires root permission
-USER root
-
-# Install PHP_CodeSniffer 3.x from GitHub releases (It is good to use pear, But it does not support multiple versions)
-RUN wget https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${PHPCS3_VERSION}/phpcs.phar \
-  && mv phpcs.phar phpcs3 \
-  && chmod +x phpcs3 \
-  && mv phpcs3 /usr/bin \
-  && mkdir -p /usr/share/php/PHP/CodeSniffer3/Standards
-
-# Install CakePHP Coding Standards for PHPCS3
-RUN wget https://github.com/cakephp/cakephp-codesniffer/archive/${CAKEPHP_CS3_VERSION}.zip \
-  && unzip ${CAKEPHP_CS3_VERSION}.zip \
-  && mv cakephp-codesniffer-${CAKEPHP_CS3_VERSION}/CakePHP /usr/share/php/PHP/CodeSniffer3/Standards \
-  && rm -rf ${CAKEPHP_CS3_VERSION}.zip cakephp-codesniffer-${CAKEPHP_CS3_VERSION}/
-
-# Install Symfony Coding Standards for PHPCS3
-RUN wget https://github.com/djoos/Symfony-coding-standard/archive/${SYMFONY_CS3_VERSION}.zip \
-  && unzip ${SYMFONY_CS3_VERSION}.zip \
-  && mv Symfony-coding-standard-${SYMFONY_CS3_VERSION}/Symfony /usr/share/php/PHP/CodeSniffer3/Standards \
-  && rm -rf ${SYMFONY_CS3_VERSION}.zip Symfony2-coding-standard-${SYMFONY_CS3_VERSION}/
-
-# Install WordPress Coding Standards for PHPCS3
-RUN wget https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/archive/${WORDPRESS_CS3_VERSION}.zip \
-  && unzip ${WORDPRESS_CS3_VERSION}.zip \
-  && mv WordPress-Coding-Standards-${WORDPRESS_CS3_VERSION} /usr/share/php/PHP/CodeSniffer3/Standards/wpcs \
-  && rm ${WORDPRESS_CS3_VERSION}.zip
-
-# Set install paths
-RUN phpcs3 --config-set installed_paths /usr/share/php/PHP/CodeSniffer3/Standards,/usr/share/php/PHP/CodeSniffer3/Standards/wpcs
-
-USER $RUNNER_USER
-
 # Copy the main source code
 COPY bin ${RUNNERS_DIR}/bin
 COPY lib ${RUNNERS_DIR}/lib
