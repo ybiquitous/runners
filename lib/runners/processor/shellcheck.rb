@@ -103,7 +103,7 @@ module Runners
     end
 
     def option_values(name, sep)
-      Array(config[name]).join(sep)
+      Array(config[name]).join(sep).split(sep).map(&:strip).join(sep)
     end
 
     def analyzer_options
