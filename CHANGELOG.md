@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.4.1...HEAD)
 
+- Add ShellCheck runner [#289](https://github.com/sider/runners/pull/289)
+
 ## 0.4.1
 
 [Full diff](https://github.com/sider/runners/compare/0.4.0...0.4.1)
