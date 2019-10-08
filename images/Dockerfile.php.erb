@@ -1,0 +1,4 @@
+<% analyzer = ENV.fetch('ANALYZER') %>
+# Install PHP packages via Composer
+COPY images/<%= analyzer %>/composer.json images/<%= analyzer %>/composer.lock ${COMPOSER_HOME}/
+RUN composer global install

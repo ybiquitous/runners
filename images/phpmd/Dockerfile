@@ -4,6 +4,10 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_php:2.4.0
 
+
+# Install PHP packages via Composer
+COPY images/phpmd/composer.json images/phpmd/composer.lock ${COMPOSER_HOME}/
+RUN composer global install
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
@@ -18,9 +22,7 @@ RUN cd ${RUNNERS_DIR} && \
     bundle install --without='development test'
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
-COPY images/phpmd/composer.json images/phpmd/composer.lock $COMPOSER_HOME/
-COPY images/phpmd/sider_config.xml $RUNNER_USER_HOME/
-RUN composer global install
+COPY images/phpmd/sider_config.xml ${RUNNER_USER_HOME}/
 
 # Copy the main source code
 COPY bin ${RUNNERS_DIR}/bin

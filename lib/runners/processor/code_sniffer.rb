@@ -52,7 +52,7 @@ module Runners
     end
 
     def analyzer_bin
-      "phpcs3"
+      "phpcs"
     end
 
     def additional_options(config)

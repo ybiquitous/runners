@@ -1,8 +1,5 @@
 FROM sider/devon_rex_php:2.4.0
 
+<%= render_erb 'images/Dockerfile.php.erb' %>
 <%= render_erb 'images/Dockerfile.base.erb' %>
-
-COPY images/phinder/composer.json images/phinder/composer.lock $COMPOSER_HOME/
-RUN composer global install
-
 <%= render_erb 'images/Dockerfile.end.erb' %>
