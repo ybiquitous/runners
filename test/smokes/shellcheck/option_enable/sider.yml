@@ -1,0 +1,5 @@
+linter:
+  shellcheck:
+    enable:
+      - add-default-case
+      - quote-safe-variables

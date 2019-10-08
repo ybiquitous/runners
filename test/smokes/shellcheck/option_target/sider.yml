@@ -1,0 +1,3 @@
+linter:
+  shellcheck:
+    target: "**/*.{bash,sh}"

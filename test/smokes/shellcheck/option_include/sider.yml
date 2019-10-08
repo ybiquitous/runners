@@ -1,0 +1,3 @@
+linter:
+  shellcheck:
+    include: "SC2104, SC2105"

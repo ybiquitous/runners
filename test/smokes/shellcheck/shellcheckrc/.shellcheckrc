@@ -1,0 +1,7 @@
+source-path=SCRIPTDIR
+source-path=/mnt/chroot
+
+enable=add-default-case
+
+disable=2086
+disable=2154
