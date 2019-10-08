@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4fd252f0d26bdd40004734aced386c75",
+    "content-hash": "1cd1fd82b4a2dfcf3ff29f77b75b2d69",
     "packages": [
         {
             "name": "cakephp/cakephp-codesniffer",
@@ -53,24 +53,26 @@
         },
         {
             "name": "escapestudios/symfony2-coding-standard",
-            "version": "3.4.1",
+            "version": "3.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/djoos/Symfony-coding-standard.git",
-                "reference": "4bbb23250bbfef2020e2fd7aebf94a0007fdfb5a"
+                "reference": "369b5f2579be6aed478ca3a4248619eab6e54e41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/djoos/Symfony-coding-standard/zipball/4bbb23250bbfef2020e2fd7aebf94a0007fdfb5a",
-                "reference": "4bbb23250bbfef2020e2fd7aebf94a0007fdfb5a",
+                "url": "https://api.github.com/repos/djoos/Symfony-coding-standard/zipball/369b5f2579be6aed478ca3a4248619eab6e54e41",
+                "reference": "369b5f2579be6aed478ca3a4248619eab6e54e41",
                 "shasum": ""
+            },
+            "require": {
+                "squizlabs/php_codesniffer": "^3.3.1"
             },
             "conflict": {
                 "squizlabs/php_codesniffer": "<3 || >=4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0",
-                "squizlabs/php_codesniffer": "3.*"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -100,7 +102,7 @@
                 "phpcs",
                 "symfony"
             ],
-            "time": "2018-05-29T08:52:19+00:00"
+            "time": "2019-09-25T08:43:58+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
