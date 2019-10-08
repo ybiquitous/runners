@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Add ShellCheck runner [#289](https://github.com/sider/runners/pull/289)
 - Install PHP_CodeSniffer and its dependencies via Composer [#290](https://github.com/sider/runners/pull/290)
+- Bump phpmd/phpmd from 2.6.1 to 2.7.0 [#291](https://github.com/sider/runners/pull/291)
 
 ## 0.4.1
 
