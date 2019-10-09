@@ -29,70 +29,6 @@ Smoke.add_test(
       :location=>
        {:start_line=>26, :start_column=>5, :end_line=>26, :end_column=>5}},
      {:message=>
-       "Style/ExpandPathArguments: Use `expand_path('../Gemfile', __dir__)` instead of `expand_path('../../Gemfile', __FILE__)`.",
-      :links=>[],
-      :id=>"Style/ExpandPathArguments",
-      :path=>"bin/bundle",
-      :location=>
-       {:start_line=>2, :start_column=>32, :end_line=>2, :end_column=>42}},
-     {:message=>
-       "Style/ExpandPathArguments: Use `expand_path('spring', __dir__)` instead of `expand_path('../spring', __FILE__)`.",
-      :links=>[],
-      :id=>"Style/ExpandPathArguments",
-      :path=>"bin/rails",
-      :location=>
-       {:start_line=>3, :start_column=>13, :end_line=>3, :end_column=>23}},
-     {:message=>
-       "Style/ExpandPathArguments: Use `expand_path('spring', __dir__)` instead of `expand_path('../spring', __FILE__)`.",
-      :links=>[],
-      :id=>"Style/ExpandPathArguments",
-      :path=>"bin/rake",
-      :location=>
-       {:start_line=>3, :start_column=>13, :end_line=>3, :end_column=>23}},
-     {:message=>
-       "Style/ExpandPathArguments: Use `expand_path('..', __dir__)` instead of `expand_path('../../', __FILE__)`.",
-      :links=>[],
-      :id=>"Style/ExpandPathArguments",
-      :path=>"bin/setup",
-      :location=>
-       {:start_line=>7, :start_column=>30, :end_line=>7, :end_column=>40}},
-     {:message=>
-       "Style/ExpandPathArguments: Use `expand_path('..', __dir__)` instead of `expand_path('../../', __FILE__)`.",
-      :links=>[],
-      :id=>"Style/ExpandPathArguments",
-      :path=>"bin/update",
-      :location=>
-       {:start_line=>7, :start_column=>30, :end_line=>7, :end_column=>40}},
-     {:message=>
-       "Style/ExpandPathArguments: Use `expand_path('../config/environment', __dir__)` instead of `expand_path('../../config/environment', __FILE__)`.",
-      :links=>[],
-      :id=>"Style/ExpandPathArguments",
-      :path=>"test/test_helper.rb",
-      :location=>
-       {:start_line=>2, :start_column=>14, :end_line=>2, :end_column=>24}},
-     {:message=>"Style/GlobalVars: Do not introduce global variables.",
-      :links=>
-       ["https://rubystyle.guide#instance-vars",
-        "https://www.zenspider.com/ruby/quickref.html"],
-      :id=>"Style/GlobalVars",
-      :path=>"app/controllers/users_controller.rb",
-      :location=>
-       {:start_line=>33, :start_column=>5, :end_line=>33, :end_column=>12}},
-     {:message=>
-       "Style/MixinUsage: `include` is used at the top level. Use inside `class` or `module`.",
-      :links=>[],
-      :id=>"Style/MixinUsage",
-      :path=>"bin/setup",
-      :location=>
-       {:start_line=>4, :start_column=>1, :end_line=>4, :end_column=>17}},
-     {:message=>
-       "Style/MixinUsage: `include` is used at the top level. Use inside `class` or `module`.",
-      :links=>[],
-      :id=>"Style/MixinUsage",
-      :path=>"bin/update",
-      :location=>
-       {:start_line=>4, :start_column=>1, :end_line=>4, :end_column=>17}},
-     {:message=>
        "Style/StringHashKeys: Prefer symbols instead of strings as hash keys.",
       :links=>["https://rubystyle.guide#symbols-as-keys"],
       :id=>"Style/StringHashKeys",
@@ -106,7 +42,7 @@ Smoke.add_test(
       :path=>"config/environments/test.rb",
       :location=>
        {:start_line=>18, :start_column=>5, :end_line=>18, :end_column=>19}}
-          ],
+    ],
     analyzer: {
       name: 'RuboCop',
       version: '0.75.0'
