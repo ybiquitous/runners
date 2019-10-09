@@ -4,7 +4,18 @@ require "pathname"
 
 $LOAD_PATH << Pathname(__dir__).parent + "lib"
 
+require "bugsnag"
 require "runners"
 require "runners/cli"
+
+Bugsnag.configure do |config|
+  config.app_version = ENV["RUNNERS_VERSION"]
+end
+
+at_exit do
+  if $!
+    Bugsnag.notify($!)
+  end
+end
 
 Runners::CLI.new(argv: ARGV, stdout: STDOUT, stderr: STDERR).validate_options!.run
