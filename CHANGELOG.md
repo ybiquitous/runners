@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.5.0...HEAD)
 
+- Add Bugsnag to notify any errors [#304](https://github.com/sider/runners/pull/304)
+
 ## 0.5.0
 
 [Full diff](https://github.com/sider/runners/compare/0.4.1...0.5.0)
