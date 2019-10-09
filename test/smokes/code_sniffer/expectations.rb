@@ -1,4 +1,4 @@
-Smoke = Runners::Testing::Smoke
+require_relative 'phpcs3/expectations.rb'
 
 Smoke.add_test("success", {
   guid: "test-guid",
@@ -14,7 +14,7 @@ Smoke.add_test("success", {
   ],
   analyzer: {
     name: "code_sniffer",
-    version: "3.4.2"
+    version: "3.5.0"
   },
 })
 
@@ -32,7 +32,7 @@ Smoke.add_test("specified_dir", {
   ],
   analyzer: {
     name: "code_sniffer",
-    version: "3.4.2"
+    version: "3.5.0"
   },
 }, warnings: [{ :message => "`dir` key under the `options` is deprecated. Please declare it just under the `code_sniffer`. See https://help.sider.review/tools/php/codesniffer#options", :file => "sideci.yml" }])
 
@@ -45,7 +45,7 @@ Smoke.add_test("sideci_php_sandbox", {
     issues: :_,
     analyzer: {
         name: "code_sniffer",
-        version: "3.4.2"
+        version: "3.5.0"
     },
 })
 
@@ -56,7 +56,7 @@ Smoke.add_test("with_php_version", {
   issues: :_,
   analyzer: {
     name: "code_sniffer",
-    version: "3.4.2"
+    version: "3.5.0"
   }
 })
 
@@ -82,12 +82,10 @@ Smoke.add_test("version_2", {
   ],
   analyzer: {
     name: "code_sniffer",
-    version: "3.4.2"
+    version: "3.5.0"
   },
 },
 warnings: [{
   message: "Sider has no longer supported PHP_CodeSniffer v2. Sider executes v3 even if putting `2` as `version` option.",
   file: "sider.yml"
 }])
-
-require_relative 'phpcs3/expectations.rb'
