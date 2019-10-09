@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.4.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.5.0...HEAD)
+
+## 0.5.0
+
+[Full diff](https://github.com/sider/runners/compare/0.4.1...0.5.0)
 
 - Add ShellCheck runner [#289](https://github.com/sider/runners/pull/289)
 - Install PHP_CodeSniffer and its dependencies via Composer [#290](https://github.com/sider/runners/pull/290)
