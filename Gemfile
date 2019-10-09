@@ -10,6 +10,7 @@ gem 'bundler', '>= 1.12', '< 3.0'
 gem 'locale'
 gem 'sysexits', '~> 1.1'
 gem 'aws-sdk-s3'
+gem 'bugsnag'
 
 group :development, :test do
   gem 'rake'
