@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.5.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.5.1...HEAD)
+
+## 0.5.1
+
+[Full diff](https://github.com/sider/runners/compare/0.5.0...0.5.1)
 
 - Add Bugsnag to notify any errors [#304](https://github.com/sider/runners/pull/304)
 - Use timeout(1) to forcefully terminate too late Runners [#306](https://github.com/sider/runners/pull/306)
