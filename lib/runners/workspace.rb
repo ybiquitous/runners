@@ -57,8 +57,9 @@ module Runners
 
           File.write(config_path, <<~SSH_CONFIG)
             Host *
-              CheckHostIP=no
-              StrictHostKeyChecking=no
+              CheckHostIP no
+              ConnectTimeout 30
+              StrictHostKeyChecking no
               IdentitiesOnly yes
               IdentityFile #{key_path}
           SSH_CONFIG
