@@ -115,7 +115,6 @@ class IssueTest < Minitest::Test
     error = assert_raises(Issues::InvalidIssueError) { issue.ensure_validity }
     assert_equal <<~MSG.chomp, error.message
       Invalid path: "foo/bar"
-      Invalid location: { start_line=1, start_column=1, end_line=2, end_column=nil }
       Empty `id`
       Empty `message`
       Not a string array: `links`
@@ -137,7 +136,6 @@ class IssueTest < Minitest::Test
     error = assert_raises(Issues::InvalidIssueError) { issue.ensure_validity }
     assert_equal <<~MSG.chomp, error.message
       Invalid path: "foo/bar"
-      Invalid location: { start_line=1, start_column=1, end_line=2, end_column=nil }
       Empty `id`
       Empty `object`
     MSG

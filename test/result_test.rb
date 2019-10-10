@@ -123,7 +123,7 @@ class ResultTest < Minitest::Test
     result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "Querly", version: "0.1.3"))
     assert_raises Issues::InvalidIssueError do
       result.add_issue Issues::Structured.new(
-        path: Pathname("foo/bar/baz.rb"),
+        path: "foo/bar/baz.rb",
         location: Location.new(start_line: nil, start_column: nil, end_line: nil, end_column: nil),
         id: "some_error_id",
         object: {
