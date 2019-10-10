@@ -45,4 +45,4 @@ USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER
 
-ENTRYPOINT ["runners", "--analyzer=tslint"]
+ENTRYPOINT ["/usr/bin/timeout", "--kill-after=10s", "30m", "runners", "--analyzer=tslint"]

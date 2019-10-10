@@ -153,6 +153,23 @@ namespace :docker do
     sh "bin/runners_smoke #{image_name} test/smokes/#{analyzer}/expectations.rb"
   end
 
+  desc 'Run timeout test'
+  task :timeout_test do
+    File.write('bin/runners', <<~EOF)
+      #!/usr/bin/env ruby
+      require "open3"
+      Open3.capture3('sleep 10')
+    EOF
+    ENV['RUNNERS_TIMEOUT'] = '5s'
+    Rake::Task['docker:build'].invoke
+    sh "docker run --rm #{image_name}" do |_ok, res|
+      res.exitstatus == 124 or abort "Expected exit status is 124, but the actual value is #{res.exitstatus}"
+    end
+    sh "pgrep sleep" do |ok|
+      abort "sleep(1) still remains! It's unexpected." if ok
+    end
+  end
+
   desc 'Run docker push'
   task :push do
     sh "docker login -u #{docker_user} -p #{docker_password}"

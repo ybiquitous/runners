@@ -7,4 +7,4 @@ USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER
 
-ENTRYPOINT ["runners", "--analyzer=<%= ENV.fetch('ANALYZER') %>"]
+ENTRYPOINT ["/usr/bin/timeout", "--kill-after=10s", "<%= ENV.fetch('RUNNERS_TIMEOUT', '30m') %>", "runners", "--analyzer=<%= ENV.fetch('ANALYZER') %>"]
