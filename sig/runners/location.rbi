@@ -8,8 +8,6 @@ class Runners::Location
 
   def initialize: (start_line: Integer | String, ?start_column: Integer | String | nil,
                    ?end_line: Integer | String | nil, ?end_column: Integer | String | nil) -> any
-  def valid?: -> bool
-  def ensure_validity: -> self
   def as_json: -> Hash<json_key, Integer>
   def self.from_json: (any) -> Location
 end

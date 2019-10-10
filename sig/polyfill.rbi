@@ -148,6 +148,7 @@ extension Hash (Polyfill)
   def deep_merge: (Hash<any, any>) -> Hash<any, any>
   def fetch: ('key) -> 'value
   def merge!: (*Hash<any, any>) -> Hash<any, any>
+  def compact: -> self
 end
 
 class Bundler::LockfileParser

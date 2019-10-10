@@ -39,9 +39,6 @@ module Runners
         unless path.instance_of?(Pathname)
           errors << "Invalid path: #{path.inspect}"
         end
-        if (loc = location) && !loc.valid?
-          errors << "Invalid location: #{loc}"
-        end
         if id.nil? || id.empty?
           errors << "Empty `id`"
         end
