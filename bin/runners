@@ -18,4 +18,7 @@ at_exit do
   end
 end
 
-Runners::CLI.new(argv: ARGV, stdout: STDOUT, stderr: STDERR).validate_options!.run
+result = Runners::CLI.new(argv: ARGV, stdout: STDOUT, stderr: STDERR).validate_options!.run
+if result.instance_of?(Runners::Results::Error)
+  Bugsnag.notify(result.exception)
+end

@@ -115,8 +115,10 @@ module Runners
           trace_writer.message "Writing result..." do
             writer << Schema::Result.envelope.coerce(json)
           end
+          result
         end
-        io.finalize!
+      ensure
+        io.finalize! if defined?(:@io)
       end
     end
 

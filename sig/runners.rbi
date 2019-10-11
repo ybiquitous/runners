@@ -265,7 +265,7 @@ class Runners::CLI
   def processor_class: () -> Processor.class
   def validate_options!: () -> self
   def validate_analyzer!: () -> void
-  def run: () -> void
+  def run: () -> result
   def io: () -> any
 end
 
