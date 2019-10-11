@@ -159,7 +159,7 @@ module Runners
             end_line: yaml.fetch(:line_number).to_i,
             end_column: 0
           )
-          result.add_issue Issues::Text.new(
+          result.add_issue Issue.new(
             path: relative_path(yaml.fetch(:filename)),
             location: loc,
             id: yaml.fetch(:type),

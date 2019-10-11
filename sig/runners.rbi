@@ -1,43 +1,3 @@
-type issue = Runners::Issues::Text | Runners::Issues::Structured
-
-class Runners::Issues::InvalidIssueError
-  attr_reader issue: Runners::Issues::Base
-  def initialize: (issue: Runners::Issues::Base) -> any
-end
-
-class Runners::Issues::Base
-  attr_reader path: Pathname
-  attr_reader location: Location?
-  attr_reader id: String
-
-  def initialize: (path: Pathname, location: Location?, id: String) -> any
-  def ensure_validity: <'a> { () -> 'a } -> 'a
-  def eql?: (any) -> any
-  def hash: () -> any
-  def valid?: () -> bool
-  def errors: () -> Array<String>
-  def as_json: () -> any
-end
-
-class Runners::Issues::Structured < Runners::Issues::Base
-  attr_reader object: any
-  attr_reader schema: any
-
-  def initialize: (path: Pathname, location: Location?, id: String, object: any, schema: any) -> any
-  def test_schema: (any, any) -> bool
-end
-
-class Runners::Issues::Structured::InvalidObject
-  attr_reader object: any
-  def initialize: (object: any) -> any
-end
-
-class Runners::Issues::Text < Runners::Issues::Base
-  attr_reader message: String
-  attr_reader links: Array<String>
-  def initialize: (path: Pathname, location: Location?, id: String, message: String, links: Array<String>) -> any
-end
-
 interface Runners::_Writer
   def <<: (Schema::Types::any_trace) -> void
 end
@@ -83,12 +43,12 @@ class Runners::Results::Base
 end
 
 class Runners::Results::Success < Runners::Results::Base
-  attr_reader issues: Array<issue>
+  attr_reader issues: Array<Runners::Issue>
   attr_reader analyzer: Analyzer
 
   def initialize: (guid: String, analyzer: Analyzer) -> any
-  def add_issue: (issue) -> void
-  def (constructor) filter_issue: { (issue) -> bool } -> instance
+  def add_issue: (Runners::Issue) -> void
+  def (constructor) filter_issue: { (Runners::Issue) -> bool } -> instance
 end
 
 class Runners::Results::Failure < Runners::Results::Base

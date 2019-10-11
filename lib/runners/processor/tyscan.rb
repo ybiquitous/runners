@@ -106,7 +106,7 @@ module Runners
 
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
         json[:matches].each do |match|
-          result.add_issue Issues::Structured.new(
+          result.add_issue Issue.new(
             id: match[:rule][:id],
             path: relative_path(match[:path]),
             location: Location.new(
@@ -115,6 +115,7 @@ module Runners
               end_line: match[:location][:end][0],
               end_column: match[:location][:end][1],
             ),
+            message: match[:rule][:message],
             object: {
               id: match[:rule][:id],
               message: match[:rule][:message],

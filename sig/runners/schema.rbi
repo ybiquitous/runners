@@ -5,32 +5,18 @@ type Runners::Schema::Types::location = {
   end_column: Integer?
 }
 
-type Runners::Schema::Types::identified_issue = {
-  id: String,
-  path: String,
-  location: location
-}
-
-type Runners::Schema::Types::structured_issue<'a> = {
-  id: String,
-  path: String,
-  location: location,
-  object: 'a
-}
-
-type Runners::Schema::Types::text_issue = {
+type Runners::Schema::Types::issue = {
   id: String,
   path: String,
   location: location,
   message: String,
-  links: Array<String>
+  links: Array<String>,
+  object: any?
 }
 
 class Runners::Schema::Types::Issue < StrongJSON
   def location: -> StrongJSON::Type::Enum<location>
-  def identified: -> StrongJSON::Type::Object<identified_issue>
-  def structured: -> StrongJSON::Type::Object<structured_issue<any>>
-  def text: -> StrongJSON::Type::Object<text_issue>
+  def issue: -> StrongJSON::Type::Object<issue>
 end
 
 type Runners::Schema::Types::analyzer = { name: String, version: String }
@@ -70,7 +56,6 @@ type Runners::Schema::Types::error_result = {
 type Runners::Schema::Types::warning = { message: String, file: String? }
 
 class Runners::Schema::Types::Result < StrongJSON
-  def issue: -> StrongJSON::Type::Enum<text_issue | structured_issue<any> | identified_issue>
   def warning: -> StrongJSON::Type::Object<warning>
   def analyzer: -> StrongJSON::Type::Object<analyzer>
   def success: -> StrongJSON::Type::Object<success_result>

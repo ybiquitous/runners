@@ -94,12 +94,11 @@ module Runners
             # TODO: Use Structured issue
             message = issue[:message].dup
             message << " #{issue[:context]}" if issue[:context]
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: relative_path(file.to_s),
               location: loc,
               id: issue[:rule] || issue[:name],
               message: message,
-              links: [],
             )
           end
         end

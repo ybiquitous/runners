@@ -33,7 +33,7 @@ require "aws-sdk-s3"
 
 require "runners/location"
 require "runners/results"
-require "runners/issues"
+require "runners/issue"
 require "runners/harness"
 require "runners/analyzer"
 require "runners/io"

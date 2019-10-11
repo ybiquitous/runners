@@ -44,11 +44,11 @@ module Runners
       end
 
       def valid?
-        super && issues.all?(&:valid?) && analyzer&.valid?
+        super && analyzer&.valid?
       end
 
       def add_issue(issue)
-        issue.ensure_validity { issues << issue }
+        issues << issue
       end
 
       def filter_issue

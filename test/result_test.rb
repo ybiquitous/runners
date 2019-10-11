@@ -4,16 +4,17 @@ class ResultTest < Minitest::Test
   include TestHelper
 
   Results = Runners::Results
-  Issues = Runners::Issues
+  Issue = Runners::Issue
   Location = Runners::Location
   Analyzer = Runners::Analyzer
 
   def test_success_result
     result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "RuboCop", version: "1.3.2pre"))
-    result.add_issue Issues::Structured.new(
+    result.add_issue Issue.new(
       path: Pathname("foo/bar/baz.rb"),
       location: Location.new(start_line: 1, start_column: nil, end_line: nil, end_column: nil),
       id: "some_error_id",
+      message: "abc def",
       object: {
         args: [1,2,3]
       },
@@ -33,6 +34,8 @@ class ResultTest < Minitest::Test
                            path: "foo/bar/baz.rb",
                            location: { start_line: 1 },
                            id: "some_error_id",
+                           message: "abc def",
+                           links: [],
                            object: { args: [1,2,3] }
                          }
                        ],
@@ -42,19 +45,21 @@ class ResultTest < Minitest::Test
 
   def test_success_filter_issue
     result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "RuboCop", version: "1.3.2pre"))
-    result.add_issue Issues::Structured.new(
+    result.add_issue Issue.new(
       path: Pathname("foo/bar/baz.rb"),
       location: Location.new(start_line: 1, start_column: nil, end_line: nil, end_column: nil),
       id: "some_error_id",
+      message: "abc def",
       object: {
         args: [1,2,3]
       },
       schema: nil
     )
-    result.add_issue Issues::Structured.new(
+    result.add_issue Issue.new(
       path: Pathname("foo/bar/xxx.rb"),
       location: Location.new(start_line: 1, start_column: nil, end_line: nil, end_column: nil),
       id: "some_error_id",
+      message: "abc def",
       object: {
         args: [1,2,3]
       },
@@ -79,6 +84,8 @@ class ResultTest < Minitest::Test
                            path: "foo/bar/xxx.rb",
                            location: { start_line: 1 },
                            id: "some_error_id",
+                           message: "abc def",
+                           links: [],
                            object: { args: [1,2,3] }
                          }
                        ],
@@ -89,10 +96,11 @@ class ResultTest < Minitest::Test
 
   def test_null_location_result
     result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "Goodcheck", version: "1.6.0"))
-    result.add_issue Issues::Structured.new(
+    result.add_issue Issue.new(
       path: Pathname("foo/bar/baz.rb"),
       location: nil,
       id: "some_error_id",
+      message: "abc def",
       object: {
         args: [1,2,3]
       },
@@ -112,26 +120,13 @@ class ResultTest < Minitest::Test
                            path: "foo/bar/baz.rb",
                            location: nil,
                            id: "some_error_id",
+                           message: "abc def",
+                           links: [],
                            object: { args: [1,2,3] }
                          }
                        ],
                        analyzer: { name: "Goodcheck", version: "1.6.0" }
                      })
-  end
-
-  def test_success_result_raises_error_if_invalid_issue_added
-    result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "Querly", version: "0.1.3"))
-    assert_raises Issues::InvalidIssueError do
-      result.add_issue Issues::Structured.new(
-        path: "foo/bar/baz.rb",
-        location: Location.new(start_line: nil, start_column: nil, end_line: nil, end_column: nil),
-        id: "some_error_id",
-        object: {
-          args: [1,2,3]
-        },
-        schema: nil
-      )
-    end
   end
 
   def test_failure_result

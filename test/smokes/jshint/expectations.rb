@@ -13,7 +13,8 @@ Smoke.add_test(
       },
       id: 'jshint.W067',
       message: 'Bad invocation.',
-      links: []
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {
@@ -35,7 +36,8 @@ Smoke.add_test(
       },
       id: 'jshint.W097',
       message: 'Use the function form of "use strict".',
-      links: []
+      links: [],
+      object: nil,
     },
     {
       path: 'index.js',
@@ -44,7 +46,8 @@ Smoke.add_test(
       },
       id: 'jshint.W117',
       message: "'console' is not defined.",
-      links: []
+      links: [],
+      object: nil,
     },
     {
       path: 'index.js',
@@ -53,7 +56,8 @@ Smoke.add_test(
       },
       id: 'jshint.W117',
       message: "'console' is not defined.",
-      links: []
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {
@@ -75,7 +79,8 @@ Smoke.add_test(
       },
       id: 'jshint.W067',
       message: 'Bad invocation.',
-      links: []
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {
@@ -102,7 +107,8 @@ Smoke.add_test("with_options", {
       links: [],
       id: "jshint.W067",
       path: "src/index.js",
-      location: { start_line: 3 }
+      location: { start_line: 3 },
+      object: nil,
     }
   ],
   analyzer: { name: 'JSHint', version: '2.10.2' },

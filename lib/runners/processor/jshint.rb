@@ -53,12 +53,11 @@ module Runners
       REXML::Document.new(output).root.each_element("file") do |file|
         file.each_element do |error|
           message = error[:message].strip
-          yield Issues::Text.new(
+          yield Issue.new(
             path: relative_path(file[:name]),
             location: Location.new(start_line: error[:line]),
             id: error[:source] || Digest::SHA1.hexdigest(message),
             message: message.strip,
-            links: [],
           )
         end
       end

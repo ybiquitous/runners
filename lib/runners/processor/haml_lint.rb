@@ -167,12 +167,11 @@ module Runners
             end_line: nil,
             end_column: nil
           )
-          Issues::Text.new(
+          Issue.new(
             path: relative_path(path),
             location: loc,
             id: id,
             message: message,
-            links: []
           )
         end
       end

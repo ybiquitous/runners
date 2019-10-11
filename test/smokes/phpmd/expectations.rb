@@ -9,7 +9,8 @@ Smoke.add_test("success", {
       location: { :start_line => 5, :end_line => 5 },
       id: "UnusedLocalVariable",
       message: "Avoid unused local variables such as '$hoge'.",
-      links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"]
+      links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
+      object: nil,
     }
   ],
   analyzer: {
@@ -36,7 +37,8 @@ Smoke.add_test("valid_options", {
       location: { :start_line => 20, :end_line => 20 },
       id: "UnusedLocalVariable",
       message: "Avoid unused local variables such as '$hoge'.",
-      links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"]
+      links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
+      object: nil,
     }
   ],
   analyzer: {
@@ -66,6 +68,7 @@ Smoke.add_test("php_7.1", {
       id: "UnusedPrivateField",
       message: "Avoid unused private fields such as '$unusedVariable'.",
       links: ["https://phpmd.org/rules/unusedcode.html#unusedprivatefield"],
+      object: nil,
     },
   ],
   analyzer: {
@@ -83,7 +86,8 @@ Smoke.add_test("php_7.3", {
       location: { :start_line => 7, :end_line => 7 },
       id: "UnusedLocalVariable",
       message: "Avoid unused local variables such as '$hoge'.",
-      links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"]
+      links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
+      object: nil,
     }
   ],
   analyzer: {

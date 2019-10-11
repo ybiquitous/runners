@@ -54,7 +54,7 @@ module Runners
                                           end_line: nil,
                                           end_column: nil)
 
-          result.add_issue Issues::Text.new(
+          result.add_issue Issue.new(
             path: path,
             location: loc,
             id: "#{warning[:warning_type]}-#{warning[:warning_code]}",

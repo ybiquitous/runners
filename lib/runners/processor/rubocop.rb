@@ -214,7 +214,7 @@ module Runners
             message = links
                         .inject(offense[:message]) { |msg, link| msg.sub(link, '') }
                         .sub(/\s*\((, )?\)\z/, '')
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: relative_path(hash[:path]),
               location: loc,
               id: offense[:cop_name],

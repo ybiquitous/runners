@@ -52,12 +52,11 @@ module Runners
               end_column: nil
             )
 
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: relative_path(issue['path'], from: current_dir),
               location: loc,
               id: Digest::SHA1.hexdigest(issue['message']),
               message: "[#{issue['linter']}] #{issue['message']}",
-              links: [],
             )
           end
         end

@@ -17,7 +17,7 @@ class Runners::Processor::Cppcheck < Runners::Processor
   def project: -> Array<String>
   def language: -> Array<String>
   def run_analyzer: -> result
-  def parse_result: (Nokogiri::XML::Document) { (Runners::Issues::Structured) -> void } -> void
+  def parse_result: (Nokogiri::XML::Document) { (Runners::Issue) -> void } -> void
 end
 
 Runners::Processor::Cppcheck::DEFAULT_TARGET: String

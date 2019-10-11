@@ -12,6 +12,8 @@ Smoke.add_test(
         id: "hello",
         path: "src/Hello.java",
         location: { start_line: 6, start_column: 9, end_line: 6, end_column: 48 },
+        message: "Hello world\n",
+        links: [],
         object: {
           id: "hello",
           message: "Hello world\n",
@@ -34,6 +36,8 @@ Smoke.add_test(
         id: "hello",
         path: "src/Main.java",
         location: { start_line: 6, start_column: 9, end_line: 6, end_column: 48 },
+        message: "Hello world\n",
+        links: [],
         object: {
           id: "hello",
           message: "Hello world\n",

@@ -6,7 +6,7 @@ class HarnessTest < Minitest::Test
   Harness = Runners::Harness
   Processor = Runners::Processor
   Results = Runners::Results
-  Issues = Runners::Issues
+  Issue = Runners::Issue
   Location = Runners::Location
   Analyzer = Runners::Analyzer
   TraceWriter = Runners::TraceWriter
@@ -57,26 +57,23 @@ class HarnessTest < Minitest::Test
       processor = Class.new(Processor) do
         def analyze(changes)
           Results::Success.new(guid: guid, analyzer: Analyzer.new(name: "Test", version: "0.1.3")).tap do |result|
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: Pathname("test/cli/test_test.rb"),
               location: Location.new(start_line: 0),
               id: "id1",
               message: "...",
-              links: [],
             )
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: Pathname("no_such_file"),
               location: Location.new(start_line: 0),
               id: "id2",
               message: "...",
-              links: [],
             )
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: Pathname("taggeing_test.rb"),
               location: Location.new(start_line: 0),
               id: "id3",
               message: "...",
-              links: [],
             )
           end
         end
@@ -86,12 +83,11 @@ class HarnessTest < Minitest::Test
 
       result = harness.run
       assert_instance_of Results::Success, result
-      assert_equal [Issues::Text.new(
+      assert_equal [Issue.new(
         path: Pathname("test/cli/test_test.rb"),
-        location: Location.new(start_line: 0, start_column: nil, end_line: nil, end_column: nil),
+        location: Location.new(start_line: 0),
         id: "id1",
         message: "...",
-        links: [],
       )], result.issues
     end
   end

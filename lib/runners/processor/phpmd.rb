@@ -139,7 +139,7 @@ module Runners
               end_column: nil
             )
 
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: relative_path(file[:name]),
               location: loc,
               id: violation[:rule],
