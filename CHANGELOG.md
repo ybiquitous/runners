@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.5.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.5.2...HEAD)
+
+## 0.5.2
+
+[Full diff](https://github.com/sider/runners/compare/0.5.1...0.5.2)
 
 - Notify exception if the result is "error" [#312](https://github.com/sider/runners/pull/312)
 - Set ConnectTimeout for ssh(1) to avoid waiting for a long time [#309](https://github.com/sider/runners/pull/309)
