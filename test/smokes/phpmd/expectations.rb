@@ -34,12 +34,19 @@ Smoke.add_test("valid_options", {
   type: "success",
   issues: [
     { path: "app/index.php",
-      location: { :start_line => 20, :end_line => 20 },
+      location: { start_line: 20, end_line: 20 },
       id: "UnusedLocalVariable",
       message: "Avoid unused local variables such as '$hoge'.",
       links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
       object: nil,
-    }
+    },
+    { path: "foo.phtml",
+      location: { start_line: 5, end_line: 5 },
+      id: "UnusedLocalVariable",
+      message: "Avoid unused local variables such as '$var'.",
+      links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
+      object: nil,
+    },
   ],
   analyzer: {
     name: "phpmd",
