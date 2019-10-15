@@ -17,7 +17,7 @@ module Runners
       (message && !message.empty?) or
         raise ArgumentError, "#{message.inspect} must be required"
 
-      verify_object!(object, schema)
+      schema.coerce(object) if object && schema
 
       @path = path
       @location = location
@@ -54,23 +54,6 @@ module Runners
         links: links,
         object: object,
       )
-    end
-
-    private
-
-    def verify_object!(object, schema)
-      schemas = Array(schema)
-      return if schemas.empty?
-
-      errors = []
-      schemas.each do |s|
-        s.coerce(object) # maybe raise
-      rescue StrongJSON::Type::UnexpectedAttributeError, StrongJSON::Type::TypeError => exn
-        errors << exn.inspect
-      end
-      if errors.size == schemas.size
-        raise ArgumentError, errors.join(", ")
-      end
     end
   end
 end

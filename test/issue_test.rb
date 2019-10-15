@@ -59,7 +59,7 @@ class IssueTest < Minitest::Test
       let :object, array(string)
     end
 
-    error = assert_raises ArgumentError do
+    error = assert_raises StrongJSON::Type::TypeError do
       Issue.new(
         path: Pathname("app/models/person.rb"),
         location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
@@ -69,23 +69,7 @@ class IssueTest < Minitest::Test
         schema: s.object,
       )
     end
-    assert_equal "#<StrongJSON::Type::TypeError: TypeError at $[0]: expected=string, value=3>", error.message
-  end
-
-  def test_structured_issue_with_object_schemas
-    s = StrongJSON.new do
-      let :strings, array(string)
-      let :numbers, array(number)
-    end
-
-    Issue.new(
-      path: Pathname("app/models/person.rb"),
-      location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
-      id: "foo.bar",
-      message: "test message",
-      object: [3],
-      schema: [s.strings, s.numbers],
-    )
+    assert_equal "TypeError at $[0]: expected=string, value=3", error.message
   end
 
   def test_structured_issue_without_object_schema

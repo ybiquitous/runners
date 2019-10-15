@@ -9,5 +9,4 @@ class Runners::Issue
   def initialize: (path: Pathname, location: Location?, id: String, message: String,
                    ?links: Array<String>, ?object: any, ?schema: any) -> any
   def as_json: () -> any
-  def verify_object!: (any, any) -> void
 end
