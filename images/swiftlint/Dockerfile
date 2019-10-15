@@ -4,6 +4,22 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_swift:2.4.0
 
+ARG SWIFTLINT_VERSION=0.34.0
+
+# Build SwiftLint
+USER root
+# HACK: Apply a patch to avoid "error: product dependency 'CryptoSwift' not found". See #315.
+COPY images/swiftlint/fix-CryptoSwift-not-found.patch /tmp/
+RUN SWIFTLINT_BUILD_DIR=/tmp/swiftlint_build && \
+    git clone --branch ${SWIFTLINT_VERSION} --single-branch https://github.com/realm/SwiftLint.git ${SWIFTLINT_BUILD_DIR} && \
+    cd ${SWIFTLINT_BUILD_DIR} && \
+    git apply /tmp/fix-CryptoSwift-not-found.patch && \
+    make install && \
+    swiftlint version && \
+    rm -rf ${SWIFTLINT_BUILD_DIR} && \
+    rm /tmp/fix-CryptoSwift-not-found.patch
+USER $RUNNER_USER
+
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
@@ -17,21 +33,6 @@ RUN cd ${RUNNERS_DIR} && \
     bundle config && \
     bundle install --without='development test'
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
-
-ENV SWIFTLINT_VERSION="0.34.0"
-ARG SWIFTLINT_BUILD_DIR="/swiftlint_build"
-
-# Build SwiftLint
-USER root
-RUN git clone --branch ${SWIFTLINT_VERSION} --single-branch https://github.com/realm/SwiftLint.git ${SWIFTLINT_BUILD_DIR} && \
-    cd ${SWIFTLINT_BUILD_DIR} && \
-    git submodule update --init --recursive && \
-    make install && \
-    cd / && \
-    rm -rf "${SWIFTLINT_BUILD_DIR}"
-
-USER $RUNNER_USER
-
 # Copy the main source code
 COPY bin ${RUNNERS_DIR}/bin
 COPY lib ${RUNNERS_DIR}/lib
