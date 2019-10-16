@@ -85,10 +85,9 @@ Smoke.add_test("config", {
 Smoke.add_test("failure", {
   guid: "test-guid",
   timestamp: :_,
-  type: "error",
-  class: :_,
-  backtrace: :_,
-  inspect: :_
+  type: "failure",
+  message: "Could not find config XML file 'custom.xml'.",
+  analyzer: { name: "checkstyle", version: "8.25" },
 })
 
 Smoke.add_test("broken_sideci_yml", {
@@ -138,4 +137,12 @@ Smoke.add_test("properties", {
     },
   ],
   analyzer: {name: 'checkstyle', version: '8.25'}
+})
+
+Smoke.add_test("syntax_error", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "failure",
+  message: "com.puppycrawl.tools.checkstyle.api.CheckstyleException: Exception was thrown while processing ./Foo.java",
+  analyzer: { name: "checkstyle", version: "8.25" },
 })
