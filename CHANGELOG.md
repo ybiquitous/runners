@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Fix PHPMD target files with `suffixes` option [#318](https://github.com/sider/runners/pull/318)
 - Fix Checkstyle output XML parse error [#319](https://github.com/sider/runners/pull/319)
 - Improve Goodcheck error message [#321](https://github.com/sider/runners/pull/321)
+- Improve Checkstyle invalid XML error message [#322](https://github.com/sider/runners/pull/322)
 
 ## 0.5.2
 
