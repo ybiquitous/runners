@@ -58,7 +58,14 @@ module Runners
 
         stdout, stderr, _ = capture3(analyzer_bin, *dir, *checkstyle_args(config: config_file, excludes: excludes, properties: properties))
 
-        xml_root = REXML::Document.new(stdout).root
+        begin
+          xml_root = REXML::Document.new(stdout).root
+        rescue REXML::ParseException => exn
+          message = exn.message
+          trace_writer.error "Invalid XML output: #{message}"
+          return Results::Failure.new(guid: guid, analyzer: analyzer, message: message)
+        end
+
         if xml_root
           Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
             construct_result(xml_root) do |issue|
