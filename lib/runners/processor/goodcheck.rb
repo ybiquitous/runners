@@ -50,19 +50,20 @@ module Runners
     end
 
     def goodcheck_test(config)
-      stdout, _, status = capture3(*ruby_analyzer_bin, "test", *(config[:config] ? ["--config", config[:config]] : []))
+      stdout, stderr, status = capture3(*ruby_analyzer_bin, "test", *(config[:config] ? ["--config", config[:config]] : []))
 
       if !status.success? && !stdout.empty?
         msg = <<~MESSAGE.chomp
-          Goodcheck configuration validation failed.
-          Check the following output by `goodcheck test` command.
-
-          #{stdout}
+          The validation of your Goodcheck configuration file failed. Check the output of `goodcheck test` command.
         MESSAGE
         add_warning(msg, file: config[:config] || "goodcheck.yml")
       end
 
-      yield
+      if !status.success? && !stderr.empty?
+        stderr.lines.first.chomp
+      else
+        nil
+      end
     end
 
     def goodcheck_check(config)
@@ -89,10 +90,12 @@ module Runners
           # When the `not` rule detects issues, `location` is null.
           # @see https://github.com/sider/goodcheck/pull/49/files#r281913022
           if hash[:location]
-            location = Location.new(start_line: hash[:location][:start_line],
-                                                 start_column: hash[:location][:start_column],
-                                                 end_line: hash[:location][:end_line],
-                                                 end_column: hash[:location][:end_column])
+            location = Location.new(
+              start_line: hash[:location][:start_line],
+              start_column: hash[:location][:start_column],
+              end_line: hash[:location][:end_line],
+              end_column: hash[:location][:end_column],
+            )
           else
             location = nil
           end
@@ -148,11 +151,12 @@ module Runners
     def analyze(changes)
       delete_unchanged_files(changes, except: ["*.yml", "*.yaml"])
 
-      capture3!(*ruby_analyzer_bin, "version")
-
       ensure_config do |config|
-        goodcheck_test config do
-          goodcheck_check config
+        error_message = goodcheck_test(config)
+        if error_message
+          Results::Failure.new(guid: guid, analyzer: analyzer, message: error_message)
+        else
+          goodcheck_check(config)
         end
       end
     end

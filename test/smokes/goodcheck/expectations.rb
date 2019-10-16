@@ -69,10 +69,9 @@ Smoke.add_test("no_config_file", {
 Smoke.add_test("invalid_config_file", {
   guid: "test-guid",
   timestamp: :_,
-  type: "error",
-  class: "JSON::ParserError",
-  backtrace: :_,
-  inspect: "#<JSON::ParserError: 767: unexpected token at ''>"
+  type: "failure",
+  message: 'Invalid config: TypeError at $.rules[0]: expected=rule, value="id:foo"',
+  analyzer: { name: "goodcheck", version: "2.4.0" },
 })
 
 Smoke.add_test("with_invalid_ci_config", {
@@ -93,17 +92,10 @@ Smoke.add_test('warning_config_file', {
     version: "2.4.0"
   }
 }, warnings: [
-  {message: <<~MESSAGE, file: 'goodcheck.yml'}
-    Goodcheck configuration validation failed.
-    Check the following output by `goodcheck test` command.
-
-    Validating rule id uniqueness...
-      OK!👍
-    Testing rule com.example.github...
-      Testing pattern...
-        1st pass example matched.😱
-        1st fail example didn't match.😱
-  MESSAGE
+  {
+    message: "The validation of your Goodcheck configuration file failed. Check the output of `goodcheck test` command.",
+    file: 'goodcheck.yml',
+  },
 ])
 
 Smoke.add_test("deprecated-options", {
