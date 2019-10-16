@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Reconsider issue data structure [#313](https://github.com/sider/runners/pull/313)
 - Fix PHPMD target files with `suffixes` option [#318](https://github.com/sider/runners/pull/318)
+- Fix Checkstyle output XML parse error [#319](https://github.com/sider/runners/pull/319)
 
 ## 0.5.2
 
