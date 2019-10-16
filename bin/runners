@@ -8,17 +8,27 @@ require "bugsnag"
 require "runners"
 require "runners/cli"
 
+class RunnersTimeoutError < StandardError; end
+
 Bugsnag.configure do |config|
   config.app_version = ENV["RUNNERS_VERSION"]
 end
 
-at_exit do
-  if $!
-    Bugsnag.notify($!)
+def notify_with_bugsnag(exception)
+  Bugsnag.notify(exception) do |report|
+    report.add_tab(:task_guid, ENV["TASK_GUID"]) if ENV["TASK_GUID"]
   end
+end
+
+trap('SIGUSR2') do
+  notify_with_bugsnag(RunnersTimeoutError.new)
+end
+
+at_exit do
+  notify_with_bugsnag($!) if $!
 end
 
 result = Runners::CLI.new(argv: ARGV, stdout: STDOUT, stderr: STDERR).validate_options!.run
 if result.instance_of?(Runners::Results::Error)
-  Bugsnag.notify(result.exception)
+  notify_with_bugsnag(result.exception)
 end
