@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.5.2...HEAD)
 
+- Reconsider issue data structure [#313](https://github.com/sider/runners/pull/313)
+
 ## 0.5.2
 
 [Full diff](https://github.com/sider/runners/compare/0.5.1...0.5.2)
