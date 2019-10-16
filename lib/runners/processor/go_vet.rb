@@ -33,12 +33,11 @@ module Runners
             end_column: nil
           )
 
-          result.add_issue Issues::Text.new(
+          result.add_issue Issue.new(
             path: relative_path(issue['path']),
             location: loc,
             id: Digest::SHA1.hexdigest(issue['message']),
             message: issue['message'],
-            links: [],
           )
         end
       end

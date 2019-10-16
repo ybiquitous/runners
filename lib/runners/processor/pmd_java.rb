@@ -87,7 +87,7 @@ module Runners
             message = violation.text.strip
             id = violation[:ruleset] + "-" + violation[:rule] + "-" + Digest::SHA1.hexdigest(message)
 
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: path,
               location: Location.new(
                 start_line: violation[:beginline],

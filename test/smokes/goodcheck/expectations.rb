@@ -9,6 +9,8 @@ Smoke.add_test("success", {
       id: "com.goodcheck.hello",
       path: "app/foo.rb",
       location: { start_line: 1, start_column: 21, end_line: 1, end_column: 24 },
+      message: "foo is not a good name...",
+      links: [],
       object: {
         id: "com.goodcheck.hello",
         message: "foo is not a good name...",
@@ -33,6 +35,8 @@ Smoke.add_test("with_ci_config", {
         message: "Foo",
         justifications: []
       },
+      message: "Foo",
+      links: [],
       id: "com.sample",
       path: "app/foo.rb",
       location: { start_line: 1, start_column: 0, end_line: 1, end_column: 3 } }
@@ -124,6 +128,8 @@ Smoke.add_test("lowest_deps", {
       id: "com.goodcheck.hello",
       path: "app/foo.rb",
       location: { start_line: 1, start_column: 21, end_line: 1, end_column: 24 },
+      message: "foo is not a good name...",
+      links: [],
       object: {
         id: "com.goodcheck.hello",
         message: "foo is not a good name...",
@@ -148,6 +154,8 @@ Smoke.add_test("detect_there_is_no_content", {
         message: "Specify frozen_string_literal magic comment.",
         justifications: []
       },
+      message: "Specify frozen_string_literal magic comment.",
+      links: [],
       id: "smoke",
       path: "lib/duck.rb",
       location: nil
@@ -173,6 +181,8 @@ Smoke.add_test("rules_without_pattern", {
         MESSAGE
         justifications: []
       },
+      message: /Check the following documentation when editing this file/,
+      links: [],
       id: "com.goodcheck.without_pattern",
       path: "app/checks/example.rb",
       location: nil

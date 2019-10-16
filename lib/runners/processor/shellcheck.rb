@@ -20,8 +20,6 @@ module Runners
       let :issue, object(
         code: integer,
         severity: string,
-        message: string,
-        links: array(string),
         fix: object?(replacements: array(object(
           line: integer,
           column: integer,
@@ -145,7 +143,7 @@ module Runners
       json = JSON.parse(output, symbolize_names: true)
       json.fetch(:comments).each do |comment|
         id = "SC#{comment[:code]}"
-        yield Issues::Structured.new(
+        yield Issue.new(
           id: id,
           path: relative_path(comment[:file]),
           location: Location.new(
@@ -154,11 +152,11 @@ module Runners
             end_line: comment[:endLine],
             end_column: comment[:endColumn],
           ),
+          message: comment[:message],
+          links: ["https://github.com/koalaman/shellcheck/wiki/#{id}"],
           object: {
             code: comment[:code],
             severity: comment[:level],
-            message: comment[:message],
-            links: ["https://github.com/koalaman/shellcheck/wiki/#{id}"],
             fix: comment[:fix],
           },
           schema: Schema.issue,

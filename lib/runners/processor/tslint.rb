@@ -144,12 +144,11 @@ module Runners
                                           start_column: nil,
                                           end_line: issue[:endPosition][:line] + 1,
                                           end_column: nil)
-          result.add_issue Issues::Text.new(
+          result.add_issue Issue.new(
             path: relative_path(issue[:name]),
             location: loc,
             id: issue[:ruleName],
-            message: "#{issue[:failure]} (#{issue[:ruleName]})",
-            links: [],
+            message: issue[:failure],
           )
         end
       end

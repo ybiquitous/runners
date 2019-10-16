@@ -180,12 +180,11 @@ module Runners
               end_column: nil
             )
 
-            issues << Issues::Text.new(
+            issues << Issue.new(
               path: relative_path(path.to_s),
               location: loc,
               id: suggest[:source],
               message: suggest[:message],
-              links: []
             )
           end
         end

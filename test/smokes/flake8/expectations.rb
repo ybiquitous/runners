@@ -12,8 +12,9 @@ Smoke.add_test(
         start_line: 6
       },
       id: "E999",
-      message: "[E999] IndentationError: unexpected indent",
-      links: []
+      message: "IndentationError: unexpected indent",
+      links: [],
+      object: nil,
     },
     {
       path: "app1/admin.py",
@@ -21,8 +22,9 @@ Smoke.add_test(
         start_line: 1
       },
       id: "F401",
-      message: "[F401] 'django.contrib.admin' imported but unused",
-      links: []
+      message: "'django.contrib.admin' imported but unused",
+      links: [],
+      object: nil,
     },
     {
       path: "app1/tests.py",
@@ -30,8 +32,9 @@ Smoke.add_test(
         start_line: 1
       },
       id: "F401",
-      message: "[F401] 'django.test.TestCase' imported but unused",
-      links: []
+      message: "'django.test.TestCase' imported but unused",
+      links: [],
+      object: nil,
     },
     {
       path: "manage.py",
@@ -39,8 +42,9 @@ Smoke.add_test(
         start_line: 14
       },
       id: "F401",
-      message: "[F401] 'django' imported but unused",
-      links: []
+      message: "'django' imported but unused",
+      links: [],
+      object: nil,
     },
     {
       path: 'app1/models.py',
@@ -48,8 +52,9 @@ Smoke.add_test(
         start_line: 15,
       },
       id: 'F601',
-      message: "[F601] dictionary key 'name' repeated with different values",
+      message: "dictionary key 'name' repeated with different values",
       links: [],
+      object: nil,
     },
     {
       path: 'app1/models.py',
@@ -57,8 +62,9 @@ Smoke.add_test(
         start_line: 16,
       },
       id: 'F601',
-      message: "[F601] dictionary key 'name' repeated with different values",
+      message: "dictionary key 'name' repeated with different values",
       links: [],
+      object: nil,
     },
     {
       path: "app1/models.py",
@@ -66,8 +72,9 @@ Smoke.add_test(
         start_line: 12
       },
       id: "F821",
-      message: "[F821] undefined name 'ok'",
-      links: []
+      message: "undefined name 'ok'",
+      links: [],
+      object: nil,
     },
     {
       path: "app1/models.py",
@@ -75,8 +82,9 @@ Smoke.add_test(
         start_line: 13
       },
       id: "F841",
-      message: "[F841] local variable 'foo' is assigned to but never used",
-      links: []
+      message: "local variable 'foo' is assigned to but never used",
+      links: [],
+      object: nil,
     },
   ],
   analyzer: {
@@ -98,7 +106,8 @@ Smoke.add_test(
       },
       id: "E117",
       links: [],
-      message: "[E117] over-indented",
+      message: "over-indented",
+      object: nil,
     },
     {
       path: "foo.py",
@@ -106,8 +115,9 @@ Smoke.add_test(
         start_line: 2
       },
       id: "W191",
-      message: "[W191] indentation contains tabs",
-      links: []
+      message: "indentation contains tabs",
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {
@@ -140,8 +150,9 @@ Smoke.add_test(
         start_line: 2
       },
       id: "A001",
-      message: '[A001] "id" is a python builtin and is being shadowed, consider renaming the variable',
-      links: []
+      message: '"id" is a python builtin and is being shadowed, consider renaming the variable',
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {
@@ -156,29 +167,33 @@ Smoke.add_test(
   timestamp: :_,
   type: 'success',
   issues: [
-    {:message=>"[E302] expected 2 blank lines, found 1",
+    {:message=>"expected 2 blank lines, found 1",
      :links=>[],
      :id=>"E302",
      :path=>"foo.py",
      :location=>{:start_line=>4},
+     :object=>nil,
     },
-    {:message=>"[F841] local variable 'a' is assigned to but never used",
+    {:message=>"local variable 'a' is assigned to but never used",
      :links=>[],
      :id=>"F841",
      :path=>"foo.py",
      :location=>{:start_line=>5},
+     :object=>nil,
     },
-    {:message=>"[F841] local variable 'b' is assigned to but never used",
+    {:message=>"local variable 'b' is assigned to but never used",
      :links=>[],
      :id=>"F841",
      :path=>"foo.py",
      :location=>{:start_line=>6},
+     :object=>nil,
     },
-    {:message=>"[W391] blank line at end of file",
+    {:message=>"blank line at end of file",
      :links=>[],
      :id=>"W391",
      :path=>"foo.py",
      :location=>{:start_line=>8},
+     :object=>nil,
     },
   ],
   analyzer: {

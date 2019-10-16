@@ -15,7 +15,8 @@ Smoke.add_test(
       message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
       links: [
         'https://github.com/troessner/reek/blob/v5.4.0/docs/Duplicate-Method-Call.md'
-      ]
+      ],
+      object: nil,
     },
     {
       path: 'cat.rb',
@@ -26,7 +27,8 @@ Smoke.add_test(
       message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
       links: [
         'https://github.com/troessner/reek/blob/v5.4.0/docs/Duplicate-Method-Call.md'
-      ]
+      ],
+      object: nil,
     },
     {
       path: 'cat.rb',
@@ -37,7 +39,8 @@ Smoke.add_test(
       message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
       links: [
         'https://github.com/troessner/reek/blob/v5.4.0/docs/Duplicate-Method-Call.md'
-      ]
+      ],
+      object: nil,
     },
   ],
   analyzer: {
@@ -61,7 +64,8 @@ Smoke.add_test(
         message: "[ModuleInitialize] Cat has initialize method",
         links: [
           'https://github.com/troessner/reek/blob/v5.4.0/docs/Module-Initialize.md'
-        ]
+        ],
+        object: nil,
       },
     ],
     analyzer: {
@@ -86,7 +90,8 @@ Smoke.add_test(
         message: "[ModuleInitialize] Cat has initialize method",
         links: [
           'https://github.com/troessner/reek/blob/v5.4.0/docs/Module-Initialize.md'
-        ]
+        ],
+        object: nil,
       },
     ],
     analyzer: {
@@ -114,7 +119,8 @@ Smoke.add_test(
       path: "summer.rb",
       location: {
         start_line: 7
-      }
+      },
+      object: nil,
     },
     {
       message: "[NilCheck] Summer#summer_vacation performs a nil-check",
@@ -123,7 +129,8 @@ Smoke.add_test(
       path: "summer.rb",
       location: {
         start_line: 12
-      }
+      },
+      object: nil,
     }
   ],
   analyzer: {
@@ -167,7 +174,8 @@ Smoke.add_test(
       path: "world_cup.rb",
       location: {
         start_line: 3
-      }
+      },
+      object: nil,
     }
   ],
   analyzer: {
@@ -191,7 +199,8 @@ Smoke.add_test(
       message: "[ModuleInitialize] Cat has initialize method",
       links: [
         'https://github.com/troessner/reek/blob/master/docs/Module-Initialize.md'
-      ]
+      ],
+      object: nil,
     },
   ],
   analyzer: {
@@ -216,7 +225,8 @@ Smoke.add_test(
         message: "[ModuleInitialize] Cat has initialize method",
         links: [
           'https://github.com/troessner/reek/blob/v5.4.0/docs/Module-Initialize.md'
-        ]
+        ],
+        object: nil,
       },
     ],
     analyzer: {
@@ -245,7 +255,8 @@ Smoke.add_test("regex_directory_directive", {
       links: ["https://github.com/troessner/reek/blob/v5.4.0/docs/Nil-Check.md"],
       id: "NilCheck",
       path: "app/models/seasons/test/summer.rb",
-      location: { start_line: 8 }
+      location: { start_line: 8 },
+      object: nil,
     }
   ],
   analyzer: { name: 'Reek', version: "5.4.0" }

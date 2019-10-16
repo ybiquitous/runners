@@ -73,12 +73,11 @@ module Runners
             end_line: lineno,
             end_column: col + misspell.size,
           )
-          result.add_issue Issues::Text.new(
+          result.add_issue Issue.new(
             path: relative_path(file),
             location: loc,
             id: message,
             message: message,
-            links: [],
           )
         end
       end

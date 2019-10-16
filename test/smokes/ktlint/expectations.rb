@@ -13,21 +13,24 @@ Smoke.add_test(
         path: "src/Foo.kt",
         location: { start_line: 1 },
         message: "Not a valid Kotlin file (expecting a top level declaration) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       },
       {
         id: "indent",
         path: "src/App.kt",
         location: { start_line: 8 },
         message: "Unexpected indentation (2) (it should be 4) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       },
       {
         id: "indent",
         path: "src/App.kt",
         location: { start_line: 9 },
         message: "Unexpected indentation (12) (it should be 6) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       }
     ],
   }
@@ -46,14 +49,16 @@ Smoke.add_test(
         path: "src/App.kt",
         location: { start_line: 1 },
         message: "Package name must not contain underscore (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       },
       {
         id: "no-semi",
         path: "src/App.kt",
         location: { start_line: 6 },
         message: "Unnecessary semicolon",
-        links: []
+        links: [],
+        object: nil,
       },
     ],
   }
@@ -72,14 +77,16 @@ Smoke.add_test(
         path: "src/main/kotlin/gradle/App.kt",
         location: { start_line: 9 },
         message: "Unexpected indentation (12) (it should be 6) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       },
       {
         id: "5e2630c4",
         path: "src/main/kotlin/gradle/App.kt",
         location: { start_line: 8 },
         message: "Unexpected indentation (2) (it should be 4) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       },
     ],
   }
@@ -98,14 +105,16 @@ Smoke.add_test(
         path: "src/main/kotlin/gradle/App.kt",
         location: { start_line: 10 },
         message: "Unexpected indentation (6) (should be 4)",
-        links: []
+        links: [],
+        object: nil,
       },
       {
         id: "indent",
         path: "src/main/kotlin/gradle/App.kt",
         location: { start_line: 10 },
         message: "Unexpected indentation (6) (it should be 8) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       }
     ],
   }
@@ -124,14 +133,16 @@ Smoke.add_test(
         path: "src/main/App.kt",
         location: { start_line: 8 },
         message: "Unexpected indentation (2) (it should be 4) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       },
       {
         id: "indent",
         path: "src/main/App.kt",
         location: { start_line: 9 },
         message: "Unexpected indentation (12) (it should be 6) (cannot be auto-corrected)",
-        links: []
+        links: [],
+        object: nil,
       }
     ],
   }

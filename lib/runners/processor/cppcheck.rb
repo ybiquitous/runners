@@ -15,7 +15,6 @@ module Runners
 
       let :rule, object(
         severity: string,
-        message: string,
         verbose: string?,
         inconclusive: boolean,
         cwe: string?,
@@ -110,13 +109,13 @@ module Runners
     def parse_result(xml_doc)
       xml_doc.root.each_element("errors/error") do |err|
         err.each_element("location") do |loc|
-          yield Issues::Structured.new(
+          yield Issue.new(
             id: err[:id],
             path: relative_path(loc[:file]),
             location: Location.new(start_line: loc[:line]),
+            message: err[:msg],
             object: {
               severity: err[:severity],
-              message: err[:msg],
               verbose: err[:verbose] != err[:msg] ? err[:verbose] : nil,
               inconclusive: err[:inconclusive] == "true",
               cwe: err[:cwe],

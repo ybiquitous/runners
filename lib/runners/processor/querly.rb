@@ -81,11 +81,12 @@ module Runners
                                             start_column: hash[:location][:start][1],
                                             end_line: hash[:location][:end][0],
                                             end_column: hash[:location][:end][1])
-
-            result.add_issue Issues::Structured.new(
+            msgs = hash[:rule][:messages]
+            result.add_issue Issue.new(
               path: path,
               location: loc,
               id: hash[:rule][:id],
+              message: (msgs && msgs[0]) || "No message",
               object: hash[:rule],
               schema: Schema.rule
             )

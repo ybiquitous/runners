@@ -58,7 +58,7 @@ module Runners
               end_line: nil,
               end_column: nil
             )
-            result.add_issue Issues::Text.new(
+            result.add_issue Issue.new(
               path: relative_path(hash[:source]),
               location: loc,
               id: hash[:smell_type],

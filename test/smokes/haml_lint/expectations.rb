@@ -15,7 +15,8 @@ Smoke.add_test(
     links: [],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
-    location: { start_line: 4 }
+    location: { start_line: 4 },
+    object: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.33.0'})
 
@@ -29,7 +30,8 @@ Smoke.add_test(
     links: [],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
-    location: { start_line: 4 }
+    location: { start_line: 4 },
+    object: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.33.0'})
 
@@ -43,7 +45,8 @@ Smoke.add_test(
     links: [],
     id: "RuboCop",
     path: "test.haml",
-    location: {start_line: 3}
+    location: {start_line: 3 },
+    object: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.33.0'})
 
@@ -57,7 +60,8 @@ Smoke.add_test(
     links: [],
     id: "RuboCop",
     path: "test.haml",
-    location: {start_line: 3}
+    location: {start_line: 3 },
+    object: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.30.0'})
 
@@ -73,7 +77,8 @@ Smoke.add_test(
     links: [],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
-    location: { start_line: 4 }
+    location: { start_line: 4 },
+    object: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.33.0'})
 
@@ -87,14 +92,16 @@ Smoke.add_test("with_exclude_files", {
       links: [],
       id: "ConsecutiveSilentScripts",
       path: "hello.haml",
-      location: { start_line: 2 }
+      location: { start_line: 2 },
+      object: nil,
     },
     {
       message:  "Illegal nesting: content can't be both given on the same line as %span and nested within it.",
       links: [],
       id: "Syntax",
       path: "test.haml",
-      location: { start_line: 3 }
+      location: { start_line: 3 },
+      object: nil,
     }
   ],
   analyzer: { name: 'haml_lint', version: '0.33.0' }
@@ -118,7 +125,8 @@ Smoke.add_test(
              links: [],
              id: 'ClassAttributeWithStaticValue',
              path: 'test.haml',
-             location: { start_line: 4 }
+             location: { start_line: 4 },
+             object: nil,
            }],
   analyzer: {name: 'haml_lint', version: '0.26.0'})
 
@@ -132,7 +140,8 @@ Smoke.add_test(
              links: [],
              id: 'ClassAttributeWithStaticValue',
              path: 'test.haml',
-             location: { start_line: 4 }
+             location: { start_line: 4 },
+             object: nil,
            }],
   analyzer: {name: 'haml_lint', version: '0.33.0'})
 
@@ -149,7 +158,8 @@ Smoke.add_test(
              links: [],
              id: 'ClassAttributeWithStaticValue',
              path: 'test.haml',
-             location: { start_line: 4 }
+             location: { start_line: 4 },
+             object: nil,
            }],
   analyzer: {name: 'haml_lint', version: '0.28.0'}
 )
@@ -165,7 +175,8 @@ Smoke.add_test('pinned_haml_version', {
     links: [],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
-    location: { start_line: 4 }
+    location: { start_line: 4 },
+    object: nil,
   }],
   analyzer: { name: 'haml_lint', version: '0.32.0' }
 })

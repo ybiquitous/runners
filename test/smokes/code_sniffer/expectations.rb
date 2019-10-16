@@ -9,7 +9,8 @@ Smoke.add_test("success", {
       location: { :start_line => 18 },
       id: "PSR2.Files.ClosingTag.NotAllowed",
       message: "A closing tag is not permitted at the end of a PHP file",
-      links: []
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {
@@ -27,7 +28,8 @@ Smoke.add_test("specified_dir", {
       location: { :start_line => 6 },
       id: "PSR2.Files.ClosingTag.NotAllowed",
       message: "A closing tag is not permitted at the end of a PHP file",
-      links: []
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {
@@ -77,7 +79,8 @@ Smoke.add_test("version_2", {
       location: { :start_line => 18 },
       id: "PSR2.Files.ClosingTag.NotAllowed",
       message: "A closing tag is not permitted at the end of a PHP file",
-      links: []
+      links: [],
+      object: nil,
     }
   ],
   analyzer: {

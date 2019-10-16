@@ -148,12 +148,7 @@ module Runners
     def issue_parameters(details)
       rule_id = details[:ruleId]
       rule_message = details[:message]
-      message =
-        if rule_id
-          "#{severity_hander(details)} - #{rule_message} (#{rule_id})"
-        else
-          "#{severity_hander(details)} - #{rule_message}"
-        end
+      message = "#{severity_hander(details)} - #{rule_message}"
       unless rule_id
         trace_writer.message("No id found! - #{rule_message}")
         rule_id = Digest::SHA1.hexdigest(message)
@@ -176,12 +171,11 @@ module Runners
               end_line: nil,
               end_column: nil
             )
-            Issues::Text.new(
+            Issue.new(
               path: path,
               location: loc,
               id: id,
               message: message,
-              links: []
             )
           end
         end

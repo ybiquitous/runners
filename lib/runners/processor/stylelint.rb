@@ -140,12 +140,11 @@ module Runners
             end_line: nil,
             end_column: nil
           )
-          Issues::Text.new(
+          Issue.new(
             path: relative_path(fname),
             location: loc,
             id: warn['rule'],
             message: warn['text'],
-            links: []
           )
         end
       end

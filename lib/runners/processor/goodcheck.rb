@@ -103,10 +103,11 @@ module Runners
             justifications: hash[:justifications]
           }
 
-          issue = Issues::Structured.new(
+          issue = Issue.new(
             path: path,
             location: location,
             id: id,
+            message: hash[:message],
             object: object,
             schema: Schema.rule
           )

@@ -3,7 +3,7 @@ require_relative "test_helper"
 class IssueTest < Minitest::Test
   include TestHelper
 
-  Issues = Runners::Issues
+  Issue = Runners::Issue
   Location = Runners::Location
 
   def test_structured_issue
@@ -11,20 +11,23 @@ class IssueTest < Minitest::Test
       let :object, array(string)
     end
 
-    issue = Issues::Structured.new(path: Pathname("app/models/person.rb"),
-                                   location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
-                                   id: "foo.bar",
-                                   object: ["no such method??"],
-                                   schema: s.object)
-
-    assert issue.valid?
-
-    assert_unifiable(issue.as_json, {
-      path: "app/models/person.rb",
-      location: :_,
+    issue = Issue.new(
+      path: Pathname("app/models/person.rb"),
+      location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
       id: "foo.bar",
+      message: "test message",
       object: ["no such method??"],
-    })
+      schema: s.object,
+    )
+
+    assert_equal({
+      path: "app/models/person.rb",
+      location: { start_line: 1, start_column: 1, end_line: 1, end_column: 1 },
+      id: "foo.bar",
+      message: "test message",
+      links: [],
+      object: ["no such method??"],
+    }, issue.as_json)
   end
 
   def test_structured_issue_without_location
@@ -32,20 +35,23 @@ class IssueTest < Minitest::Test
       let :object, array(string)
     end
 
-    issue = Issues::Structured.new(path: Pathname("app/models/person.rb"),
-                                   location: nil,
-                                   id: "foo.bar",
-                                   object: ["no such method??"],
-                                   schema: s.object)
+    issue = Issue.new(
+      path: Pathname("app/models/person.rb"),
+      location: nil,
+      id: "foo.bar",
+      message: "test message",
+      object: ["no such method??"],
+      schema: s.object,
+    )
 
-    assert issue.valid?
-
-    assert_unifiable(issue.as_json, {
+    assert_equal({
       path: "app/models/person.rb",
       location: nil,
       id: "foo.bar",
+      message: "test message",
+      links: [],
       object: ["no such method??"],
-    })
+    }, issue.as_json)
   end
 
   def test_structured_issue_with_invalid_object
@@ -53,91 +59,46 @@ class IssueTest < Minitest::Test
       let :object, array(string)
     end
 
-    issue = Issues::Structured.new(
-      path: Pathname("app/models/person.rb"),
-      location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
-      id: "foo.bar",
-      object: [3],
-      schema: s.object,
-    )
-    refute issue.valid?
-    assert_equal ["Invalid `object`: [3]"], issue.errors
-  end
-
-  def test_structured_issue_with_object_schemes
-    s = StrongJSON.new do
-      let :strings, array(string)
-      let :numbers, array(number)
+    error = assert_raises StrongJSON::Type::TypeError do
+      Issue.new(
+        path: Pathname("app/models/person.rb"),
+        location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
+        id: "foo.bar",
+        message: "test message",
+        object: [3],
+        schema: s.object,
+      )
     end
-
-    Issues::Structured.new(path: Pathname("app/models/person.rb"),
-                           location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
-                           id: "foo.bar",
-                           object: [3],
-                           schema: [s.strings, s.numbers])
+    assert_equal "TypeError at $[0]: expected=string, value=3", error.message
   end
 
   def test_structured_issue_without_object_schema
-    Issues::Structured.new(path: Pathname("app/models/person.rb"),
-                           location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
-                           id: "foo.bar",
-                           object: [3],
-                           schema: nil)
+    Issue.new(
+      path: Pathname("app/models/person.rb"),
+      location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
+      id: "foo.bar",
+      message: "test message",
+      object: [3],
+      schema: nil,
+    )
   end
 
   def test_plaintext_issue
-    issue = Issues::Text.new(path: Pathname("foo/bar"),
-                             location: Location.new(start_line: 1, start_column: nil, end_line: 2, end_column: nil),
-                             id: "missing.comment",
-                             message: "Comment is missing??",
-                             links: ["https://github.com/foo.bar"])
-
-    assert issue.valid?
-
-    assert_unifiable(issue.as_json, {
-      path: "foo/bar",
-      location: :_,
+    issue = Issue.new(
+      path: Pathname("foo/bar"),
+      location: Location.new(start_line: 1, start_column: nil, end_line: 2, end_column: nil),
       id: "missing.comment",
       message: "Comment is missing??",
-      links: ["https://github.com/foo.bar"]
-    })
-  end
-
-  def test_validaion_errors_of_text_issue
-    issue = Issues::Text.new(
-      path: "foo/bar",
-      location: Location.new(start_line: 1, start_column: 1, end_line: 2, end_column: nil),
-      id: "",
-      message: "",
-      links: [1],
+      links: ["https://github.com/foo.bar"],
     )
 
-    error = assert_raises(Issues::InvalidIssueError) { issue.ensure_validity }
-    assert_equal <<~MSG.chomp, error.message
-      Invalid path: "foo/bar"
-      Empty `id`
-      Empty `message`
-      Not a string array: `links`
-    MSG
-  end
-
-  def test_validaion_errors_of_structured_issue
-    schema = StrongJSON.new do
-      let :object, array(string)
-    end
-    issue = Issues::Structured.new(
+    assert_equal({
       path: "foo/bar",
-      location: Location.new(start_line: 1, start_column: 1, end_line: 2, end_column: nil),
-      id: "",
+      location: { start_line: 1, end_line: 2 },
+      id: "missing.comment",
+      message: "Comment is missing??",
+      links: ["https://github.com/foo.bar"],
       object: nil,
-      schema: schema.object,
-    )
-
-    error = assert_raises(Issues::InvalidIssueError) { issue.ensure_validity }
-    assert_equal <<~MSG.chomp, error.message
-      Invalid path: "foo/bar"
-      Empty `id`
-      Empty `object`
-    MSG
+    }, issue.as_json)
   end
 end

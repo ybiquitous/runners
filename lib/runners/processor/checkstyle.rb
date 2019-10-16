@@ -101,12 +101,11 @@ module Runners
 
             next if ignored_severities.include?(severity)
 
-            issue = Issues::Text.new(
+            issue = Issue.new(
               path: path,
               location: Location.new(start_line: line),
               id: id,
               message: message,
-              links: [],
             )
 
             result.add_issue issue

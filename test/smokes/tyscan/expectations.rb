@@ -11,6 +11,8 @@ Smoke.add_test("success", {
       { path: "index.tsx",
         location: { :start_line => 14, :start_column => 19, :end_line => 14, :end_column => 28 },
         id: "com.example.user_name",
+        message: "Note that the `name` is not full name, but nickname",
+        links: [],
         object: { :id => "com.example.user_name",
                   :message => "Note that the `name` is not full name, but nickname" } }
   ],
@@ -46,6 +48,8 @@ Smoke.add_test("package_json_not_found", {
     { path: "index.tsx",
       location: { :start_line => 14, :start_column => 19, :end_line => 14, :end_column => 28 },
       id: "com.example.user_name",
+      message: "Note that the `name` is not full name, but nickname",
+      links: [],
       object: { :id => "com.example.user_name",
                 :message => "Note that the `name` is not full name, but nickname" } }
   ],
@@ -71,6 +75,8 @@ Smoke.add_test("tyscan_not_found", {
     { path: "index.tsx",
       location: { :start_line => 14, :start_column => 19, :end_line => 14, :end_column => 28 },
       id: "com.example.user_name",
+      message: "Note that the `name` is not full name, but nickname",
+      links: [],
       object: { :id => "com.example.user_name",
                 :message => "Note that the `name` is not full name, but nickname" } }
   ],
@@ -110,11 +116,15 @@ Smoke.add_test("options", {
     { path: "frontend/index.tsx",
       location: { :start_line => 14, :start_column => 19, :end_line => 14, :end_column => 28 },
       id: "com.example.user_name",
+      message: "Note that the `name` is not full name, but nickname",
+      links: [],
       object: { :id => "com.example.user_name",
                 :message => "Note that the `name` is not full name, but nickname" } },
     { path: "frontend/src/index.tsx",
       location: { :start_line => 14, :start_column => 19, :end_line => 14, :end_column => 28 },
       id: "com.example.user_name",
+      message: "Note that the `name` is not full name, but nickname",
+      links: [],
       object: { :id => "com.example.user_name",
                 :message => "Note that the `name` is not full name, but nickname" } },
   ],
@@ -132,6 +142,8 @@ Smoke.add_test("tests_failed", {
     { path: "index.tsx",
       location: { :start_line => 14, :start_column => 19, :end_line => 14, :end_column => 28 },
       id: "com.example.user_name",
+      message: "Note that the `name` is not full name, but nickname",
+      links: [],
       object: { :id => "com.example.user_name",
                 :message => "Note that the `name` is not full name, but nickname" } }
   ],
@@ -153,6 +165,8 @@ Smoke.add_test("jsx_element", {
         id: "smoke.jsx",
         message: "Est-ce que nous avons confirmé français au le `id`."
       },
+      message: "Est-ce que nous avons confirmé français au le `id`.",
+      links: [],
       id: "smoke.jsx",
       path: "index.tsx",
       location: { start_line: 12, start_column: 7, end_line: 12, end_column: 43 }

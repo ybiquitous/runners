@@ -12,6 +12,7 @@ Smoke.add_test(
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -39,6 +40,7 @@ Smoke.add_test(
        :links=>["https://github.com/bbatsov/ruby-style-guide#consistent-string-literals"],
        :id=>"Style/StringLiterals",
        :path=>"Gemfile",
+       :object=>nil,
        :location=>
          {:start_line=>1, :start_column=>8, :end_line=>1, :end_column=>8}},
     ],
@@ -64,6 +66,7 @@ Smoke.add_test(
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -89,6 +92,7 @@ Smoke.add_test(
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -114,6 +118,7 @@ Smoke.add_test(
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -139,6 +144,7 @@ Smoke.add_test(
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -164,6 +170,7 @@ Smoke.add_test(
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>10}},
     ],
@@ -204,6 +211,7 @@ Smoke.add_test(
        :links=>[],
        :id=>"Style/ExpandPathArguments",
        :path=>"test.gemspec",
+       :object=>nil,
        :location=>
          {:start_line=>2, :start_column=>12, :end_line=>2, :end_column=>22}},
     ],
@@ -229,6 +237,7 @@ Smoke.add_test(
        :links=>['https://github.com/rubocop-hq/ruby-style-guide#80-character-limits'],
        :id=>"Metrics/LineLength",
        :path=>"Gemfile",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>81, :end_line=>3, :end_column=>91}},
       {:message=>
@@ -236,6 +245,7 @@ Smoke.add_test(
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
+       :object=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>10}},
     ],
@@ -258,6 +268,7 @@ Smoke.add_test(
        :links=>[],
        :id=>"Lint/MultipleCompare",
        :path=>"app.rb",
+       :object=>nil,
        :location=>
          {:start_line=>2, :start_column=>4, :end_line=>2, :end_column=>14}},
     ],

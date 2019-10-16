@@ -226,12 +226,11 @@ module Runners
     end
 
     def construct_issue(file:, line:, message:, rule: "")
-      Issues::Text.new(
+      Issue.new(
         path: relative_path(working_dir.realpath / file, from: working_dir.realpath),
         location: Location.new(start_line: line),
         id: rule.empty? ? Digest::SHA1.hexdigest(message)[0, 8] : rule,
         message: message,
-        links: [],
       )
     end
 
