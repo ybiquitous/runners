@@ -56,10 +56,18 @@ module Runners
         properties = properties_file()
         trace_writer.message("Properties file: #{properties}") if properties
 
-        output, _, _ = capture3(analyzer_bin, *dir, *checkstyle_args(config: config_file, excludes: excludes, properties: properties))
+        stdout, stderr, _ = capture3(analyzer_bin, *dir, *checkstyle_args(config: config_file, excludes: excludes, properties: properties))
 
-        Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
-          construct_result(result, output)
+        xml_root = REXML::Document.new(stdout).root
+        if xml_root
+          Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
+            construct_result(xml_root) do |issue|
+              result.add_issue(issue)
+            end
+          end
+        else
+          message = stdout.empty? ? stderr.lines.first : stdout
+          Results::Failure.new(guid: guid, analyzer: analyzer, message: message.strip)
         end
       end
     end
@@ -82,8 +90,8 @@ module Runners
       end
     end
 
-    def construct_result(result, output)
-      REXML::Document.new(output).root.each_element("file") do |file|
+    def construct_result(xml_root)
+      xml_root.each_element("file") do |file|
         path = relative_path file[:name]
 
         file.each_element do |error|
@@ -101,14 +109,12 @@ module Runners
 
             next if ignored_severities.include?(severity)
 
-            issue = Issue.new(
+            yield Issue.new(
               path: path,
               location: Location.new(start_line: line),
               id: id,
               message: message,
             )
-
-            result.add_issue issue
           when "exception"
             add_warning element_.get_text.value.strip, file: path.to_s
           end
