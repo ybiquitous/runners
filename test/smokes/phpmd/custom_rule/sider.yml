@@ -1,0 +1,6 @@
+linter:
+  phpmd:
+    rule: custom_ruleset.xml
+    custom_rule_path:
+      - NoFunctions.php
+      - custom/**/*.php

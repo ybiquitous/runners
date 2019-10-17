@@ -121,3 +121,36 @@ Smoke.add_test("broken_sideci_yml", {
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.phpmd.minimumpriority`",
   analyzer: nil
 })
+
+Smoke.add_test("custom_rule", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [
+    {
+      path: "foo.php",
+      location: { start_line: 3, end_line: 5 },
+      id: "NoFunctions",
+      message: "Please do not use functions.",
+      links: ["https://example.com/phpmd/rules/no-functions"],
+      object: nil,
+    },
+    {
+      path: "Custom_NoFunctions.php",
+      location: { start_line: 6, end_line: 9 },
+      id: "NoMethods",
+      message: "Please do not use methods.",
+      links: ["https://example.com/phpmd/rules/no-methods"],
+      object: nil,
+    },
+    {
+      path: "custom/rules/NoMethods.php",
+      location: { start_line: 8, end_line: 11 },
+      id: "NoMethods",
+      message: "Please do not use methods.",
+      links: ["https://example.com/phpmd/rules/no-methods"],
+      object: nil,
+    },
+  ],
+  analyzer: { name: "phpmd", version: "2.7.0" },
+})
