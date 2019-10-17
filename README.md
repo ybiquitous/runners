@@ -34,6 +34,7 @@ See also another related project, called [devon_rex](https://github.com/sider/de
 - Reek
 - RuboCop
 - SCSS-Lint
+- ShellCheck
 - stylelint
 - SwiftLint
 - TSLint
