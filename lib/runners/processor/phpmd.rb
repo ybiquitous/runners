@@ -9,7 +9,7 @@ module Runners
                         suffixes: string?,
                         exclude: string?,
                         strict: boolean?,
-                        custom_rule: array?(string),
+                        custom_rule_path: array?(string),
                         # DO NOT ADD ANY OPTIONS in `options` option.
                         options: optional(object(
                                             rule: string?,
@@ -47,7 +47,7 @@ module Runners
     end
 
     def prepare_analysis_files(changes, config)
-      delete_unchanged_files(changes, only: target_files(config), except: config[:custom_rule] || [])
+      delete_unchanged_files(changes, only: target_files(config), except: config[:custom_rule_path] || [])
 
       trace_writer.message "Changed files:" do
         changes.changed_files.each do |file|
