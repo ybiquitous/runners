@@ -82,20 +82,20 @@ namespace :dockerfile do
     Rake::Task["dockerfile:generate"].invoke
     puts ""
 
-    sh "git add images/"
-    commit_message = <<~MSG
+    sh "git", "checkout", "-B", "bump_devon_rex"
+    sh "git", "add", "images/"
+    sh "git", "commit", "--message", <<~MSG
       Bump devon_rex images to #{next_version}
 
       Via:
       ```
-      $ bundle exec rake dockerfile:bump_devon_rex[#{next_version}]
+      $ bundle exec rake dockerfile:bump_devon_rex'[#{next_version}]'
       ```
 
       See also:
       - https://github.com/sider/devon_rex/releases/tag/#{next_version}
       - https://github.com/sider/devon_rex/blob/master/CHANGELOG.md
     MSG
-    sh "git commit -m '#{commit_message}'"
 
     Rake::Task["dockerfile:verify"].invoke
   end
