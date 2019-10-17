@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.6.0...HEAD)
 
+- [JSHint] Consider broken package.json [#327](https://github.com/sider/runners/pull/327)
+
 ## 0.6.0
 
 [Full diff](https://github.com/sider/runners/compare/0.5.2...0.6.0)
