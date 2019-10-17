@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Improve Checkstyle invalid XML error message [#322](https://github.com/sider/runners/pull/322)
 - Improve PHPMD custom rule support [#323](https://github.com/sider/runners/pull/323)
 - Make timeout(1) call SIGUSR2 and trap it in bin/runners [#320](https://github.com/sider/runners/pull/320)
+- Bump devon_rex images from 2.4.0 to 2.5.0 [#324](https://github.com/sider/runners/pull/324)
 
 ## 0.5.2
 
