@@ -1,5 +1,7 @@
 module Runners
   class Processor::Jshint < Processor
+    include Nodejs
+
     Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.base.update_fields { |fields|
         fields.merge!({
@@ -41,8 +43,14 @@ module Runners
     def jshintrc_exist?(config)
       return true if config_path(config)
       return true if (current_dir + '.jshintrc').exist? || (current_dir + '.jshintignore').exist?
-      return true if (current_dir + 'package.json').exist? && JSON.parse(File.read(current_dir + 'package.json'))['jshintConfig']
-      return false
+
+      begin
+        return true if package_json_path.exist? && package_json[:jshintConfig]
+      rescue JSON::ParserError => exn
+        add_warning "`package.json` is broken: #{exn.message}", file: "package.json"
+      end
+
+      false
     end
 
     def config_path(config)

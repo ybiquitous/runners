@@ -113,3 +113,15 @@ Smoke.add_test("with_options", {
   ],
   analyzer: { name: 'JSHint', version: '2.10.2' },
 })
+
+Smoke.add_test("broken_package_json", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [],
+  analyzer: { name: "JSHint", version: "2.10.2" },
+}, {
+  warnings: [
+    { message: /`package.json` is broken: 767: unexpected token at/, file: "package.json" },
+  ],
+})
