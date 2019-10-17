@@ -54,7 +54,7 @@ jobs:
       - run: bundle exec rake typecheck
       - run: bundle exec rake dockerfile:generate
       - run: bundle exec rake dockerfile:verify
-  test-timeout:
+  timeout_test:
     docker:
       - image: circleci/ruby:2.6.4
     steps:
@@ -62,10 +62,6 @@ jobs:
       - install_gems
       - setup_remote_docker
       - run: bundle exec rake docker:timeout_test
-    environment:
-      # NOTE: Either analyzer is fine, I chose it because of its lightness.
-      ANALYZER: code_sniffer
-      TAG: dev
   runner_rubocop:
     environment:
       ANALYZER: rubocop
@@ -188,7 +184,7 @@ workflows:
   build:
     jobs:
       - test-base
-      - test-timeout
+      - timeout_test
       - runner_rubocop: { filters: { tags: { only: /.*/ } } }
       - runner_rails_best_practices: { filters: { tags: { only: /.*/ } } }
       - runner_reek: { filters: { tags: { only: /.*/ } } }
