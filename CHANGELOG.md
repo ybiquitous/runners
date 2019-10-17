@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Fix Checkstyle output XML parse error [#319](https://github.com/sider/runners/pull/319)
 - Improve Goodcheck error message [#321](https://github.com/sider/runners/pull/321)
 - Improve Checkstyle invalid XML error message [#322](https://github.com/sider/runners/pull/322)
+- Improve PHPMD custom rule support [#323](https://github.com/sider/runners/pull/323)
 
 ## 0.5.2
 
