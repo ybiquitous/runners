@@ -41,4 +41,4 @@ USER root
 RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
 USER $RUNNER_USER
 
-ENTRYPOINT ["/usr/bin/timeout", "--kill-after=10s", "30m", "runners", "--analyzer=coffeelint"]
+ENTRYPOINT ["/usr/bin/timeout", "--signal=SIGUSR2", "--kill-after=10s", "30m", "runners", "--analyzer=coffeelint"]
