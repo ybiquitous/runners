@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.5.2...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.6.0...HEAD)
+
+## 0.6.0
+
+[Full diff](https://github.com/sider/runners/compare/0.5.2...0.6.0)
 
 - Reconsider issue data structure [#313](https://github.com/sider/runners/pull/313)
 - Fix PHPMD target files with `suffixes` option [#318](https://github.com/sider/runners/pull/318)
