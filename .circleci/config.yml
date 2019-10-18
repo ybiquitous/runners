@@ -28,7 +28,7 @@ commands:
 
 runner_job: &runner_job
   docker:
-    - image: circleci/ruby:2.6.4
+    - image: circleci/ruby:2.6.5
   steps:
     - checkout
     - install_gems
@@ -45,7 +45,7 @@ runner_job: &runner_job
 jobs:
   test-base:
     docker:
-      - image: circleci/ruby:2.6.4
+      - image: circleci/ruby:2.6.5
     steps:
       - checkout
       - install_gems
@@ -56,7 +56,7 @@ jobs:
       - run: bundle exec rake dockerfile:verify
   timeout_test:
     docker:
-      - image: circleci/ruby:2.6.4
+      - image: circleci/ruby:2.6.5
     steps:
       - checkout
       - install_gems
