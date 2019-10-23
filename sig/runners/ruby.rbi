@@ -79,15 +79,16 @@ class Runners::Ruby::LockfileLoader
   attr_reader shell: Shell
 
   def initialize: (root_dir: Pathname, shell: Shell) -> any
-
-  def gemfile_path: -> Pathname
   def ensure_lockfile: <'x> () { (Lockfile) -> 'x } -> 'x
+  def gemfile_path: -> Pathname
+  def gemfile_lock_path: -> Pathname
+  def generate_lockfile: (Pathname) -> Pathname?
 end
 
 class Runners::Ruby::LockfileLoader::Lockfile
   attr_reader specs: Array<any>
 
-  def initialize: (Pathname?) -> any
+  def initialize: (String?) -> any
 
   def spec_exists?: (String) -> bool
   def locked_version: (String) -> String?
