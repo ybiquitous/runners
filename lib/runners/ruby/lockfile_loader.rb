@@ -21,11 +21,10 @@ module Runners
 
           lockfile_path = case
                           when gemfile_path.file? && original_lockfile_path.file?
-                            shell.trace_writer.message "Gemfile & Gemfile.lock detected"
+                            shell.trace_writer.message "Gemfile and Gemfile.lock detected"
                             original_lockfile_path
                           when gemfile_path.file?
-                            shell.trace_writer.message "Gemfile detected"
-                            shell.trace_writer.message "Generating Gemfile.lock..."
+                            shell.trace_writer.message "By using detected Gemfile, generating Gemfile.lock..."
                             generated_lockfile_path = Pathname(dir) + "Gemfile.lock"
                             begin
                               Bundler.with_clean_env do
@@ -36,21 +35,21 @@ module Runners
                               end
                               generated_lockfile_path
                             rescue Shell::ExecError
-                              shell.trace_writer.error "An error was found in Gemfile. But Sider will continue the analysis process by ignoring your dependencies."
-                              shell.trace_writer.error "If you want to make us aware of your dependencies, Fix the Gemfile according to the above error messages, or commit your Gemfile.lock."
+                              shell.trace_writer.error <<~MESSAGE
+                                An error was found in your Gemfile but Sider continues the analysis by ignoring your dependencies.
+                                If you want to make Sider aware of your dependencies, please fix the Gemfile according to the above error message, or commit your Gemfile.lock.
+                              MESSAGE
                               nil
                             end
                           end
 
-          lockfile = begin
-                       Lockfile.new(lockfile_path)
-                     rescue Bundler::LockfileError
-                       raise InvalidGemfileLock.new(<<~MESSAGE)
-                         An error was found in `Gemfile.lock`. Fix the `Gemfile.lock` according to the above error messages.
-                       MESSAGE
-                     end
-
-          yield lockfile
+          begin
+            yield Lockfile.new(lockfile_path)
+          rescue Bundler::LockfileError
+            raise InvalidGemfileLock.new(<<~MESSAGE)
+              An error was found in the Gemfile.lock. Please fix the Gemfile.lock according to the above error message.
+            MESSAGE
+          end
         end
       end
     end
