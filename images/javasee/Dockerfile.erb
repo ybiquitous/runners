@@ -1,15 +1,16 @@
 FROM sider/devon_rex_java:2.6.0
 
-<%= render_erb 'images/Dockerfile.base.erb' %>
-
-ENV JAVASEE_VERSION 0.1.1
+ARG JAVASEE_VERSION=0.1.1
 USER root
-RUN curl -O -L https://github.com/sider/JavaSee/releases/download/${JAVASEE_VERSION}/JavaSee-bin-${JAVASEE_VERSION}.zip \
-  && unzip JavaSee-bin-${JAVASEE_VERSION}.zip \
-  && mv JavaSee-${JAVASEE_VERSION} /usr/local/JavaSee \
-  && ln -s /usr/local/JavaSee/bin/javasee /usr/local/bin/javasee \
-  && rm -rf *.zip
+RUN mkdir /tmp/javasee_work && \
+    cd /tmp/javasee_work && \
+    curl -sSLO https://github.com/sider/JavaSee/releases/download/${JAVASEE_VERSION}/JavaSee-bin-${JAVASEE_VERSION}.zip && \
+    unzip JavaSee-bin-${JAVASEE_VERSION}.zip && \
+    mv JavaSee-${JAVASEE_VERSION} /usr/local/JavaSee && \
+    ln -s /usr/local/JavaSee/bin/javasee /usr/local/bin/javasee && \
+    cd /tmp && \
+    rm -rf /tmp/javasee_work && \
+    javasee version
 
-USER $RUNNER_USER
-
+<%= render_erb 'images/Dockerfile.base.erb' %>
 <%= render_erb 'images/Dockerfile.end.erb' %>
