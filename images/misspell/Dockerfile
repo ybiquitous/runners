@@ -4,6 +4,14 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_base:2.6.0
 
+USER root
+ARG MISSPELL_VERSION=0.3.4
+RUN curl -sSL https://git.io/misspell -o install-misspell && \
+    chmod +x install-misspell && \
+    ./install-misspell -b /usr/local/bin "v${MISSPELL_VERSION}" && \
+    rm install-misspell && \
+    misspell -v
+
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
@@ -17,14 +25,6 @@ RUN cd ${RUNNERS_DIR} && \
     bundle config && \
     bundle install --without='development test'
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
-
-USER root
-ENV MISSPELL_VERSION=v0.3.4
-RUN curl -L -o install-misspell.sh https://git.io/misspell && \
-    sh ./install-misspell.sh -b /usr/local/bin $MISSPELL_VERSION && \
-    rm ./install-misspell.sh
-USER $RUNNER_USER
-
 # Copy the main source code
 COPY bin ${RUNNERS_DIR}/bin
 COPY lib ${RUNNERS_DIR}/lib
