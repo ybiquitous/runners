@@ -151,11 +151,6 @@ extension Hash (Polyfill)
   def compact: -> self
 end
 
-class Bundler::LockfileParser
-  def initialize: (String) -> any
-  def specs: -> any
-end
-
 class Psych::SyntaxError
 end
 

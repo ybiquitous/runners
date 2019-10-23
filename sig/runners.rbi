@@ -260,7 +260,6 @@ Runners::Ruby::GemInstaller::DEFAULT_SOURCE: String
 
 class Runners::Ruby::GemInstaller
   attr_reader trace_writer: TraceWriter
-  attr_reader env_hash: Hash<String, String?>
   attr_reader gem_home: Pathname
   attr_reader specs: Array<Spec>
   attr_reader shell: Shell
