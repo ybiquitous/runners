@@ -28,13 +28,14 @@ module Runners
 
     def default_specs(specs, constraints, lockfile)
       specs.map do |spec|
-        if lockfile.spec_exists?(spec.name)
-          if lockfile.satisfied_by?(spec.name, constraints)
+        if lockfile.spec_exists?(spec)
+          if lockfile.satisfied_by?(spec, constraints)
             spec.override_by_lockfile(lockfile)
           else
+            locked_version = lockfile.locked_version!(spec)
             add_warning <<~MESSAGE
-              Sider tried to install `#{spec.name} #{lockfile.locked_version(spec.name)}` according to your `Gemfile.lock`, but it installs `#{spec.version.first}` instead.
-              Because `#{lockfile.locked_version(spec.name)}` does not satisfy the Sider constraints #{constraints[spec.name]}.
+              Sider tried to install `#{spec.name} #{locked_version}` according to your `Gemfile.lock`, but it installs `#{spec.version.first}` instead.
+              Because `#{locked_version}` does not satisfy the Sider constraints #{constraints[spec.name]}.
 
               If you want to use a different version of `#{spec.name}`, update your `Gemfile.lock` to satisfy the constraint or specify the gem version in your `#{ci_config_path_name}`.
               See https://help.sider.review/getting-started/custom-configuration#gems-option
@@ -48,7 +49,7 @@ module Runners
     end
 
     def optional_specs(specs, lockfile)
-      specs.select { |spec| lockfile.spec_exists?(spec.name) }
+      specs.select { |spec| lockfile.spec_exists?(spec) }
            .map { |spec| spec.override_by_lockfile(lockfile) }
     end
 

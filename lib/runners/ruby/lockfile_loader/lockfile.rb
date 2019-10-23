@@ -6,26 +6,44 @@ module Runners
 
         def initialize(lockfile_content)
           @specs = if lockfile_content
-                     LockfileParser.parse(lockfile_content).specs
+                     LockfileParser.parse(lockfile_content).specs.map do |spec|
+                       GemInstaller::Spec.new(name: spec.name, version: Array(spec.version.version))
+                     end
                    else
                      []
                    end
         end
 
-        def spec_exists?(name)
-          specs.any? {|spec| spec.name == name }
+        def spec_exists?(spec)
+          !!find_spec(spec)
         end
 
-        def locked_version(name)
-          specs.find {|spec| spec.name == name }&.yield_self {|spec|
-            spec.version.version
-          }
+        def locked_version(spec)
+          found = find_spec(spec)
+          found ? found.version.first : nil
         end
 
-        def satisfied_by?(name, constraints)
-          spec = specs.find { |s| s.name == name }
-          raise "Spec not found: #{spec}, lockfile=#{specs.inspect}" unless spec
-          Gem::Requirement.new(constraints[name]).satisfied_by?(spec.version)
+        def locked_version!(spec)
+          locked_version(spec) or
+            raise ArgumentError.new("lockfile=#{inspect}, spec=#{spec.inspect}")
+        end
+
+        def satisfied_by?(spec, constraints)
+          found = find_spec(spec)
+          version, = found&.version
+          if found && version
+            Gem::Requirement.create(constraints[found.name]).satisfied_by?(Gem::Version.create(version))
+          else
+            raise "Spec not found: #{spec}, lockfile=#{specs.inspect}"
+          end
+        end
+
+        private
+
+        def find_spec(spec)
+          # @type var spec: any
+          spec_name = spec.is_a?(String) ? spec : spec.name
+          specs.find { |s| s.name == spec_name }
         end
       end
     end

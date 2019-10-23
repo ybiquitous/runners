@@ -21,7 +21,7 @@ module Runners
         end
 
         def override_by_lockfile(lockfile)
-          locked_version = lockfile.locked_version(name)
+          locked_version = lockfile.locked_version(self)
           new_version = locked_version ? [locked_version] : version
           Spec.new(name: name, version: new_version, source: source)
         end
