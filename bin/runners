@@ -10,6 +10,8 @@ require "runners/cli"
 
 class RunnersTimeoutError < StandardError; end
 
+EXIT_STATUS_FOR_SIGTERM = 126
+
 Bugsnag.configure do |config|
   config.app_version = ENV["RUNNERS_VERSION"]
 end
@@ -18,6 +20,11 @@ def notify_with_bugsnag(exception)
   Bugsnag.notify(exception) do |report|
     report.add_tab(:task_guid, ENV["TASK_GUID"]) if ENV["TASK_GUID"]
   end
+end
+
+trap('SIGTERM') do
+  notify_with_bugsnag(RunnersTimeoutError.new)
+  exit(EXIT_STATUS_FOR_SIGTERM)
 end
 
 trap('SIGUSR2') do
