@@ -24,7 +24,7 @@ See also another related project, called [devon_rex](https://github.com/sider/de
 - JSHint
 - JavaSee
 - ktlint
-- misspell
+- Misspell
 - PHPMD
 - PHP_CodeSniffer
 - PMD Java
