@@ -53,7 +53,7 @@ module Runners
       end
 
       def gemfile_content
-        trace_writer.header "Generating Gemfile..."
+        trace_writer.header "Generating optimized Gemfile..."
 
         # @type var lines: Array<String>
         lines = ["source #{DEFAULT_SOURCE.inspect}"]
