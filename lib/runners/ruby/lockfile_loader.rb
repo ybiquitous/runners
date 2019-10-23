@@ -12,11 +12,11 @@ module Runners
       end
 
       def ensure_lockfile
-        lockfile_path =
+        lockfile_content =
           case
           when gemfile_path.file? && gemfile_lock_path.file?
             shell.trace_writer.message "Gemfile and Gemfile.lock detected"
-            gemfile_lock_path
+            gemfile_lock_path.read
           when gemfile_path.file?
             Dir.mktmpdir do |dir|
               generate_lockfile(Pathname(dir) / "Gemfile.lock")
@@ -24,7 +24,7 @@ module Runners
           end
 
         begin
-          yield Lockfile.new(lockfile_path)
+          yield Lockfile.new(lockfile_content)
         rescue Bundler::LockfileError
           raise InvalidGemfileLock.new(<<~MESSAGE)
             An error was found in the Gemfile.lock. Please fix the Gemfile.lock according to the above error message.
@@ -48,8 +48,9 @@ module Runners
         Bundler.with_clean_env do
           shell.push_env_hash({ "BUNDLE_GEMFILE" => gemfile_path.to_s }) do
             shell.capture3! "bundle", "lock", "--lockfile", lockfile_path.to_s
-            shell.trace_writer.message lockfile_path.read
-            return lockfile_path
+            return lockfile_path.read.tap do |content|
+              shell.trace_writer.message content
+            end
           rescue Shell::ExecError
             shell.trace_writer.error <<~MESSAGE
               An error was found in your Gemfile but Sider continues the analysis by ignoring your dependencies.

@@ -88,7 +88,7 @@ end
 class Runners::Ruby::LockfileLoader::Lockfile
   attr_reader specs: Array<any>
 
-  def initialize: (Pathname?) -> any
+  def initialize: (String?) -> any
 
   def spec_exists?: (String) -> bool
   def locked_version: (String) -> String?

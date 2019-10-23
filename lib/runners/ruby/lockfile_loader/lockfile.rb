@@ -4,9 +4,9 @@ module Runners
       class Lockfile
         attr_reader :specs
 
-        def initialize(lockfile_path)
-          @specs = if lockfile_path
-                     LockfileParser.parse(lockfile_path.read).specs
+        def initialize(lockfile_content)
+          @specs = if lockfile_content
+                     LockfileParser.parse(lockfile_content).specs
                    else
                      []
                    end
