@@ -16,12 +16,6 @@ module Runners
         @trace_writer = trace_writer
       end
 
-      def env_hash
-        {
-          "BUNDLE_GEMFILE" => gemfile_path.to_s
-        }
-      end
-
       def gemfile_path
         gem_home + "Gemfile"
       end
@@ -33,7 +27,7 @@ module Runners
       def install!
         gemfile_path.write(gemfile_content.join("\n"))
 
-        trace_writer.header "Installing gems"
+        trace_writer.header "Installing gems..."
 
         Bundler.with_clean_env do
           shell.push_dir gem_home do
@@ -48,18 +42,18 @@ module Runners
             MESSAGE
           end
 
-          versions = LockfileParser.parse(lockfile_path.read).specs.each_with_object({}) do |spec, versions|
-            versions[spec.name] = spec.version.version
-          end
+          versions = LockfileParser.parse(lockfile_path.read).specs.map do |spec|
+            [spec.name, spec.version.version]
+          end.to_h
 
-          shell.push_env_hash env_hash do
+          shell.push_env_hash({ "BUNDLE_GEMFILE" => gemfile_path.to_s }) do
             yield versions
           end
         end
       end
 
       def gemfile_content
-        trace_writer.header "Generating Gemfile:"
+        trace_writer.header "Generating Gemfile..."
 
         # @type var lines: Array<String>
         lines = ["source #{DEFAULT_SOURCE.inspect}"]
@@ -68,11 +62,12 @@ module Runners
           lines << "#{source} do"
           specs.each do |spec|
             versions = spec.version
-            sider_constraints = self.constraints[spec.name]
+            sider_constraints = self.constraints[spec.name] || []
 
-            trace_writer.message "Installing gem: #{spec.name} from #{source}"
-            trace_writer.message "  Specified version: #{versions.size > 0 ? versions.join(", ") : "latest"}"
-            trace_writer.message "  Sider constraints: #{sider_constraints ? sider_constraints.join(", ") : "none"}"
+            trace_writer.message "Installing `#{spec.name}` gem from #{source}..."
+            trace_writer.message "  Specified version: #{versions.join(', ').presence || 'latest'}"
+            trace_writer.message "  Sider constraints: #{sider_constraints.join(', ').presence || 'none'}"
+
             # @type var constraints: Array<String>
             constraints = if source.is_a? GitSource
                             # In deployment mode, the spec version constraints will cause an error like the following:
@@ -84,9 +79,9 @@ module Runners
                             #
                             # You have deleted from the Gemfile:
                             # * source: https://github.com/rubocop-hq/rubocop-rspec.git (at v1.32.0@3626144)
-                            (sider_constraints || [])
+                            sider_constraints
                           else
-                            versions + (sider_constraints || [])
+                            versions + sider_constraints
                           end
             lines << "  gem(#{spec.name.inspect}, #{constraints.map(&:inspect).join(", ")})"
           end
