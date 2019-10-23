@@ -31,8 +31,7 @@ module Runners
 
         Bundler.with_clean_env do
           shell.push_dir gem_home do
-            shell.capture3!("bundle", "lock")
-            shell.capture3!("bundle", "install", "--deployment", "--binstubs")
+            shell.capture3!("bundle", "install")
             shell.capture3!("bundle", "list")
           rescue Shell::ExecError
             raise InstallationFailure.new(<<~MESSAGE)
@@ -99,24 +98,10 @@ module Runners
       end
 
       def gem_constraints(spec, source)
-        (constraints[spec.name] || []).yield_self do |res|
-          res =
-            if source.git?
-              # In deployment mode, the spec version constraints will cause an error like the following:
-              #
-              # The list of sources changed
-              #
-              # You have added to the Gemfile:
-              # * source: https://github.com/rubocop-hq/rubocop-rspec.git (at v1.32.0)
-              #
-              # You have deleted from the Gemfile:
-              # * source: https://github.com/rubocop-hq/rubocop-rspec.git (at v1.32.0@3626144)
-              res
-            else
-              spec.version + res
-            end
-          res.uniq
-        end
+        # NOTE: Gems with Git source do not need constraints.
+        return [] if source.git?
+
+        (spec.version + (constraints[spec.name] || [])).uniq
       end
     end
   end

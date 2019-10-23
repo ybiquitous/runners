@@ -76,5 +76,27 @@ module Runners
     def analyzer_version
       @analyzer_version ||= extract_version! ruby_analyzer_bin
     end
+
+    def installed_gem_versions(gem_name, *gem_names)
+      gem_names = [gem_name] + gem_names
+
+      # @see https://guides.rubygems.org/command-reference/#gem-list
+      stdout, = capture3! "gem", "list", "--quiet", "--exact", *gem_names
+      gem_names.map do |name|
+        # NOTE: A format example: `rubocop (0.75.1, 0.75.0)`
+        version, = /#{Regexp.escape(name)} \((.+)\)/.match(stdout)&.captures
+        if version
+          [name, version.split(/,\s*/)]
+        else
+          raise "Not found installed gem #{name.inspect}"
+        end
+      end.to_h
+    end
+
+    def default_gem_specs(gem_name = analyzer_bin, *gem_names)
+      installed_gem_versions(gem_name, *gem_names).map do |name, versions|
+        GemInstaller::Spec.new(name: name, version: versions)
+      end
+    end
   end
 end

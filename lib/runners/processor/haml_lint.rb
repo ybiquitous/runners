@@ -22,10 +22,6 @@ module Runners
       }
     end
 
-    DEFAULT_GEMS = [
-      GemInstaller::Spec.new(name: "haml_lint", version: ["0.33.0"]),
-    ].freeze
-
     # DEPRECATED: Implicit dependencies
     # @see https://github.com/sider/runner_rubocop/blob/3.1.0/lib/entrypoint.rb#L27-L52
     OPTIONAL_GEMS = [
@@ -71,17 +67,20 @@ module Runners
       'haml_lint'
     end
 
+    def default_gem_specs
+      super("haml_lint").tap do |gems|
+        if setup_default_config
+          # NOTE: See rubocop.rb about no versions.
+          gems << GemInstaller::Spec.new(name: "meowcop", version: [])
+        end
+      end
+    end
+
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
 
-        defaults = DEFAULT_GEMS
-
-        if setup_default_config
-          defaults = defaults + [GemInstaller::Spec.new(name: "meowcop", version: [])]
-        end
-
-        install_gems defaults, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
+        install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           yield
         end
       end
