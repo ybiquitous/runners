@@ -8,4 +8,5 @@ end
 
 extension Object (ActiveSupport)
   def presence: -> self?
+  def present?: -> bool
 end

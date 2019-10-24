@@ -38,15 +38,19 @@ class Runners::Ruby::GemInstaller
                    constraints: Hash<String, Array<String>>,
                    trace_writer: TraceWriter) -> void
   def install!: <'x> { (Hash<String, String>) -> 'x } -> 'x
-
   def gemfile_path: -> Pathname
-  def gemfile_content: () -> Array<String>
+  def gemfile_content: -> String
+  def group_specs: -> Array<[any, Array<Spec>]>
+  def gem: (Spec, Array<String>) -> String
+  def gem_constraints: (Spec, source_type) -> Array<String>
 end
 
 class Runners::Ruby::GemInstaller::Spec
   attr_reader name: String
   attr_reader version: Array<String>
   attr_reader source: source_type
+
+  alias versions version
 
   def initialize: (name: String, version: Array<String>, ?source: source_type) -> any
   def override_by_lockfile: (LockfileLoader::Lockfile) -> self
@@ -65,6 +69,7 @@ end
 class Runners::Ruby::GemInstaller::Source::Base
   def rubygems?: -> bool
   def git?: -> bool
+  def default?: -> bool
 end
 
 class Runners::Ruby::GemInstaller::Source::Rubygems < Runners::Ruby::GemInstaller::Source::Base

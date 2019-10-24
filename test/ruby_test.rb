@@ -22,12 +22,14 @@ class RubyTest < Minitest::Test
 
   def test_gemfile_content
     specs = [
-      Spec.new(name: "strong_json", version: ["0.4.0"]),
       Spec.new(name: "rubocop", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop.git")),
       Spec.new(name: "runners", version: [], source: Source::Git.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
       Spec.new(name: "rubocop-rails", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
       Spec.new(name: "rubocop-rspec", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
       Spec.new(name: "rubocop-sider", version: [], source: Source::Rubygems.new("https://gems.sider.review")),
+      Spec.new(name: "rubocop-nyan", version: [], source: Source::Rubygems.new("https://gems.sider.review")),
+      Spec.new(name: "meowcop", version: ["1.2.0"]),
+      Spec.new(name: "strong_json", version: ["0.4.0", "<= 0.8"]),
     ]
 
     mktmpdir do |path|
@@ -40,28 +42,56 @@ class RubyTest < Minitest::Test
         trace_writer: trace_writer
       )
 
-      assert_equal [
-                     'source "https://rubygems.org"',
-                     'source "https://rubygems.org" do',
-                     '  gem("strong_json", "0.4.0", "<= 0.8")',
-                     'end',
-                     'git "https://github.com/rubocop-hq/rubocop.git", ref: nil, branch: nil, tag: nil do',
-                     '  gem("rubocop", ">= 0.55.0")',
-                     'end',
-                     'git "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d", branch: nil, tag: nil do',
-                     '  gem("runners", )',
-                     'end',
-                     'git "https://github.com/rubocop-hq/rubocop-rails.git", ref: nil, branch: "dev", tag: nil do',
-                     '  gem("rubocop-rails", )',
-                     'end',
-                     'git "https://github.com/rubocop-hq/rubocop-rspec.git", ref: nil, branch: nil, tag: "v1.13.0" do',
-                     '  gem("rubocop-rspec", )',
-                     'end',
-                     'source "https://gems.sider.review" do',
-                     '  gem("rubocop-sider", )',
-                     'end',
-                   ],
-                   installer.gemfile_content
+      assert_equal <<~CONTENT, installer.gemfile_content
+        source "https://rubygems.org"
+
+        gem "meowcop", "1.2.0"
+        gem "strong_json", "0.4.0", "<= 0.8"
+
+        source "https://gems.sider.review" do
+          gem "rubocop-sider"
+          gem "rubocop-nyan"
+        end
+
+        git "https://github.com/rubocop-hq/rubocop.git", ref: nil, branch: nil, tag: nil do
+          gem "rubocop", ">= 0.55.0"
+        end
+
+        git "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d", branch: nil, tag: nil do
+          gem "runners"
+        end
+
+        git "https://github.com/rubocop-hq/rubocop-rails.git", ref: nil, branch: "dev", tag: nil do
+          gem "rubocop-rails"
+        end
+
+        git "https://github.com/rubocop-hq/rubocop-rspec.git", ref: nil, branch: nil, tag: "v1.13.0" do
+          gem "rubocop-rspec"
+        end
+      CONTENT
+    end
+  end
+
+  def test_gemfile_content_without_default_gems
+    mktmpdir do |path|
+      installer = GemInstaller.new(
+        shell: shell,
+        specs: [
+          Spec.new(name: "rubocop-sider", version: [], source: Source::Rubygems.new("https://gems.sider.review")),
+        ],
+        home: path,
+        ci_config_path_name: "sider.yml",
+        constraints: {},
+        trace_writer: trace_writer
+      )
+
+      assert_equal <<~CONTENT, installer.gemfile_content
+        source "https://rubygems.org"
+
+        source "https://gems.sider.review" do
+          gem "rubocop-sider"
+        end
+      CONTENT
     end
   end
 
@@ -106,12 +136,11 @@ class RubyTest < Minitest::Test
       end
 
       assert trace_writer.writer.any? {|message|
-        message[:trace] == 'message' &&
-          message[:message] == "  Specified version: 0.5.0"
-      }
-      assert trace_writer.writer.any? {|message|
-        message[:trace] == 'message' &&
-          message[:message] == "  Sider constraints: <= 0.8.0"
+        message[:trace] == 'message' && message[:message] == <<~MSG
+          source "https://rubygems.org"
+
+          gem "strong_json", "0.5.0", "<= 0.8.0"
+        MSG
       }
     end
   end

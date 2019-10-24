@@ -6,6 +6,8 @@ module Runners
 
         attr_reader :name, :version, :source
 
+        alias versions version
+
         def initialize(name:, version:, source: Source::Rubygems.new)
           @name = name
           @version = version
@@ -13,7 +15,7 @@ module Runners
         end
 
         def ==(other)
-          other.is_a?(Spec) && other.name == name && other.version == version && other.source == source
+          other.class == self.class && other.name == name && other.version == version && other.source == source
         end
 
         __skip__ = begin
