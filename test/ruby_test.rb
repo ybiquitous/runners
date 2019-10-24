@@ -4,6 +4,8 @@ class RubyTest < Minitest::Test
   include TestHelper
 
   GemInstaller = Runners::Ruby::GemInstaller
+  Spec = GemInstaller::Spec
+  Source = GemInstaller::Source
   LockfileLoader = Runners::Ruby::LockfileLoader
 
   def trace_writer
@@ -20,12 +22,12 @@ class RubyTest < Minitest::Test
 
   def test_gemfile_content
     specs = [
-      GemInstaller::Spec.new(name: "strong_json", version: ["0.4.0"]),
-      GemInstaller::Spec.new(name: "rubocop", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop.git")),
-      GemInstaller::Spec.new(name: "runners", version: [], source:  GemInstaller::GitSource.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
-      GemInstaller::Spec.new(name: "rubocop-rails", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
-      GemInstaller::Spec.new(name: "rubocop-rspec", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
-      GemInstaller::Spec.new(name: "rubocop-sider", version: [], source: GemInstaller::RubygemsSource.new("https://gems.sider.review")),
+      Spec.new(name: "strong_json", version: ["0.4.0"]),
+      Spec.new(name: "rubocop", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop.git")),
+      Spec.new(name: "runners", version: [], source: Source::Git.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
+      Spec.new(name: "rubocop-rails", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
+      Spec.new(name: "rubocop-rspec", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
+      Spec.new(name: "rubocop-sider", version: [], source: Source::Rubygems.new("https://gems.sider.review")),
     ]
 
     mktmpdir do |path|
@@ -84,7 +86,7 @@ class RubyTest < Minitest::Test
 
   def test_install_success
     specs = [
-      GemInstaller::Spec.new(name: "strong_json", version: ["0.5.0"])
+      Spec.new(name: "strong_json", version: ["0.5.0"])
     ]
 
     mktmpdir do |path|
@@ -116,7 +118,7 @@ class RubyTest < Minitest::Test
 
   def test_install_failure
     specs = [
-      GemInstaller::Spec.new(name: "strong_json", version: ["0.5.0"])
+      Spec.new(name: "strong_json", version: ["0.5.0"])
     ]
 
     mktmpdir do |path|
@@ -137,23 +139,23 @@ class RubyTest < Minitest::Test
   end
 
   def test_from_gems
-    specs = GemInstaller::Spec.from_gems([
-                                           "rubocop",
-                                           { "name" => "strong_json", "version" => "0.7.0", "source" => "https://my.gems.org" },
-                                           { "name" => "rubocop-sider", "git" => { "repo" => "https://github.com/sider/rubocop-sider.git" } },
-                                           { "name" => "runners", "git" => { "repo" => "git@github.com:sider/runners.git", "ref" => "e66806c02849a0d0bdea66be88b5967d5eb3305d" } },
-                                           { "name" => "rubocop-rails", "git" => { "repo" => "https://github.com/rubocop-hq/rubocop-rails.git", "branch" => "dev" } },
-                                           { "name" => "rubocop-rspec", "git" => { "repo" => "https://github.com/rubocop-hq/rubocop-rspec.git", "tag" => "v1.13.0" } },
-                                         ])
+    specs = Spec.from_gems([
+      "rubocop",
+      { "name" => "strong_json", "version" => "0.7.0", "source" => "https://my.gems.org" },
+      { "name" => "rubocop-sider", "git" => { "repo" => "https://github.com/sider/rubocop-sider.git" } },
+      { "name" => "runners", "git" => { "repo" => "git@github.com:sider/runners.git", "ref" => "e66806c02849a0d0bdea66be88b5967d5eb3305d" } },
+      { "name" => "rubocop-rails", "git" => { "repo" => "https://github.com/rubocop-hq/rubocop-rails.git", "branch" => "dev" } },
+      { "name" => "rubocop-rspec", "git" => { "repo" => "https://github.com/rubocop-hq/rubocop-rspec.git", "tag" => "v1.13.0" } },
+    ])
 
     assert_equal [
-                   GemInstaller::Spec.new(name: "rubocop", version: []),
-                   GemInstaller::Spec.new(name: "strong_json", version: ["0.7.0"], source: GemInstaller::RubygemsSource.new("https://my.gems.org")),
-                   GemInstaller::Spec.new(name: "rubocop-sider", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/sider/rubocop-sider.git")),
-                   GemInstaller::Spec.new(name: "runners", version: [], source: GemInstaller::GitSource.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
-                   GemInstaller::Spec.new(name: "rubocop-rails", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
-                   GemInstaller::Spec.new(name: "rubocop-rspec", version: [], source: GemInstaller::GitSource.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
-                 ], specs
+      Spec.new(name: "rubocop", version: []),
+      Spec.new(name: "strong_json", version: ["0.7.0"], source: Source::Rubygems.new("https://my.gems.org")),
+      Spec.new(name: "rubocop-sider", version: [], source: Source::Git.new(repo: "https://github.com/sider/rubocop-sider.git")),
+      Spec.new(name: "runners", version: [], source: Source::Git.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
+      Spec.new(name: "rubocop-rails", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
+      Spec.new(name: "rubocop-rspec", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
+    ], specs
   end
 
   def test_ensure_lockfile_with_gemfile_lock
@@ -330,21 +332,21 @@ EOF
 
   def test_merge_specs
     default_specs = [
-      GemInstaller::Spec.new(name: "rubocop", version: ["0.4.0"]),
-      GemInstaller::Spec.new(name: "strong_json", version: ["0.4.0"])
+      Spec.new(name: "rubocop", version: ["0.4.0"]),
+      Spec.new(name: "strong_json", version: ["0.4.0"])
     ]
 
     user_specs = [
-      GemInstaller::Spec.new(name: "rubocop", version: ["0.5.0"], source: "https://some.source.org"),
-      GemInstaller::Spec.new(name: "rubocop-rspec", version: ["1.2.3"])
+      Spec.new(name: "rubocop", version: ["0.5.0"], source: "https://some.source.org"),
+      Spec.new(name: "rubocop-rspec", version: ["1.2.3"])
     ]
 
     assert_equal [
-                   GemInstaller::Spec.new(name: "rubocop", version: ["0.5.0"], source: "https://some.source.org"),
-                   GemInstaller::Spec.new(name: "strong_json", version: ["0.4.0"]),
-                   GemInstaller::Spec.new(name: "rubocop-rspec", version: ["1.2.3"])
+                   Spec.new(name: "rubocop", version: ["0.5.0"], source: "https://some.source.org"),
+                   Spec.new(name: "strong_json", version: ["0.4.0"]),
+                   Spec.new(name: "rubocop-rspec", version: ["1.2.3"])
                  ],
-                 GemInstaller::Spec.merge(default_specs, user_specs)
+                 Spec.merge(default_specs, user_specs)
   end
 
   def test_install_no_gems
@@ -362,7 +364,7 @@ EOF
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
-      processor.install_gems([GemInstaller::Spec.new(name: "strong_json", version: ["0.5.0"])],
+      processor.install_gems([Spec.new(name: "strong_json", version: ["0.5.0"])],
                          constraints: {}) do
         stdout, _ = processor.shell.capture3!("bundle", "show")
         assert_includes stdout.lines, "  * strong_json (0.5.0)\n"
@@ -397,8 +399,8 @@ EOF
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
-      processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.63.0"])],
-                             optionals: [GemInstaller::Spec.new(name: "meowcop", version: ["1.17.1"])],
+      processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
+                             optionals: [Spec.new(name: "meowcop", version: ["1.17.1"])],
                              constraints: {}) do
         stdout, _ = processor.shell.capture3!("bundle", "show")
         assert_match(/\* rubocop/, stdout)
@@ -424,8 +426,8 @@ EOF
                             trace_writer: trace_writer)
 
       assert_raises GemInstaller::InstallationFailure do
-        processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.63.0"])],
-                               optionals: [GemInstaller::Spec.new(name: "meowcop", version: ["1.17.1"])],
+        processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
+                               optionals: [Spec.new(name: "meowcop", version: ["1.17.1"])],
                                constraints: {}) do
           # nop
         end
@@ -448,9 +450,9 @@ EOF
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
-      assert_raises GemInstaller::Spec::InvalidGemDefinition do
-        processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.63.0"])],
-                               optionals: [GemInstaller::Spec.new(name: "meowcop", version: ["1.17.1"])],
+      assert_raises Spec::InvalidGemDefinition do
+        processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
+                               optionals: [Spec.new(name: "meowcop", version: ["1.17.1"])],
                                constraints: {}) do
           # nop
         end
@@ -481,8 +483,8 @@ EOF
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
-      processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.63.0"])],
-                             optionals: [GemInstaller::Spec.new(name: "meowcop", version: ["1.17.1"])],
+      processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
+                             optionals: [Spec.new(name: "meowcop", version: ["1.17.1"])],
                              constraints: {}) do
         stdout, _ = processor.shell.capture3!("bundle", "show")
         assert_match(/\* rubocop/, stdout)
@@ -527,8 +529,8 @@ EOF
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
-      processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.63.0"])],
-                             optionals: [GemInstaller::Spec.new(name: "meowcop", version: ["1.17.1"])],
+      processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
+                             optionals: [Spec.new(name: "meowcop", version: ["1.17.1"])],
                              constraints: { "rubocop" => ["> 0.60.0"] }) do
         stdout, _ = processor.shell.capture3!("bundle", "show")
         assert_match(/\* rubocop \(0.62.0\)/, stdout)
@@ -564,7 +566,7 @@ EOF
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
-      processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.66.0"])],
+      processor.install_gems([Spec.new(name: "rubocop", version: ["0.66.0"])],
                              constraints: { "rubocop" => ["> 0.65.0"] }) do
         assert_equal 1, processor.warnings.count
         assert_equal <<~MESSAGE, processor.warnings.first[:message]
@@ -601,7 +603,7 @@ EOF
                             trace_writer: trace_writer)
 
       assert_raises GemInstaller::InstallationFailure do
-        processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.66.0"])],
+        processor.install_gems([Spec.new(name: "rubocop", version: ["0.66.0"])],
                                constraints: { "rubocop" => ["> 0.65.0"] }) do
           # noop
         end
@@ -628,7 +630,7 @@ EOF
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
-      processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.63.0"])],
+      processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
                              optionals: [],
                              constraints: {}) do
         stdout, _ = processor.shell.capture3!("bundle", "show")
@@ -663,7 +665,7 @@ EOF
                               working_dir: path,
                               git_ssh_path: workspace.git_ssh_path,
                               trace_writer: trace_writer)
-        processor.install_gems([GemInstaller::Spec.new(name: "rubocop", version: ["0.63.0"])],
+        processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
                                optionals: [],
                                constraints: {}) do
           stdout, _ = processor.shell.capture3!("bundle", "show")
