@@ -86,13 +86,14 @@ class Runners::Ruby::LockfileLoader
 end
 
 class Runners::Ruby::LockfileLoader::Lockfile
-  attr_reader specs: Array<any>
+  attr_reader specs: Array<GemInstaller::Spec>
 
   def initialize: (String?) -> any
-
-  def spec_exists?: (String) -> bool
-  def locked_version: (String) -> String?
-  def satisfied_by?: (String, Hash<String, Array<String>>) -> bool
+  def spec_exists?: (GemInstaller::Spec | String) -> bool
+  def locked_version: (GemInstaller::Spec | String) -> String?
+  def locked_version!: (GemInstaller::Spec | String) -> String
+  def satisfied_by?: (GemInstaller::Spec | String, Hash<String, Array<String>>) -> bool
+  def find_spec: (GemInstaller::Spec | String) -> GemInstaller::Spec?
 end
 
 class Runners::Ruby::LockfileLoader::Lockfile::UnsupportedSourceError < StandardError
