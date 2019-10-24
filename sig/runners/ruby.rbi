@@ -46,32 +46,40 @@ end
 class Runners::Ruby::GemInstaller::Spec
   attr_reader name: String
   attr_reader version: Array<String>
-  attr_reader source: RubygemsSource | GitSource
+  attr_reader source: source_type
 
-  def initialize: (name: String, version: Array<String>, ?source: RubygemsSource | GitSource) -> any
+  def initialize: (name: String, version: Array<String>, ?source: source_type) -> any
   def override_by_lockfile: (LockfileLoader::Lockfile) -> self
 
   def self.from_gems: (Array<gems_item | String>) -> Array<Spec>
   def self.merge: (Array<Spec>, Array<Spec>) -> Array<Spec>
 end
 
-class Runners::Ruby::GemInstaller::RubygemsSource
-  attr_reader source: String
+type Runners::Ruby::GemInstaller::source_type = Runners::Ruby::GemInstaller::Source::Rubygems
+                                              | Runners::Ruby::GemInstaller::Source::Git
 
-  def initialize: (String) -> any
-  def ==: (any) -> bool
-  def to_s: () -> String
+module Runners::Ruby::GemInstaller::Source
+  def self.create: (gems_item) -> source_type
 end
 
-class Runners::Ruby::GemInstaller::GitSource
+class Runners::Ruby::GemInstaller::Source::Base
+  def rubygems?: -> bool
+  def git?: -> bool
+end
+
+class Runners::Ruby::GemInstaller::Source::Rubygems < Runners::Ruby::GemInstaller::Source::Base
+  attr_reader source: String
+
+  def initialize: (?String) -> any
+end
+
+class Runners::Ruby::GemInstaller::Source::Git < Runners::Ruby::GemInstaller::Source::Base
   attr_reader repo: String
   attr_reader ref: String?
   attr_reader branch: String?
   attr_reader tag: String?
 
   def initialize: (repo: String, ?ref: String?, ?branch: String?, ?tag: String?) -> any
-  def ==: (any) -> bool
-  def to_s: () -> String
 end
 
 class Runners::Ruby::LockfileLoader

@@ -69,7 +69,7 @@ module Runners
             trace_writer.message "  Sider constraints: #{sider_constraints.join(', ').presence || 'none'}"
 
             # @type var constraints: Array<String>
-            constraints = if source.is_a? GitSource
+            constraints = if source.git?
                             # In deployment mode, the spec version constraints will cause an error like the following:
                             #
                             # The list of sources changed

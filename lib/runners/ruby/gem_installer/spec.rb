@@ -6,7 +6,7 @@ module Runners
 
         attr_reader :name, :version, :source
 
-        def initialize(name:, version:, source: RubygemsSource.new(DEFAULT_SOURCE))
+        def initialize(name:, version:, source: Source::Rubygems.new)
           @name = name
           @version = version
           @source = source
@@ -38,28 +38,16 @@ module Runners
 
             name = hash["name"]
             version = hash["version"]
-            source = hash["source"]
-            git = hash["git"]
 
             # Schema validation is required in runner side
             raise InvalidGemDefinition.new("Unexpected gems_item: #{hash.inspect}") unless name
 
-            spec_source = case
-                          when source
-                            # @type var source: String
-                            source = source
-                            RubygemsSource.new(source)
-                          when git
-                            # @type var git: git_source
-                            git = git
-                            if git["repo"]
-                              GitSource.new(repo: git["repo"], ref: git["ref"], branch: git["branch"], tag: git["tag"])
-                            else
-                              raise InvalidGemDefinition.new("Unexpected gems_item: #{hash.inspect}")
-                            end
-                          else
-                            RubygemsSource.new(DEFAULT_SOURCE)
-                          end
+            spec_source =
+              begin
+                Source.create(hash)
+              rescue => exn
+                raise InvalidGemDefinition.new(exn.message)
+              end
 
             self.new(
               name: name,
