@@ -44,6 +44,10 @@ namespace :dockerfile do
 
   desc 'Generate Dockerfile from a template'
   task :generate do
+    # TODO: `COPY --chown=${RUNNER_USER}:${RUNNER_GROUP}` format has been available since Docker v19.03.4.
+    #       However, CircleCI does not support the Docker version...
+    ENV["RUNNER_CHOWN"] = "analyzer_runner:nogroup"
+
     ANALYZERS.each do |analyzer|
       backup_analyzer = ENV['ANALYZER']
       ENV['ANALYZER'] = analyzer
@@ -64,6 +68,8 @@ namespace :dockerfile do
         ENV.delete 'ANALYZER'
       end
     end
+  ensure
+    ENV.delete "RUNNER_CHOWN"
   end
 
   desc 'Verify Dockerfile is committed'

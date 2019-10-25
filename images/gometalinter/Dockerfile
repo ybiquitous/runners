@@ -16,23 +16,21 @@ RUN curl -sSL --compressed https://github.com/alecthomas/gometalinter/releases/d
     rm -r gometalinter-${LINT_TOOL_VERSION}-linux-amd64/
 USER $RUNNER_USER
 
-ARG RUNNER_GROUP=nogroup
-
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* ${RUNNERS_DIR}/
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
     bundle config && \
     bundle install --without='development test'
 
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/gometalinter/gometalinter.json ${RUNNER_USER_HOME}/
+COPY --chown=analyzer_runner:nogroup images/gometalinter/gometalinter.json ${RUNNER_USER_HOME}/
 
 # Copy the main source code
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 

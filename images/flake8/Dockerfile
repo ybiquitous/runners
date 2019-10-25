@@ -4,12 +4,10 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_python:2.6.0
 
-ARG RUNNER_GROUP=nogroup
-
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* ${RUNNERS_DIR}/
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -17,7 +15,7 @@ RUN cd ${RUNNERS_DIR} && \
     bundle install --without='development test'
 
 # Install the default version
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/flake8/Pipfile ${RUNNER_USER_HOME}/flake8_Pipfile
+COPY --chown=analyzer_runner:nogroup images/flake8/Pipfile ${RUNNER_USER_HOME}/flake8_Pipfile
 RUN cd ${RUNNER_USER_HOME} && \
     mkdir flake8 && \
     mv flake8_Pipfile flake8/Pipfile && \
@@ -32,12 +30,12 @@ RUN cd ${RUNNER_USER_HOME} && \
     done && \
     echo "The default Python runtime version is '$(python --version)'"
 
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/flake8/sider_config.ini ${RUNNER_USER_HOME}/.config/flake8
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/flake8/ignored-config.ini ${RUNNER_USER_HOME}/.config/ignored-config.ini
+COPY --chown=analyzer_runner:nogroup images/flake8/sider_config.ini ${RUNNER_USER_HOME}/.config/flake8
+COPY --chown=analyzer_runner:nogroup images/flake8/ignored-config.ini ${RUNNER_USER_HOME}/.config/ignored-config.ini
 
 # Copy the main source code
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 

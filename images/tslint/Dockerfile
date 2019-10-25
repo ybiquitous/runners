@@ -4,12 +4,10 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_npm:2.6.0
 
-ARG RUNNER_GROUP=nogroup
-
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* ${RUNNERS_DIR}/
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -17,7 +15,7 @@ RUN cd ${RUNNERS_DIR} && \
     bundle install --without='development test'
 
 # Install the default version
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/tslint/package.json ${RUNNER_USER_HOME}/tslint_package.json
+COPY --chown=analyzer_runner:nogroup images/tslint/package.json ${RUNNER_USER_HOME}/tslint_package.json
 RUN cd ${RUNNER_USER_HOME} && \
     mkdir tslint && \
     mv tslint_package.json tslint/package.json && \
@@ -32,11 +30,11 @@ ENV PATH ${RUNNER_USER_HOME}/tslint/node_modules/.bin:${PATH}
 ENV NODE_PATH ${RUNNER_USER_HOME}/tslint/node_modules:${NODE_PATH}
 
 # By default, TSLint looks for a configuration file named tslint.json in the directory of the file being linted and, if not found, searches ancestor directories.
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/tslint/default_tslint.json ${RUNNER_USER_HOME}/tslint.json
+COPY --chown=analyzer_runner:nogroup images/tslint/default_tslint.json ${RUNNER_USER_HOME}/tslint.json
 
 # Copy the main source code
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 

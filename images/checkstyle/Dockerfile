@@ -9,31 +9,29 @@ FROM sider/devon_rex_java:2.6.0 AS builder
 #       Also, this image uses a build layer because Maven downloads too many files to `~/.m2` directory.
 #
 #       See https://maven.apache.org/plugins/maven-dependency-plugin/copy-dependencies-mojo.html
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/checkstyle/pom.xml ${RUNNER_USER_HOME}/checkstyle/pom.xml
+COPY --chown=analyzer_runner:nogroup images/checkstyle/pom.xml ${RUNNER_USER_HOME}/checkstyle/pom.xml
 RUN cd "${RUNNER_USER_HOME}/checkstyle" && \
     mvn -ntp -B -T 4 dependency:copy-dependencies -DoutputDirectory=.
 
 FROM sider/devon_rex_java:2.6.0
 
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} --from=builder ${RUNNER_USER_HOME}/checkstyle/*.jar ${RUNNER_USER_HOME}/checkstyle/
+COPY --chown=analyzer_runner:nogroup --from=builder ${RUNNER_USER_HOME}/checkstyle/*.jar ${RUNNER_USER_HOME}/checkstyle/
 ENV CLASSPATH ${RUNNER_USER_HOME}/checkstyle/*:${CLASSPATH}
 
 COPY images/checkstyle/checkstyle /usr/local/bin/
 
-ARG RUNNER_GROUP=nogroup
-
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* ${RUNNERS_DIR}/
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
     bundle config && \
     bundle install --without='development test'
 # Copy the main source code
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 

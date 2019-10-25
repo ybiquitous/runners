@@ -4,12 +4,10 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM sider/devon_rex_ruby:2.6.0
 
-ARG RUNNER_GROUP=nogroup
-
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* ${RUNNERS_DIR}/
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -17,7 +15,7 @@ RUN cd ${RUNNERS_DIR} && \
     bundle install --without='development test'
 
 # Install the default version
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/rails_best_practices/Gemfile ${RUNNER_USER_HOME}/rails_best_practices_Gemfile
+COPY --chown=analyzer_runner:nogroup images/rails_best_practices/Gemfile ${RUNNER_USER_HOME}/rails_best_practices_Gemfile
 RUN cd ${RUNNER_USER_HOME} && \
     mkdir rails_best_practices && \
     mv rails_best_practices_Gemfile rails_best_practices/Gemfile && \
@@ -31,11 +29,11 @@ RUN cd ${RUNNER_USER_HOME} && \
 # For backward compatibility
 RUN gem install require_all:1.5.0
 
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/rails_best_practices/sider_rails_best_practices.yml ${RUNNER_USER_HOME}/
+COPY --chown=analyzer_runner:nogroup images/rails_best_practices/sider_rails_best_practices.yml ${RUNNER_USER_HOME}/
 
 # Copy the main source code
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 

@@ -1,4 +1,4 @@
 <% analyzer = ENV.fetch('ANALYZER') %>
 # Install PHP packages via Composer
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/<%= analyzer %>/composer.json images/<%= analyzer %>/composer.lock ${COMPOSER_HOME}/
+COPY --chown=<%= ENV.fetch("RUNNER_CHOWN") %> images/<%= analyzer %>/composer.json images/<%= analyzer %>/composer.lock ${COMPOSER_HOME}/
 RUN composer global install

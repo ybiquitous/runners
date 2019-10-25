@@ -15,12 +15,10 @@ RUN rbenv install $GLOBAL_RUBY_VERSION && \
     gem install bundler --version $BUNDLER2_VERSION && \
     bundle -v | grep -q "$BUNDLER2_VERSION"
 
-ARG RUNNER_GROUP=nogroup
-
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* ${RUNNERS_DIR}/
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
@@ -28,7 +26,7 @@ RUN cd ${RUNNERS_DIR} && \
     bundle install --without='development test'
 
 # Install the default version
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/rubocop/Gemfile ${RUNNER_USER_HOME}/rubocop_Gemfile
+COPY --chown=analyzer_runner:nogroup images/rubocop/Gemfile ${RUNNER_USER_HOME}/rubocop_Gemfile
 RUN cd ${RUNNER_USER_HOME} && \
     mkdir rubocop && \
     mv rubocop_Gemfile rubocop/Gemfile && \
@@ -39,8 +37,8 @@ RUN cd ${RUNNER_USER_HOME} && \
     rm -rf rubocop && \
     gem list rubocop
 # Copy the main source code
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
-COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
