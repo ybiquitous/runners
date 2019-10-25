@@ -1,25 +1,27 @@
 require "net/http"
 require "json"
 
-desc "Bump analyzers and create new pull requests"
-task :bump_analyzers do
-  BumpAnayzers.each do |t|
-    puts "Bumping #{t.analyzer}..."
+namespace :bump do
+  desc "Bump analyzers and create new pull requests"
+  task :analyzers do
+    BumpAnayzers.each do |t|
+      puts "Bumping #{t.analyzer}..."
 
-    t.update_version!
-    if t.updated
-      puts "  --> #{t.current_version} => #{t.latest_version}"
-    else
-      puts "  --> none"
-      next
-    end
+      t.update_version!
+      if t.updated
+        puts "  --> #{t.current_version} => #{t.latest_version}"
+      else
+        puts "  --> none"
+        next
+      end
 
-    if t.branch_exist? t.head_branch
-      puts "  --> `#{t.head_branch}` branch exists. Skipped."
-    else
-      t.commit_and_push_changes!
-      t.create_pull_request!
-      puts "  --> #{t.pull_request_url}"
+      if t.branch_exist? t.head_branch
+        puts "  --> `#{t.head_branch}` branch exists. Skipped."
+      else
+        t.commit_and_push_changes!
+        t.create_pull_request!
+        puts "  --> #{t.pull_request_url}"
+      end
     end
   end
 end

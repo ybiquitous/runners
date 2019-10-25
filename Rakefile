@@ -2,7 +2,7 @@ require "rake/testtask"
 require 'erb'
 require "aufgaben/release"
 require "aufgaben/bump/ruby"
-require_relative "lib/tasks/bump_analyzers"
+require_relative "lib/tasks/bump/analyzers"
 require_relative "lib/tasks/docker/timeout_test"
 
 Aufgaben::Release.new
