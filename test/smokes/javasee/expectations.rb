@@ -6,7 +6,7 @@ Smoke.add_test(
     guid: "test-guid",
     timestamp: :_,
     type: "success",
-    analyzer: { name: 'javasee', version: "0.1.1" },
+    analyzer: { name: 'javasee', version: "0.1.2" },
     issues: [
       {
         id: "hello",
