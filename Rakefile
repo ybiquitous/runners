@@ -3,6 +3,7 @@ require 'erb'
 require "aufgaben/release"
 require "aufgaben/bump/ruby"
 require_relative "lib/tasks/bump/analyzers"
+require_relative "lib/tasks/bump/devon_rex"
 require_relative "lib/tasks/docker/timeout_test"
 
 Aufgaben::Release.new
@@ -69,45 +70,6 @@ namespace :dockerfile do
   task :verify do
     system('git diff --exit-code') or
       abort "\nError: Run `bundle exec rake dockerfile:generate` and include the changes in commit"
-  end
-
-  desc 'Bump up all devon_rex images'
-  task :bump_devon_rex, [:next_version] do |_task, args|
-    next_version = args.fetch(:next_version, 'master')
-
-    puts "Bumping all devon_rex images to `#{next_version}`..."
-    puts ""
-
-    pattern = %r{^FROM sider/devon_rex_(.+):[a-z0-9\.]+}
-
-    Dir['images/**/*.erb'].sort.each do |file|
-      content = File.read(file)
-      if content.match? pattern
-        content = content.gsub(pattern, "FROM sider/devon_rex_\\1:#{next_version}")
-        File.write(file, content)
-        puts "`#{file}` updated."
-      end
-    end
-
-    Rake::Task["dockerfile:generate"].invoke
-    puts ""
-
-    sh "git", "checkout", "-B", "bump_devon_rex"
-    sh "git", "add", "images/"
-    sh "git", "commit", "--message", <<~MSG
-      Bump devon_rex images to #{next_version}
-
-      Via:
-      ```
-      $ bundle exec rake dockerfile:bump_devon_rex'[#{next_version}]'
-      ```
-
-      See also:
-      - https://github.com/sider/devon_rex/releases/tag/#{next_version}
-      - https://github.com/sider/devon_rex/blob/master/CHANGELOG.md
-    MSG
-
-    Rake::Task["dockerfile:verify"].invoke
   end
 end
 
