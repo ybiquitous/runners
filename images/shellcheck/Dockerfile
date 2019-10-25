@@ -26,26 +26,25 @@ RUN cd /tmp && \
 
 USER $RUNNER_USER
 
+ARG RUNNER_GROUP=nogroup
+
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY Gemfile* ${RUNNERS_DIR}/
-USER root
-RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
-USER $RUNNER_USER
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
     bundle config && \
     bundle install --without='development test'
-ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 # Copy the main source code
-COPY bin ${RUNNERS_DIR}/bin
-COPY lib ${RUNNERS_DIR}/lib
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
 
-# Change owner and group of all files
-USER root
-RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
+ENV PATH ${RUNNERS_DIR}/bin:${PATH}
+
+# Run as non-root user
 USER $RUNNER_USER
+WORKDIR $RUNNER_USER_HOME
 
 ENTRYPOINT ["/usr/bin/timeout", "--signal=SIGUSR2", "--kill-after=10s", "30m", "runners", "--analyzer=shellcheck"]
