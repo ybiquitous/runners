@@ -25,7 +25,7 @@ module Runners
       end
 
       def install!
-        gemfile_path.write(gemfile_content.join("\n"))
+        gemfile_path.write(gemfile_content)
 
         trace_writer.header "Installing gems..."
 
@@ -56,39 +56,67 @@ module Runners
         trace_writer.header "Generating optimized Gemfile..."
 
         # @type var lines: Array<String>
-        lines = ["source #{DEFAULT_SOURCE.inspect}"]
+        lines = ["source #{DEFAULT_SOURCE.inspect}", ""]
 
-        specs.group_by(&:source).each do |source, specs|
-          lines << "#{source} do"
-          specs.each do |spec|
-            versions = spec.version
-            sider_constraints = self.constraints[spec.name] || []
-
-            trace_writer.message "Installing `#{spec.name}` gem from #{source}..."
-            trace_writer.message "  Specified version: #{versions.join(', ').presence || 'latest'}"
-            trace_writer.message "  Sider constraints: #{sider_constraints.join(', ').presence || 'none'}"
-
-            # @type var constraints: Array<String>
-            constraints = if source.git?
-                            # In deployment mode, the spec version constraints will cause an error like the following:
-                            #
-                            # The list of sources changed
-                            #
-                            # You have added to the Gemfile:
-                            # * source: https://github.com/rubocop-hq/rubocop-rspec.git (at v1.32.0)
-                            #
-                            # You have deleted from the Gemfile:
-                            # * source: https://github.com/rubocop-hq/rubocop-rspec.git (at v1.32.0@3626144)
-                            sider_constraints
-                          else
-                            versions + sider_constraints
-                          end
-            lines << "  gem(#{spec.name.inspect}, #{constraints.map(&:inspect).join(", ")})"
+        group_specs.each do |source, specs|
+          if source.default?
+            specs.each do |spec|
+              lines << gem(spec, gem_constraints(spec, source))
+            end
+          else
+            lines << "" if lines.last.present?
+            lines << "#{source} do"
+            specs.each do |spec|
+              lines << "  #{gem(spec, gem_constraints(spec, source))}"
+            end
+            lines << "end"
           end
-          lines << "end"
         end
 
-        lines
+        (lines.join("\n") + "\n").tap do |res|
+          trace_writer.message res
+        end
+      end
+
+      private
+
+      def group_specs
+        specs
+          .group_by(&:source)
+          .sort_by do |source,|
+            case
+            when source.default? then 0
+            when source.rubygems? then 1
+            else 2
+            end
+          end
+      end
+
+      def gem(spec, constraints)
+        declaration = "gem #{spec.name.inspect}"
+        constraint = constraints.map(&:inspect).join(", ")
+        (constraint.empty? ? declaration : "#{declaration}, #{constraint}")
+      end
+
+      def gem_constraints(spec, source)
+        (constraints[spec.name] || []).yield_self do |res|
+          res =
+            if source.git?
+              # In deployment mode, the spec version constraints will cause an error like the following:
+              #
+              # The list of sources changed
+              #
+              # You have added to the Gemfile:
+              # * source: https://github.com/rubocop-hq/rubocop-rspec.git (at v1.32.0)
+              #
+              # You have deleted from the Gemfile:
+              # * source: https://github.com/rubocop-hq/rubocop-rspec.git (at v1.32.0@3626144)
+              res
+            else
+              spec.version + res
+            end
+          res.uniq
+        end
       end
     end
   end
