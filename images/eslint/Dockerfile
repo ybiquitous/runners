@@ -33,6 +33,8 @@ ENV NODE_PATH ${RUNNER_USER_HOME}/eslint/node_modules:${NODE_PATH}
 #       See https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
 COPY --chown=analyzer_runner:nogroup images/eslint/sider_eslintrc.yml ${RUNNER_USER_HOME}/.eslintrc.yml
 
+COPY --chown=analyzer_runner:nogroup images/eslint/custom-eslint-json-formatter.js ${RUNNER_USER_HOME}/
+
 # Copy the main source code
 COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
 COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
