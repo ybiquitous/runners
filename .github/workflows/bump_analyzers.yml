@@ -16,7 +16,7 @@ jobs:
           gem install bundler --no-document
           bundle install --jobs=4 --retry=3 --path=vendor/bundle
       - run: |
-          bundle exec rake bump_analyzers
+          bundle exec rake bump:analyzers
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_AUTHOR_NAME: GitHub Actions
