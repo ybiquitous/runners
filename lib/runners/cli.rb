@@ -99,6 +99,7 @@ module Runners
       with_working_dir do |working_dir|
         writer = JSONSEQ::Writer.new(io: io)
         trace_writer = TraceWriter.new(writer: writer)
+        trace_writer.header "Analysis started"
 
         Workspace.open(base: base, base_key: base_key, head: head, head_key: head_key, ssh_key: ssh_key, working_dir: working_dir, trace_writer: trace_writer) do |workspace|
           harness = Harness.new(guid: guid, processor_class: processor_class, workspace: workspace, trace_writer: trace_writer)
@@ -115,7 +116,9 @@ module Runners
           trace_writer.message "Writing result..." do
             writer << Schema::Result.envelope.coerce(json)
           end
-          result
+          result.tap do
+            trace_writer.header "Analysis finished"
+          end
         end
       ensure
         io.finalize! if defined?(:@io)
