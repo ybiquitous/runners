@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - [JSHint] Consider broken package.json [#327](https://github.com/sider/runners/pull/327)
 - Bump devon_rex images from master to 2.6.0 and bump Ruby from 2.6.4 to 2.6.5 [#332](https://github.com/sider/runners/pull/332)
 - Trap SIGTERM to exit with an arbitrary status [#344](https://github.com/sider/runners/pull/344)
+- Bump JavaSee from 0.1.1 to 0.1.2 [#362](https://github.com/sider/runners/pull/362)
 
 ## 0.6.0
 
