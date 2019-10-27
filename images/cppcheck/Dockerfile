@@ -20,7 +20,7 @@ RUN cd /tmp && \
       CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" && \
     rm -rf cppcheck-${CPPCHECK_VERSION}
 
-FROM sider/devon_rex_base:2.6.0
+FROM sider/devon_rex_base:2.7.0
 
 COPY --from=builder /usr/share/cppcheck /usr/share/cppcheck
 COPY --from=builder /usr/bin/cppcheck /usr/bin/cppcheck
