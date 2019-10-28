@@ -14,7 +14,7 @@ module Runners
           # @type var git: Ruby::git_source
           git = git
           if git["repo"]
-            Git.new(repo: git["repo"], ref: git["ref"], branch: git["branch"], tag: git["tag"])
+            Git.new(git["repo"], ref: git["ref"], branch: git["branch"], tag: git["tag"])
           else
             raise ArgumentError.new("Unexpected gem: #{gems_item.inspect}")
           end
@@ -37,6 +37,7 @@ module Runners
         end
       end
 
+      # @see https://bundler.io/man/gemfile.5.html#SOURCE
       class Rubygems < Base
         attr_reader :source
 
@@ -66,10 +67,13 @@ module Runners
         end
       end
 
+      # @see https://bundler.io/man/gemfile.5.html#GIT
       class Git < Base
         attr_reader :repo, :ref, :branch, :tag
 
-        def initialize(repo:, ref: nil, branch: nil, tag: nil)
+        def initialize(repo, ref: nil, branch: nil, tag: nil)
+          repo or raise ArgumentError, "Required repo for Git source!"
+
           @repo = repo
           @ref = ref
           @branch = branch
@@ -90,7 +94,11 @@ module Runners
         end
 
         def to_s
-          "git #{repo.inspect}, ref: #{ref.inspect}, branch: #{branch.inspect}, tag: #{tag.inspect}"
+          s = "git #{repo.inspect}"
+          s << ", ref: #{ref.inspect}" if ref
+          s << ", branch: #{branch.inspect}" if branch
+          s << ", tag: #{tag.inspect}" if tag
+          s
         end
       end
     end

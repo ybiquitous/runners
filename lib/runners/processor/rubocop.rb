@@ -23,10 +23,6 @@ module Runners
           - config/rubocop.yml
     YAML
 
-    DEFAULT_GEMS = [
-      GemInstaller::Spec.new(name: "rubocop", version: ["0.75.0"]),
-    ].freeze
-
     # DEPRECATED: Implicit dependencies
     # @see https://help.sider.review/tools/ruby/rubocop#gems
     OPTIONAL_GEMS = [
@@ -70,17 +66,23 @@ module Runners
       'RuboCop'
     end
 
+    def default_gem_specs
+      super.tap do |gems|
+        if setup_default_config
+          # NOTE: The latest MeowCop requires usually the latest RuboCop.
+          #       (e.g. MeowCop 2.4.0 requires RuboCop 0.75.0+)
+          #       So, MeowCop versions must be unspecified because the installation will fail when a user's RuboCop is 0.60.0.
+          #       Bundler will select an appropriate version automatically unless versions.
+          gems << GemInstaller::Spec.new(name: "meowcop", version: [])
+        end
+      end
+    end
+
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
 
-        defaults = DEFAULT_GEMS
-
-        if setup_default_config
-          defaults = defaults + [GemInstaller::Spec.new(name: "meowcop", version: [])]
-        end
-
-        install_gems defaults, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
+        install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           analyzer
           add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "Gemfile")
           yield

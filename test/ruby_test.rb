@@ -22,10 +22,10 @@ class RubyTest < Minitest::Test
 
   def test_gemfile_content
     specs = [
-      Spec.new(name: "rubocop", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop.git")),
-      Spec.new(name: "runners", version: [], source: Source::Git.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
-      Spec.new(name: "rubocop-rails", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
-      Spec.new(name: "rubocop-rspec", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
+      Spec.new(name: "rubocop", version: [], source: Source::Git.new("https://github.com/rubocop-hq/rubocop.git", branch: "master")),
+      Spec.new(name: "runners", version: [], source: Source::Git.new("git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
+      Spec.new(name: "rubocop-rails", version: [], source: Source::Git.new("https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
+      Spec.new(name: "rubocop-rspec", version: [], source: Source::Git.new("https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
       Spec.new(name: "rubocop-sider", version: [], source: Source::Rubygems.new("https://gems.sider.review")),
       Spec.new(name: "rubocop-nyan", version: [], source: Source::Rubygems.new("https://gems.sider.review")),
       Spec.new(name: "meowcop", version: ["1.2.0"]),
@@ -53,19 +53,19 @@ class RubyTest < Minitest::Test
           gem "rubocop-nyan"
         end
 
-        git "https://github.com/rubocop-hq/rubocop.git", ref: nil, branch: nil, tag: nil do
-          gem "rubocop", ">= 0.55.0"
+        git "https://github.com/rubocop-hq/rubocop.git", branch: "master" do
+          gem "rubocop"
         end
 
-        git "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d", branch: nil, tag: nil do
+        git "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d" do
           gem "runners"
         end
 
-        git "https://github.com/rubocop-hq/rubocop-rails.git", ref: nil, branch: "dev", tag: nil do
+        git "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev" do
           gem "rubocop-rails"
         end
 
-        git "https://github.com/rubocop-hq/rubocop-rspec.git", ref: nil, branch: nil, tag: "v1.13.0" do
+        git "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0" do
           gem "rubocop-rspec"
         end
       CONTENT
@@ -116,7 +116,9 @@ class RubyTest < Minitest::Test
 
   def test_install_success
     specs = [
-      Spec.new(name: "strong_json", version: ["0.5.0"])
+      Spec.new(name: "strong_json", version: ["0.5.0"]),
+      Spec.new(name: "rubocop-rspec", version: ["1.32.0"],
+               source: Source::Git.new("https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.32.0")),
     ]
 
     mktmpdir do |path|
@@ -131,17 +133,22 @@ class RubyTest < Minitest::Test
 
       installer.install! do |hash|
         stdout, _ = shell.capture3("bundle", "exec", "gem", "list")
-        assert_includes stdout.lines(chomp: true), "strong_json (0.5.0)"
+        lines = stdout.lines(chomp: true)
+        assert_includes lines, "strong_json (0.5.0)"
+        assert_includes lines, "rubocop-rspec (1.32.0)"
         assert_equal "0.5.0", hash["strong_json"]
+        assert_equal "1.32.0", hash["rubocop-rspec"]
       end
 
-      assert trace_writer.writer.any? {|message|
-        message[:trace] == 'message' && message[:message] == <<~MSG
-          source "https://rubygems.org"
+      assert_equal([<<~MSG], trace_writer.writer.select { |m| m[:trace] == 'message' }.map { |m| m[:message] })
+        source "https://rubygems.org"
 
-          gem "strong_json", "0.5.0", "<= 0.8.0"
-        MSG
-      }
+        gem "strong_json", "0.5.0", "<= 0.8.0"
+
+        git "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.32.0" do
+          gem "rubocop-rspec"
+        end
+      MSG
     end
   end
 
@@ -180,10 +187,10 @@ class RubyTest < Minitest::Test
     assert_equal [
       Spec.new(name: "rubocop", version: []),
       Spec.new(name: "strong_json", version: ["0.7.0"], source: Source::Rubygems.new("https://my.gems.org")),
-      Spec.new(name: "rubocop-sider", version: [], source: Source::Git.new(repo: "https://github.com/sider/rubocop-sider.git")),
-      Spec.new(name: "runners", version: [], source: Source::Git.new(repo: "git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
-      Spec.new(name: "rubocop-rails", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
-      Spec.new(name: "rubocop-rspec", version: [], source: Source::Git.new(repo: "https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
+      Spec.new(name: "rubocop-sider", version: [], source: Source::Git.new("https://github.com/sider/rubocop-sider.git")),
+      Spec.new(name: "runners", version: [], source: Source::Git.new("git@github.com:sider/runners.git", ref: "e66806c02849a0d0bdea66be88b5967d5eb3305d")),
+      Spec.new(name: "rubocop-rails", version: [], source: Source::Git.new("https://github.com/rubocop-hq/rubocop-rails.git", branch: "dev")),
+      Spec.new(name: "rubocop-rspec", version: [], source: Source::Git.new("https://github.com/rubocop-hq/rubocop-rspec.git", tag: "v1.13.0")),
     ], specs
   end
 
@@ -731,6 +738,67 @@ EOF
         stdout, _ = processor.shell.capture3!("bundle", "show")
         assert_match(/\* rubocop/, stdout)
       end
+    end
+  end
+
+  def test_installed_gem_versions
+    klass = Class.new(Runners::Processor).include(Runners::Ruby)
+
+    mktmpdir do |path|
+      processor = klass.new(
+        guid: SecureRandom.uuid, working_dir: path,
+        git_ssh_path: nil, trace_writer: trace_writer,
+      )
+
+      mock(processor).capture3!("gem", "list", "--quiet", "--exact", "rubocop", "meowcop") do
+        <<~OUTPUT
+          rubocop (0.75.1, 0.75.0)
+          meowcop (2.4.0)
+        OUTPUT
+      end
+      assert_equal({ "rubocop" => ["0.75.1", "0.75.0"], "meowcop" => ["2.4.0"] },
+                   processor.installed_gem_versions("rubocop", "meowcop"))
+
+      mock(processor).capture3!("gem", "list", "--quiet", "--exact", "foo") { "" }
+      assert_raises(RuntimeError) { processor.installed_gem_versions("foo") }.tap do |error|
+        assert_equal 'Not found installed gem "foo"', error.message
+      end
+    end
+  end
+
+  def test_default_gem_specs
+    klass = Class.new(Runners::Processor) do
+      include Runners::Ruby
+
+      def analyzer_bin
+        "rubocop"
+      end
+    end
+
+    mktmpdir do |path|
+      processor = klass.new(
+        guid: SecureRandom.uuid, working_dir: path,
+        git_ssh_path: nil, trace_writer: trace_writer,
+      )
+
+      mock(processor).capture3!("gem", "list", "--quiet", "--exact", "rubocop").twice do
+        <<~OUTPUT
+          rubocop (0.75.1, 0.75.0)
+        OUTPUT
+      end
+      assert_equal [Spec.new(name: "rubocop", version: ["0.75.1", "0.75.0"])], processor.default_gem_specs
+      assert_equal [Spec.new(name: "rubocop", version: ["0.75.1", "0.75.0"])], processor.default_gem_specs("rubocop")
+
+      mock(processor).capture3!("gem", "list", "--quiet", "--exact", "foo", "bar") do
+        <<~OUTPUT
+          foo (1.2.3)
+          bar (4.5.6)
+        OUTPUT
+      end
+      assert_equal [
+        Spec.new(name: "foo", version: ["1.2.3"]),
+        Spec.new(name: "bar", version: ["4.5.6"]),
+      ], processor.default_gem_specs("foo", "bar")
     end
   end
 end

@@ -17,10 +17,6 @@ module Runners
       }.freeze
     end
 
-    DEFAULT_GEMS = [
-      GemInstaller::Spec.new(name: "goodcheck", version: ["2.4.0"]),
-    ].freeze
-
     CONSTRAINTS = {
       "goodcheck" => [">= 1.0.0", "< 3.0"]
     }.freeze
@@ -123,7 +119,7 @@ module Runners
     def setup
       ret = ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
-        install_gems DEFAULT_GEMS, constraints: CONSTRAINTS do |versions|
+        install_gems default_gem_specs, constraints: CONSTRAINTS do |versions|
           analyzer
           yield
         end

@@ -13,10 +13,6 @@ module Runners
       )
     end
 
-    DEFAULT_GEMS = [
-      GemInstaller::Spec.new(name: "querly", version: ["1.0.0"]),
-    ].freeze
-
     OPTIONAL_GEMS = [
       GemInstaller::Spec.new(name: "slim", version: []),
       GemInstaller::Spec.new(name: "haml", version: []),
@@ -41,7 +37,7 @@ module Runners
     def setup
       ret = ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
-        install_gems DEFAULT_GEMS, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
+        install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           analyzer
           yield
         end

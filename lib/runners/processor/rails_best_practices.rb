@@ -26,10 +26,6 @@ module Runners
       }
     end
 
-    DEFAULT_GEMS = [
-      GemInstaller::Spec.new(name: "rails_best_practices", version: ["1.19.4"]),
-    ].freeze
-
     OPTIONAL_GEMS = [
       GemInstaller::Spec.new(name: "slim", version: []),
       GemInstaller::Spec.new(name: "haml", version: []),
@@ -55,7 +51,7 @@ module Runners
     def setup
       ensure_runner_config_schema(Schema.runner_config) do
         show_ruby_runtime_versions
-        install_gems DEFAULT_GEMS, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
+        install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           analyzer
           yield
         end
