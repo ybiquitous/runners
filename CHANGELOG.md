@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Bump JavaSee from 0.1.1 to 0.1.2 [#362](https://github.com/sider/runners/pull/362)
 - Optimize generated Gemfile [#359](https://github.com/sider/runners/pull/359)
 - Use `COPY --chown` format in Dockerfile [#369](https://github.com/sider/runners/pull/369)
+- Use pre-installed gems as possible [#367](https://github.com/sider/runners/pull/367)
 
 ## 0.6.0
 
