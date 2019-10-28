@@ -9,38 +9,34 @@ FROM sider/devon_rex_java:2.6.0 AS builder
 #       Also, this image uses a build layer because Maven downloads too many files to `~/.m2` directory.
 #
 #       See https://maven.apache.org/plugins/maven-dependency-plugin/copy-dependencies-mojo.html
-USER root
-COPY images/pmd_java/pom.xml ${RUNNER_USER_HOME}/pmd_java/pom.xml
+COPY --chown=analyzer_runner:nogroup images/pmd_java/pom.xml ${RUNNER_USER_HOME}/pmd_java/pom.xml
 RUN cd "${RUNNER_USER_HOME}/pmd_java" && \
     mvn -ntp -B -T 4 dependency:copy-dependencies -DoutputDirectory=.
 
 FROM sider/devon_rex_java:2.6.0
 
-COPY --from=builder ${RUNNER_USER_HOME}/pmd_java/*.jar ${RUNNER_USER_HOME}/pmd_java/
+COPY --chown=analyzer_runner:nogroup --from=builder ${RUNNER_USER_HOME}/pmd_java/*.jar ${RUNNER_USER_HOME}/pmd_java/
 ENV CLASSPATH ${RUNNER_USER_HOME}/pmd_java/*:${CLASSPATH}
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY Gemfile* ${RUNNERS_DIR}/
-USER root
-RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
-USER $RUNNER_USER
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
     bundle config && \
     bundle install --without='development test'
-ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 COPY images/pmd_java/pmd /usr/local/bin/
 
 # Copy the main source code
-COPY bin ${RUNNERS_DIR}/bin
-COPY lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
-# Change owner and group of all files
-USER root
-RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
+ENV PATH ${RUNNERS_DIR}/bin:${PATH}
+
+# Run as non-root user
 USER $RUNNER_USER
+WORKDIR $RUNNER_USER_HOME
 
 ENTRYPOINT ["/usr/bin/timeout", "--signal=SIGUSR2", "--kill-after=10s", "30m", "runners", "--analyzer=pmd_java"]

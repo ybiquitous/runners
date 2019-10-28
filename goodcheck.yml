@@ -1,2 +1,20 @@
+rules:
+  - id: sider.runners.docker.copy-require-chown
+    pattern: /COPY (?!--chown=)/
+    glob: "images/**/Dockerfile*.erb"
+    message: |
+      How about adding `--chown` to this `COPY` instruction?
+
+      The owner of files copied by the `COPY` instruction is the *root* user.
+      In the most cases, this behavior may be unexpected.
+
+      See https://docs.docker.com/engine/reference/builder/#copy
+    justification:
+      - When needing the *root* user.
+    fail: |
+      COPY a_file dest/
+    pass: |
+      COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} a_file dest/
+
 import:
   - https://raw.githubusercontent.com/sider/goodcheck-rules/master/rules/typo.yml

@@ -7,19 +7,15 @@ FROM sider/devon_rex_python:2.7.0
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY Gemfile* ${RUNNERS_DIR}/
-USER root
-RUN chown -R ${RUNNER_USER}: ${RUNNERS_DIR}
-USER $RUNNER_USER
+COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
     bundle config && \
     bundle install --without='development test'
-ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
 # Install the default version
-COPY images/flake8/Pipfile ${RUNNER_USER_HOME}/flake8_Pipfile
+COPY --chown=analyzer_runner:nogroup images/flake8/Pipfile ${RUNNER_USER_HOME}/flake8_Pipfile
 RUN cd ${RUNNER_USER_HOME} && \
     mkdir flake8 && \
     mv flake8_Pipfile flake8/Pipfile && \
@@ -34,16 +30,17 @@ RUN cd ${RUNNER_USER_HOME} && \
     done && \
     echo "The default Python runtime version is '$(python --version)'"
 
-COPY images/flake8/sider_config.ini $RUNNER_USER_HOME/.config/flake8
-COPY images/flake8/ignored-config.ini $RUNNER_USER_HOME/.config/ignored-config.ini
+COPY --chown=analyzer_runner:nogroup images/flake8/sider_config.ini ${RUNNER_USER_HOME}/.config/flake8
+COPY --chown=analyzer_runner:nogroup images/flake8/ignored-config.ini ${RUNNER_USER_HOME}/.config/ignored-config.ini
 
 # Copy the main source code
-COPY bin ${RUNNERS_DIR}/bin
-COPY lib ${RUNNERS_DIR}/lib
+COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
+COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
 
-# Change owner and group of all files
-USER root
-RUN chown -R ${RUNNER_USER}: ${RUNNER_USER_HOME}
+ENV PATH ${RUNNERS_DIR}/bin:${PATH}
+
+# Run as non-root user
 USER $RUNNER_USER
+WORKDIR $RUNNER_USER_HOME
 
 ENTRYPOINT ["/usr/bin/timeout", "--signal=SIGUSR2", "--kill-after=10s", "30m", "runners", "--analyzer=flake8"]
