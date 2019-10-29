@@ -26,6 +26,12 @@ module Runners
                                             quiet: boolean?
                                           ))
                       })
+
+        let :issue, object(
+          severity: string,
+          category: string?,
+          recommended: boolean?,
+        )
       }
     end
 
@@ -33,7 +39,7 @@ module Runners
     CONSTRAINTS = {
       "eslint" => Constraint.new(">= 3.19.0", "< 7.0.0")
     }.freeze
-    RECOMMENDED_MINIMUM_VERSION = "4.19.1".freeze
+    RECOMMENDED_MINIMUM_VERSION = "5.0.0".freeze
 
     def self.ci_config_section_name
       'eslint'
@@ -134,50 +140,56 @@ module Runners
       "--quiet" if quiet
     end
 
-    def severity_hander(issue)
-      case issue[:severity]
+    # @see https://eslint.org/docs/user-guide/configuring#configuring-rules
+    def normalize_severity(severity)
+      case severity
       when 1
-        'Warning'
+        'warn'
       when 2
-        'Error'
+        'error'
       else
-        raise "Unknown serverity: #{issue[:severity]}"
+        raise "Unknown severity: #{severity.inspect}"
       end
     end
 
-    def issue_parameters(details)
-      rule_id = details[:ruleId]
-      rule_message = details[:message]
-      message = "#{severity_hander(details)} - #{rule_message}"
-      unless rule_id
-        trace_writer.message("No id found! - #{rule_message}")
-        rule_id = Digest::SHA1.hexdigest(message)
+    def new_location(start_line, start_column, end_line, end_column)
+      case
+      when start_line && start_column && end_line && end_column
+        Location.new(start_line: start_line, start_column: start_column, end_line: end_line, end_column: end_column)
+      when start_line && end_line
+        Location.new(start_line: start_line, end_line: end_line)
+      else
+        Location.new(start_line: start_line)
       end
-
-      yield details[:line].to_i, rule_id, message
     end
 
-    # ESLint results is like below:
-    # https://eslint.org/docs/developer-guide/working-with-custom-formatters#the-results-object
+    # @see https://eslint.org/docs/developer-guide/working-with-custom-formatters#the-results-object
     def parse_result(stdout)
-      JSON.parse(stdout, symbolize_names: true).flat_map do |issue|
+      JSON.parse(stdout, symbolize_names: true).each do |issue|
         path = relative_path(issue[:filePath])
         # ESLint informs errors as an array if ESLint detects errors in a file.
-        issue[:messages].flat_map do |details|
-          issue_parameters(details) do |line, id, message|
-            loc = Location.new(
-              start_line: line,
-              start_column: nil,
-              end_line: nil,
-              end_column: nil
-            )
-            Issue.new(
-              path: path,
-              location: loc,
-              id: id,
-              message: message,
-            )
+        issue[:messages].each do |details|
+          id = details[:ruleId]
+          message = details[:message]
+
+          unless id
+            trace_writer.message("No ID found! - #{message}")
+            id = Digest::SHA1.hexdigest(message)
           end
+
+          yield Issue.new(
+            path: path,
+            location: new_location(details[:line], details[:column], details[:endLine], details[:endColumn]),
+            id: id,
+            message: message,
+            links: Array(details.dig(:docs, :url)),
+            object: {
+              severity: normalize_severity(details[:severity]),
+              category: details.dig(:docs, :category),
+              recommended: details.dig(:docs, :recommended),
+            },
+            schema: Schema.issue,
+          )
         end
       end
     end
@@ -186,41 +198,39 @@ module Runners
       # NOTE: eslint exit with status code 1 when some issues are found.
       #       We use `capture3` instead of `capture3!`
       #
-      # NOTE: with `--output-file=FILE` option, eslint output FILE file if some issues are found.
-      #       When FILE is not created and status is 0, no issues are found.
-      #       When FILE is not created and status is 1, Unhandled error has occurred.
-      #
       # NOTE: ESLint v5 returns 2 as exit status when fatal error is occurred.
       #       However, this runner doesn't depends on this behavior because it also supports ESLint v4
-      output = working_dir + 'output.json'
+      #
+      # @see https://eslint.org/docs/user-guide/command-line-interface#exit-codes
 
       stdout, stderr, status = capture3(
         nodejs_analyzer_bin,
-        '--format=json',
+        "--format=#{custom_formatter}",
         '--no-color',
-        "--output-file=#{output}",
         *additional_options,
         *target_dir
       )
-      # Print text of output.txt for debug
-      if output.file?
-        output_json = output.read
-        trace_writer.message 'Created output.json.'
-      end
 
-      if status.success? || output_json
+      if [0, 1].include? status.exitstatus
         Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
-          parse_result(output_json).each { |v| result.add_issue(v) } if output_json
+          parse_result(stdout) { |issue| result.add_issue(issue) }
         end
+      elsif no_linting_files?(stderr)
+        Results::Success.new(guid: guid, analyzer: analyzer)
       else
-        Results::Failure.new(guid: guid, message: <<~MESSAGE, analyzer: analyzer)
-          stdout:
-          #{stdout}
-
-          stderr:
-          #{stderr}
-        MESSAGE
+        Results::Failure.new(guid: guid, message: stderr.strip, analyzer: analyzer)
       end
+    end
+
+    def custom_formatter
+      (Pathname(Dir.home) / "custom-eslint-json-formatter.js").realpath
+    end
+
+    # NOTE: Linting nonexistent files is a fatal error since v5.0.0.
+    # @see https://eslint.org/docs/user-guide/migrating-to-5.0.0#-linting-nonexistent-files-from-the-command-line-is-now-a-fatal-error
+    def no_linting_files?(stderr)
+      Gem::Version.create(analyzer_version) >= Gem::Version.create("5.0.0") &&
+        stderr.match?(/No files matching the pattern ".+" were found/)
     end
   end
 end

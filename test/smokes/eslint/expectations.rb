@@ -1,28 +1,40 @@
 Smoke = Runners::Testing::Smoke
 
-Smoke.add_test(
-  'no_config',
+Smoke.add_test('no_config', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
   issues: [
-    {:message=> "Error - The update clause in this loop moves the variable in the wrong direction.",
-     :links=>[],
-     :id=>"for-direction",
-     :path=>"index.js",
-     :location=>{:start_line=>1},
-     :object=>nil},
-    {:message=> "Error - Empty block statement.",
-     :links=>[],
-     :id=>"no-empty",
-     :path=>"index.js",
-     :location=>{:start_line=>1},
-     :object=>nil}],
+    {
+      path: "index.js",
+      location: { start_line: 1, start_column: 1, end_line: 2, end_column: 2 },
+      id: "for-direction",
+      message: "The update clause in this loop moves the variable in the wrong direction.",
+      links: ["https://eslint.org/docs/rules/for-direction"],
+      object: {
+        severity: "error",
+        category: "Possible Errors",
+        recommended: true,
+      },
+    },
+    {
+      path: "index.js",
+      location: { start_line: 1, start_column: 30, end_line: 2, end_column: 2 },
+      id: "no-empty",
+      message: "Empty block statement.",
+      links: ["https://eslint.org/docs/rules/no-empty"],
+      object: {
+        severity: "error",
+        category: "Possible Errors",
+        recommended: true,
+      },
+    },
+  ],
   analyzer: {
     name: 'ESLint',
     version: '6.5.1'
   }
-)
+})
 
 Smoke.add_test('sideci_valid_npm_install_option', {
   guid: 'test-guid',
@@ -31,86 +43,115 @@ Smoke.add_test('sideci_valid_npm_install_option', {
   issues: [
     {
       path: "src/index.jsx",
-      location: {
-        start_line: 1
-      },
+      location: { start_line: 1 },
       id: "filenames/no-index",
-      message: "Error - 'index.js' files are not allowed.",
+      message: "'index.js' files are not allowed.",
       links: [],
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     },
     {
       path: "src/App.jsx",
-      location: {
-        start_line: 3
-      },
+      location: { start_line: 3 },
       id: "react/prefer-stateless-function",
-      message: "Error - Component should be written as a pure function",
+      message: "Component should be written as a pure function",
       links: [],
-      object: nil,
-    }
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
   ],
   analyzer: {
     name: 'ESLint',
     version: '3.19.0'
   }
 }, {
-  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 4.19.1` is required/, file: "package.json" }],
+  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
 })
 
 # This test case's .eslintrc includes ESLint plugin, thus Sider fails because of the plugin unavailable.
-Smoke.add_test(
-  'only_eslintrc',
+Smoke.add_test('only_eslintrc', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: /ESLint couldn't find the plugin "eslint-plugin-filenames"/,
+  message: Regexp.new(Regexp.quote(<<~MESSAGE)),
+    Oops! Something went wrong! :(
+
+    ESLint: 6.5.1.
+
+    ESLint couldn't find the plugin "eslint-plugin-filenames".
+  MESSAGE
   analyzer: {
     name: 'ESLint',
     version: "6.5.1"
-  }
-)
+  },
+})
 
 Smoke.add_test('dir_option_is_array', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
   issues: [
-    {:message=>
-       "Error - 'index.js' files are not allowed.",
-      :links=>[],
-      :id=>"filenames/no-index",
-      :path=>"dir1/index.jsx",
-      :location=>{:start_line=>1},
-      :object=>nil},
-    {:message=>
-      "Error - 'index.js' files are not allowed.",
-     :links=>[],
-     :id=>"filenames/no-index",
-     :path=>"dir2/index.js",
-     :location=>{:start_line=>1},
-     :object=>nil},
-    {:message=>
-      "Error - JSX not allowed in files with extension '.js'",
-     :links=>[],
-     :id=>"react/jsx-filename-extension",
-     :path=>"dir2/index.js",
-     :location=>{:start_line=>4},
-     :object=>nil},
-    {:message=>
-      "Error - Component should be written as a pure function",
-     :links=>[],
-     :id=>"react/prefer-stateless-function",
-     :path=>"dir1/App.jsx",
-     :location=>{:start_line=>3},
-     :object=>nil}
+    {
+      path: "dir1/index.jsx",
+      location: { start_line: 1 },
+      id: "filenames/no-index",
+      message: "'index.js' files are not allowed.",
+      links: [],
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      path: "dir2/index.js",
+      location: { start_line: 1 },
+      id: "filenames/no-index",
+      message: "'index.js' files are not allowed.",
+      links: [],
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      path: "dir2/index.js",
+      location: { start_line: 4 },
+      id: "react/jsx-filename-extension",
+      message: "JSX not allowed in files with extension '.js'",
+      links: [],
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      path: "dir1/App.jsx",
+      location: { start_line: 3 },
+      id: "react/prefer-stateless-function",
+      message: "Component should be written as a pure function",
+      links: [],
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
   ],
   analyzer: {
     name: 'ESLint',
     version: '3.19.0'
   }
 }, {
-  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 4.19.1` is required/, file: "package.json" }],
+  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
 })
 
 Smoke.add_test('dir_option_is_string', {
@@ -118,25 +159,37 @@ Smoke.add_test('dir_option_is_string', {
   timestamp: :_,
   type: 'success',
   issues: [
-    {:message=> "Error - 'index.js' files are not allowed.",
-     :links=>[],
-     :id=>"filenames/no-index",
-     :path=>"dir2/index.js",
-     :location=>{:start_line=>1},
-     :object=>nil},
-    {:message=> "Error - JSX not allowed in files with extension '.js'",
-     :links=>[],
-     :id=>"react/jsx-filename-extension",
-     :path=>"dir2/index.js",
-     :location=>{:start_line=>4},
-     :object=>nil}
+    {
+      path: "dir2/index.js",
+      location: { start_line: 1 },
+      id: "filenames/no-index",
+      message: "'index.js' files are not allowed.",
+      links: [],
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      path: "dir2/index.js",
+      location: { start_line: 4 },
+      id: "react/jsx-filename-extension",
+      message: "JSX not allowed in files with extension '.js'",
+      links: [],
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
   ],
   analyzer: {
     name: 'ESLint',
     version: '3.19.0'
   }
 }, {
-  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 4.19.1` is required/, file: "package.json" }],
+  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
 })
 
 Smoke.add_test('pinned_eslint', {
@@ -144,59 +197,82 @@ Smoke.add_test('pinned_eslint', {
   timestamp: :_,
   type: 'success',
   issues: [
-    { message: "Error - Found identifier with same name as label.",
-       links: [],
-       id: "no-label-var",
-       path: "src/index.js",
-       location: { start_line: 3 },
-       object: nil },
-    { message: "Error - 'foo' is not defined.",
+    {
+      message: "Found identifier with same name as label.",
+      links: [],
+      id: "no-label-var",
+      path: "src/index.js",
+      location: { start_line: 3 },
+      object: {
+        severity: "warn",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      message: "'foo' is not defined.",
       links: [],
       id: "no-undef",
       path: "src/index.js",
       location: { start_line: 1 },
-      object: nil },
-    { message: "Error - 'x' is assigned a value but never used.",
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      message: "'x' is assigned a value but never used.",
       links: [],
       id: "no-unused-vars",
       path: "src/index.js",
       location: { start_line: 1 },
-      object: nil },
-    { message: "Error - 'bar' is defined but never used.",
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      message: "'bar' is defined but never used.",
       links: [],
       id: "no-unused-vars",
       path: "src/index.js",
       location: { start_line: 2 },
-      object: nil }
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
   ],
   analyzer: { name: 'ESLint', version: '4.0.0'}
 }, {
-  warnings: [{ message: /The version `4.0.0` is deprecated on Sider. `>= 4.19.1` is required/, file: "package.json" }],
+  warnings: [{ message: /The version `4.0.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
 })
 
 Smoke.add_test("no_files", {
   guid: 'test-guid',
   timestamp: :_,
-  type: 'failure',
-  message: <<~MESSAGE,
-    stdout:
-
-
-    stderr:
-
-    Oops! Something went wrong! :(
-
-    ESLint: 6.5.1.
-
-    No files matching the pattern "." were found.
-    Please check for typing mistakes in the pattern.
-
-
-  MESSAGE
+  type: 'success',
+  issues: [],
   analyzer: {
     name: 'ESLint',
     version: '6.5.1'
-  }
+  },
+})
+
+Smoke.add_test("no_files_eslint4", {
+  guid: 'test-guid',
+  timestamp: :_,
+  type: 'success',
+  issues: [],
+  analyzer: {
+    name: 'ESLint',
+    version: '4.19.1'
+  },
+}, {
+  warnings: [{ message: /The version `4.19.1` is deprecated on Sider/, file: "package.json" }],
 })
 
 Smoke.add_test("pinned_eslint5", {
@@ -204,36 +280,66 @@ Smoke.add_test("pinned_eslint5", {
   timestamp: :_,
   type: 'success',
   issues: [
-    { message: "Error - Expected indentation of 8 space characters but found 6.",
+    {
+      message: "Expected indentation of 8 space characters but found 6.",
       links: [],
       id: "react/jsx-indent",
       path: "src/App.jsx",
-      location: { start_line: 6 },
-      object: nil },
-    { message: "Error - Missing JSX expression container around literal string",
+      location: { start_line: 6, start_column: 7, end_line: 6, end_column: 11 },
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      message: "Missing JSX expression container around literal string",
       links: [],
       id: "react/jsx-no-literals",
       path: "src/App.jsx",
-      location: { start_line: 6 },
-      object: nil },
-    { message: "Error - `Hello world.` must be placed on a new line",
+      location: { start_line: 6, start_column: 11, end_line: 6, end_column: 23 },
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      message: "`Hello world.` must be placed on a new line",
       links: [],
       id: "react/jsx-one-expression-per-line",
       path: "src/App.jsx",
-      location: { start_line: 6 },
-      object: nil },
-    { message: "Error - Component should be written as a pure function",
+      location: { start_line: 6, start_column: 11, end_line: 6, end_column: 23 },
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      message: "Component should be written as a pure function",
       links: [],
       id: "react/prefer-stateless-function",
       path: "src/App.jsx",
-      location: { start_line: 3 },
-      object: nil },
-    { message: "Error - Component is not optimized. Please add a shouldComponentUpdate method.",
+      location: { start_line: 3, start_column: 16, end_line: 9, end_column: 2 },
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
+    {
+      message: "Component is not optimized. Please add a shouldComponentUpdate method.",
       links: [],
       id: "react/require-optimization",
       path: "src/App.jsx",
-      location: { start_line: 3 },
-      object: nil },
+      location: { start_line: 3, start_column: 16, end_line: 9, end_column: 2 },
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
+    },
   ],
   analyzer: {
     name: 'ESLint',
@@ -245,7 +351,7 @@ Smoke.add_test("broken_config", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: :_, # Error: ESLint configuration in /tmp/d20180719-1-1qe6xeu/.eslintrc.yml is invalid: Unexpected top-level property "0".
+  message: /Error: ESLint configuration in .eslintrc.yml is invalid:/,
   analyzer: {
     name: 'ESLint',
     version: :_
@@ -265,12 +371,18 @@ Smoke.add_test("quiet", {
   timestamp: :_,
   type: 'success',
   issues: [
-    { message: "Error - Missing semicolon.",
-      links: [],
+    {
+      message: "Missing semicolon.",
+      links: ["https://eslint.org/docs/rules/semi"],
       id: "semi",
       path: "test.js",
       location: { start_line: 1 },
-      object: nil },
+      object: {
+        severity: "error",
+        category: "Stylistic Issues",
+        recommended: false,
+      },
+    },
   ],
   analyzer: {
     name: 'ESLint',
@@ -284,18 +396,30 @@ Smoke.add_test("array_ignore_pattern", {
   timestamp: :_,
   type: 'success',
   issues: [
-    { message: "Warning - This line has a length of 82. Maximum allowed is 10.",
-      links: [],
+    {
+      message: "This line has a length of 82. Maximum allowed is 10.",
+      links: ["https://eslint.org/docs/rules/max-len"],
       id: "max-len",
       path: "app.js",
       location: { start_line: 1 },
-      object: nil },
-    { message: "Error - Missing semicolon.",
-      links: [],
+      object: {
+        severity: "warn",
+        category: "Stylistic Issues",
+        recommended: false,
+      },
+    },
+    {
+      message: "Missing semicolon.",
+      links: ["https://eslint.org/docs/rules/semi"],
       id: "semi",
       path: "app.js",
       location: { start_line: 1 },
-      object: nil },
+      object: {
+        severity: "error",
+        category: "Stylistic Issues",
+        recommended: false,
+      },
+    },
   ],
   analyzer: {
     name: 'ESLint',
@@ -309,44 +433,64 @@ Smoke.add_test("sider_config", {
   type: 'success',
   issues: [
     {
-      message: "Error - Parsing error: The keyword 'import' is reserved",
+      message: "Parsing error: The keyword 'import' is reserved",
       links: [],
-      id: "66d10b2b6c1cb7e5ef447158c3b5a87b99b1762c",
+      id: "0299e5a2c549669334ef4905ed3a636d9ae07723",
       path: "src/App.jsx",
       location: { start_line: 1 },
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     },
     {
-      message: "Error - Parsing error: The keyword 'import' is reserved",
+      message: "Parsing error: The keyword 'import' is reserved",
       links: [],
-      id: "66d10b2b6c1cb7e5ef447158c3b5a87b99b1762c",
+      id: "0299e5a2c549669334ef4905ed3a636d9ae07723",
       path: "src/application.jsx",
       location: { start_line: 1 },
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     },
     {
-      message: "Error - 'foo' is not defined.",
-      links: [],
+      message: "'foo' is not defined.",
+      links: ["https://eslint.org/docs/rules/no-undef"],
       id: "no-undef",
       path: "src/index.js",
-      location: { start_line: 1 },
-      object: nil,
+      location: { start_line: 1, start_column: 9, end_line: 1, end_column: 12 },
+      object: {
+        severity: "error",
+        category: "Variables",
+        recommended: true,
+      },
     },
     {
-      message: "Error - 'x' is assigned a value but never used.",
-      links: [],
+      message: "'x' is assigned a value but never used.",
+      links: ["https://eslint.org/docs/rules/no-unused-vars"],
       id: "no-unused-vars",
       path: "src/index.js",
-      location: { start_line: 1 },
-      object: nil,
+      location: { start_line: 1, start_column: 5, end_line: 1, end_column: 6 },
+      object: {
+        severity: "error",
+        category: "Variables",
+        recommended: true,
+      },
     },
     {
-      message: "Error - 'bar' is defined but never used.",
-      links: [],
+      message: "'bar' is defined but never used.",
+      links: ["https://eslint.org/docs/rules/no-unused-vars"],
       id: "no-unused-vars",
       path: "src/index.js",
-      location: { start_line: 2 },
-      object: nil,
+      location: { start_line: 2, start_column: 10, end_line: 2, end_column: 13 },
+      object: {
+        severity: "error",
+        category: "Variables",
+        recommended: true,
+      },
     }
   ],
   analyzer: {
@@ -360,20 +504,28 @@ Smoke.add_test("no_ignore", {
   type: 'success',
   issues: [
     {
-      message: "Error - Parsing error: The keyword 'import' is reserved",
+      message: "Parsing error: The keyword 'import' is reserved",
       links: [],
-      id: "66d10b2b6c1cb7e5ef447158c3b5a87b99b1762c",
+      id: "0299e5a2c549669334ef4905ed3a636d9ae07723",
       path: "src/App.jsx",
       location: { start_line: 1 },
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     },
     {
-      message: "Error - Parsing error: The keyword 'import' is reserved",
+      message: "Parsing error: The keyword 'import' is reserved",
       links: [],
-      id: "66d10b2b6c1cb7e5ef447158c3b5a87b99b1762c",
+      id: "0299e5a2c549669334ef4905ed3a636d9ae07723",
       path: "src/index.jsx",
       location: { start_line: 1 },
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     }
   ],
   analyzer: {
@@ -387,20 +539,28 @@ Smoke.add_test("additional_options", {
   type: 'success',
   issues: [
     {
-      message: "Error - Parsing error: The keyword 'import' is reserved",
+      message: "Parsing error: The keyword 'import' is reserved",
       links: [],
-      id: "66d10b2b6c1cb7e5ef447158c3b5a87b99b1762c",
+      id: "0299e5a2c549669334ef4905ed3a636d9ae07723",
       path: "src/App.jsx",
       location: { start_line: 1 },
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     },
     {
-      message: "Error - Parsing error: The keyword 'import' is reserved",
+      message: "Parsing error: The keyword 'import' is reserved",
       links: [],
-      id: "66d10b2b6c1cb7e5ef447158c3b5a87b99b1762c",
+      id: "0299e5a2c549669334ef4905ed3a636d9ae07723",
       path: "src/application.jsx",
       location: { start_line: 1 },
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     }
   ],
   analyzer: {
@@ -415,7 +575,7 @@ Smoke.add_test("prefer_npm_install_true_to_eslintrc", {
   issues: [
     {
       message: <<~MESSAGE.rstrip,
-        Error - Parsing error: Unexpected token, expected ";"
+        Parsing error: Unexpected token, expected ";"
 
           1 | function bar() {
         > 2 |   var x = foo:
@@ -425,10 +585,14 @@ Smoke.add_test("prefer_npm_install_true_to_eslintrc", {
           5 |   }
       MESSAGE
       links: [],
-      id: "40c21e5debb6189e0bd694e4bfabead7f84ec3b0",
+      id: "d91b54561db04524f183f5f8dee752dcf1d4fcb0",
       path: "index.js",
       location: { start_line: 2 },
-      object: nil,
+      object: {
+        severity: "error",
+        category: nil,
+        recommended: nil,
+      },
     }
   ],
   analyzer: {
@@ -436,17 +600,16 @@ Smoke.add_test("prefer_npm_install_true_to_eslintrc", {
   }
 })
 
-Smoke.add_test(
-  'default_version_is_used',
+Smoke.add_test('default_version_is_used', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
   issues: [],
   analyzer: {
     name: 'ESLint',
-    version: '6.5.1', # Default version
+    version: '6.5.1',
   }
-)
+})
 
 Smoke.add_test("mismatched_package_version", {
   guid: 'test-guid',
@@ -463,11 +626,15 @@ Smoke.add_test("eslintrc_js", {
   issues: [
     {
       id: "eqeqeq",
-      message: "Error - Expected '===' and instead saw '=='.",
-      links: [],
+      message: "Expected '===' and instead saw '=='.",
+      links: ["https://eslint.org/docs/rules/eqeqeq"],
       path: "index.js",
-      location: { start_line: 1 },
-      object: nil,
+      location: { start_line: 1, start_column: 7, end_line: 1, end_column: 9 },
+      object: {
+        severity: "error",
+        category: "Best Practices",
+        recommended: false,
+      },
     },
   ],
   analyzer: {
