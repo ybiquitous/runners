@@ -63,7 +63,7 @@ Smoke.add_test(
     location: {start_line: 3 },
     object: nil,
   }],
-  analyzer: {name: 'haml_lint', version: '0.30.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.0'})
 
 # rubocop-rspec will not be installed because `Gemfile.lock` does not exists.
 # However, haml-lint does not stop to perform the analysis, and reports other offenses.
