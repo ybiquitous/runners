@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Optimize generated Gemfile [#359](https://github.com/sider/runners/pull/359)
 - Use `COPY --chown` format in Dockerfile [#369](https://github.com/sider/runners/pull/369)
 - Use pre-installed gems as possible [#367](https://github.com/sider/runners/pull/367)
+- Bump SwiftLint from 0.34.0 to 0.36.0[#402](https://github.com/sider/runners/pull/402)
 
 ## 0.6.0
 
