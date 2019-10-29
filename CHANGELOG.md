@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Set Bugsnag `release_stage` explicitly [#404](https://github.com/sider/runners/pull/404)
 - Improve Bugsnag settings [#405](https://github.com/sider/runners/pull/405)
+- [ESLint] Allow `recommended` as string [#406](https://github.com/sider/runners/pull/406)
 
 ## 0.7.0
 
