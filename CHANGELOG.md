@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.7.0...HEAD)
 
 - Set Bugsnag `release_stage` explicitly [#404](https://github.com/sider/runners/pull/404)
+- Improve Bugsnag settings [#405](https://github.com/sider/runners/pull/405)
 
 ## 0.7.0
 
