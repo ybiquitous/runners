@@ -30,7 +30,7 @@ module Runners
         let :issue, object(
           severity: string,
           category: string?,
-          recommended: boolean?,
+          recommended: enum?(boolean, string),
         )
       }
     end
