@@ -2,22 +2,18 @@
 # NOTE: DO *NOT* EDIT THIS FILE.  IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-FROM sider/devon_rex_swift:2.6.0
+FROM sider/devon_rex_swift:2.7.0
 
-ARG SWIFTLINT_VERSION=0.34.0
+ARG SWIFTLINT_VERSION=0.36.0
 
 # Build SwiftLint
 USER root
-# HACK: Apply a patch to avoid "error: product dependency 'CryptoSwift' not found". See #315.
-COPY images/swiftlint/fix-CryptoSwift-not-found.patch /tmp/
 RUN SWIFTLINT_BUILD_DIR=/tmp/swiftlint_build && \
     git clone --branch ${SWIFTLINT_VERSION} --single-branch https://github.com/realm/SwiftLint.git ${SWIFTLINT_BUILD_DIR} && \
     cd ${SWIFTLINT_BUILD_DIR} && \
-    git apply /tmp/fix-CryptoSwift-not-found.patch && \
     make install && \
     swiftlint version && \
-    rm -rf ${SWIFTLINT_BUILD_DIR} && \
-    rm /tmp/fix-CryptoSwift-not-found.patch
+    rm -rf ${SWIFTLINT_BUILD_DIR}
 USER $RUNNER_USER
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
