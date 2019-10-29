@@ -14,6 +14,7 @@ EXIT_STATUS_FOR_SIGTERM = 126
 
 Bugsnag.configure do |config|
   config.app_version = ENV["RUNNERS_VERSION"]
+  config.release_stage = ENV["BUGSNAG_RELEASE_STAGE"]
 end
 
 def notify_with_bugsnag(exception)
