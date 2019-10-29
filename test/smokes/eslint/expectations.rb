@@ -642,3 +642,27 @@ Smoke.add_test("eslintrc_js", {
     version: "6.5.1",
   },
 })
+
+Smoke.add_test("typescript", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [
+    {
+      id: "@typescript-eslint/no-unused-vars",
+      message: "'x' is assigned a value but never used.",
+      links: ["https://github.com/typescript-eslint/typescript-eslint/blob/v2.6.0/packages/eslint-plugin/docs/rules/no-unused-vars.md"],
+      path: "index.ts",
+      location: { start_line: 1, start_column: 7, end_line: 1, end_column: 8 },
+      object: {
+        severity: "warn",
+        category: "Variables",
+        recommended: "warn",
+      },
+    },
+  ],
+  analyzer: {
+    name: "ESLint",
+    version: "6.5.1",
+  },
+})
