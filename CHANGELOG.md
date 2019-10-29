@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.7.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.7.1...HEAD)
+
+## 0.7.1
+
+[Full diff](https://github.com/sider/runners/compare/0.7.0...0.7.1)
 
 - Set Bugsnag `release_stage` explicitly [#404](https://github.com/sider/runners/pull/404)
 - Improve Bugsnag settings [#405](https://github.com/sider/runners/pull/405)
