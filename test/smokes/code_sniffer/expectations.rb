@@ -92,3 +92,48 @@ warnings: [{
   message: "Sider has no longer supported PHP_CodeSniffer v2. Sider executes v3 even if putting `2` as `version` option.",
   file: "sider.yml"
 }])
+
+Smoke.add_test("autodetect_cakephp", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [
+    { path: "app/test.php",
+      location: { start_line: 2 },
+      id: "CakePHP.Commenting.FunctionComment.Missing",
+      message: 'Missing doc comment for function foo()',
+      links: [],
+      object: nil,
+    },
+  ],
+  analyzer: {
+    name: "code_sniffer",
+    version: "3.5.0"
+  },
+})
+
+Smoke.add_test("autodetect_symfony", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [
+    { path: "src/test.php",
+      location: { start_line: 2 },
+      id: "Squiz.Functions.GlobalFunction.Found",
+      message: 'Consider putting global function "foo" in a static class',
+      links: [],
+      object: nil,
+    },
+    { path: "src/test.php",
+      location: { start_line: 2 },
+      id: "Symfony.Commenting.FunctionComment.Missing",
+      message: 'Missing doc comment for function foo()',
+      links: [],
+      object: nil,
+    },
+  ],
+  analyzer: {
+    name: "code_sniffer",
+    version: "3.5.0"
+  },
+})

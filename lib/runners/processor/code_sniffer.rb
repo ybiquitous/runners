@@ -58,7 +58,7 @@ module Runners
     def additional_options(config)
       # If a repository doesn't have `sideci.yml`, use default configuration with `default_sideci_options` method.
       if config.empty?
-        default_sideci_options['options'].map do |k, v|
+        default_sideci_options[:options].map do |k, v|
           "--#{k}=#{v}"
         end
       else
@@ -72,12 +72,12 @@ module Runners
     end
 
     def standard_option(config)
-      standard = config[:standard] || config.dig(:options, :standard) || default_sideci_options['options']['standard']
+      standard = config[:standard] || config.dig(:options, :standard) || default_sideci_options.dig(:options, :standard)
       "--standard=#{standard}"
     end
 
     def extensions_option(config)
-      extensions = config[:extensions] || config.dig(:options, :extensions) || default_sideci_options['options']['extensions']
+      extensions = config[:extensions] || config.dig(:options, :extensions) || default_sideci_options.dig(:options, :extensions)
       "--extensions=#{extensions}"
     end
 
@@ -96,43 +96,45 @@ module Runners
         config.dig(:options, :dir)&.tap do
           add_warning("`dir` key under the `options` is deprecated. Please declare it just under the `code_sniffer`. See https://help.sider.review/tools/php/codesniffer#options", file: "sideci.yml")
         end ||
-        default_sideci_options['dir']
+        default_sideci_options[:dir]
     end
 
     def default_sideci_options
-      @default_sideci_options ||= begin
-        config = {
-          'options' => {
-            'standard' => 'PSR2',
-            'extensions' => 'php',
-          },
-          'dir' => './',
-        }
-
+      @default_sideci_options ||=
         case php_framework
-        when 'CakePHP'
-          config['options']['standard'] = 'CakePHP'
-          config['dir'] = 'app/'
-        when 'Symfony'
-          config['options']['standard'] = 'Symfony'
-          config['dir'] = 'src/'
+        when :CakePHP
+          {
+            options: {
+              standard: 'CakePHP',
+              extensions: 'php',
+            },
+            dir: 'app/',
+          }
+        when :Symfony
+          {
+            options: {
+              standard: 'Symfony',
+              extensions: 'php',
+            },
+            dir: 'src/',
+          }
+        else
+          {
+            options: {
+              standard: 'PSR2',
+              extensions: 'php',
+            },
+            dir: './',
+          }
         end
-
-        config
-      end
     end
 
     def php_framework
-      frameworks = {
-        'CakePHP' => 'lib/Cake/Core/CakePlugin.php',
-        'FuelPHP' => 'oil',
-        'CodeIgniter' => 'system/core/CodeIgniter.php',
-        'Symfony' => 'app/SymfonyRequirements.php'
-      }
-
-      @framework ||= frameworks.find do |framework, file|
-        _, _, status = capture3('test', '-f', file)
-        break framework if status.success?
+      @php_framework ||= {
+        CakePHP: 'lib/Cake/Core/CakePlugin.php',
+        Symfony: 'app/SymfonyRequirements.php',
+      }.find do |framework, file|
+        break framework if (current_dir / file).exist?
       end
     end
 
