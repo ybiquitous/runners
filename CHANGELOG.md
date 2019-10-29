@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.6.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.7.0...HEAD)
+
+## 0.7.0
+
+[Full diff](https://github.com/sider/runners/compare/0.6.0...0.7.0)
 
 - [JSHint] Consider broken package.json [#327](https://github.com/sider/runners/pull/327)
 - Bump devon_rex images from master to 2.6.0 and bump Ruby from 2.6.4 to 2.6.5 [#332](https://github.com/sider/runners/pull/332)
