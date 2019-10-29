@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.7.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.7.2...HEAD)
+
+## 0.7.2
+
+[Full diff](https://github.com/sider/runners/compare/0.7.1...0.7.2)
 
 - [JSHint] Show runtime versions [#407](https://github.com/sider/runners/pull/407)
 - Copy `ARGV` for notifying to Bugsnag correctly [#408](https://github.com/sider/runners/pull/408)
