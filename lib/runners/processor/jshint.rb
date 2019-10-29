@@ -23,6 +23,11 @@ module Runners
       'JSHint'
     end
 
+    def setup
+      show_runtime_versions
+      yield
+    end
+
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
         prepare_config(config)
