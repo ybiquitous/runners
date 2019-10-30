@@ -179,7 +179,7 @@ class Runners::Shell
   def env_hash: -> Hash<String, String?>
 end
 
-class Runners::Shell::ExecError
+class Runners::Shell::ExecError < StandardError
   attr_reader type: Symbol
   attr_reader args: Array<String>
   attr_reader stdout_str: String

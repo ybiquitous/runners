@@ -74,6 +74,7 @@ class ShellTest < Minitest::Test
         shell.capture3_trace("echo Error | tee /dev/stderr && exit 1", raise_on_failure: true)
       end
 
+      assert_equal "Command [echo Error | tee /dev/stderr && exit 1] exited with 1", error.message
       assert_equal :capture3, error.type
       assert_equal ["echo Error | tee /dev/stderr && exit 1"], error.args
       assert_equal "Error\n", error.stdout_str
@@ -85,6 +86,15 @@ class ShellTest < Minitest::Test
         { trace: "stdout", string: "Error\n" },
         { trace: "stderr", string: "Error\n" },
       ]
+
+      assert_equal({
+        details: {
+          args: ["echo Error | tee /dev/stderr && exit 1"],
+          stdout: "Error\n",
+          stderr: "Error\n",
+          status: 1,
+        }
+      }, error.bugsnag_meta_data)
     end
   end
 
