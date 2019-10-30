@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.7.2...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.7.3...HEAD)
+
+## 0.7.3
+
+[Full diff](https://github.com/sider/runners/compare/0.7.2...0.7.3)
 
 - Remove a warning for Node.js analyzers without dependencies [#410](https://github.com/sider/runners/pull/410)
 
