@@ -695,7 +695,7 @@ EOF
       Runners::Workspace.open(base: nil, base_key: nil,
                                   head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
                                   working_dir: path,
-                                  ssh_key: (Pathname(__dir__) + "data/ruby_private_gem_deploy_key").to_s,
+                                  ssh_key: (Pathname(__dir__) + "data/ruby_private_gem_deploy_key").read,
                                   trace_writer: trace_writer) do |workspace|
         processor = klass.new(guid: SecureRandom.uuid,
                               working_dir: path,

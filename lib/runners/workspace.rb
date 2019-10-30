@@ -47,7 +47,7 @@ module Runners
     def self.prepare_ssh(ssh_key, trace_writer:)
       trace_writer.header "Setting up SSH config"
 
-      if ssh_key || ssh_key_content
+      if ssh_key
         Dir.mktmpdir do |ssh_dir|
           trace_writer.message "Preparing SSH config..."
 
@@ -63,8 +63,7 @@ module Runners
               IdentitiesOnly yes
               IdentityFile #{key_path}
           SSH_CONFIG
-          File.write(key_path, ssh_key_content, perm: 0600) if ssh_key_content
-          FileUtils.install(ssh_key, key_path, mode: 0600) if ssh_key
+          File.write(key_path, ssh_key, perm: 0600)
           File.write(git_ssh_path, <<~GIT_SSH)
             #!/bin/sh
             ssh -F #{config_path} "$@"
@@ -181,10 +180,6 @@ module Runners
           raise DownloadError, "Download is failed. #{response.inspect}"
         end
       end
-    end
-
-    def self.ssh_key_content
-      @ssh_key_content ||= ENV['BASE64_SSH_KEY'].presence&.yield_self { |value| Base64.decode64(value) }
     end
   end
 end

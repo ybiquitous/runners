@@ -15,6 +15,7 @@ class Runners::Testing::Smoke
   def unify_result: (any, any, IO) -> bool
   def with_data_container: <'x> { () -> 'x } -> 'x
   def command_line: (String, Configuration) -> String
+  def system!: (*String) -> void
 
   def self.only?: (String) -> bool
   def self.add_test: (String, Hash, **any) { (Configuration) -> void } -> void

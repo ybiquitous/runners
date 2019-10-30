@@ -32,4 +32,4 @@ trap('SIGUSR2') do
   Bugsnag.notify(RunnersTimeoutError.new)
 end
 
-Runners::CLI.new(argv: ARGV.dup, stdout: STDOUT, stderr: STDERR).validate_options!.run
+Runners::CLI.new(argv: ARGV.dup, stdout: STDOUT, stderr: STDERR).run
