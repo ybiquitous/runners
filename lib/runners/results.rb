@@ -38,7 +38,17 @@ module Runners
       def as_json
         super.tap do |json|
           json[:type] = 'success'
-          json[:issues] = issues.map(&:as_json).sort_by! {|issue| [issue[:id], issue[:path], issue.dig(:location, :start_line)]}
+          json[:issues] = issues.map(&:as_json).sort_by! do |issue|
+            [
+              issue[:id] || "",
+              issue[:path] || "",
+              issue.dig(:location, :start_line) || 0,
+              issue.dig(:location, :start_column) || 0,
+              issue.dig(:location, :end_line) || 0,
+              issue.dig(:location, :end_column) || 0,
+              issue[:message] || "",
+            ]
+          end
           json[:analyzer] = analyzer.as_json
         end
       end

@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.7.3...HEAD)
 
 - Report message and metadata on `Shell::ExecError` to Bugsnag [#414](https://github.com/sider/runners/pull/414)
+- Fix error for issue sorting when location is nil [#416](https://github.com/sider/runners/pull/416)
 
 ## 0.7.3
 

@@ -20,6 +20,12 @@ class ResultTest < Minitest::Test
       },
       schema: nil
     )
+    result.add_issue Issue.new(
+      path: Pathname("foo/bar/baz.rb"),
+      location: nil,
+      id: "some_error_id",
+      message: "abc def",
+    )
 
     assert result.valid?
 
@@ -32,12 +38,20 @@ class ResultTest < Minitest::Test
                        issues: [
                          {
                            path: "foo/bar/baz.rb",
+                           location: nil,
+                           id: "some_error_id",
+                           message: "abc def",
+                           links: [],
+                           object: nil,
+                         },
+                         {
+                           path: "foo/bar/baz.rb",
                            location: { start_line: 1 },
                            id: "some_error_id",
                            message: "abc def",
                            links: [],
                            object: { args: [1,2,3] }
-                         }
+                         },
                        ],
                        analyzer: { name: "RuboCop", version: "1.3.2pre" }
                      })
