@@ -1,7 +1,6 @@
 module Runners
   class Processor::Cppcheck < Processor
-    Schema = _ = StrongJSON.new do
-      # @type self: Processor::Cppcheck::JSONSchema
+    Schema = StrongJSON.new do
       let :runner_config, Schema::RunnerConfig.base.update_fields { |fields|
         fields.merge!(
           target: enum?(string, array(string)),
