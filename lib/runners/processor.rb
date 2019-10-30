@@ -61,7 +61,7 @@ module Runners
       raise NotImplementedError, "No implementation: #{self.class}#analyze"
     end
 
-    def analyze_name
+    def analyzer_name
       raise NotImplementedError, "No implementation: #{self.class}#{__method__}"
     end
 
