@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.7.2...HEAD)
 
+- Remove a warning for Node.js analyzers without dependencies [#410](https://github.com/sider/runners/pull/410)
+
 ## 0.7.2
 
 [Full diff](https://github.com/sider/runners/compare/0.7.1...0.7.2)

@@ -212,16 +212,13 @@ module Runners
       stdout, _, _ = capture3 "npm", "ls", "--depth=0", "--json"
       installed_deps = JSON.parse(stdout)["dependencies"]
 
+      return unless installed_deps
+
       warn_about_fallback_to_default = -> {
         add_warning <<~MSG.strip, file: "package.json"
           No required dependencies for analysis were installed. Instead, the pre-installed `#{default_dependency}` will be used.
         MSG
       }
-
-      unless installed_deps
-        warn_about_fallback_to_default.call
-        return
-      end
 
       all_constraints_satisfied = true
 
