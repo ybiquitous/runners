@@ -1,0 +1,3 @@
+linter:
+  cpplint:
+    filter: -whitespace,+whitespace/braces,-legal/copyright
