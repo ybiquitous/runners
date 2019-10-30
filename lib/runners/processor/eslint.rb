@@ -173,7 +173,7 @@ module Runners
           message = details[:message]
 
           unless id
-            trace_writer.message("No ID found! - #{message}")
+            trace_writer.message("No rule ID found! - #{message} in #{path}")
             id = Digest::SHA1.hexdigest(message)
           end
 
