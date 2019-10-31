@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.7.4...HEAD)
 
 - Improve deprecation message for older versions [#419](https://github.com/sider/runners/pull/419)
+- [SwiftLint] Treat as success when no linting files [#422](https://github.com/sider/runners/pull/422)
 
 ## 0.7.4
 

@@ -116,17 +116,21 @@ module Runners
       #
       # Otherwise it may be aborted.
       exitstatus = status.exitstatus
+
+      # HACK: SwiftLint sometimes exits with no output, so we need to check also the existence of `*.swift` files.
+      if exitstatus == 1 && (stderr.include?("No lintable files found at paths:") || Dir.glob("**/*.swift").empty?)
+        return Results::Success.new(guid: guid, analyzer: analyzer)
+      end
+
       unless [0, 2, 3].include?(exitstatus)
         summary = if exitstatus
                     "SwiftLint exited with unexpected status #{exitstatus}."
                   else
                     "SwiftLint aborted."
                   end
-        return Results::Failure.new(guid: guid, message: <<~TEXT, analyzer: analyzer)
+        return Results::Failure.new(guid: guid, message: <<~TEXT.strip, analyzer: analyzer)
           #{summary}
-          STDOUT:
-          #{stdout}
-          STDERR:
+
           #{stderr}
         TEXT
       end
