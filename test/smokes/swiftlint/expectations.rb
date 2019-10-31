@@ -101,22 +101,13 @@ Smoke.add_test("ignore_warnings", {
     ]
 })
 
-# TODO: This test sometimes fails for some reason.
-#       We skip this test for now.
-# Smoke.add_test("no_swift_file", {
-#   guid: "test-guid",
-#   timestamp: :_,
-#   type: "failure",
-#   message:
-#     "SwiftLint exited with unexpected status 1.\n" +
-#     "STDOUT:\n" +
-#     "\n" +
-#     "STDERR:\n" +
-#     "Linting Swift files at paths \n" +
-#     "No lintable files found at paths: ''\n" +
-#     "\n",
-#   analyzer: {name: 'swiftlint', version: '0.36.0'},
-# })
+Smoke.add_test("no_swift_file", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [],
+  analyzer: {name: 'swiftlint', version: '0.36.0'},
+})
 
 Smoke.add_test("no_config_file", {
   guid: "test-guid",
