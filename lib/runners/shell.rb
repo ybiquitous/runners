@@ -9,6 +9,7 @@ module Runners
       attr_reader :dir
 
       def initialize(type:, args:, stdout_str:, stderr_str:, status:, dir:)
+        super("Command [#{args.join(' ')}] exited with #{status.exitstatus.inspect}")
         @type = type
         @args = args
         @stdout_str = stdout_str
@@ -19,6 +20,18 @@ module Runners
 
       def inspect
         "#<#{self.class.name}: type=#{type}, args=#{args.inspect}, status=#{status.inspect}, dir=#{dir.inspect}, stdout_str=..., stderr_str=...>"
+      end
+
+      # @see https://docs.bugsnag.com/platforms/ruby/customizing-error-reports/#custom-error-diagnostic-data
+      def bugsnag_meta_data
+        {
+          details: {
+            args: args,
+            stdout: stdout_str,
+            stderr: stderr_str,
+            status: status.exitstatus,
+          }
+        }
       end
     end
 

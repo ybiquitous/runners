@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.7.3...HEAD)
 
+- Report message and metadata on `Shell::ExecError` to Bugsnag [#414](https://github.com/sider/runners/pull/414)
+
 ## 0.7.3
 
 [Full diff](https://github.com/sider/runners/compare/0.7.2...0.7.3)
