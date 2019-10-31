@@ -41,7 +41,7 @@ GEM
     ffi (1.11.1)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
-    jaro_winkler (1.5.3)
+    jaro_winkler (1.5.4)
     jmespath (1.4.0)
     jsonseq (0.2.0)
     language_server-protocol (3.14.0.1)
