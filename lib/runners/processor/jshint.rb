@@ -88,6 +88,14 @@ module Runners
         break result if status.exitstatus == 0
         parse_result(stdout) { |issue| result.add_issue(issue) }
       end
+    rescue REXML::ParseException => exn
+      message = if exn.cause.instance_of? RuntimeError
+                  exn.cause.message
+                else
+                  exn.message
+                end
+      message = "The output XML is invalid: #{message}"
+      Results::Failure.new(guid: guid, message: message, analyzer: analyzer)
     end
   end
 end

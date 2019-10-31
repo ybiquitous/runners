@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Improve deprecation message for older versions [#419](https://github.com/sider/runners/pull/419)
 - [SwiftLint] Treat as success when no linting files [#422](https://github.com/sider/runners/pull/422)
+- [JSHint] Improve error message when output XML parse is failed [#423](https://github.com/sider/runners/pull/423)
 
 ## 0.7.4
 
