@@ -16,6 +16,7 @@ class Runners::Testing::Smoke
   def with_data_container: <'x> { () -> 'x } -> 'x
   def command_line: (String, Configuration) -> String
 
+  def self.only?: (String) -> bool
   def self.add_test: (String, Hash, **any) { (Configuration) -> void } -> void
   def self.tests: -> Hash<String, any>
   def self.configs: -> Hash<String, Configuration>

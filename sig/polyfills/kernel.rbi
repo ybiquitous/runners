@@ -1,4 +1,5 @@
 extension Kernel (Polyfill)
+  def abort: (String) -> void
   def exit: (Integer) -> void
   def system: (String) -> any
   def load: (String) -> bool

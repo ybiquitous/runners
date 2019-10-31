@@ -46,26 +46,25 @@ module Runners
           end
         end
 
+        abort "❌ No smoke tests!" if results.empty?
+
         passed = results.count { |result,| result == :passed }
         failed = results.count { |result,| result == :failed }
-        skipped = results.count { |result,| result == :skipped }
         total = results.count
-        summary = "#{passed} passed, #{failed} failed, #{skipped} skipped, #{total} total"
+        summary = "#{passed} passed, #{failed} failed, #{total} total"
 
         puts "-" * 30
         if failed == 0
           puts "❤️  Smoke tests passed! -- #{summary}"
         else
           puts "❌ Smoke tests failed! -- #{summary}"
-          marks = { passed: '✅', failed: '❌', skipped: '⚠️' }
+          marks = { passed: '✅', failed: '❌' }
           results.each { |result, name| puts "--> #{marks.fetch(result)} #{name}" }
           exit 1
         end
       end
 
       def run_test(name, pattern, out)
-        return :skipped if ENV['ONLY'] && ENV['ONLY'] != name
-
         commandline = command_line(name, self.class.configs.fetch(name))
         out.puts "$ #{commandline}"
         reader = JSONSEQ::Reader.new(io: StringIO.new(`#{commandline}`), decoder: -> (json) { JSON.parse(json, symbolize_names: true) })
@@ -125,7 +124,19 @@ module Runners
       @tests = {}
       @configs = {}
 
+      # Comma-separated value is also available.
+      def self.only?(name)
+        value = ENV["ONLY"]
+        if value
+          value.split(",").map(&:strip).include?(name)
+        else
+          true
+        end
+      end
+
       def self.add_test(name, result, **others)
+        return unless only? name
+
         others[:warnings] ||= []
         others[:ci_config] ||= :_
 
