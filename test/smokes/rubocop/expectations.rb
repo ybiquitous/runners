@@ -126,7 +126,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
     { message: "Style/Tab has the wrong namespace - should be Layout", file: ".rubocop.yml" },
   ],
 )
@@ -170,7 +170,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
     { message: "RuboCop crashes: An error occurred while Layout/MultilineOperationIndentation cop", file: "test.rb" },
   ],
 )
@@ -197,7 +197,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.49.1` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.49.1 and older versions are deprecated/, file: "Gemfile" },
   ]
 )
 
@@ -293,7 +293,7 @@ Smoke.add_test("using_option_with_incorrect_rubocop_version", {
   TEXT
   analyzer: { name: 'RuboCop', version: '0.59.2' },
 }, warnings: [
-  { message: "The version `0.59.2` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" }
+  { message: /The 0.59.2 and older versions are deprecated/, file: "Gemfile" }
 ])
 
 Smoke.add_test('v0.71_rails', {

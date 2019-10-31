@@ -71,7 +71,7 @@ Smoke.add_test('sideci_valid_npm_install_option', {
     version: '3.19.0'
   }
 }, {
-  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
+  warnings: [{ message: /The 3.19.0 and older versions are deprecated/, file: "package.json" }],
 })
 
 # This test case's .eslintrc includes ESLint plugin, thus Sider fails because of the plugin unavailable.
@@ -151,7 +151,7 @@ Smoke.add_test('dir_option_is_array', {
     version: '3.19.0'
   }
 }, {
-  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
+  warnings: [{ message: /The 3.19.0 and older versions are deprecated/, file: "package.json" }],
 })
 
 Smoke.add_test('dir_option_is_string', {
@@ -189,7 +189,7 @@ Smoke.add_test('dir_option_is_string', {
     version: '3.19.0'
   }
 }, {
-  warnings: [{ message: /The version `3.19.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
+  warnings: [{ message: /The 3.19.0 and older versions are deprecated/, file: "package.json" }],
 })
 
 Smoke.add_test('pinned_eslint', {
@@ -248,7 +248,7 @@ Smoke.add_test('pinned_eslint', {
   ],
   analyzer: { name: 'ESLint', version: '4.0.0'}
 }, {
-  warnings: [{ message: /The version `4.0.0` is deprecated on Sider. `>= 5.0.0` is required/, file: "package.json" }],
+  warnings: [{ message: /The 4.0.0 and older versions are deprecated/, file: "package.json" }],
 })
 
 Smoke.add_test("no_files", {
@@ -272,7 +272,7 @@ Smoke.add_test("no_files_eslint4", {
     version: '4.19.1'
   },
 }, {
-  warnings: [{ message: /The version `4.19.1` is deprecated on Sider/, file: "package.json" }],
+  warnings: [{ message: /The 4.19.1 and older versions are deprecated/, file: "package.json" }],
 })
 
 Smoke.add_test("pinned_eslint5", {

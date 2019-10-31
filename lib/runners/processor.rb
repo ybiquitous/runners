@@ -210,7 +210,9 @@ module Runners
     def add_warning_if_deprecated_version(minimum:, file: nil)
       unless Gem::Version.create(minimum) <= Gem::Version.create(analyzer_version)
         add_warning <<~MSG.strip, file: file
-          The version `#{analyzer_version}` is deprecated on Sider. `>= #{minimum}` is required. Please consider upgrading to a new version.
+          DEPRECATION WARNING!!!
+          The #{analyzer_version} and older versions are deprecated. Sider will drop these versions in the near future.
+          Please consider upgrading to #{minimum} or a newer version.
         MSG
       end
     end

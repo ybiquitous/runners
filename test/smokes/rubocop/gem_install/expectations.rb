@@ -22,7 +22,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -50,7 +50,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -76,7 +76,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -102,7 +102,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -128,7 +128,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -154,7 +154,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.50.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -180,7 +180,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.60.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.60.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -221,7 +221,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.60.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.60.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
 
@@ -278,6 +278,6 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: "The version `0.60.0` is deprecated on Sider. `>= 0.61.0` is required. Please consider upgrading to a new version.", file: "Gemfile" },
+    { message: /The 0.60.0 and older versions are deprecated/, file: "Gemfile" },
   ],
 )
