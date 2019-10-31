@@ -1,1 +1,7 @@
 extends: "stylelint-config-standard"
+
+plugins:
+  - "stylelint-scss"
+
+rules:
+  scss/dollar-variable-pattern: ["^foo", { severity: "warning" }]
