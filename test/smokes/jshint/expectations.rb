@@ -125,3 +125,11 @@ Smoke.add_test("broken_package_json", {
     { message: /`package.json` is broken: 767: unexpected token at/, file: "package.json" },
   ],
 })
+
+Smoke.add_test("invalid_output_xml", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "failure",
+  message: 'The output XML is invalid: Illegal character "\\u0000" in raw string "Unexpected &apos;\\u0000&apos;."',
+  analyzer: { name: "JSHint", version: "2.10.2" },
+})
