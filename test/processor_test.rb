@@ -301,9 +301,12 @@ class ProcessorTest < Minitest::Test
       processor.add_warning_if_deprecated_version(minimum: '1.0.1')
       processor.add_warning_if_deprecated_version(minimum: '2.0.0', file: "foo")
 
-      expected_message = ->(v) {
-        "The version `1.0.0` is deprecated on Sider. `>= #{v}` is required. Please consider upgrading to a new version."
-      }
+      expected_message = ->(v) { <<~MSG.strip }
+        DEPRECATION WARNING!!!
+        The 1.0.0 and older versions are deprecated. Sider will drop these versions in the near future.
+        Please consider upgrading to #{v} or a newer version.
+      MSG
+
       assert_equal(
         [
           { trace: "warning", message: expected_message.call("1.0.1"), file: nil },

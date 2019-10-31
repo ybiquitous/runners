@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.7.4...HEAD)
 
+- Improve deprecation message for older versions [#419](https://github.com/sider/runners/pull/419)
+
 ## 0.7.4
 
 [Full diff](https://github.com/sider/runners/compare/0.7.3...0.7.4)
