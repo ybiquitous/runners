@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.8.2...HEAD)
 
+- Update scss_lint from 0.58.0 to 0.59.0 [#432](https://github.com/sider/runners/pull/432)
+
 ## 0.8.2
 
 [Full diff](https://github.com/sider/runners/compare/0.8.1...0.8.2)
