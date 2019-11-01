@@ -104,6 +104,12 @@ module Runners
         trace_writer.stdout stdout_str if trace_stdout
         trace_writer.stderr stderr_str if trace_stderr
 
+        if status.exited?
+          trace_writer.status status
+        else
+          trace_writer.error "Process aborted or coredumped: #{status.inspect}"
+        end
+
         unless is_success.call(status)
           if raise_on_failure
             raise ExecError.new(type: :capture3,
@@ -113,12 +119,6 @@ module Runners
                                 status: status,
                                 dir: current_dir)
           end
-        end
-
-        if status.exited?
-          trace_writer.status status
-        else
-          trace_writer.error "Process aborted or coredumped: #{status.inspect}"
         end
       end
     end

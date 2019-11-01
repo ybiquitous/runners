@@ -85,6 +85,7 @@ class ShellTest < Minitest::Test
         { trace: "command_line", command_line: ["echo Error | tee /dev/stderr && exit 1"] },
         { trace: "stdout", string: "Error\n" },
         { trace: "stderr", string: "Error\n" },
+        { trace: "status", status: 1 },
       ]
 
       assert_equal({
