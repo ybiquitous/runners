@@ -65,7 +65,8 @@ class Runners::Schema::Types::Result < StrongJSON
   def envelope: -> StrongJSON::Type::Object<{
     result: success_result | failure_result | missing_files_result | error_result,
     warnings: Array<warning>,
-    ci_config: any
+    ci_config: any,
+    version: String,
   }>
 end
 

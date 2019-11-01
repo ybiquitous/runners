@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.8.1...HEAD)
 
+- Add Runners version and set it to result [#449](https://github.com/sider/runners/pull/449)
+
 ## 0.8.1
 
 [Full diff](https://github.com/sider/runners/compare/0.8.0...0.8.1)

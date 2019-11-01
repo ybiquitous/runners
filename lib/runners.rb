@@ -32,6 +32,7 @@ require "active_support/core_ext/module/delegation"
 require "aws-sdk-s3"
 require "bugsnag"
 
+require "runners/version"
 require "runners/options"
 require "runners/location"
 require "runners/results"

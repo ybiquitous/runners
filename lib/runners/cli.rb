@@ -53,6 +53,7 @@ module Runners
             result: result.as_json,
             warnings: warnings,
             ci_config: ci_config,
+            version: Runners::VERSION,
           }
 
           trace_writer.message "Writing result..." do

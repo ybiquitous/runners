@@ -148,6 +148,7 @@ module Runners
 
         others[:warnings] ||= []
         others[:ci_config] ||= :_
+        others[:version] ||= :_
 
         @tests[name] = {
           result: result,
