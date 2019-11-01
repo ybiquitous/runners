@@ -14,6 +14,7 @@ See also another related project, called [devon_rex](https://github.com/sider/de
 - Checkstyle
 - CoffeeLint
 - Cppcheck
+- cpplint
 - ESLint
 - Flake8
 - go vet

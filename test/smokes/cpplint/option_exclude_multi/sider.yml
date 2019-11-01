@@ -1,0 +1,5 @@
+linter:
+  cpplint:
+    exclude:
+      - src/*.c
+      - src/*.cc

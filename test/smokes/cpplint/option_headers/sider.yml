@@ -1,0 +1,3 @@
+linter:
+  cpplint:
+    headers: hpp,hxx
