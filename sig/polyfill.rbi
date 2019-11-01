@@ -48,6 +48,7 @@ class Time
 end
 
 class Exception
+  def message: -> String
 end
 
 extension Array (Polyfill)

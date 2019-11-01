@@ -30,7 +30,7 @@ class HarnessTest < Minitest::Test
 
   class BrokenProcessor < Processor
     def initialize(*args)
-      raise StandardError
+      raise StandardError, "broken!"
     end
   end
 
@@ -49,6 +49,10 @@ class HarnessTest < Minitest::Test
 
       result = harness.run
       assert_instance_of Results::Error, result
+      assert_equal(
+        ["broken! (StandardError)"],
+        trace_writer.writer.filter { |e| e[:trace] == "error" }.map { |e| e[:message] },
+      )
     end
   end
 
@@ -115,11 +119,15 @@ class HarnessTest < Minitest::Test
     harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: nil, trace_writer: trace_writer)
 
     result = harness.ensure_result do
-      raise "Something wrong"
+      JSON.parse("something wrong")
     end
 
     assert_instance_of Results::Error, result
-    assert_instance_of RuntimeError, result.exception
+    assert_instance_of JSON::ParserError, result.exception
+    assert_equal(
+      [{ trace: "error", message: "767: unexpected token at 'something wrong' (JSON::ParserError)" }],
+      trace_writer.writer.map { |entry| entry.slice(:trace, :message) },
+    )
   end
 
   def test_ensure_result_checks_validity_of_issues
@@ -131,6 +139,8 @@ class HarnessTest < Minitest::Test
 
     assert_instance_of Results::Error, result
     assert_instance_of Harness::InvalidResult, result.exception
+    assert_equal "Invalid result: #{result.exception.result.inspect}", result.exception.message
+    assert_equal [], trace_writer.writer
   end
 
   def test_setup_analyze

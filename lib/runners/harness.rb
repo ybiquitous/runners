@@ -5,11 +5,8 @@ module Runners
       attr_reader :result
 
       def initialize(result:)
+        super("Invalid result: #{result.inspect}")
         @result = result
-      end
-
-      def inspect
-        "#<#{self.class.name}: result=#{result.inspect}>"
       end
     end
 
@@ -76,7 +73,17 @@ module Runners
         end
       rescue => exn
         Bugsnag.notify(exn)
+        handle_error(exn)
         Results::Error.new(guid: guid, exception: exn)
+      end
+    end
+
+    def handle_error(exn)
+      case exn
+      when InvalidResult
+        # Do nothing because this is an internal logic error.
+      else
+        trace_writer.error "#{exn.message} (#{exn.class})"
       end
     end
   end
