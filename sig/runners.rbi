@@ -201,9 +201,10 @@ class Runners::Harness
   def initialize: (guid: String, processor_class: Processor.class constructor, workspace: Workspace, trace_writer: TraceWriter) -> any
   def run: () -> result
   def ensure_result: { -> result } -> result
+  def handle_error: (Exception) -> void
 end
 
-class Runners::Harness::InvalidResult
+class Runners::Harness::InvalidResult < StandardError
   attr_reader result: result
   def initialize: (result: result) -> any
 end
