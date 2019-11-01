@@ -23,6 +23,10 @@ module Runners
                                             glob: string?
                                           ))
                       })
+
+        let :issue, object(
+          severity: string?,
+        )
       }
     end
 
@@ -130,24 +134,51 @@ module Runners
 
     # @param stdout [String]
     def parse_result(stdout)
-      JSON.parse(stdout).flat_map do |file|
-        check_warning(file['deprecations'])
-        fname = file['source']
-        file['warnings'].map do |warn|
-          loc = Location.new(
-            start_line: warn['line'] || 1, # NOTE: There is a rare case that stylelint doesn't output the `line`.
-            start_column: nil,
-            end_line: nil,
-            end_column: nil
-          )
+      JSON.parse(stdout, symbolize_names: true).flat_map do |file|
+        check_warning(file[:deprecations])
+        path = relative_path(file[:source])
+
+        file[:warnings].map do |warning|
+          line = warning[:line]
+          id = warning[:rule]
+
           Issue.new(
-            path: relative_path(fname),
-            location: loc,
-            id: warn['rule'],
-            message: warn['text'],
+            path: path,
+            location: line ? Location.new(start_line: line) : nil, # NOTE: There is a rare case that stylelint doesn't output the `line`.
+            id: id,
+            message: normalize_message(id, warning[:text]),
+            links: [rule_doc_urls[id]].compact,
+            object: {
+              severity: warning[:severity],
+            },
+            schema: Schema.issue,
           )
         end
       end
+    end
+
+    # @see https://github.com/stylelint/stylelint/blob/11.1.1/lib/formatters/stringFormatter.js#L120
+    def normalize_message(id, message)
+      message.delete_suffix("(#{id})").strip # trim ID
+    end
+
+    # @see https://github.com/stylelint/stylelint/blob/11.1.1/lib/formatters/stringFormatter.js#L120
+    def rule_doc_urls
+      @rule_doc_urls ||=
+        begin
+          # Find stylelint installed location.
+          stdout, _, status = capture3 "node", "-pe", "require.resolve('stylelint')"
+          if status.success?
+            Pathname.glob(stdout.chomp.sub("/lib/index.js", "/lib/rules/*"))
+              .filter(&:directory?)
+              .each_with_object({}) do |dir, hash|
+                rule = dir.basename.to_s
+                hash[rule] = "https://github.com/stylelint/stylelint/tree/#{analyzer_version}/lib/rules/#{rule}"
+              end
+          else
+            {}
+          end
+        end
     end
 
     def prepare_config_file(config)
@@ -201,7 +232,7 @@ module Runners
     def check_warning(deprecations)
       @warning_set ||= Set.new
       deprecations.each do |dep|
-        @warning_set << "#{dep['text']} #{dep['reference']}"
+        @warning_set << "#{dep[:text]} #{dep[:reference]}"
       end
     end
 

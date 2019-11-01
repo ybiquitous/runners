@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.7.5...HEAD)
 
 - Bugsnag notify on `rescue` block [#445](https://github.com/sider/runners/pull/445)
+- [stylelint] Empower runner [#420](https://github.com/sider/runners/pull/420)
 
 ## 0.7.5
 
