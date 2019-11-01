@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Bugsnag notify on `rescue` block [#445](https://github.com/sider/runners/pull/445)
 - [stylelint] Empower runner [#420](https://github.com/sider/runners/pull/420)
 - [cpplint] New support [#417](https://github.com/sider/runners/pull/417)
+- Add Options module and delete insecure options [#415](https://github.com/sider/runners/pull/415)
 
 ## 0.7.5
 
