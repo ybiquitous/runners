@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Add Options module and delete insecure options [#415](https://github.com/sider/runners/pull/415)
 - Output an unexpected error message to the trace log [#446](https://github.com/sider/runners/pull/446)
 - [ESLint] Use `--output-file` option to fix JSON parse error [#447](https://github.com/sider/runners/pull/447)
+- Suppress `npm ls` output [#448](https://github.com/sider/runners/pull/448)
 
 ## 0.7.5
 

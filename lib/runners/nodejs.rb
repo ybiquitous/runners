@@ -208,8 +208,8 @@ module Runners
     end
 
     def check_installed_nodejs_deps(constraints, default_dependency)
-      # NOTE: `npm ls` fails when any peer dependencies are missing.
-      stdout, _, _ = capture3 "npm", "ls", "--depth=0", "--json"
+      # NOTE: `npm ls` fails when any peer dependencies are missing. Also, the command output can be too long.
+      stdout, _, _ = capture3 "npm", "ls", "--depth=0", "--json", trace_stdout: false
       installed_deps = JSON.parse(stdout)["dependencies"]
 
       return unless installed_deps
