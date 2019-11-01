@@ -4,7 +4,6 @@ require "pathname"
 
 $LOAD_PATH << Pathname(__dir__).parent + "lib"
 
-require "bugsnag"
 require "runners"
 require "runners/cli"
 
@@ -33,7 +32,4 @@ trap('SIGUSR2') do
   Bugsnag.notify(RunnersTimeoutError.new)
 end
 
-result = Runners::CLI.new(argv: ARGV.dup, stdout: STDOUT, stderr: STDERR).validate_options!.run
-if result.instance_of?(Runners::Results::Error)
-  Bugsnag.notify(result.exception)
-end
+Runners::CLI.new(argv: ARGV.dup, stdout: STDOUT, stderr: STDERR).validate_options!.run

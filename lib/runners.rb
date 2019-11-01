@@ -30,6 +30,7 @@ require "active_support/core_ext/module/attribute_accessors"
 require "active_support/core_ext/string/filters"
 require "active_support/core_ext/module/delegation"
 require "aws-sdk-s3"
+require "bugsnag"
 
 require "runners/location"
 require "runners/results"

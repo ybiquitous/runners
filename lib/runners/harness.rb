@@ -75,6 +75,7 @@ module Runners
           end
         end
       rescue => exn
+        Bugsnag.notify(exn)
         Results::Error.new(guid: guid, exception: exn)
       end
     end
