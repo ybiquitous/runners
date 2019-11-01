@@ -149,6 +149,7 @@ extension Hash (Polyfill)
   def fetch: ('key) -> 'value
   def merge!: (*Hash<any, any>) -> Hash<any, any>
   def compact: -> self
+  def dig: (*'key) -> 'value?
 end
 
 class Psych::SyntaxError

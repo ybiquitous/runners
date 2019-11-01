@@ -209,25 +209,17 @@ class Runners::Harness::InvalidResult
 end
 
 class Runners::CLI
-  attr_reader stdout: IO
-  attr_reader stderr: IO
-  attr_reader entrypoint: Pathname
-  attr_reader base: String?
-  attr_reader base_key: String?
-  attr_reader head: String
-  attr_reader head_key: String?
-  attr_reader ssh_key: String
-  attr_reader working_dir: String?
+  attr_reader stdout: ::IO
+  attr_reader stderr: ::IO
   attr_reader guid: String
   attr_reader analyzer: String
-  attr_reader outputs: Array<String>
+  attr_reader options: Runners::Options
 
-  def initialize: (argv: Array<String>, stdout: IO, stderr: IO) -> any
+  def initialize: (argv: Array<String>, stdout: ::IO, stderr: ::IO) -> any
 
   def with_working_dir: <'x> { (Pathname) -> 'x } -> 'x
   def processor_class: () -> Processor.class
-  def validate_options!: () -> self
   def validate_analyzer!: () -> void
   def run: () -> result
-  def io: () -> any
+  def io: () -> Runners::IO
 end

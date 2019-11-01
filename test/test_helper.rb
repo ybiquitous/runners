@@ -22,4 +22,12 @@ module TestHelper
   def incorrect_yarn_data(file)
     Pathname(__dir__).join("incorrect_yarn_data", file)
   end
+
+  def with_runners_options_env(hash)
+    backup = ENV['RUNNERS_OPTIONS']
+    ENV['RUNNERS_OPTIONS'] = JSON.dump(hash)
+    yield
+  ensure
+    ENV['RUNNERS_OPTIONS'] = backup
+  end
 end

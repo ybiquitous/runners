@@ -122,7 +122,7 @@ class WorkspaceTest < Minitest::Test
       Workspace.open(base: nil, base_key: nil,
                      head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
                      working_dir: working_dir,
-                     ssh_key: (Pathname(__dir__) + "data/ssh_key").to_s,
+                     ssh_key: (Pathname(__dir__) / "data/ssh_key").read,
                      trace_writer: trace_writer) do |workspace|
 
         # Clone private repository using ssh key
@@ -138,35 +138,6 @@ class WorkspaceTest < Minitest::Test
         end
 
         assert (workspace.working_dir + "go_private_library/main.go").file?
-      end
-    end
-  end
-
-  def test_prepare_ssh_with_env
-    ssh_key_content = (Pathname(__dir__) / "data/ssh_key").read
-    ENV["BASE64_SSH_KEY"] = Base64.strict_encode64(ssh_key_content)
-
-    mktmpdir do |working_dir|
-      Workspace.open(base: nil, base_key: nil,
-                     head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
-                     working_dir: working_dir,
-                     ssh_key: nil,
-                     trace_writer: trace_writer) do |workspace|
-
-        # Clone private repository using ssh key
-        Open3.capture3(
-          { "GIT_SSH" => workspace.git_ssh_path.to_s },
-          "git", "clone", "--depth=1", "git@github.com:sideci/go_private_library.git",
-          { chdir: working_dir.to_s }
-        ).tap do |_stdout, stderr, status|
-          unless status.success?
-            puts stderr
-            fail
-          end
-        end
-
-        assert (workspace.working_dir + "go_private_library/main.go").file?
-        assert ssh_key_content, Workspace.ssh_key_content
       end
     end
   end

@@ -105,20 +105,29 @@ module Runners
       end
 
       def with_data_container
-        system "docker run --name #{data_container} -v #{ROOT_DATA_DIR} alpine:latest true"
-        system "docker cp #{expectations.parent} #{data_container}:#{ROOT_DATA_DIR}"
+        system! "docker run --name #{data_container} -v #{ROOT_DATA_DIR} alpine:latest true"
+        system! "docker cp #{expectations.parent} #{data_container}:#{ROOT_DATA_DIR}"
         yield
       ensure
-        system "docker rm --force #{data_container}" unless ENV["KEEP_DATA_CONTAINER"]
+        system! "docker rm --force #{data_container}" unless ENV["KEEP_DATA_CONTAINER"]
       end
 
       def command_line(name, config)
-        dir = data_smoke_path + name
-        commands = %W[docker run --rm --volumes-from #{data_container} #{docker_image} --head=#{dir.expand_path}]
-        ssh_key = config.ssh_key
-        commands << "--ssh-key=#{dir.expand_path + ssh_key}" if ssh_key
-        commands << "test-guid"
+        dir = data_smoke_path / name
+        ssh_key = config.ssh_key&.yield_self do |file|
+          Dir.mktmpdir do |tmp_dir|
+            tmp_ssh_key_path = Pathname(tmp_dir) / 'ssh_key'
+            system! "docker cp #{data_container}:#{dir.expand_path / file} #{tmp_ssh_key_path}"
+            tmp_ssh_key_path.read
+          end
+        end
+        runners_options = JSON.dump(source: { head: dir.expand_path }, ssh_key: ssh_key)
+        commands = %W[docker run --rm --volumes-from #{data_container} --env RUNNERS_OPTIONS='#{runners_options}' #{docker_image} test-guid]
         commands.join(" ")
+      end
+
+      def system!(*command_args)
+        system(*command_args, exception: true)
       end
 
       @tests = {}

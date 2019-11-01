@@ -50,10 +50,6 @@ namespace :docker do
           def initialize(**args)
           end
 
-          def validate_options!
-            self
-          end
-
           def run
             Open3.capture3('sleep 10')
           end
