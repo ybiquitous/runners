@@ -203,17 +203,30 @@ module Runners
       #
       # @see https://eslint.org/docs/user-guide/command-line-interface#exit-codes
 
-      stdout, stderr, status = capture3(
+      # NOTE: We must use the `--output-file` option because some plugins may output a non-JSON text to STDOUT.
+      #
+      # @see https://github.com/typescript-eslint/typescript-eslint/blob/v2.6.0/packages/typescript-estree/src/parser.ts#L237-L247
+      output_file = Pathname(Dir.tmpdir) / "eslint-output.json"
+
+      _stdout, stderr, status = capture3(
         nodejs_analyzer_bin,
         "--format=#{custom_formatter}",
+        "--output-file=#{output_file}",
         '--no-color',
         *additional_options,
         *target_dir
       )
 
-      if [0, 1].include? status.exitstatus
+      output_json =
+        if output_file.exist?
+          output_file.read.tap { |json| trace_writer.message json }
+        else
+          nil
+        end
+
+      if [0, 1].include?(status.exitstatus) && output_json
         Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
-          parse_result(stdout) { |issue| result.add_issue(issue) }
+          parse_result(output_json) { |issue| result.add_issue(issue) }
         end
       elsif no_linting_files?(stderr)
         Results::Success.new(guid: guid, analyzer: analyzer)

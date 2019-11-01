@@ -651,7 +651,7 @@ Smoke.add_test("typescript", {
     {
       id: "@typescript-eslint/no-unused-vars",
       message: "'x' is assigned a value but never used.",
-      links: ["https://github.com/typescript-eslint/typescript-eslint/blob/v2.6.0/packages/eslint-plugin/docs/rules/no-unused-vars.md"],
+      links: ["https://github.com/typescript-eslint/typescript-eslint/blob/v1.13.0/packages/eslint-plugin/docs/rules/no-unused-vars.md"],
       path: "index.ts",
       location: { start_line: 1, start_column: 7, end_line: 1, end_column: 8 },
       object: {
@@ -665,4 +665,6 @@ Smoke.add_test("typescript", {
     name: "ESLint",
     version: "6.5.1",
   },
+}, {
+  warnings: [{ message: /The required dependency `eslint` may not have been correctly installed/, file: "package.json" }],
 })
