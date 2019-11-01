@@ -32,7 +32,7 @@ Smoke.add_test('no_config', {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.5.1'
+    version: '6.6.0'
   }
 })
 
@@ -82,13 +82,13 @@ Smoke.add_test('only_eslintrc', {
   message: Regexp.new(Regexp.quote(<<~MESSAGE)),
     Oops! Something went wrong! :(
 
-    ESLint: 6.5.1.
+    ESLint: 6.6.0.
 
     ESLint couldn't find the plugin "eslint-plugin-filenames".
   MESSAGE
   analyzer: {
     name: 'ESLint',
-    version: "6.5.1"
+    version: "6.6.0"
   },
 })
 
@@ -258,7 +258,7 @@ Smoke.add_test("no_files", {
   issues: [],
   analyzer: {
     name: 'ESLint',
-    version: '6.5.1'
+    version: '6.6.0'
   },
 })
 
@@ -386,7 +386,7 @@ Smoke.add_test("quiet", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.5.1'
+    version: '6.6.0'
   }
 })
 
@@ -423,7 +423,7 @@ Smoke.add_test("array_ignore_pattern", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.5.1'
+    version: '6.6.0'
   }
 })
 
@@ -607,7 +607,7 @@ Smoke.add_test('default_version_is_used', {
   issues: [],
   analyzer: {
     name: 'ESLint',
-    version: '6.5.1',
+    version: '6.6.0',
   }
 })
 
@@ -639,7 +639,7 @@ Smoke.add_test("eslintrc_js", {
   ],
   analyzer: {
     name: "ESLint",
-    version: "6.5.1",
+    version: "6.6.0",
   },
 })
 
