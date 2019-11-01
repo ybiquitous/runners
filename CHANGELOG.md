@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - [cpplint] New support [#417](https://github.com/sider/runners/pull/417)
 - Add Options module and delete insecure options [#415](https://github.com/sider/runners/pull/415)
 - Output an unexpected error message to the trace log [#446](https://github.com/sider/runners/pull/446)
+- [ESLint] Use `--output-file` option to fix JSON parse error [#447](https://github.com/sider/runners/pull/447)
 
 ## 0.7.5
 
