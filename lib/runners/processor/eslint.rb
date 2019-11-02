@@ -158,8 +158,10 @@ module Runners
         Location.new(start_line: start_line, start_column: start_column, end_line: end_line, end_column: end_column)
       when start_line && end_line
         Location.new(start_line: start_line, end_line: end_line)
-      else
+      when start_line
         Location.new(start_line: start_line)
+      else
+        nil
       end
     end
 
