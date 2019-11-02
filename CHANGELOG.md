@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.8.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.8.1...HEAD)
+
+## 0.8.1
+
+[Full diff](https://github.com/sider/runners/compare/0.8.0...0.8.1)
 
 - [ESLint] Fix type error when no location info [#456](https://github.com/sider/runners/pull/456)
 
