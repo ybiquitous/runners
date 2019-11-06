@@ -22,7 +22,17 @@ module Runners
       @uri = uri
       @bucket_name, @object_name = self.class.parse_s3_uri!(uri)
       @tempfile = Tempfile.new
-      @client = Aws::S3::Client.new(retry_limit: 5, retry_base_delay: 1.2)
+
+      args = {
+        retry_limit: 5,
+        retry_base_delay: 1.2,
+      }.tap do |hash|
+        if ENV["S3_ENDPOINT"]
+          hash[:endpoint] = ENV["S3_ENDPOINT"]
+          hash[:force_path_style] = true
+        end
+      end
+      @client = Aws::S3::Client.new(**args)
     end
 
     def finalize!
