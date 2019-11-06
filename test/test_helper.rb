@@ -23,11 +23,17 @@ module TestHelper
     Pathname(__dir__).join("incorrect_yarn_data", file)
   end
 
-  def with_runners_options_env(hash)
-    backup = ENV['RUNNERS_OPTIONS']
-    ENV['RUNNERS_OPTIONS'] = JSON.dump(hash)
+  def with_stubbed_env(name, value)
+    backup = ENV[name]
+    ENV[name] = value
     yield
   ensure
-    ENV['RUNNERS_OPTIONS'] = backup
+    ENV[name] = backup
+  end
+
+  def with_runners_options_env(hash)
+    with_stubbed_env('RUNNERS_OPTIONS', JSON.dump(hash)) do
+      yield
+    end
   end
 end

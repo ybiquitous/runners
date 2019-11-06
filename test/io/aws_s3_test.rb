@@ -3,6 +3,19 @@ require_relative "../test_helper"
 class AwsS3Test < Minitest::Test
   include TestHelper
 
+  def test_initialize
+    with_stubbed_env('S3_ENDPOINT', nil) do
+      mock(Aws::S3::Client).new(retry_limit: is_a(Numeric), retry_base_delay: is_a(Numeric))
+      Runners::IO::AwsS3.new('s3://bucket_name/object_name')
+    end
+
+    with_stubbed_env('S3_ENDPOINT', 'https://s3.example.com') do
+      mock(Aws::S3::Client).new(retry_limit: is_a(Numeric), retry_base_delay: is_a(Numeric),
+                                endpoint: 'https://s3.example.com', force_path_style: true)
+      Runners::IO::AwsS3.new('s3://bucket_name/object_name')
+    end
+  end
+
   def test_parse_s3_uri
     assert_raises(RuntimeError) { Runners::IO::AwsS3.parse_s3_uri!('http://example.com') }
     assert_raises(RuntimeError) { Runners::IO::AwsS3.parse_s3_uri!('s3://bucket') }
