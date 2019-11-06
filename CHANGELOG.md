@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Add Runners version and set it to result [#449](https://github.com/sider/runners/pull/449)
 - Always output the exit status to trace [#451](https://github.com/sider/runners/pull/451)
+- Configure :endpoint if S3_ENDPOINT is set [#462](https://github.com/sider/runners/pull/462)
 
 ## 0.8.1
 
