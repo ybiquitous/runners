@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.8.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.8.2...HEAD)
+
+## 0.8.2
+
+[Full diff](https://github.com/sider/runners/compare/0.8.1...0.8.2)
 
 - Add Runners version and set it to result [#449](https://github.com/sider/runners/pull/449)
 - Always output the exit status to trace [#451](https://github.com/sider/runners/pull/451)
