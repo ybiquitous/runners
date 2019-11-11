@@ -36,8 +36,7 @@ module Runners
     end
 
     def analyzer_version
-      # NOTE: PMD does not have a command to display the version...
-      '6.18.0'
+      @analyzer_version ||= capture3!("show_pmd_version").yield_self { |stdout,| stdout.strip }
     end
 
     def analyzer_name
