@@ -50,7 +50,7 @@ Smoke.add_test(
     ],
     analyzer: {
       name: 'RuboCop',
-      version: '0.75.0'
+      version: '0.76.0'
     },
   }
 )
@@ -92,7 +92,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: 'RuboCop',
-    version: '0.75.0'
+    version: '0.76.0'
   },
 )
 
@@ -219,7 +219,7 @@ Smoke.add_test(
     ],
     analyzer: {
       name: 'RuboCop',
-      version: '0.75.0',
+      version: '0.76.0',
     },
   }
 )
@@ -240,7 +240,7 @@ Smoke.add_test(
     TEXT
     analyzer: {
       name: 'RuboCop',
-      version: '0.75.0',
+      version: '0.76.0',
     },
   }
 )
@@ -275,7 +275,7 @@ Smoke.add_test('with_safe_cops', {
       object: nil,
     }
   ],
-  analyzer: { name: 'RuboCop', version: '0.75.0' },
+  analyzer: { name: 'RuboCop', version: '0.76.0' },
 })
 
 Smoke.add_test("using_option_with_incorrect_rubocop_version", {

@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - Bump tslint from 5.20.0 to 5.20.1 [#469](https://github.com/sider/runners/pull/469)
 - Bump eslint from 6.5.1 to 6.6.0 [#431](https://github.com/sider/runners/pull/431)
 - Bump goodcheck from 2.4.0 to 2.4.3 [#468](https://github.com/sider/runners/pull/468)
+- Bump rubocop from 0.75.0 to 0.76.0 [#434](https://github.com/sider/runners/pull/434)
 
 ## 0.8.2
 
