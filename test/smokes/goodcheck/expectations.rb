@@ -20,7 +20,7 @@ Smoke.add_test("success", {
   ],
   analyzer: {
     name: "goodcheck",
-    version: "2.4.0"
+    version: "2.4.3"
   }
 })
 
@@ -43,7 +43,7 @@ Smoke.add_test("with_ci_config", {
   ],
   analyzer: {
     name: "goodcheck",
-    version: "2.4.0"
+    version: "2.4.3"
   }
 })
 
@@ -54,7 +54,7 @@ Smoke.add_test("no_config_file", {
   issues: [],
   analyzer: {
     name: "goodcheck",
-    version: "2.4.0"
+    version: "2.4.3"
   }
 }, warnings: [
   { message: <<~MESSAGE, file: nil }
@@ -71,7 +71,7 @@ Smoke.add_test("invalid_config_file", {
   timestamp: :_,
   type: "failure",
   message: 'Invalid config: TypeError at $.rules[0]: expected=rule, value="id:foo"',
-  analyzer: { name: "goodcheck", version: "2.4.0" },
+  analyzer: { name: "goodcheck", version: "2.4.3" },
 })
 
 Smoke.add_test("with_invalid_ci_config", {
@@ -89,7 +89,7 @@ Smoke.add_test('warning_config_file', {
   issues: [],
   analyzer: {
     name: "goodcheck",
-    version: "2.4.0"
+    version: "2.4.3"
   }
 }, warnings: [
   {
@@ -105,7 +105,7 @@ Smoke.add_test("deprecated-options", {
   issues:[],
   analyzer: {
     name: "goodcheck",
-    version: "2.4.0"
+    version: "2.4.3"
   }
 }, warnings: [
   { message: "👻 `case_insensitive` option is deprecated. Use `case_sensitive` option instead.", file: nil }
@@ -155,7 +155,7 @@ Smoke.add_test("detect_there_is_no_content", {
   ],
   analyzer: {
     name: 'goodcheck',
-    version: '2.4.0'
+    version: '2.4.3'
   }
 })
 
@@ -182,6 +182,6 @@ Smoke.add_test("rules_without_pattern", {
   ],
   analyzer: {
     name: 'goodcheck',
-    version: '2.4.0'
+    version: '2.4.3'
   }
 })
