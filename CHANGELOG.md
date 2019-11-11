@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - Bump rubocop from 0.75.0 to 0.76.0 [#434](https://github.com/sider/runners/pull/434)
 - Bump devon_rex images from 2.7.0 to 2.8.0 [#474](https://github.com/sider/runners/pull/474)
 - Bump SwiftLint from 0.36.0 to 0.37.0 [#473](https://github.com/sider/runners/pull/473)
+- [RuboCop] Empower runner [#472](https://github.com/sider/runners/pull/472)
 
 ## 0.8.2
 
