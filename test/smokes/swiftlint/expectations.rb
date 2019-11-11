@@ -4,7 +4,7 @@ Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'swiftlint', version: '0.36.0'},
+  analyzer: {name: 'swiftlint', version: '0.37.0'},
   issues: [
     {path: "test.swift",
      location: {start_line: 1},
@@ -19,7 +19,7 @@ Smoke.add_test("sideciyml", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'swiftlint', version: '0.36.0'},
+  analyzer: {name: 'swiftlint', version: '0.37.0'},
   issues: [
     {path: "test.swift",
      location: {start_line: 1},
@@ -90,7 +90,7 @@ Smoke.add_test("ignore_warnings", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'swiftlint', version: '0.36.0'},
+  analyzer: {name: 'swiftlint', version: '0.37.0'},
   issues: [
     {path: "test.swift",
      location: {start_line: 3},
@@ -106,7 +106,7 @@ Smoke.add_test("no_swift_file", {
   timestamp: :_,
   type: "success",
   issues: [],
-  analyzer: {name: 'swiftlint', version: '0.36.0'},
+  analyzer: {name: 'swiftlint', version: '0.37.0'},
 })
 
 Smoke.add_test("no_config_file", {
@@ -114,7 +114,7 @@ Smoke.add_test("no_config_file", {
   timestamp: :_,
   type: "failure",
   message: /\ASwiftLint aborted\.\n(.+)\nCould not read configuration file at path (.+)/m,
-  analyzer: {name: 'swiftlint', version: '0.36.0'},
+  analyzer: {name: 'swiftlint', version: '0.37.0'},
 })
 
 Smoke.add_test("broken_sideci_yml", {
@@ -125,18 +125,11 @@ Smoke.add_test("broken_sideci_yml", {
   analyzer: nil,
 })
 
-# TODO: This test sometimes fails for some reason.
-#       We skip this test for now.
-# Smoke.add_test("wrong_swiftlint_version_set", {
-#   guid: "test-guid",
-#   timestamp: :_,
-#   type: "failure",
-#   message: <<~MESSAGE,
-#     This analysis was failure since SwiftLint exited with status 2 and its stdout was empty.
-#     STDERR:
-#     Loading configuration from '.swiftlint.yml'
-#     Currently running SwiftLint 0.36.0 but configuration specified version 0.0.0.
-#
-#   MESSAGE
-#   analyzer: {name: 'swiftlint', version: '0.36.0'},
-# })
+Smoke.add_test("wrong_swiftlint_version_set", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "failure",
+  # TODO: The message sometimes can be "". It should be "Loading configuration from '.swiftlint.yml'".
+  message: :_,
+  analyzer: {name: 'swiftlint', version: '0.37.0'},
+})
