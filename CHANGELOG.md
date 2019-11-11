@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Bump php_codesniffer from 3.5.0 to 3.5.2 [#444](https://github.com/sider/runners/pull/444)
 - Bump tslint from 5.20.0 to 5.20.1 [#469](https://github.com/sider/runners/pull/469)
 - Bump eslint from 6.5.1 to 6.6.0 [#431](https://github.com/sider/runners/pull/431)
+- Bump goodcheck from 2.4.0 to 2.4.3 [#468](https://github.com/sider/runners/pull/468)
 
 ## 0.8.2
 
