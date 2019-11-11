@@ -29,6 +29,15 @@ RUN cd ${RUNNERS_DIR} && \
 
 COPY images/pmd_java/pmd /usr/local/bin/
 
+# NOTE: PMD does not have a CLI option to show its version.
+COPY --chown=analyzer_runner:nogroup images/pmd_java/ShowPMDVersion.java ${RUNNER_USER_HOME}/work/
+COPY --chown=analyzer_runner:nogroup images/pmd_java/show_pmd_version ${RUNNER_USER_HOME}/work/
+ENV PATH ${RUNNER_USER_HOME}/work:${PATH}
+RUN cd "${RUNNER_USER_HOME}/work" && \
+    javac ShowPMDVersion.java && \
+    cd .. && \
+    show_pmd_version
+
 # Copy the main source code
 COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
 COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
