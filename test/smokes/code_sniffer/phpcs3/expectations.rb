@@ -15,7 +15,7 @@ Smoke.add_test("phpcs3/success", {
     ],
     analyzer: {
         name: "code_sniffer",
-        version: "3.5.0"
+        version: "3.5.2"
     },
 })
 
@@ -34,7 +34,7 @@ Smoke.add_test("phpcs3/specified_dir", {
     ],
     analyzer: {
         name: "code_sniffer",
-        version: "3.5.0"
+        version: "3.5.2"
     },
 })
 
@@ -60,7 +60,7 @@ Smoke.add_test("phpcs3/custom_argument", {
     ],
     analyzer: {
         name: "code_sniffer",
-        version: "3.5.0"
+        version: "3.5.2"
     },
 })
 
@@ -107,7 +107,7 @@ Smoke.add_test("phpcs3/cakephp", {
     ],
     analyzer: {
         name: "code_sniffer",
-        version: "3.5.0"
+        version: "3.5.2"
     },
 })
 
@@ -134,7 +134,7 @@ Smoke.add_test("phpcs3/wordpress", {
   ],
   analyzer: {
     name: "code_sniffer",
-    version: "3.5.0"
+    version: "3.5.2"
   },
 })
 
@@ -174,7 +174,7 @@ Smoke.add_test("phpcs3/symfony", {
   ],
   analyzer: {
     name: "code_sniffer",
-    version: "3.5.0"
+    version: "3.5.2"
   },
 })
 
@@ -185,6 +185,6 @@ Smoke.add_test("phpcs3/with_php_version", {
   issues: :_,
   analyzer: {
     name: "code_sniffer",
-    version: "3.5.0"
+    version: "3.5.2"
   }
 })
