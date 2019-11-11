@@ -18,7 +18,7 @@ Smoke.add_test(
     location: { start_line: 4 },
     object: nil,
   }],
-  analyzer: {name: 'haml_lint', version: '0.33.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.0'})
 
 Smoke.add_test(
   'with-sideci.yml',
@@ -33,7 +33,7 @@ Smoke.add_test(
     location: { start_line: 4 },
     object: nil,
   }],
-  analyzer: {name: 'haml_lint', version: '0.33.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.0'})
 
 Smoke.add_test(
   'plain-rubocop',
@@ -48,7 +48,7 @@ Smoke.add_test(
     location: {start_line: 3 },
     object: nil,
   }],
-  analyzer: {name: 'haml_lint', version: '0.33.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.0'})
 
 Smoke.add_test(
   'with-inherit-gem',
@@ -80,7 +80,7 @@ Smoke.add_test(
     location: { start_line: 4 },
     object: nil,
   }],
-  analyzer: {name: 'haml_lint', version: '0.33.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.0'})
 
 Smoke.add_test("with_exclude_files", {
   guid: 'test-guid',
@@ -104,7 +104,7 @@ Smoke.add_test("with_exclude_files", {
       object: nil,
     }
   ],
-  analyzer: { name: 'haml_lint', version: '0.33.0' }
+  analyzer: { name: 'haml_lint', version: '0.34.0' }
 })
 
 Smoke.add_test("broken_sideci_yml", {
@@ -143,7 +143,7 @@ Smoke.add_test(
              location: { start_line: 4 },
              object: nil,
            }],
-  analyzer: {name: 'haml_lint', version: '0.33.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.0'})
 
 # This test case, `incompatible_haml`, will be failed if updating HAML-Lint version,
 # because HAML-Lint 4.1 beta support was dropped.
