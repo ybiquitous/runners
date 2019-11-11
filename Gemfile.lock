@@ -70,7 +70,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    retryable (3.0.4)
+    retryable (3.0.5)
     rexml (3.2.3)
     rr (1.2.1)
     rubocop (0.76.0)
