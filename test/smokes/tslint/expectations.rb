@@ -40,7 +40,7 @@ Smoke.add_test("success", {
                  links: [],
                  object: nil,
              }],
-    analyzer: { name: "TSLint", version: "5.20.0" }
+    analyzer: { name: "TSLint", version: "5.20.1" }
 })
 
 Smoke.add_test("with-tslint-json", {
@@ -55,7 +55,7 @@ Smoke.add_test("with-tslint-json", {
                  links: [],
                  object: nil,
              }],
-    analyzer: { name: "TSLint", version: "5.20.0" }
+    analyzer: { name: "TSLint", version: "5.20.1" }
 })
 
 Smoke.add_test("npm-install", {
@@ -142,7 +142,7 @@ Smoke.add_test("tsconfig", {
                  links: [],
                  object: nil,
               }],
-    analyzer: { name: "TSLint", version: "5.20.0" }
+    analyzer: { name: "TSLint", version: "5.20.1" }
 })
 
 Smoke.add_test("raise-deprecated", {
@@ -157,7 +157,7 @@ Smoke.add_test("raise-deprecated", {
       Error at range.ts:2:63: Property 'max' does not exist on type 'string'.
       Error at range.ts:11:24: Argument of type '{ min: number; middle: number; max: number; }' is not assignable to parameter of type 'string'.
       MESSAGE
-    analyzer: { name: "TSLint", version: "5.20.0" }
+    analyzer: { name: "TSLint", version: "5.20.1" }
 })
 
 Smoke.add_test("deprecated-rules", {
@@ -269,7 +269,7 @@ Smoke.add_test("without-tslint-in-package-json", {
   timestamp: :_,
   type: "success",
   issues: [],
-  analyzer: { name: "TSLint", version: "5.20.0" },
+  analyzer: { name: "TSLint", version: "5.20.1" },
 }, {
   warnings: [
     { message: /No required dependencies for analysis were installed/, file: "package.json" },
@@ -281,7 +281,7 @@ Smoke.add_test("without-tslint-and-with-typescript-in-package-json", {
   timestamp: :_,
   type: "success",
   issues: [],
-  analyzer: { name: "TSLint", version: "5.20.0" },
+  analyzer: { name: "TSLint", version: "5.20.1" },
 }, {
   warnings: [
     { message: /No required dependencies for analysis were installed/, file: "package.json" },
