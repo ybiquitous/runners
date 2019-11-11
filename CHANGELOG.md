@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Bump ktlint from 0.34.2 to 0.35.0 [#442](https://github.com/sider/runners/pull/442)
 - Bump php_codesniffer from 3.5.0 to 3.5.2 [#444](https://github.com/sider/runners/pull/444)
 - Bump tslint from 5.20.0 to 5.20.1 [#469](https://github.com/sider/runners/pull/469)
+- Bump eslint from 6.5.1 to 6.6.0 [#431](https://github.com/sider/runners/pull/431)
 
 ## 0.8.2
 
