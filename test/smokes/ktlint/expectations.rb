@@ -6,7 +6,7 @@ Smoke.add_test(
     guid: "test-guid",
     timestamp: :_,
     type: "success",
-    analyzer: { name: 'ktlint', version: "0.34.2" },
+    analyzer: { name: 'ktlint', version: "0.35.0" },
     issues: [
       {
         id: "7c8346bd",
@@ -42,7 +42,7 @@ Smoke.add_test(
     guid: "test-guid",
     timestamp: :_,
     type: "success",
-    analyzer: { name: 'ktlint', version: "0.34.2" },
+    analyzer: { name: 'ktlint', version: "0.35.0" },
     issues: [
       {
         id: "experimental:package-name",
