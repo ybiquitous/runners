@@ -19,6 +19,10 @@ module Runners
                         properties: string?
                       })
       }
+
+      let :issue, object(
+        severity: string?,
+      )
     end
 
     def self.ci_config_section_name
@@ -104,29 +108,43 @@ module Runners
         file.each_element do |error|
           case error.name
           when "error"
-            line = error[:line].to_i
+            severity = error[:severity]
+            next if ignored_severities.include?(severity)
 
-            # Checkstyle tells line=0 if there is no appropriate line for the error.
-            # Make the line number `1` instead.
-            line = 1 if line == 0
-
+            line = error[:line]
             message = error[:message]
             id = error[:source] + "#" + Digest::SHA2.hexdigest(message)[0, 6]
-            severity = error[:severity]
-
-            next if ignored_severities.include?(severity)
 
             yield Issue.new(
               path: path,
-              location: Location.new(start_line: line),
+              location: line == "0" || line.nil? ? nil : Location.new(start_line: line),
               id: id,
               message: message,
+              links: build_links(error[:source]),
+              object: { severity: severity },
+              schema: Schema.issue,
             )
           when "exception"
             add_warning element_.get_text.value.strip, file: path.to_s
           end
         end
       end
+    end
+
+    def build_links(rule_id)
+      prefix = "com.puppycrawl.tools.checkstyle.checks."
+      return [] unless rule_id.start_with?(prefix)
+
+      category, id = rule_id.delete_prefix(prefix).split(".")
+      unless id
+        id = category
+        category = "misc"
+      end
+      id.delete_suffix!("Check")
+
+      category = "misc" if category == "indentation"
+
+      ["https://checkstyle.org/config_#{category}.html##{id}"]
     end
 
     def configuration
