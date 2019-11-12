@@ -79,7 +79,7 @@ module Runners
     end
 
     def run_analyzer
-      _stdout, stderr = capture3!(
+      stdout, stderr, status = capture3(
         analyzer_bin,
         "--quiet",
         "--xml",
@@ -90,6 +90,18 @@ module Runners
         *language,
         *target,
       )
+
+      if status.exitstatus == 1 && stdout.strip == "cppcheck: error: could not find or open any of the paths given."
+        add_warning "No linting files."
+        return Results::Success.new(guid: guid, analyzer: analyzer)
+      end
+
+      unless status.success?
+        message = stdout.strip
+        message = stderr.strip if message.empty?
+        message = "An unexpected error occurred. See the analysis log." if message.empty?
+        return Results::Failure.new(guid: guid, analyzer: analyzer, message: message)
+      end
 
       xml_output = REXML::Document.new(stderr)
 
