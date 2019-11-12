@@ -119,6 +119,7 @@ module Runners
 
       # HACK: SwiftLint sometimes exits with no output, so we need to check also the existence of `*.swift` files.
       if exitstatus == 1 && (stderr.include?("No lintable files found at paths:") || Dir.glob("**/*.swift").empty?)
+        add_warning "No lintable files found."
         return Results::Success.new(guid: guid, analyzer: analyzer)
       end
 
