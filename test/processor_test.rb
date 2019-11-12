@@ -324,6 +324,33 @@ class ProcessorTest < Minitest::Test
     end
   end
 
+  def test_add_warning_if_deprecated_options
+    mktmpdir do |path|
+      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+
+      stub(processor.class).ci_config_section_name { "some" }
+      stub(processor).ci_section { { "foo" => 1, "bar" => 2, "key" => true } }
+
+      processor.add_warning_if_deprecated_options([:foo, :bar], doc: "https://foo/bar")
+      processor.add_warning_if_deprecated_options([:yes], doc: "https://foo/bar")
+
+      expected_message = <<~MSG.strip
+        DEPRECATION WARNING!!!
+        The `$.linter.some.foo`, `$.linter.some.bar` option(s) in your `sider.yml` are deprecated and will be removed in the near future.
+        Please update to the new option(s) according to our documentation (see https://foo/bar ).
+      MSG
+
+      assert_equal(
+        [{ trace: "warning", message: expected_message, file: "sider.yml" }],
+        trace_writer.writer.map { |hash| hash.slice(:trace, :message, :file) },
+      )
+      assert_equal(
+        [{ message: expected_message, file: "sider.yml" }],
+        processor.warnings,
+      )
+    end
+  end
+
   def test_ensure_runner_config_schema_with_expected_fields
     klass = Class.new(Processor) do
       def self.ci_config_section_name

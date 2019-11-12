@@ -188,8 +188,7 @@ module Runners
       yield config
     end
 
-    # @param path [StrongJSON::Type::ErrorPath]
-    # @return String "$.linter.rubocop.gems"
+    # Returns e.g. "$.linter.rubocop.gems"
     def build_field_reference_from_path(path)
       path.to_s.sub('$', "$.linter.#{self.class.ci_config_section_name}")
     end
@@ -213,6 +212,19 @@ module Runners
           DEPRECATION WARNING!!!
           The #{analyzer_version} and older versions are deprecated. Sider will drop these versions in the near future.
           Please consider upgrading to #{minimum} or a newer version.
+        MSG
+      end
+    end
+
+    def add_warning_if_deprecated_options(keys, doc:)
+      deprecated_keys = ci_section.symbolize_keys.slice(*keys).keys
+        .map { |k| "`" + build_field_reference_from_path("$.#{k}") + "`" }
+
+      unless deprecated_keys.empty?
+        add_warning <<~MSG.strip, file: ci_config_path_name
+          DEPRECATION WARNING!!!
+          The #{deprecated_keys.join(", ")} option(s) in your `#{ci_config_path_name}` are deprecated and will be removed in the near future.
+          Please update to the new option(s) according to our documentation (see #{doc} ).
         MSG
       end
     end

@@ -1,3 +1,4 @@
 linter:
   jshint:
-    config: 'false' # It's my jshintrc:p
+    options:
+      config: 'false' # It's my jshintrc:p

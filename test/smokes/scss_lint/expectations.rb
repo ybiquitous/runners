@@ -80,6 +80,12 @@ Smoke.add_test("with_config_option", {
       name: 'SCSS-Lint',
       version: '0.59.0'
     }
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.scss_lint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/css/scss-lint ).
+  MSG
 })
 
 Smoke.add_test("syntax_error", {

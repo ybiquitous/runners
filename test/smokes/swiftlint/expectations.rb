@@ -119,6 +119,12 @@ Smoke.add_test("no_config_file", {
   type: "failure",
   message: /\ASwiftLint aborted\.\n(.+)\nCould not read configuration file at path (.+)/m,
   analyzer: {name: 'swiftlint', version: '0.37.0'},
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.swiftlint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/swift/swiftlint ).
+  MSG
 })
 
 Smoke.add_test("broken_sideci_yml", {

@@ -30,6 +30,11 @@ module Runners
       "phpmd"
     end
 
+    def setup
+      add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/php/phpmd")
+      yield
+    end
+
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
         check_runner_config(config) do |targets, rule, options|

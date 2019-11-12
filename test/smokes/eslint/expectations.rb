@@ -362,7 +362,7 @@ Smoke.add_test("broken_sideci_yml", {
   guid: 'test-guid',
   timestamp: :_,
   type: 'failure',
-  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.eslint.options.npm_install`",
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.eslint.npm_install`",
   analyzer: nil
 })
 
@@ -388,8 +388,13 @@ Smoke.add_test("quiet", {
     name: 'ESLint',
     version: '6.6.0'
   }
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.eslint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/javascript/eslint ).
+  MSG
 })
-
 
 Smoke.add_test("array_ignore_pattern", {
   guid: 'test-guid',

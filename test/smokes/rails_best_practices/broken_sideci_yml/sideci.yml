@@ -1,6 +1,5 @@
 linter:
   rails_best_practices:
-    options:
-      exclude:
-        - app/assets
-        - db
+    exclude:
+      - app/assets
+      - db

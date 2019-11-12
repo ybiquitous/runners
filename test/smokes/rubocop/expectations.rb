@@ -276,6 +276,12 @@ Smoke.add_test('with_safe_cops', {
     }
   ],
   analyzer: { name: 'RuboCop', version: '0.76.0' },
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.rubocop.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/ruby/rubocop ).
+  MSG
 })
 
 Smoke.add_test("using_option_with_incorrect_rubocop_version", {

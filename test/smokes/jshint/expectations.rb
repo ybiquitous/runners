@@ -94,7 +94,7 @@ Smoke.add_test("broken_sideci_yml", {
   timestamp: :_,
   type: 'failure',
   analyzer: nil,
-  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.jshint.options.config`"
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.jshint.config`"
 })
 
 Smoke.add_test("with_options", {
@@ -112,6 +112,12 @@ Smoke.add_test("with_options", {
     }
   ],
   analyzer: { name: 'JSHint', version: '2.10.2' },
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.jshint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/javascript/jshint ).
+  MSG
 })
 
 Smoke.add_test("broken_package_json", {

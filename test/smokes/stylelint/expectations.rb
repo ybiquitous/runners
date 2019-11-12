@@ -414,6 +414,12 @@ Smoke.add_test("broken_sideci_yml", {
   timestamp: :_,
   type: 'failure',
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.stylelint.options.ignore-path`"
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.stylelint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/css/stylelint ).
+  MSG
 })
 
 Smoke.add_test("additional_options", {

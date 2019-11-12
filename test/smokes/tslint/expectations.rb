@@ -158,6 +158,12 @@ Smoke.add_test("raise-deprecated", {
       Error at range.ts:11:24: Argument of type '{ min: number; middle: number; max: number; }' is not assignable to parameter of type 'string'.
       MESSAGE
     analyzer: { name: "TSLint", version: "5.20.1" }
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.tslint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/javascript/tslint ).
+  MSG
 })
 
 Smoke.add_test("deprecated-rules", {

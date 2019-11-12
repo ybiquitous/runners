@@ -1,7 +1,6 @@
 linter:
   code_sniffer:
     version: "3"
-    options:
-      dir: app/
-      extension:
-        - php
+    dir: app/
+    extension:
+      - php

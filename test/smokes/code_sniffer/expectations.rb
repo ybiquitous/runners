@@ -36,7 +36,11 @@ Smoke.add_test("specified_dir", {
     name: "code_sniffer",
     version: "3.5.2"
   },
-}, warnings: [{ :message => "`dir` key under the `options` is deprecated. Please declare it just under the `code_sniffer`. See https://help.sider.review/tools/php/codesniffer#options", :file => "sideci.yml" }])
+}, warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }])
+  DEPRECATION WARNING!!!
+  The `$.linter.code_sniffer.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+  Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/php/codesniffer ).
+MSG
 
 # Regression test for large output
 # See https://github.com/sideci/runner_code_sniffer/pull/27
@@ -67,7 +71,7 @@ Smoke.add_test("broken_sideci_yml", {
   timestamp: :_,
   type: "failure",
   analyzer: nil,
-  message: "Invalid configuration in `sideci.yml`: unknown attribute at config: `$.linter.code_sniffer.options`"
+  message: "Invalid configuration in `sideci.yml`: unknown attribute at config: `$.linter.code_sniffer`"
 })
 
 Smoke.add_test("version_2", {

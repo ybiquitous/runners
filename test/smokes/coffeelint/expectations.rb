@@ -53,7 +53,11 @@ Smoke.add_test("with_config_deprecated", {
     version: '1.16.0'
   }
 }, warnings: [
-  {message: "`config` option is deprecated. Use `file` instead of.", file: 'sideci.yml'},
+  { message: <<~MSG.strip, file: 'sideci.yml' },
+    DEPRECATION WARNING!!!
+    The `$.linter.coffeelint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/javascript/coffeelint ).
+  MSG
 ])
 
 Smoke.add_test("syntax_error", {

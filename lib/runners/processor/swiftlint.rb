@@ -30,6 +30,11 @@ module Runners
       'swiftlint'
     end
 
+    def setup
+      add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/swift/swiftlint")
+      yield
+    end
+
     def analyze(_changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
         check_runner_config(config) do |ignore_warnings, options|
