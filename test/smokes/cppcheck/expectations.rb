@@ -237,15 +237,15 @@ Smoke.add_test(
   },
 )
 
-Smoke.add_test(
-  "no_target",
+Smoke.add_test("no_target", {
   guid: "test-guid",
   timestamp: :_,
-  type: "error",
-  class: "Runners::Shell::ExecError",
-  backtrace: :_,
-  inspect: :_,
-)
+  type: "success",
+  issues: [],
+  analyzer: { name: "Cppcheck", version: :_ },
+}, {
+  warnings: [{ message: "No linting files.", file: nil }],
+})
 
 Smoke.add_test(
   "single_target",
@@ -517,4 +517,13 @@ Smoke.add_test(
     name: "Cppcheck",
     version: "1.89",
   },
+)
+
+Smoke.add_test(
+  "unexpected_error",
+  guid: "test-guid",
+  timestamp: :_,
+  type: "failure",
+  message: "cppcheck: Unknown language 'foo' enforced.",
+  analyzer: { name: "Cppcheck", version: :_ },
 )
