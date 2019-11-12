@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - Bump SwiftLint from 0.36.0 to 0.37.0 [#473](https://github.com/sider/runners/pull/473)
 - [RuboCop] Empower runner [#472](https://github.com/sider/runners/pull/472)
 - [checkstyle] Empower runner [#475](https://github.com/sider/runners/pull/475)
+- [SwiftLint] Show a warning when no linting files [#478](https://github.com/sider/runners/pull/478)
 
 ## 0.8.2
 

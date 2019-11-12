@@ -107,6 +107,10 @@ Smoke.add_test("no_swift_file", {
   type: "success",
   issues: [],
   analyzer: {name: 'swiftlint', version: '0.37.0'},
+}, {
+  warnings: [
+    { message: "No lintable files found.", file: nil },
+  ]
 })
 
 Smoke.add_test("no_config_file", {
