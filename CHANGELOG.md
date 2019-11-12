@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
 - [checkstyle] Empower runner [#475](https://github.com/sider/runners/pull/475)
 - [SwiftLint] Show a warning when no linting files [#478](https://github.com/sider/runners/pull/478)
 - Bump JavaSee from 0.1.2 to 0.1.3 [#479](https://github.com/sider/runners/pull/479)
+- Bump stylelint from 11.0.0 to 11.1.1 [#438](https://github.com/sider/runners/pull/438)
 
 ## 0.8.2
 

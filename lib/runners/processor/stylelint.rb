@@ -31,7 +31,7 @@ module Runners
     end
 
     DEFAULT_DEPS = DefaultDependencies.new(
-      main: Dependency.new(name: "stylelint", version: "11.0.0"),
+      main: Dependency.new(name: "stylelint", version: "11.1.1"),
       extras: [
         Dependency.new(name: "stylelint-config-recommended", version: "3.0.0"),
       ],
