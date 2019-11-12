@@ -27,18 +27,14 @@ module Runners
     end
 
     def analyzer_bin
-      ENV["JAVASEE_EXECUTABLE"] || "javasee"
+      "javasee"
     end
 
     def javasee_check(dirs:, config_path:)
-      args = []
-      args.push("-config", config_path.to_s)
+      args = ["-format", "json"]
+      args.push("-config", config_path.to_s) if config_path
 
-      shell.capture3(analyzer_bin,
-                     "check",
-                     "-config", config_path.to_s,
-                     "-format", "json",
-                     *dirs.map(&:to_s))
+      shell.capture3(analyzer_bin, "check", *args, *dirs.map(&:to_s))
     end
 
     def analyzer_version
@@ -64,17 +60,14 @@ module Runners
             Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
               construct_result(result, stdout, stderr)
             end
+          elsif stderr.match?(/Configuration file .+ does not look a file/)
+            add_warning stderr
+            return Results::Success.new(guid: guid, analyzer: analyzer)
           else
             Results::Failure.new(
               guid: guid,
               analyzer: analyzer,
-              message: <<~MESSSAGE
-                stdout:
-                #{stdout}
-
-                stderr:
-                #{stderr}
-              MESSSAGE
+              message: stderr,
             )
           end
         end
@@ -103,11 +96,10 @@ module Runners
     end
 
     def check_runner_config(config)
-      dirs = Array(config[:dir] || ".").map { |d| Pathname(d) }
-      trace_writer.message("Checking directory: #{dirs}")
+      dirs = Array(config[:dir]).map { |dir| Pathname(dir) }
 
-      config_path = Pathname(config[:config] || "javasee.yml")
-      trace_writer.message "Using configuration: #{config_path}"
+      config_path = config[:config]
+      config_path = Pathname(config_path) if config_path
 
       yield dirs, config_path
     end
