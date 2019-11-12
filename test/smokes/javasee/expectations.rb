@@ -6,7 +6,7 @@ Smoke.add_test(
     guid: "test-guid",
     timestamp: :_,
     type: "success",
-    analyzer: { name: 'javasee', version: "0.1.2" },
+    analyzer: { name: 'javasee', version: "0.1.3" },
     issues: [
       {
         id: "hello",
@@ -53,7 +53,7 @@ Smoke.add_test("failure", {
   timestamp: :_,
   type: "failure",
   analyzer: { name: 'javasee', version: :_ },
-  message: :_
+  message: /java.lang.ClassCastException: class java.lang.Integer cannot be cast/,
 })
 
 Smoke.add_test("broken_sider_yml", {
@@ -62,4 +62,27 @@ Smoke.add_test("broken_sider_yml", {
   type: "failure",
   analyzer: nil,
   message: "Invalid configuration in `sider.yml`: unexpected value at config: `$.linter.javasee.dir[2]`"
+})
+
+Smoke.add_test("no_config_file", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  analyzer: { name: 'javasee', version: :_ },
+  issues: [],
+}, {
+  warnings: [
+    { message: <<~MSG, file: nil },
+      Configuration file javasee.yml does not look a file.
+      Specify configuration file by -config option.
+    MSG
+  ],
+})
+
+Smoke.add_test("no_linting_files", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  analyzer: { name: 'javasee', version: :_ },
+  issues: [],
 })
