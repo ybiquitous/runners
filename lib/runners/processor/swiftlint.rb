@@ -135,22 +135,17 @@ module Runners
         TEXT
       end
 
-      # See: https://github.com/realm/SwiftLint/pull/2491
-      #
-      # SwiftLint has exited with status 2 when setting wrong `swiftlint_version` in `.swiftlint.yml`.
-      # Since empty string is returned as stdout, this condition catches the return value to prevent `JSON::ParseError`.
-      if exitstatus == 2 && stdout.empty?
-        message = <<~MESSAGE
-          This analysis was failure since SwiftLint exited with status #{exitstatus} and its stdout was empty.
-          STDERR:
-          #{stderr}
-        MESSAGE
-        trace_writer.message message
-        return Results::Failure.new(guid: guid, message: message, analyzer: analyzer)
+      begin
+        json_result = parse_result(stdout, ignore_warnings)
+      rescue JSON::ParserError
+        # For example, when setting wrong `swiftlint_version` in `.swiftlint.yml`.
+        #
+        # @see https://github.com/realm/SwiftLint/pull/2491
+        return Results::Failure.new(guid: guid, message: stderr.strip, analyzer: analyzer)
       end
 
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
-        parse_result(stdout, ignore_warnings).each { |v| result.add_issue(v) }
+        json_result.each { |v| result.add_issue(v) }
       end
     end
   end
