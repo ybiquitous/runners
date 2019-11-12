@@ -15,6 +15,11 @@ module Runners
                                           ))
                       })
       }
+
+      let :issue, object(
+        severity: string?,
+        corrected: boolean?,
+      )
     end
 
     DefaultConfig = <<~YAML.freeze
@@ -107,10 +112,10 @@ module Runners
     def check_runner_config(config)
       opts = %w[
         --display-style-guide
-        --display-cop-names
         --cache=false
         --format=json
       ]
+      opts << "--no-display-cop-names" if support_no_display_cop_names?
 
       # Additional Options
       opts << rails_option(config)
@@ -192,13 +197,11 @@ module Runners
       # 1: offences exist
       # 2: RuboCop crashes by unhandled errors.
       unless [0, 1].include?(status.exitstatus)
-        return Results::Failure.new(guid: guid, message: <<~TEXT, analyzer: analyzer)
-          RuboCop exits with unexpected status #{status.exitstatus}.
-          STDOUT:
-          #{stdout}
-          STDERR:
-          #{stderr}
-        TEXT
+        error_message = stderr.strip
+        if error_message.empty?
+          error_message = "RuboCop raised an unexpected error. See the analysis log for details."
+        end
+        return Results::Failure.new(guid: guid, message: error_message, analyzer: analyzer)
       end
 
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
@@ -212,24 +215,79 @@ module Runners
               end_line: offense[:location][:last_line] || offense[:location][:line],
               end_column: offense[:location][:last_column] || offense[:location][:column]
             )
-            links = URI.extract(offense[:message], %w(http https)).map { |v| v.sub(/[,\)]+$/, '') }
-            message = links
-                        .inject(offense[:message]) { |msg, link| msg.sub(link, '') }
-                        .sub(/\s*\((, )?\)\z/, '')
+            links = extract_links(offense[:message])
             result.add_issue Issue.new(
               path: relative_path(hash[:path]),
               location: loc,
               id: offense[:cop_name],
-              message: message,
-              links: links,
+              message: normalize_message(offense[:message], links, offense[:cop_name]),
+              links: links + build_cop_links(offense[:cop_name]),
+              object: {
+                severity: offense[:severity],
+                corrected: offense[:corrected],
+              },
+              schema: Schema.issue,
             )
           end
         end
       end
     end
 
+    # @see https://github.com/rubocop-hq/rubocop/blob/v0.76.0/lib/rubocop/cop/message_annotator.rb#L62-L63
+    def extract_links(original_message)
+      URI.extract(original_message, %w(http https))
+        .map { |uri| uri.delete_suffix(",").delete_suffix(")") }
+    end
+
+    def build_cop_links(cop_name)
+      department, cop = cop_name.split("/").map(&:downcase)
+
+      if department && cop
+        fragment = "#{department}#{cop}"
+        case
+        when core_departments.include?(department)
+          return ["https://github.com/rubocop-hq/rubocop/blob/v#{analyzer_version}/manual/cops_#{department}.md##{fragment}"]
+        when ["rails", "performance"].include?(department)
+          version = rubocop_plugin_version("rubocop-#{department}")
+          if version
+            return ["https://github.com/rubocop-hq/rubocop-#{department}/blob/v#{version}/manual/cops_#{department}.md##{fragment}"]
+          end
+        end
+      end
+
+      []
+    end
+
+    def core_departments
+      @core_departments ||= %w[style layout lint metrics naming security bundler gemspec].tap do |list|
+        list << "rails" unless rails_cops_removed?
+        list << "performance" unless performance_cops_removed?
+      end
+    end
+
+    def rubocop_plugin_version(gem_name)
+      @rubocop_plugin_versions ||= installed_gem_versions("rubocop-rails", "rubocop-performance")
+      @rubocop_plugin_versions[gem_name]&.first
+    end
+
+    def normalize_message(original_message, links, cop_name)
+      original_message.delete_suffix("(" + links.join(", ") + ")").strip
+        .yield_self { |ret| support_no_display_cop_names? ? ret : ret.delete_prefix(cop_name + ": ") }
+    end
+
+    # @see https://github.com/rubocop-hq/rubocop/blob/v0.72.0/CHANGELOG.md
     def rails_cops_removed?
-      Gem::Version.new(analyzer.version) >= Gem::Version.new("0.72.0")
+      Gem::Version.create(analyzer_version) >= Gem::Version.create("0.72.0")
+    end
+
+    # @see https://github.com/rubocop-hq/rubocop/blob/v0.68.0/CHANGELOG.md
+    def performance_cops_removed?
+      Gem::Version.create(analyzer_version) >= Gem::Version.create("0.68.0")
+    end
+
+    # @see https://github.com/rubocop-hq/rubocop/blob/v0.52.0/CHANGELOG.md
+    def support_no_display_cop_names?
+      Gem::Version.create(analyzer_version) >= Gem::Version.create("0.52.0")
     end
   end
 end

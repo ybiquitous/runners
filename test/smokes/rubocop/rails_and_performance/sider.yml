@@ -1,0 +1,5 @@
+linter:
+  rubocop:
+    gems:
+      - { name: rubocop-rails, version: 2.3.2 }
+      - { name: rubocop-performance, version: 1.5.0 }

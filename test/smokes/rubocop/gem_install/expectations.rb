@@ -8,11 +8,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "RSpec/ExpectInHook: Do not use `expect` in `before` hook",
+         "Do not use `expect` in `before` hook",
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -36,11 +36,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "Style/StringLiterals: Prefer single-quoted strings when you don't need string interpolation or special symbols.",
-       :links=>["https://github.com/bbatsov/ruby-style-guide#consistent-string-literals"],
+         "Prefer single-quoted strings when you don't need string interpolation or special symbols.",
+       :links=>["https://github.com/bbatsov/ruby-style-guide#consistent-string-literals", "https://github.com/rubocop-hq/rubocop/blob/v0.50.0/manual/cops_style.md#stylestringliterals"],
        :id=>"Style/StringLiterals",
        :path=>"Gemfile",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>1, :start_column=>8, :end_line=>1, :end_column=>8}},
     ],
@@ -62,11 +62,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "RSpec/ExpectInHook: Do not use `expect` in `before` hook",
+         "Do not use `expect` in `before` hook",
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -88,11 +88,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "RSpec/ExpectInHook: Do not use `expect` in `before` hook",
+         "Do not use `expect` in `before` hook",
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -114,11 +114,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "RSpec/ExpectInHook: Do not use `expect` in `before` hook",
+         "Do not use `expect` in `before` hook",
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -140,11 +140,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "RSpec/ExpectInHook: Do not use `expect` in `before` hook",
+         "Do not use `expect` in `before` hook",
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -166,11 +166,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "RSpec/ExpectInHook: Do not use `expect` in `before` hook",
+         "Do not use `expect` in `before` hook",
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>10}},
     ],
@@ -207,11 +207,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "Style/ExpandPathArguments: Use `expand_path('lib', __dir__)` instead of `expand_path('../lib', __FILE__)`.",
-       :links=>[],
+         "Use `expand_path('lib', __dir__)` instead of `expand_path('../lib', __FILE__)`.",
+       :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.60.0/manual/cops_style.md#styleexpandpatharguments"],
        :id=>"Style/ExpandPathArguments",
        :path=>"test.gemspec",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>2, :start_column=>12, :end_line=>2, :end_column=>22}},
     ],
@@ -233,19 +233,19 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "Metrics/LineLength: Line is too long. [91/80]",
-       :links=>['https://github.com/rubocop-hq/ruby-style-guide#80-character-limits'],
+         "Line is too long. [91/80]",
+       :links=>['https://github.com/rubocop-hq/ruby-style-guide#80-character-limits', "https://github.com/rubocop-hq/rubocop/blob/v0.63.1/manual/cops_metrics.md#metricslinelength"],
        :id=>"Metrics/LineLength",
        :path=>"Gemfile",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>81, :end_line=>3, :end_column=>91}},
       {:message=>
-         "RSpec/ExpectInHook: Do not use `expect` in `before` hook",
+         "Do not use `expect` in `before` hook",
        :links=>['http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExpectInHook'],
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
-       :object=>nil,
+       :object=>{:severity=>"convention", :corrected=>false},
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>10}},
     ],
@@ -264,11 +264,11 @@ Smoke.add_test(
     type: 'success',
     issues: [
       {:message=>
-         "Lint/MultipleCompare: Use the `&&` operator to compare multiple values.",
-       :links=>[],
+         "Use the `&&` operator to compare multiple values.",
+       :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.60.0/manual/cops_lint.md#lintmultiplecompare"],
        :id=>"Lint/MultipleCompare",
        :path=>"app.rb",
-       :object=>nil,
+       :object=>{:severity=>"warning", :corrected=>false},
        :location=>
          {:start_line=>2, :start_column=>4, :end_line=>2, :end_column=>14}},
     ],
