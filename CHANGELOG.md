@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.9.0...HEAD)
 
+- [RuboCop] Fix `Ruby#installed_gem_versions` [#489](https://github.com/sider/runners/pull/489)
+
 ## 0.9.0
 
 [Full diff](https://github.com/sider/runners/compare/0.8.2...0.9.0)

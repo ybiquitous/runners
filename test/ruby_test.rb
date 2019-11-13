@@ -763,6 +763,14 @@ EOF
       assert_raises(RuntimeError) { processor.installed_gem_versions("foo") }.tap do |error|
         assert_equal 'Not found installed gem "foo"', error.message
       end
+
+      mock(processor).capture3!("gem", "list", "--quiet", "--exact", "foo", "meowcop") do
+        <<~OUTPUT
+          meowcop (2.4.0)
+        OUTPUT
+      end
+      assert_equal({ "meowcop" => ["2.4.0"] },
+                   processor.installed_gem_versions("foo", "meowcop", exception: false))
     end
   end
 
