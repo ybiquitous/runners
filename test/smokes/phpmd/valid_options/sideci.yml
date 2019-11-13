@@ -2,4 +2,5 @@ linter:
   phpmd:
     exclude: app/Controller/
     strict: true
-    suffixes: php,phtml
+    options:
+      suffixes: php,phtml

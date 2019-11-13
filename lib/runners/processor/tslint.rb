@@ -39,6 +39,8 @@ module Runners
     end
 
     def setup
+      add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/javascript/tslint")
+
       ensure_runner_config_schema(Schema.runner_config) do |config|
         begin
           install_nodejs_deps(DEFAULT_DEPS, constraints: CONSTRAINTS, install_option: config[:npm_install])

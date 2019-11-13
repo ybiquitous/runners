@@ -78,7 +78,7 @@ Smoke.add_test('broken_sideci_yml', {
   timestamp: :_,
   type: 'failure',
   analyzer: nil,
-  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.rails_best_practices.options.exclude`"
+  message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.rails_best_practices.exclude`"
 })
 
 Smoke.add_test('valid_sideci_yml', {
@@ -94,6 +94,12 @@ Smoke.add_test('valid_sideci_yml', {
      :location=> {:start_line=>5, :start_column=>0, :end_line=>5, :end_column=>0},
      :object=>nil}
   ],
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.rails_best_practices.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/ruby/rails-bestpractices ).
+  MSG
 })
 
 Smoke.add_test('template_engine', {

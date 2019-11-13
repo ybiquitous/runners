@@ -3,7 +3,6 @@ linter:
     dir:
       - src/app
       - src/index
-    options:
-      ignore-path: src/ignore/App.jsx
-      npm_install: 'true'
-      ext: 'js,jsx'
+    ignore-path: src/ignore/App.jsx
+    npm_install: 'true'
+    ext: 'js,jsx'

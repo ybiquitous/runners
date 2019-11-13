@@ -149,13 +149,14 @@ class Runners::Processor
   def delete_unchanged_files: (Changes, ?except: Array<String>, ?only: Array<String>) -> void
   def add_warning: (String, ?file: String?) -> void
   def add_warning_if_deprecated_version: (minimum: String, ?file: String?) -> void
+  def add_warning_if_deprecated_options: (Array<Symbol>, doc: String) -> void
   def self.ci_config_section_name: () -> String
   def analyzer: -> Analyzer
   def analyzer_name: -> String
   def analyzer_bin: -> String
   def analyzer_version: -> String
   def extract_version!: (String | Array<String>, ?(String | Array<String>), ?pattern: Regexp) -> String
-  def build_field_reference_from_path: (StrongJSON::Type::ErrorPath) -> String
+  def build_field_reference_from_path: (StrongJSON::Type::ErrorPath | String) -> String
   def root_dir: -> Pathname
   def directory_traversal_attack?: (String) -> bool
 end

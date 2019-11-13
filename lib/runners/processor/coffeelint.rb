@@ -32,6 +32,8 @@ module Runners
     end
 
     def setup
+      add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/javascript/coffeelint")
+
       ensure_runner_config_schema(Schema.runner_config) do |config|
         begin
           install_nodejs_deps(DEFAULT_DEPS, constraints: CONSTRAINTS, install_option: config[:npm_install])
@@ -60,13 +62,9 @@ module Runners
     end
 
     # NOTE: This is a deprecated option, and the option has been already undocumented.
-    #       At 2018-11-13, only 1 repository has enabled `config` option.
-    # See:  https://app.compose.io/actcat-inc/deployments/sideci-production/mongodb/databases/sideci/collections/ci_configs/documents?find[query]={"ci_config.linter.coffeelint.options.config"%3A{"%24exists"%3Atrue}}&limit=10
-    #       https://sider.review/admin/repositories/6875262
     def coffeelint_config(config)
       config = config.dig(:options, :config)
       if config
-        add_warning("`config` option is deprecated. Use `file` instead of.", file: 'sideci.yml')
         ['--file', "#{config}"]
       end
     end

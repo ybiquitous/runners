@@ -27,6 +27,7 @@ module Runners
     end
 
     def setup
+      add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/css/scss-lint")
       yield
     end
 

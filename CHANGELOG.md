@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - Bump JavaSee from 0.1.2 to 0.1.3 [#479](https://github.com/sider/runners/pull/479)
 - Bump stylelint from 11.0.0 to 11.1.1 [#438](https://github.com/sider/runners/pull/438)
 - [Cppcheck] Show warning and succeed when no linting files [#480](https://github.com/sider/runners/pull/480)
+- Deprecate `linter.*.options` option [#482](https://github.com/sider/runners/pull/482)
 
 ## 0.8.2
 

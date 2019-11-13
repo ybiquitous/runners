@@ -1,5 +1,4 @@
 linter:
   eslint:
     npm_install: true
-    options:
-      ext: 'js,jsx'
+    ext: 'js,jsx'

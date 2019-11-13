@@ -6,4 +6,5 @@ linter:
     features: true
     exclude: b.rb
     only: a.rb
-    config: custome-config.yml
+    options:
+      config: custome-config.yml

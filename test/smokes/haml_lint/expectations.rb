@@ -1,10 +1,5 @@
 Smoke = Runners::Testing::Smoke
 
-# frozen_string_literal: true
-
-# Smoke test allows testing by input and output of the analysis.
-# Following example, create "success" directory and put files, configurations, etc in this directory.
-#
 Smoke.add_test(
   'success',
   guid: 'test-guid',
@@ -20,8 +15,7 @@ Smoke.add_test(
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
-Smoke.add_test(
-  'with-sideci.yml',
+Smoke.add_test('with-sideci.yml', {
   guid: 'test-guid',
   timestamp: :_,
   type: 'success',
@@ -33,7 +27,14 @@ Smoke.add_test(
     location: { start_line: 4 },
     object: nil,
   }],
-  analyzer: {name: 'haml_lint', version: '0.34.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.0'},
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.haml_lint.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/ruby/haml-lint ).
+  MSG
+})
 
 Smoke.add_test(
   'plain-rubocop',

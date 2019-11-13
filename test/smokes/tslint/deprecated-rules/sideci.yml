@@ -1,4 +1,3 @@
 linter:
   tslint:
-    options:
-      project: 'tsconfig.json'
+    project: 'tsconfig.json'

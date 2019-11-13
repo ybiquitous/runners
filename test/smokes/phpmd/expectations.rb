@@ -52,6 +52,12 @@ Smoke.add_test("valid_options", {
     name: "phpmd",
     version: "2.7.0"
   },
+}, {
+  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
+    DEPRECATION WARNING!!!
+    The `$.linter.phpmd.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/php/phpmd ).
+  MSG
 })
 
 Smoke.add_test("syntax_error", {

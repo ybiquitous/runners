@@ -57,6 +57,7 @@ extension Array (Polyfill)
           | (any) -> String
   def +: <'x> (Array<'x>) -> Array<'a | 'x>
        | (self) -> self
+  def filter: { ('a) -> bool } -> self
 end
 
 extension File (Polyfill)
@@ -152,6 +153,7 @@ extension Hash (Polyfill)
   def compact: -> self
   def dig: (*'key) -> 'value?
   def []=: (any, any) -> any
+  def slice: (*'key) -> self
 end
 
 class Psych::SyntaxError

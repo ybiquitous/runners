@@ -1,7 +1,5 @@
 linter:
   eslint:
-    options:
-      ignore-pattern:
-        - "*.bundle.js"
-        - "*_test.js"
-
+    ignore-pattern:
+      - "*.bundle.js"
+      - "*_test.js"

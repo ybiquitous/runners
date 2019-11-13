@@ -1,5 +1,4 @@
 linter:
   jshint:
-    options:
-      config:
-        - .myjshintrc
+    config:
+      - .myjshintrc

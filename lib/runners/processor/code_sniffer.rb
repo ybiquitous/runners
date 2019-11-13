@@ -22,8 +22,12 @@ module Runners
     end
 
     def self.ci_config_section_name
-      # Section name in sideci.yml, Generally it is the name of analyzer tool.
       "code_sniffer"
+    end
+
+    def setup
+      add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/php/codesniffer")
+      yield
     end
 
     def analyze(changes)
@@ -92,11 +96,7 @@ module Runners
     end
 
     def directory(config)
-      config[:dir] ||
-        config.dig(:options, :dir)&.tap do
-          add_warning("`dir` key under the `options` is deprecated. Please declare it just under the `code_sniffer`. See https://help.sider.review/tools/php/codesniffer#options", file: "sideci.yml")
-        end ||
-        default_sideci_options[:dir]
+      config[:dir] || config.dig(:options, :dir) || default_sideci_options[:dir]
     end
 
     def default_sideci_options
