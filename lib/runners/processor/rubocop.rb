@@ -268,7 +268,7 @@ module Runners
     end
 
     def rubocop_plugin_version(gem_name)
-      @rubocop_plugin_versions ||= installed_gem_versions("rubocop-rails", "rubocop-performance")
+      @rubocop_plugin_versions ||= installed_gem_versions("rubocop-rails", "rubocop-performance", exception: false)
       @rubocop_plugin_versions[gem_name]&.first
     end
 

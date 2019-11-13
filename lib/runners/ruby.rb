@@ -77,20 +77,20 @@ module Runners
       @analyzer_version ||= extract_version! ruby_analyzer_bin
     end
 
-    def installed_gem_versions(gem_name, *gem_names)
+    def installed_gem_versions(gem_name, *gem_names, exception: true)
       gem_names = [gem_name] + gem_names
 
       # @see https://guides.rubygems.org/command-reference/#gem-list
       stdout, = capture3! "gem", "list", "--quiet", "--exact", *gem_names
-      gem_names.map do |name|
+      gem_names.each_with_object({}) do |name, hash|
         # NOTE: A format example: `rubocop (0.75.1, 0.75.0)`
         version, = /#{Regexp.escape(name)} \((.+)\)/.match(stdout)&.captures
         if version
-          [name, version.split(/,\s*/)]
-        else
+          hash[name] = version.split(/,\s*/)
+        elsif exception
           raise "Not found installed gem #{name.inspect}"
         end
-      end.to_h
+      end
     end
 
     def default_gem_specs(gem_name = analyzer_bin, *gem_names)
