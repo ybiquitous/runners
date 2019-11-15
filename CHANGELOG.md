@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.9.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.9.2...HEAD)
+
+## 0.9.2
+
+[Full diff](https://github.com/sider/runners/compare/0.9.1...0.9.2)
 
 - Flush content whenever its size reaches the buffer max limit [#497](https://github.com/sider/runners/pull/497)
 
