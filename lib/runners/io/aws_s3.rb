@@ -3,8 +3,11 @@
 # Also, prepare the S3 bucket and allow this instance to upload an S3 object.
 module Runners
   class IO::AwsS3
+    # @type const BUFFER_SIZE: Integer
+    BUFFER_SIZE = 300
+
     def self.parse_s3_uri!(s3_uri)
-      uri = URI(s3_uri)
+      uri = URI.parse(s3_uri)
       bucket = uri.host.presence
       object = uri.path.presence
       if uri.scheme == "s3" && bucket && object
@@ -14,14 +17,14 @@ module Runners
       end
     end
 
-    attr_reader :uri, :bucket_name, :object_name, :tempfile, :client
-    delegate :write, :flush, to: :tempfile
+    attr_reader :uri, :bucket_name, :object_name, :tempfile, :written_items, :client
 
     # @param uri [String]
     def initialize(uri)
       @uri = uri
       @bucket_name, @object_name = self.class.parse_s3_uri!(uri)
       @tempfile = Tempfile.new
+      @written_items = 0
 
       args = {
         retry_limit: 5,
@@ -35,13 +38,35 @@ module Runners
       @client = Aws::S3::Client.new(**args)
     end
 
-    def finalize!
+    def write(*args)
+      @written_items += 1
+      tempfile.write(*args)
+    end
+
+    def flush(*args)
+      tempfile.flush(*args)
+      flush_to_s3! if should_flush?
+    end
+
+    def should_flush?
+      written_items > BUFFER_SIZE
+    end
+
+    def flush!
+      flush_to_s3!
+    end
+
+    private
+
+    def flush_to_s3!
       tempfile.rewind
       client.put_object(
         bucket: bucket_name,
         key: object_name,
-        body: tempfile,
+        body: tempfile.read, # A stream object is slower than a string object, so the read string is passed here.
       )
+      @written_items = 0
+      tempfile.seek 0, ::IO::SEEK_END
     end
   end
 end

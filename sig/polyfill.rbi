@@ -36,6 +36,7 @@ extension String (Polyfill)
   def strip!: -> String
   def casecmp?: (String) -> bool?
   def delete: (*String) -> String
+  def delete_prefix: (String) -> String
 end
 
 class Time
@@ -86,6 +87,7 @@ class URI
   def self.parse: (String) -> URI
   def path: -> String
   def scheme: -> String
+  def host: -> String
 end
 
 class Net::HTTP

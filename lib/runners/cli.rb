@@ -38,6 +38,7 @@ module Runners
     end
 
     def run
+      io.flush! # Write or upload empty content to let the caller of Runners notice the beginning of the analysis.
       with_working_dir do |working_dir|
         writer = JSONSEQ::Writer.new(io: io)
         trace_writer = TraceWriter.new(writer: writer)
@@ -64,7 +65,7 @@ module Runners
           end
         end
       ensure
-        io.finalize! if defined?(:@io)
+        io.flush! if defined?(:@io)
       end
     end
 
