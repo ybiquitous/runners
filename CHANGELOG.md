@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.9.1...HEAD)
 
+- Flush content whenever its size reaches the buffer max limit [#497](https://github.com/sider/runners/pull/497)
+
 ## 0.9.1
 
 [Full diff](https://github.com/sider/runners/compare/0.9.0...0.9.1)
