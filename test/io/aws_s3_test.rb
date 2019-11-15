@@ -32,12 +32,29 @@ class AwsS3Test < Minitest::Test
     assert_equal 'abc!!!', io.tempfile.tap(&:rewind).read
   end
 
-  def test_finalize
+  def test_should_flush?
+    mock(Aws::S3::Client).new(retry_limit: is_a(Numeric), retry_base_delay: is_a(Numeric))
+    io = Runners::IO::AwsS3.new('s3://bucket_name/object_name')
+
+    2.times { io.write }
+    assert_equal 2, io.written_items
+    refute io.should_flush?
+
+    300.times { io.write }
+    assert 302, io.written_items
+    assert io.should_flush?
+  end
+
+  def test_flush!
     mock_object = Object.new
     mock(Aws::S3::Client).new(retry_limit: is_a(Numeric), retry_base_delay: is_a(Numeric)) { mock_object }
     mock(mock_object).put_object(bucket: 'bucket_name', key: 'object_name', body: instance_of(Tempfile))
     io = Runners::IO::AwsS3.new('s3://bucket_name/object_name')
-    io.finalize!
+    io.write
+    assert_equal 1, io.written_items
+
+    io.flush!
+    assert_equal 0, io.written_items
   end
 
   private

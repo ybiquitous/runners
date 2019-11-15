@@ -7,8 +7,8 @@ class IOTest < Minitest::Test
     out1 = StringIO.new
     out2 = StringIO.new
 
-    def out2.finalize!
-      self.write('@finalized!')
+    def out2.flush!
+      self.write('@flush!')
     end
 
     io = Runners::IO.new(out1, out2)
@@ -16,10 +16,10 @@ class IOTest < Minitest::Test
     io.flush
     assert_equal 'abc', out1.tap(&:rewind).read
     assert_equal 'abc', out2.tap(&:rewind).read
-    io.finalize!
-    # NOTE: `dont_allow(out1).finalize!` doesn't work because of RR,
-    #        so check only whether `out2#finalize!` was called or not.
-    assert_equal 'abc@finalized!', out2.tap(&:rewind).read
+    io.flush!
+    # NOTE: `dont_allow(out1).flush!` doesn't work because of RR,
+    #        so check only whether `out2#flush!` was called or not.
+    assert_equal 'abc@flush!', out2.tap(&:rewind).read
   end
 
   private

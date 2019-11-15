@@ -18,9 +18,9 @@ module Runners
       ios.each { |io| io.flush(*args) }
     end
 
-    def finalize!
+    def flush!
       ios.each do |io|
-        io.finalize! if io.respond_to?(:finalize!)
+        io.flush! if io.respond_to?(:flush!)
       end
     end
   end
