@@ -11,9 +11,22 @@ class HarnessTest < Minitest::Test
   Analyzer = Runners::Analyzer
   TraceWriter = Runners::TraceWriter
   Workspace = Runners::Workspace
+  Options = Runners::Options
 
   def trace_writer
     @trace_writer ||= TraceWriter.new(writer: [])
+  end
+
+  def with_options(head: Pathname(__dir__).join("data/foo.tgz"))
+    with_runners_options_env(source: { head: head }) do
+      yield Runners::Options.new(StringIO.new, StringIO.new)
+    end
+  end
+
+  def with_working_dir
+    Dir.mktmpdir do |dir|
+      yield Pathname(dir)
+    end
   end
 
   def with_workspace(base: nil, base_key: nil, head:, head_key: nil, &block)
@@ -35,112 +48,126 @@ class HarnessTest < Minitest::Test
   end
 
   def test_run
-    with_workspace(head: Pathname(__dir__).join("data/foo.tgz").to_s) do |workspace|
-      harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: workspace, trace_writer: trace_writer)
+    with_working_dir do |working_dir|
+      with_options do |options|
+        mock.proxy(Workspace).open(base: options.base, base_key: options.base_key,
+                                   head: options.head, head_key: options.head_key,
+                                   ssh_key: options.ssh_key, working_dir: working_dir, trace_writer: trace_writer)
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
 
-      result = harness.run
-      assert_instance_of Results::Success, result
+        result = harness.run
+        assert_instance_of Results::Success, result
+      end
     end
   end
 
   def test_run_when_using_broken_processor
-    with_workspace(head: Pathname(__dir__).join("data/foo.tgz").to_s) do |workspace|
-      harness = Harness.new(guid: SecureRandom.uuid, processor_class: BrokenProcessor, workspace: workspace, trace_writer: trace_writer)
+    with_working_dir do |working_dir|
+      with_options do |options|
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: BrokenProcessor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
 
-      result = harness.run
-      assert_instance_of Results::Error, result
-      assert_equal(
-        ["broken! (StandardError)"],
-        trace_writer.writer.filter { |e| e[:trace] == "error" }.map { |e| e[:message] },
-      )
+        result = harness.run
+        assert_instance_of Results::Error, result
+        assert_equal(
+          ["broken! (StandardError)"],
+          trace_writer.writer.filter { |e| e[:trace] == "error" }.map { |e| e[:message] },
+        )
+      end
     end
   end
 
   def test_run_filters_issues
-    with_workspace(head: Pathname(__dir__).join("data/foo.tgz").to_s) do |workspace|
-      processor = Class.new(Processor) do
-        def analyze(changes)
-          Results::Success.new(guid: guid, analyzer: Analyzer.new(name: "Test", version: "0.1.3")).tap do |result|
-            result.add_issue Issue.new(
-              path: Pathname("test/cli/test_test.rb"),
-              location: Location.new(start_line: 0),
-              id: "id1",
-              message: "...",
-            )
-            result.add_issue Issue.new(
-              path: Pathname("no_such_file"),
-              location: Location.new(start_line: 0),
-              id: "id2",
-              message: "...",
-            )
-            result.add_issue Issue.new(
-              path: Pathname("taggeing_test.rb"),
-              location: Location.new(start_line: 0),
-              id: "id3",
-              message: "...",
-            )
-          end
+    processor = Class.new(Processor) do
+      def analyze(changes)
+        Results::Success.new(guid: guid, analyzer: Analyzer.new(name: "Test", version: "0.1.3")).tap do |result|
+          result.add_issue Issue.new(
+            path: Pathname("test/cli/test_test.rb"),
+            location: Location.new(start_line: 0),
+            id: "id1",
+            message: "...",
+          )
+          result.add_issue Issue.new(
+            path: Pathname("no_such_file"),
+            location: Location.new(start_line: 0),
+            id: "id2",
+            message: "...",
+          )
+          result.add_issue Issue.new(
+            path: Pathname("taggeing_test.rb"),
+            location: Location.new(start_line: 0),
+            id: "id3",
+            message: "...",
+          )
         end
       end
+    end
 
-      harness = Harness.new(guid: SecureRandom.uuid, processor_class: processor, workspace: workspace, trace_writer: trace_writer)
+    with_working_dir do |working_dir|
+      with_options do |options|
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: processor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
 
-      result = harness.run
-      assert_instance_of Results::Success, result
-      assert_equal [Issue.new(
-        path: Pathname("test/cli/test_test.rb"),
-        location: Location.new(start_line: 0),
-        id: "id1",
-        message: "...",
-      )], result.issues
+        result = harness.run
+
+        assert_instance_of Results::Success, result
+        assert_equal [Issue.new(
+          path: Pathname("test/cli/test_test.rb"),
+          location: Location.new(start_line: 0),
+          id: "id1",
+          message: "...",
+        )], result.issues
+      end
     end
   end
 
   def test_run_when_root_dir_not_found
-    with_workspace(head: Pathname(__dir__).join("data/foo.tgz").to_s) do |workspace|
-      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { TestProcessor.ci_config_section_name => { "root_dir" => "foo" } } }))
+    with_working_dir do |working_dir|
+      (working_dir / "sider.yml").write(YAML.dump({ "linter" => { TestProcessor.ci_config_section_name => { "root_dir" => "foo" } } }))
+      with_options do |options|
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
 
-      harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: workspace, trace_writer: trace_writer)
-      assert_instance_of Results::Failure, harness.run
+        assert_instance_of Results::Failure, harness.run
+      end
     end
-  end
-
-  def test_ensure_result_returns_succeee_result
-    harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: nil, trace_writer: trace_writer)
-
-    result = harness.ensure_result do
-      Results::Success.new(guid: harness.guid, analyzer: Analyzer.new(name: "foo", version: "3.2"))
-    end
-
-    assert_instance_of Results::Success, result
   end
 
   def test_ensure_result_returns_error_result_if_raised
-    harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: nil, trace_writer: trace_writer)
+    with_working_dir do |working_dir|
+      with_options do |options|
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
 
-    result = harness.ensure_result do
-      JSON.parse("something wrong")
+        result = harness.ensure_result do
+          JSON.parse("something wrong")
+        end
+        assert_instance_of Results::Error, result
+        assert_instance_of JSON::ParserError, result.exception
+        assert_equal(
+          [{ trace: "error", message: "767: unexpected token at 'something wrong' (JSON::ParserError)" }],
+          trace_writer.writer.map { |entry| entry.slice(:trace, :message) },
+        )
+      end
     end
-
-    assert_instance_of Results::Error, result
-    assert_instance_of JSON::ParserError, result.exception
-    assert_equal(
-      [{ trace: "error", message: "767: unexpected token at 'something wrong' (JSON::ParserError)" }],
-      trace_writer.writer.map { |entry| entry.slice(:trace, :message) },
-    )
   end
 
   def test_ensure_result_checks_validity_of_issues
-    harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor, workspace: nil, trace_writer: trace_writer)
+    with_working_dir do |working_dir|
+      with_options do |options|
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
 
-    result = harness.ensure_result do
-      Results::Success.new(guid: nil, analyzer: Analyzer.new(name: "foo", version: "1.0.3"))
+        result = harness.ensure_result do
+          Results::Success.new(guid: nil, analyzer: Analyzer.new(name: "foo", version: "1.0.3"))
+        end
+        assert_instance_of Results::Error, result
+        assert_instance_of Harness::InvalidResult, result.exception
+        assert_equal "Invalid result: #{result.exception.result.inspect}", result.exception.message
+        assert_equal [], trace_writer.writer
+      end
     end
-
-    assert_instance_of Results::Error, result
-    assert_instance_of Harness::InvalidResult, result.exception
-    assert_equal "Invalid result: #{result.exception.result.inspect}", result.exception.message
-    assert_equal [], trace_writer.writer
   end
 
   def test_setup_analyze
@@ -156,11 +183,11 @@ class HarnessTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      with_workspace(head: path.to_s) do |workspace|
-        harness = Harness.new(guid: SecureRandom.uuid, processor_class: processor, workspace: workspace, trace_writer: trace_writer)
+    with_working_dir do |working_dir|
+      with_options do |options|
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: processor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
         result = harness.run
-
         assert_instance_of Results::Success, result
       end
     end

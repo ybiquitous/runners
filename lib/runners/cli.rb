@@ -44,29 +44,27 @@ module Runners
         trace_writer = TraceWriter.new(writer: writer)
         trace_writer.header "Analysis started"
 
-        Workspace.open(base: options.base, base_key: options.base_key, head: options.head, head_key: options.head_key, ssh_key: options.ssh_key, working_dir: working_dir, trace_writer: trace_writer) do |workspace|
-          harness = Harness.new(guid: guid, processor_class: processor_class, workspace: workspace, trace_writer: trace_writer)
+        harness = Harness.new(guid: guid, processor_class: processor_class, options: options, working_dir: working_dir, trace_writer: trace_writer)
 
-          result = harness.run
-          warnings = harness.warnings
-          ci_config = harness.ci_config
-          json = {
-            result: result.as_json,
-            warnings: warnings,
-            ci_config: ci_config,
-            version: Runners::VERSION,
-          }
+        result = harness.run
+        warnings = harness.warnings
+        ci_config = harness.ci_config
+        json = {
+          result: result.as_json,
+          warnings: warnings,
+          ci_config: ci_config,
+          version: Runners::VERSION,
+        }
 
-          trace_writer.message "Writing result..." do
-            writer << Schema::Result.envelope.coerce(json)
-          end
-          result.tap do
-            trace_writer.header "Analysis finished"
-          end
+        trace_writer.message "Writing result..." do
+          writer << Schema::Result.envelope.coerce(json)
         end
-      ensure
-        io.flush! if defined?(:@io)
+        result.tap do
+          trace_writer.header "Analysis finished"
+        end
       end
+    ensure
+      io.flush! if defined?(:@io)
     end
 
     def io

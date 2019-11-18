@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.9.2...HEAD)
 
 - Bump devon_rex images from 2.8.0 to 2.9.0 [#500](https://github.com/sider/runners/pull/500)
+- Wrap Workspace with Harness [#501](https://github.com/sider/runners/pull/501)
 
 ## 0.9.2
 
