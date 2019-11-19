@@ -159,6 +159,8 @@ extension Hash (Polyfill)
 end
 
 class Psych::SyntaxError
+  attr_reader line: Integer
+  attr_reader column: Integer
 end
 
 class YAML

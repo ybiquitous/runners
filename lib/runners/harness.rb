@@ -78,6 +78,8 @@ module Runners
             raise InvalidResult.new(result: result)
           end
         end
+      rescue Runners::Processor::CIConfigBroken => exn
+        Results::Failure.new(guid: guid, message: exn.message)
       rescue => exn
         Bugsnag.notify(exn)
         handle_error(exn)

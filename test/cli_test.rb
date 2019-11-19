@@ -113,7 +113,7 @@ class CLITest < Minitest::Test
         reader = JSONSEQ::Reader.new(io: StringIO.new(output), decoder: -> (string) { JSON.parse(string, symbolize_names: true) })
         objects = reader.each_object.to_a
 
-        assert objects.find { |hash| hash[:trace] == 'error' && hash[:message].match?(/Parse error occurred/) }
+        assert objects.find { |hash| hash.dig(:result, :type) == 'failure' }
         assert objects.find { |hash| hash[:warnings] == [] }
         assert objects.find { |hash| hash[:ci_config] == nil }
       end

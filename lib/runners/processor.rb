@@ -1,5 +1,7 @@
 module Runners
   class Processor
+    class CIConfigBroken < StandardError; end
+
     # @dynamic guid, working_dir, git_ssh_path, trace_writer, warnings, ci_config, ci_config_for_collect
     attr_reader :guid
     attr_reader :working_dir
@@ -26,8 +28,9 @@ module Runners
               trace_writer.ci_config(conf)
             end
           rescue Psych::SyntaxError => exn
-            trace_writer.error("Parse error occurred: #{exn}")
-            raise
+            message = "Your `#{relative_path(ci_config_path.to_s)}` file may be broken (line #{exn.line}, column #{exn.column})."
+            trace_writer.error message
+            raise CIConfigBroken.new(message)
           end
         end
       # Runner maybe break `@ci_config`.
