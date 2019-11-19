@@ -120,6 +120,25 @@ class CLITest < Minitest::Test
     end
   end
 
+  def test_run_when_download_error_happens
+    mktmpdir do |head_dir|
+      with_runners_options_env(source: { head: head_dir }) do
+        cli = CLI.new(argv: ["--analyzer=rubocop", "test-guid"], stdout: stdout, stderr: stderr)
+        cli.instance_variable_set(:@processor_class, TestProcessor)
+        mock(Runners::Workspace).open.with_any_args { raise Runners::Workspace::DownloadError }
+        cli.run
+
+        output = stdout.string
+        reader = JSONSEQ::Reader.new(io: StringIO.new(output), decoder: -> (string) { JSON.parse(string, symbolize_names: true) })
+        objects = reader.each_object.to_a
+
+        assert objects.find { |hash| hash.dig(:result, :type) == 'error' }
+        assert objects.find { |hash| hash.dig(:result, :class) == 'Runners::Workspace::DownloadError' }
+      end
+    end
+  end
+
+
   def test_processor_class
     with_runners_options_env(source: { head: 'http://example.com/head' }) do
       cli = CLI.new(argv: %w[--analyzer=rubocop test-guid], stdout: stdout, stderr: stderr)
