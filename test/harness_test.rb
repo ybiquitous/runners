@@ -134,6 +134,20 @@ class HarnessTest < Minitest::Test
     end
   end
 
+  def test_run_when_ci_config_is_broken
+    with_working_dir do |working_dir|
+      (working_dir / "sider.yml").write('1: 1:')
+      with_options do |options|
+        harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor,
+                              options: options, working_dir: working_dir, trace_writer: trace_writer)
+
+        result = harness.run
+        assert_instance_of Results::Failure, result
+        assert_equal "Your `sider.yml` file may be broken (line 1, column 5).", result.message
+      end
+    end
+  end
+
   def test_ensure_result_returns_error_result_if_raised
     with_working_dir do |working_dir|
       with_options do |options|
