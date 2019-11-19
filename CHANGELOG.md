@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Wrap Workspace with Harness [#501](https://github.com/sider/runners/pull/501)
 - Bump goodcheck from 2.4.3 to 2.4.4 [#505](https://github.com/sider/runners/pull/505)
 - Mark the result "failure" when `sider.yml` is broken [#504](https://github.com/sider/runners/pull/504)
+- Bump stylelint from 11.1.1 to 12.0.0 [#508](https://github.com/sider/runners/pull/508)
 
 ## 0.9.2
 
