@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Bump devon_rex images from 2.8.0 to 2.9.0 [#500](https://github.com/sider/runners/pull/500)
 - Wrap Workspace with Harness [#501](https://github.com/sider/runners/pull/501)
+- Bump goodcheck from 2.4.3 to 2.4.4 [#505](https://github.com/sider/runners/pull/505)
 
 ## 0.9.2
 
