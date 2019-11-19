@@ -36,6 +36,9 @@ RUN cd ${RUNNER_USER_HOME} && \
     cd ${RUNNER_USER_HOME} && \
     rm -rf rubocop && \
     gem list rubocop
+
+COPY --chown=analyzer_runner:nogroup images/rubocop/default_rubocop.yml ${RUNNER_USER_HOME}/
+
 # Copy the main source code
 COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
 COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib

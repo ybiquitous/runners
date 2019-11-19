@@ -22,12 +22,6 @@ module Runners
       )
     end
 
-    DefaultConfig = <<~YAML.freeze
-      inherit_gem:
-        meowcop:
-          - config/rubocop.yml
-    YAML
-
     # DEPRECATED: Implicit dependencies
     # @see https://help.sider.review/tools/ruby/rubocop#gems
     OPTIONAL_GEMS = [
@@ -158,10 +152,12 @@ module Runners
     end
 
     def setup_default_config
-      path = Pathname("#{current_dir}/.rubocop.yml")
+      path = current_dir / ".rubocop.yml"
       return false if path.exist?
+
       path.parent.mkpath
-      File.write(path, DefaultConfig)
+      FileUtils.cp (Pathname(Dir.home) / "default_rubocop.yml"), path
+      trace_writer.message "Setup the default RuboCop configuration file."
       true
     end
 
