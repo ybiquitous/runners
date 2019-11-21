@@ -1,7 +1,6 @@
 module Runners
   class Harness
-    class InvalidResult < StandardError
-      # @dynamic result
+    class InvalidResult < SystemError
       attr_reader :result
 
       def initialize(result:)
@@ -78,7 +77,7 @@ module Runners
             raise InvalidResult.new(result: result)
           end
         end
-      rescue Runners::Processor::CIConfigBroken => exn
+      rescue UserError => exn
         Results::Failure.new(guid: guid, message: exn.message)
       rescue => exn
         Bugsnag.notify(exn)

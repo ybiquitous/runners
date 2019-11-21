@@ -3,7 +3,7 @@ require 'retryable'
 
 module Runners
   class Workspace
-    class DownloadError < StandardError; end
+    class DownloadError < SystemError; end
 
     # @dynamic working_dir, base_dir, head_dir, git_ssh_path
     attr_reader :working_dir

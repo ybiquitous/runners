@@ -33,6 +33,7 @@ require "aws-sdk-s3"
 require "bugsnag"
 
 require "runners/version"
+require "runners/errors"
 require "runners/options"
 require "runners/location"
 require "runners/results"

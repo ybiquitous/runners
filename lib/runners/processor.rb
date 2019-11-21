@@ -1,6 +1,6 @@
 module Runners
   class Processor
-    class CIConfigBroken < StandardError; end
+    class CIConfigBroken < UserError; end
 
     # @dynamic guid, working_dir, git_ssh_path, trace_writer, warnings, ci_config, ci_config_for_collect
     attr_reader :guid

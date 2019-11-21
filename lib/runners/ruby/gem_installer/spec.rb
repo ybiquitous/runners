@@ -2,7 +2,7 @@ module Runners
   module Ruby
     class GemInstaller
       class Spec
-        class InvalidGemDefinition < StandardError; end
+        class InvalidGemDefinition < SystemError; end
 
         attr_reader :name, :version, :source
 

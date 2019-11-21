@@ -1,6 +1,6 @@
 module Runners
   class Shell
-    class ExecError < StandardError
+    class ExecError < SystemError
       attr_reader :type
       attr_reader :args
       attr_reader :stdout_str
