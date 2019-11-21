@@ -1,6 +1,6 @@
 module Runners
   module Ruby
-    class InstallGemsFailure < StandardError; end
+    class InstallGemsFailure < UserError; end
 
     def install_gems(default_specs, optionals: [], constraints:, &block)
       user_specs = GemInstaller::Spec.from_gems(ci_section["gems"] || [])

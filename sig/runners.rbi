@@ -7,6 +7,16 @@ interface Runners::_Writer
   def <<: (Schema::Types::any_trace) -> void
 end
 
+class Runners::Error < StandardError
+ def message: -> String
+end
+
+class Runners::UserError < Runners::Error
+end
+
+class Runners::SystemError < Runners::Error
+end
+
 class Runners::TraceWriter
   attr_reader writer: _Writer
   def initialize: (writer: _Writer) -> any
@@ -110,9 +120,6 @@ class Runners::Workspace
   def self.ssh_key_content: () -> String
 end
 
-class Runners::Workspace::DownloadError
-end
-
 class Runners::Processor
   attr_reader guid: String
   attr_reader working_dir: Pathname
@@ -182,7 +189,7 @@ class Runners::Shell
   def env_hash: -> Hash<String, String?>
 end
 
-class Runners::Shell::ExecError < StandardError
+class Runners::Shell::ExecError < Runners::SystemError
   attr_reader type: Symbol
   attr_reader args: Array<String>
   attr_reader stdout_str: String

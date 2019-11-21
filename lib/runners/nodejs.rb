@@ -1,12 +1,10 @@
 module Runners
   module Nodejs
-    class Error < StandardError; end
-    class InvalidDefaultDependencies < Error; end
-    class InvalidNodeVersion < Error; end
-    class InvalidNpmVersion < Error; end
-    class InvalidYarnVersion < Error; end
+    class InvalidDefaultDependencies < SystemError; end
+    class InvalidNodeVersion < SystemError; end
+    class InvalidNpmVersion < SystemError; end
+    class InvalidYarnVersion < SystemError; end
 
-    class UserError < Error; end
     class DuplicateLockfiles < UserError; end
     class ConstraintsNotSatisfied < UserError; end
     class NpmInstallFailed < UserError; end
