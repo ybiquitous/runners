@@ -29,24 +29,17 @@ module Runners
 
     def run
       ensure_result do
-        Workspace.open(base: options.base, base_key: options.base_key,
-                       head: options.head, head_key: options.head_key,
-                       ssh_key: options.ssh_key, working_dir: working_dir, trace_writer: trace_writer) do |workspace|
+        workspace = Workspace.new(options: options, working_dir: working_dir, trace_writer: trace_writer)
+        workspace.open do |git_ssh_path, changes|
 
           begin
-            instance = processor_class.new(guid: guid, working_dir: workspace.working_dir, git_ssh_path: workspace.git_ssh_path, trace_writer: trace_writer)
+            instance = processor_class.new(guid: guid, working_dir: working_dir, git_ssh_path: git_ssh_path&.to_s, trace_writer: trace_writer)
 
             root_dir_not_found = instance.check_root_dir_exist
             return root_dir_not_found if root_dir_not_found
 
             instance.push_root_dir do
-              trace_writer.header "Calculating changes between head and base"
-              changes = trace_writer.message "Running..." do
-                workspace.calculate_changes
-              end
-
               trace_writer.header "Setting up analyzer"
-
               result = instance.setup do
                 trace_writer.header "Running analyzer"
                 instance.analyze(changes)

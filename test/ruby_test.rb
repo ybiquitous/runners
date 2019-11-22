@@ -691,16 +691,13 @@ EOF
       end
     end
 
-    mktmpdir do |path|
-      Runners::Workspace.open(base: nil, base_key: nil,
-                                  head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
-                                  working_dir: path,
-                                  ssh_key: (Pathname(__dir__) + "data/ruby_private_gem_deploy_key").read,
-                                  trace_writer: trace_writer) do |workspace|
+    with_workspace(head: (Pathname(__dir__) + "data/foo.tgz").to_s,
+                   ssh_key: (Pathname(__dir__) + "data/ruby_private_gem_deploy_key").read) do |workspace|
+      workspace.open do |git_ssh_path|
         processor = klass.new(guid: SecureRandom.uuid,
-                              working_dir: path,
-                              git_ssh_path: workspace.git_ssh_path,
-                              trace_writer: trace_writer)
+                              working_dir: workspace.working_dir,
+                              git_ssh_path: git_ssh_path&.to_s,
+                              trace_writer: workspace.trace_writer)
         processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
                                optionals: [],
                                constraints: {}) do

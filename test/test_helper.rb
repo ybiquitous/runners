@@ -36,4 +36,18 @@ module TestHelper
       yield
     end
   end
+
+  def with_workspace(base: (Pathname(__dir__) + "data/encrypted.tar.gz").to_s, base_key: "CfAlFi2Uq3aiS3qSnq3Wq0gQWieTbt3151Z+iFXnE3o=",
+                     head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
+                     ssh_key: nil,
+                     **source_params)
+    source = { base: base, base_key: base_key, head: head, head_key: head_key, **source_params }.select { |_k, v| v }
+    with_runners_options_env(source: source, ssh_key: ssh_key) do
+      options = Runners::Options.new(StringIO.new, StringIO.new)
+      Dir.mktmpdir do |dir|
+        workspace = Runners::Workspace.new(options: options, working_dir: Pathname(dir), trace_writer: Runners::TraceWriter.new(writer: []))
+        yield workspace
+      end
+    end
+  end
 end

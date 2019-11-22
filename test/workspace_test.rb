@@ -5,90 +5,11 @@ class WorkspaceTest < Minitest::Test
 
   Workspace = Runners::Workspace
 
-  def trace_writer
-    @trace_writer ||= Runners::TraceWriter.new(writer: [])
-  end
-
-  def test_prepare_from_http
-    mktmpdir do |path|
-      Workspace.prepare_in_dir(:dummy, "http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, path, trace_writer: trace_writer)
-
-      # GitHub tarball contains directory, so that we cannot test existence of files in repository
-      refute_empty path.children
-    end
-  end
-
-  def test_prepare_from_http_with_retry_on_cipher_error
-    stub(Workspace).decrypt {raise OpenSSL::Cipher::CipherError}
-    assert_raises(OpenSSL::Cipher::CipherError) do
-      mktmpdir do |path|
-        Workspace.prepare_in_dir(:dummy, "http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, path, trace_writer: trace_writer)
-      end
-    end
-    assert_equal 4, trace_writer.writer.count {|trace| trace[:message] == 'Retrying download...'}
-  end
-
-  def test_prepare_from_http_with_retry_on_download_error
-    stub(Net::HTTP).get_response.with_any_args.yields(Net::HTTPResponse.new('1.1', 500, 'error'))
-    assert_raises(Workspace::DownloadError) do
-      mktmpdir do |path|
-        Workspace.prepare_in_dir(:dummy, "http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, path, trace_writer: trace_writer)
-      end
-    end
-    assert_equal 4, trace_writer.writer.count {|trace| trace[:message] == 'Retrying download...'}
-  end
-
-  def test_prepare_from_http_with_retry_on_net_open_timeout
-    stub(Net::HTTP).get_response.with_any_args { raise Net::OpenTimeout }
-    assert_raises(Net::OpenTimeout) do
-      mktmpdir do |path|
-        Workspace.prepare_in_dir(:dummy, "http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, path, trace_writer: trace_writer)
-      end
-    end
-    assert_equal 4, trace_writer.writer.count {|trace| trace[:message] == 'Retrying download...'}
-  end
-
-  def test_prepare_from_dir
-    mktmpdir do |path|
-      archive_path = Pathname(__dir__) + "data"
-      Workspace.prepare_in_dir(:dummy, archive_path.to_s, nil, path, trace_writer: trace_writer)
-
-      assert (path + "empty.rb").file?
-    end
-  end
-
-  def test_prepare_from_archive
-    mktmpdir do |path|
-      archive_path = Pathname(__dir__) + "data/foo.tgz"
-      Workspace.prepare_in_dir(:dummy, archive_path.to_s, nil, path, trace_writer: trace_writer)
-
-      assert (path + "querly.gemspec").file?
-    end
-  end
-
-  def test_prepare_from_encrypted_archive
-    mktmpdir do |path|
-      # Already the archive encrypted by following command:
-      # git archive -o archive.tar.gz -- 58c75ce
-      # openssl enc -aes256 -k 'CfAlFi2Uq3aiS3qSnq3Wq0gQWieTbt3151Z+iFXnE3o=' -in archive.tar.gz -out encrypted.tar.gz
-      archive_path = Pathname(__dir__) + "data/encrypted.tar.gz"
-      Workspace.prepare_in_dir(:dummy, archive_path.to_s, "CfAlFi2Uq3aiS3qSnq3Wq0gQWieTbt3151Z+iFXnE3o=", path, trace_writer: trace_writer)
-
-      assert (path + "querly.gemspec").file?
-    end
-  end
-
-  def test_prepare_with_base
-    mktmpdir do |working_dir|
-      Workspace.open(base: (Pathname(__dir__) + "data/encrypted.tar.gz").to_s, base_key: "CfAlFi2Uq3aiS3qSnq3Wq0gQWieTbt3151Z+iFXnE3o=",
-                     head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
-                     working_dir: working_dir,
-                     ssh_key: nil,
-                     trace_writer: trace_writer) do |workspace|
+  def test_open
+    with_workspace do |workspace|
+      workspace.open do |_git_ssh_path, changes|
         assert (workspace.working_dir + "querly.gemspec").file?
         refute (workspace.working_dir + "foo.tgz").file?
-
-        changes = workspace.calculate_changes
 
         refute changes.changed_files.empty?
         refute changes.unchanged_paths.empty?
@@ -97,18 +18,11 @@ class WorkspaceTest < Minitest::Test
     end
   end
 
-  def test_prepare_without_base
-    mktmpdir do |working_dir|
-      Workspace.open(base: nil, base_key: nil,
-                     head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
-                     working_dir: working_dir,
-                     ssh_key: nil,
-                     trace_writer: trace_writer) do |workspace|
-
+  def test_open_without_base
+    with_workspace(base: nil, base_key: nil) do |workspace|
+      workspace.open do |_git_ssh_path, changes|
         assert (workspace.working_dir + "querly.gemspec").file?
         refute (workspace.working_dir + "foo.tgz").file?
-
-        changes = workspace.calculate_changes
 
         refute changes.changed_files.empty?
         assert changes.unchanged_paths.empty?
@@ -117,27 +31,89 @@ class WorkspaceTest < Minitest::Test
     end
   end
 
-  def test_prepare_ssh
-    mktmpdir do |working_dir|
-      Workspace.open(base: nil, base_key: nil,
-                     head: (Pathname(__dir__) + "data/foo.tgz").to_s, head_key: nil,
-                     working_dir: working_dir,
-                     ssh_key: (Pathname(__dir__) / "data/ssh_key").read,
-                     trace_writer: trace_writer) do |workspace|
+  def test_prepare_from_http
+    with_workspace do |workspace|
+      workspace.send(:prepare_in_dir, :head, "http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, workspace.working_dir)
+      refute_empty workspace.working_dir.children
+    end
+  end
 
-        # Clone private repository using ssh key
+  def test_prepare_from_http_with_retry_on_cipher_error
+    with_workspace do |workspace|
+      stub(workspace).decrypt.with_any_args { raise OpenSSL::Cipher::CipherError }
+      stub(workspace).retryable_sleep { 0 }
+      assert_raises(OpenSSL::Cipher::CipherError) do
+        workspace.send(:prepare_in_dir, :head, "https://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, workspace.working_dir)
+      end
+      assert_equal 4, workspace.trace_writer.writer.count { |trace| trace[:message] == 'Retrying download...' }
+    end
+  end
+
+  def test_prepare_from_http_with_retry_on_download_error
+    with_workspace do |workspace|
+      stub(Net::HTTP).get_response.with_any_args.yields(Net::HTTPResponse.new('1.1', 500, 'error'))
+      stub(workspace).retryable_sleep { 0 }
+      assert_raises(Workspace::DownloadError) do
+        workspace.send(:prepare_in_dir, :head, "https://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, workspace.working_dir)
+      end
+      assert_equal 4, workspace.trace_writer.writer.count { |trace| trace[:message] == 'Retrying download...' }
+    end
+  end
+
+  def test_prepare_from_http_with_retry_on_net_open_timeout
+    with_workspace do |workspace|
+      stub(Net::HTTP).get_response.with_any_args { raise Net::OpenTimeout }
+      stub(workspace).retryable_sleep { 0 }
+      assert_raises(Net::OpenTimeout) do
+        workspace.send(:prepare_in_dir, :head, "https://ftp.jaist.ac.jp/pub/Linux/ArchLinux/core/os/x86_64/core.db.tar.gz", nil, workspace.working_dir)
+      end
+      assert_equal 4, workspace.trace_writer.writer.count { |trace| trace[:message] == 'Retrying download...' }
+    end
+  end
+
+  def test_prepare_from_dir
+    with_workspace do |workspace|
+      archive_path = Pathname(__dir__) / "data"
+      workspace.send(:prepare_in_dir, :head, archive_path.to_s, nil, workspace.working_dir)
+      assert (workspace.working_dir / "empty.rb").file?
+    end
+  end
+
+  def test_prepare_from_archive
+    with_workspace do |workspace|
+      archive_path = Pathname(__dir__) + "data/foo.tgz"
+      workspace.send(:prepare_in_dir, :head, archive_path.to_s, nil, workspace.working_dir)
+      assert (workspace.working_dir / "querly.gemspec").file?
+    end
+  end
+
+  def test_prepare_from_encrypted_archive
+    with_workspace do |workspace|
+      archive_path = Pathname(__dir__) + "data/encrypted.tar.gz"
+      workspace.send(:prepare_in_dir, :head, archive_path.to_s, "CfAlFi2Uq3aiS3qSnq3Wq0gQWieTbt3151Z+iFXnE3o=", workspace.working_dir)
+      assert (workspace.working_dir / "querly.gemspec").file?
+    end
+  end
+
+  def test_git_ssh_path_is_nil
+    with_workspace do |workspace|
+      workspace.open do |git_ssh_path|
+        assert_nil git_ssh_path
+      end
+    end
+  end
+
+  def test_git_ssh_path_is_pathname
+    with_workspace(ssh_key: (Pathname(__dir__) / "data/ssh_key").read) do |workspace|
+      workspace.open do |git_ssh_path|
+        refute_nil git_ssh_path
+
         Open3.capture3(
-          { "GIT_SSH" => workspace.git_ssh_path.to_s },
+          { "GIT_SSH" => git_ssh_path.to_s },
           "git", "clone", "--depth=1", "git@github.com:sideci/go_private_library.git",
-          { chdir: working_dir.to_s }
-        ).tap do |_stdout, stderr, status|
-          unless status.success?
-            puts stderr
-            fail
-          end
-        end
-
-        assert (workspace.working_dir + "go_private_library/main.go").file?
+          { chdir: workspace.working_dir.to_s }
+        )
+        assert (workspace.working_dir / "go_private_library/main.go").file?
       end
     end
   end

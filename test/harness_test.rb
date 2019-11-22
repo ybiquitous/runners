@@ -29,12 +29,6 @@ class HarnessTest < Minitest::Test
     end
   end
 
-  def with_workspace(base: nil, base_key: nil, head:, head_key: nil, &block)
-    mktmpdir do |working_dir|
-      Workspace.open(base: base, base_key: base_key, head: head, head_key: head_key, ssh_key: nil, working_dir: working_dir, trace_writer: trace_writer, &block)
-    end
-  end
-
   class TestProcessor < Processor
     def analyze(changes)
       Results::Success.new(guid: guid, analyzer: Analyzer.new(name: "Test", version: "0.1.3"))
@@ -50,9 +44,7 @@ class HarnessTest < Minitest::Test
   def test_run
     with_working_dir do |working_dir|
       with_options do |options|
-        mock.proxy(Workspace).open(base: options.base, base_key: options.base_key,
-                                   head: options.head, head_key: options.head_key,
-                                   ssh_key: options.ssh_key, working_dir: working_dir, trace_writer: trace_writer)
+        mock.proxy(Workspace).new(options: options, working_dir: working_dir, trace_writer: trace_writer)
         harness = Harness.new(guid: SecureRandom.uuid, processor_class: TestProcessor,
                               options: options, working_dir: working_dir, trace_writer: trace_writer)
 
