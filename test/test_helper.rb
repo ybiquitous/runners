@@ -45,7 +45,7 @@ module TestHelper
     with_runners_options_env(source: source, ssh_key: ssh_key) do
       options = Runners::Options.new(StringIO.new, StringIO.new)
       Dir.mktmpdir do |dir|
-        workspace = Runners::Workspace.new(options: options, working_dir: Pathname(dir), trace_writer: Runners::TraceWriter.new(writer: []))
+        workspace = Runners::Workspace.prepare(options: options, working_dir: Pathname(dir), trace_writer: Runners::TraceWriter.new(writer: []))
         yield workspace
       end
     end

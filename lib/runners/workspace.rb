@@ -2,9 +2,27 @@ module Runners
   class Workspace
     class DownloadError < SystemError; end
 
+    def self.prepare(options:, working_dir:, trace_writer:)
+      source = options.source
+      case source
+      when Options::ArchiveSource
+        case
+        when source.http?
+          Workspace::HTTP.new(options: options, working_dir: working_dir, trace_writer: trace_writer)
+        when source.file?
+          Workspace::File.new(options: options, working_dir: working_dir, trace_writer: trace_writer)
+        else
+          raise ArgumentError, "The specified options #{options.inspect} is not supported"
+        end
+      when Options::GitSource
+        # TODO
+        raise ArgumentError, "Not supported yet"
+      end
+    end
+
     attr_reader :options, :working_dir, :trace_writer
 
-    # @param options [Runners::Options]
+    # @param options [Options]
     # @param working_dir [Pathname]
     # @param trace_writer [Runners::TraceWriter]
     def initialize(options:, working_dir:, trace_writer:)
@@ -23,12 +41,12 @@ module Runners
             head_path = Pathname(head_dir)
 
             trace_writer.header "Setting up source code"
-
-            base = options.base
-            if base
-              prepare_in_dir(:base, base, options.base_key, base_path)
+            if options.source.base
+              trace_writer.message "Preparing base commit tree..."
+              prepare_base_source(base_path)
             end
-            prepare_in_dir(:head, options.head, options.head_key, head_path)
+            trace_writer.message "Preparing head commit tree..."
+            prepare_head_source(head_path)
 
             trace_writer.message "Copying head to working dir..." do
               FileUtils.copy_entry(head_path, working_dir)
@@ -45,6 +63,18 @@ module Runners
     end
 
     private
+
+    def archive_source
+      @archive_source ||=
+        begin
+          source = options.source
+          if source.instance_of?(Runners::Options::ArchiveSource)
+            source
+          else
+            raise "#{source.inspect} is not ArchiveSource"
+          end
+        end
+    end
 
     def prepare_ssh
       ssh_key = options.ssh_key
@@ -77,54 +107,12 @@ module Runners
       end
     end
 
-    def prepare_in_dir(type, source, key, dir)
-      trace_writer.message "Preparing #{type} commit tree..."
+    def prepare_base_source(dest)
+      raise NotImplementedError
+    end
 
-      uri = URI.parse(source)
-      case uri.scheme
-      when "http", "https"
-        # When OpenSSL::Cipher::CipherError, probably the downloading is failed.
-        # So retry downloading and decrypting
-        Retryable.retryable(
-          tries: 5,
-          on: [OpenSSL::Cipher::CipherError, OpenSSL::SSL::SSLError, DownloadError, Net::OpenTimeout, Errno::ECONNRESET, SocketError, Net::HTTPForbidden],
-          sleep: method(:retryable_sleep),
-          exception_cb: -> (_ex) { trace_writer.message "Retrying download..." }
-        ) do
-          ::Tempfile.open do |io|
-            trace_writer.message "Downloading source code..." do
-              download(uri) do |response|
-                response.read_body do |chunk|
-                  io.write(chunk)
-                end
-              end
-              io.flush
-            end
-
-            decrypt(Pathname(io.path), key) do |archive_path|
-              extract(archive_path, dir)
-            end
-          end
-        end
-      when nil, "file"
-        path = Pathname(uri.path).realpath
-
-        case
-        when path.directory?
-          trace_writer.message "Copying source code..." do
-            FileUtils.copy_entry(path, dir)
-          end
-        when path.file?
-          decrypt(path, key) do |archive_path|
-            extract(archive_path, dir)
-          end
-        else
-          raise "Given non directory nor archive: #{path}"
-        end
-
-      else
-        raise "Unexpected URI schema: #{uri}"
-      end
+    def prepare_head_source(dest)
+      raise NotImplementedError
     end
 
     def decrypt(archive, key)
@@ -166,23 +154,6 @@ module Runners
         out, status = Open3.capture2e("tar", "xf", archive.to_s, chdir: dir)
         raise "Extracting archive failed - #{out}" unless status.success?
       end
-    end
-
-    def download(uri, &block)
-      Net::HTTP.get_response(uri) do |response|
-        case response.code
-        when /^2/
-          yield response
-        when "301", "302"
-          download(URI.parse(response['location']), &block)
-        else
-          raise DownloadError, "Download is failed. #{response.inspect}"
-        end
-      end
-    end
-
-    def retryable_sleep(n)
-      n + 1
     end
   end
 end

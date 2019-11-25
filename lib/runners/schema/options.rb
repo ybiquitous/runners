@@ -4,6 +4,7 @@ module Runners
       # @type self: Types::Options
 
       let :source, enum(
+        object(head: string, base: string?, git_http_url: string, owner: string, repo: string, token: string?, pull_number: number?),
         object(head: string, head_key: string?, base: string, base_key: string?),
         object(head: string, head_key: string?),
       )
