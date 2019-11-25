@@ -125,7 +125,9 @@ class CLITest < Minitest::Test
       with_runners_options_env(source: { head: head_dir }) do
         cli = CLI.new(argv: ["--analyzer=rubocop", "test-guid"], stdout: stdout, stderr: stderr)
         cli.instance_variable_set(:@processor_class, TestProcessor)
-        mock(Runners::Workspace).open.with_any_args { raise Runners::Workspace::DownloadError }
+        any_instance_of(Runners::Workspace) do |instance|
+          mock(instance).open.with_any_args { raise Runners::Workspace::DownloadError }
+        end
         cli.run
 
         output = stdout.string

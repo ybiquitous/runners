@@ -13,7 +13,7 @@ class Pathname
   def cleanpath: -> self
   def read: -> String
   def mkpath: -> void
-  def write: (String) -> void
+  def write: (String, ?perm: Integer) -> void
   def sub_ext: (String) -> self
   def expand_path: (*String) -> self
   def parent: -> self

@@ -99,27 +99,6 @@ class Runners::Changes::ChangedFile
   def initialize: (path: Pathname) -> any
 end
 
-type prepare_type = :base | :head
-
-class Runners::Workspace
-  attr_reader working_dir: Pathname
-  attr_reader base_dir: Pathname
-  attr_reader head_dir: Pathname
-  attr_reader git_ssh_path: String?
-
-  def initialize: (working_dir: Pathname, head_dir: Pathname, base_dir: Pathname, git_ssh_path: String?) -> any
-
-  def calculate_changes: () -> Changes
-  def self.open: <'a> (base: String?, base_key: String?, head: String, head_key: String?, ssh_key: String?, working_dir: Pathname, trace_writer: TraceWriter) { (instance) -> 'a } -> 'a
-  def self.prepare_ssh: <'a> (String?, trace_writer: TraceWriter) { (String?) -> 'a } -> 'a
-  def self.prepare_in_dir: (prepare_type, String, String?, Pathname, trace_writer: TraceWriter) -> void
-  def self.decrypt: <'a> (Pathname, String?, trace_writer: TraceWriter) { (Pathname) -> 'a } -> 'a
-  def self.decrypt_by_openssl: (Pathname, String, Pathname) -> void
-  def self.extract: (Pathname, Pathname, trace_writer: TraceWriter) -> void
-  def self.download: <'a> (URI) { (any) -> 'a } -> 'a
-  def self.ssh_key_content: () -> String
-end
-
 class Runners::Processor
   attr_reader guid: String
   attr_reader working_dir: Pathname
