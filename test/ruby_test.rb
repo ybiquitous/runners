@@ -654,7 +654,7 @@ EOF
       def ci_section
         {
           "gems" => [
-            { "name" => "rails-assets-bootstrap", "source" => "https://rails-assets.org" },
+            { "name" => "rubocop-rspec", "source" => "https://rubygems.cae.me.uk" },
           ]
         }
       end
@@ -670,7 +670,7 @@ EOF
                              optionals: [],
                              constraints: {}) do
         stdout, _ = processor.shell.capture3!("bundle", "show")
-        assert_match(/\* rails-assets-bootstrap/, stdout)
+        assert_includes stdout, "* rubocop-rspec ("
       end
     end
   end
