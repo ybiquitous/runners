@@ -174,3 +174,32 @@ Smoke.add_test("option_target_multi", {
   ],
   analyzer: { name: "cpplint", version: "1.4.4" },
 })
+
+Smoke.add_test("no_line_number", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [
+    {
+      id: "build/header_guard",
+      path: "foo.h",
+      location: nil,
+      message: /No #ifndef header guard found, suggested CPP variable is:/,
+      links: [],
+      object: {
+        confidence: "5",
+      },
+    },
+    {
+      id: "build/include",
+      path: "foo.cc",
+      location: nil,
+      message: /(.+)foo\.cc should include its header file (.+)foo\.h/,
+      links: [],
+      object: {
+        confidence: "5",
+      },
+    },
+  ],
+  analyzer: { name: "cpplint", version: "1.4.4" },
+})

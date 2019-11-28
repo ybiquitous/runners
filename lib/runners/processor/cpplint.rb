@@ -87,7 +87,7 @@ module Runners
     # @see https://github.com/cpplint/cpplint/blob/1.4.4/cpplint.py#L1151
     # @see https://github.com/cpplint/cpplint/blob/1.4.4/cpplint.py#L1441-L1448
     def parse_result(xml_doc)
-      message_pattern = /(\d+): (.+) \[(.+)\] \[(.+)\]/
+      message_pattern = /([^:]+): (.+) \[(.+)\] \[(.+)\]/
 
       xml_doc.each_element("testcase") do |testcase|
         path = relative_path(testcase[:name])
@@ -96,10 +96,11 @@ module Runners
             matched = issue_line.match(message_pattern)
             if matched
               line, message, category, confidence = matched.captures
+              no_line_number = (line == "0" || !line.match?(/\A\d+\z/))
               yield Issue.new(
                 id: category,
                 path: path,
-                location: line == "0" ? nil : Location.new(start_line: line),
+                location: no_line_number ? nil : Location.new(start_line: line),
                 message: message.strip,
                 object: {
                   confidence: confidence,
