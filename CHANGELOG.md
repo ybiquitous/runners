@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.10.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.11.0...HEAD)
+
+## 0.11.0
+
+[Full diff](https://github.com/sider/runners/compare/0.10.0...0.11.0)
 
 - Bump devon_rex images from 2.9.0 to 2.10.0 [#527](https://github.com/sider/runners/pull/527)
 - [HAML-Lint] Fix incompatibility with RuboCop [#533](https://github.com/sider/runners/pull/533)
