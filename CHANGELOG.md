@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - [HAML-Lint] Bump rubocop-rspec from 1.36.0 to 1.37.0 [#531](https://github.com/sider/runners/pull/531)
 - [HAML-Lint] Bump rubocop-rails from 2.3.2 to 2.4.0 [#532](https://github.com/sider/runners/pull/532)
 - Configure instance_profile_credentials_* for Aws::S3::Client [#526](https://github.com/sider/runners/pull/526)
+- [RuboCop] Bump Ruby from 2.5.6 to 2.5.7 [#534](https://github.com/sider/runners/pull/534)
 
 ## 0.10.0
 
