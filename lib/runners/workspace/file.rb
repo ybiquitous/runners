@@ -7,7 +7,7 @@ module Runners
       if base
         provision(Pathname(URI.parse(base).path).realpath, dest, archive_source.base_key)
       else
-        raise "base must not be nil"
+        raise ArgumentError, "base must not be nil"
       end
     end
 
