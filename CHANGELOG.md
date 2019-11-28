@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - Bump devon_rex images from 2.9.0 to 2.10.0 [#527](https://github.com/sider/runners/pull/527)
 - [HAML-Lint] Fix incompatibility with RuboCop [#533](https://github.com/sider/runners/pull/533)
 - [RuboCop] Bump rubocop from 0.76.0 to 0.77.0 [#529](https://github.com/sider/runners/pull/529)
+- [HAML-Lint] Bump rubocop from 0.76.0 to 0.77.0 [#530](https://github.com/sider/runners/pull/530)
 
 ## 0.10.0
 

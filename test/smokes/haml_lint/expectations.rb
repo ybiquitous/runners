@@ -48,6 +48,13 @@ Smoke.add_test(
     path: "test.haml",
     location: {start_line: 3 },
     object: nil,
+  }, {
+    message: "Layout/TrailingEmptyLines: Final newline missing.",
+    links: [],
+    id: "RuboCop",
+    path: "test.haml",
+    location: {start_line: 5 },
+    object: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
