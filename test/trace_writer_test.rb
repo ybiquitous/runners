@@ -78,4 +78,25 @@ class TraceWriterTest < Minitest::Test
     assert_equal '0.0001', writer.send(:format_duration_in_secs, 0.00001)
     assert_equal '0.0001', writer.send(:format_duration_in_secs, 0.000001)
   end
+
+  def test_masked_string
+    writer = TraceWriter.new(writer: [], sensitive_strings: %w[supersecret hidden])
+    writer.command_line(%w[cat https://user:supersecret@github.com], recorded_at: now)
+    writer.stdout("supersecret in stdout", recorded_at: now)
+    writer.stderr("supersecret in stderr", recorded_at: now)
+    writer.message("Your 'hidden' should not be exposed", recorded_at: now)
+    writer.header("'hidden' in header", recorded_at: now)
+    writer.error("'hidden' in error", recorded_at: now)
+    writer.warning("'hidden' in warning", recorded_at: now)
+    expected = [
+      { trace: 'command_line', command_line: %w[cat https://user:[FILTERED]@github.com], recorded_at: now.utc.iso8601 },
+      { trace: 'stdout', string: "[FILTERED] in stdout", recorded_at: now.utc.iso8601 },
+      { trace: 'stderr', string: "[FILTERED] in stderr", recorded_at: now.utc.iso8601 },
+      { trace: 'message', message: "Your '[FILTERED]' should not be exposed", recorded_at: now.utc.iso8601 },
+      { trace: 'header', message: "'[FILTERED]' in header", recorded_at: now.utc.iso8601 },
+      { trace: 'error', message: "'[FILTERED]' in error", recorded_at: now.utc.iso8601 },
+      { trace: 'warning', message: "'[FILTERED]' in warning", file: nil, recorded_at: now.utc.iso8601 },
+    ]
+    assert_equal expected, writer.writer
+  end
 end

@@ -19,10 +19,11 @@ end
 
 class Runners::TraceWriter
   attr_reader writer: _Writer
-  def initialize: (writer: _Writer) -> any
+  attr_reader sensitive_strings: Array<String>
+  def initialize: (writer: _Writer, ?sensitive_strings: Array<String>) -> any
 
   def command_line: (Array<String>, ?recorded_at: Time) -> void
-  def status: (any, ?recorded_at: Time) -> void
+  def status: (Process::Status, ?recorded_at: Time) -> void
   def stdout: (String, ?recorded_at: Time, ?max_length: Integer) -> void
   def stderr: (String, ?recorded_at: Time, ?max_length: Integer) -> void
   def message: (String, ?recorded_at: Time, ?max_length: Integer) -> void
@@ -33,6 +34,7 @@ class Runners::TraceWriter
   def error: (String, ?recorded_at: Time, ?max_length: Integer) -> void
   def <<: (any) -> void
   def each_slice: (String, size: Integer) { (String) -> void } -> void
+  def masked_string: (String) -> String
 end
 
 class Runners::Analyzer

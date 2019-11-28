@@ -1,14 +1,14 @@
 module Runners
   class TraceWriter
-    # @dynamic writer
-    attr_reader :writer
+    attr_reader :writer, :sensitive_strings
 
-    def initialize(writer:)
+    def initialize(writer:, sensitive_strings: [])
       @writer = writer
+      @sensitive_strings = sensitive_strings
     end
 
     def command_line(command_line, recorded_at: Time.now)
-      self << { trace: 'command_line', command_line: command_line, recorded_at: recorded_at.utc.iso8601 }
+      self << { trace: 'command_line', command_line: command_line.map { |v| masked_string(v) }, recorded_at: recorded_at.utc.iso8601 }
     end
 
     def status(status, recorded_at: Time.now)
@@ -17,7 +17,7 @@ module Runners
 
     def stdout(string, recorded_at: Time.now, max_length: 4_000)
       unless string.empty?
-        each_slice(string, size: max_length) do |text|
+        each_slice(masked_string(string), size: max_length) do |text|
           self << { trace: 'stdout', string: text, recorded_at: recorded_at.utc.iso8601 }
         end
       end
@@ -25,7 +25,7 @@ module Runners
 
     def stderr(string, recorded_at: Time.now, max_length: 4_000)
       unless string.empty?
-        each_slice(string, size: max_length) do |text|
+        each_slice(masked_string(string), size: max_length) do |text|
           self << { trace: 'stderr', string: text, recorded_at: recorded_at.utc.iso8601 }
         end
       end
@@ -33,7 +33,7 @@ module Runners
 
     # @type method message: (String, ?recorded_at: Time, ?max_length: Integer) ?{ -> any } -> any
     def message(message, recorded_at: Time.now, max_length: 4_000)
-      each_slice(message, size: max_length) do |text|
+      each_slice(masked_string(message), size: max_length) do |text|
         self << { trace: 'message', message: text, recorded_at: recorded_at.utc.iso8601 }
       end
       if block_given?
@@ -46,11 +46,11 @@ module Runners
     end
 
     def header(message, recorded_at: Time.now)
-      self << { trace: 'header', message: message, recorded_at: recorded_at.utc.iso8601 }
+      self << { trace: 'header', message: masked_string(message), recorded_at: recorded_at.utc.iso8601 }
     end
 
     def warning(message, file: nil, recorded_at: Time.now)
-      self << { trace: 'warning', file: file, message: message, recorded_at: recorded_at.utc.iso8601 }
+      self << { trace: 'warning', file: file, message: masked_string(message), recorded_at: recorded_at.utc.iso8601 }
     end
 
     def ci_config(content, recorded_at: Time.now)
@@ -58,7 +58,7 @@ module Runners
     end
 
     def error(message, recorded_at: Time.now, max_length: 4_000)
-      each_slice(message, size: max_length) do |text|
+      each_slice(masked_string(message), size: max_length) do |text|
         self << { trace: 'error', message: text, recorded_at: recorded_at.utc.iso8601 }
       end
     end
@@ -84,6 +84,12 @@ module Runners
 
     def format_duration_in_secs(duration)
       duration.ceil(4).to_s
+    end
+
+    def masked_string(str)
+      sensitive_strings.inject(str) do |ret, secure_string|
+        ret.gsub(secure_string, "[FILTERED]")
+      end
     end
   end
 end
