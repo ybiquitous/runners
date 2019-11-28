@@ -29,6 +29,8 @@ module Runners
       args = {
         retry_limit: 5,
         retry_base_delay: 1.2,
+        instance_profile_credentials_retries: 5,
+        instance_profile_credentials_timeout: 3,
       }.tap do |hash|
         if ENV["S3_ENDPOINT"]
           hash[:endpoint] = ENV["S3_ENDPOINT"]
