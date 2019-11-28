@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - [HAML-Lint] Bump rubocop-rails from 2.3.2 to 2.4.0 [#532](https://github.com/sider/runners/pull/532)
 - Configure instance_profile_credentials_* for Aws::S3::Client [#526](https://github.com/sider/runners/pull/526)
 - [RuboCop] Bump Ruby from 2.5.6 to 2.5.7 [#534](https://github.com/sider/runners/pull/534)
+- [cpplint] Fix error when the output line number is `None` [#536](https://github.com/sider/runners/pull/536)
 
 ## 0.10.0
 
