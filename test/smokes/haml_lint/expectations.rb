@@ -135,16 +135,9 @@ Smoke.add_test(
   'incompatible_rubocop',
   guid: 'test-guid',
   timestamp: :_,
-  type: 'success',
-  issues: [{
-             message: 'Avoid defining `class` in attributes hash for static class names',
-             links: [],
-             id: 'ClassAttributeWithStaticValue',
-             path: 'test.haml',
-             location: { start_line: 4 },
-             object: nil,
-           }],
-  analyzer: {name: 'haml_lint', version: '0.34.0'})
+  type: 'failure',
+  message: /Failed to install gems/,
+  analyzer: nil)
 
 # This test case, `incompatible_haml`, will be failed if updating HAML-Lint version,
 # because HAML-Lint 4.1 beta support was dropped.

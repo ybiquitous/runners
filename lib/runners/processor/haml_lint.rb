@@ -51,6 +51,8 @@ module Runners
       GemInstaller::Spec.new(name: "rubocop-thread_safety", version: []),
     ].freeze
 
+    DEFAULT_GEMS = ["haml_lint", "rubocop"].freeze
+
     CONSTRAINTS = {
       "haml_lint" => [">= 0.26.0"]
     }.freeze
@@ -68,7 +70,7 @@ module Runners
     end
 
     def default_gem_specs
-      super("haml_lint").tap do |gems|
+      super(*DEFAULT_GEMS).tap do |gems|
         if setup_default_config
           # NOTE: See rubocop.rb about no versions.
           gems << GemInstaller::Spec.new(name: "meowcop", version: [])
