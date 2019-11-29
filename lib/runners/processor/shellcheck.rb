@@ -131,7 +131,6 @@ module Runners
           end
         end
       elsif stderr.start_with? "No files specified."
-        add_warning "No files analyzed."
         Results::Success.new(guid: guid, analyzer: analyzer)
       else
         message = "An unexpected error occurred. Check the log output."

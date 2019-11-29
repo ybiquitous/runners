@@ -165,8 +165,6 @@ Smoke.add_test("no_files", {
   type: "success",
   issues: [],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
-}, {
-  warnings: [{ message: "No files analyzed.", file: nil }]
 })
 
 Smoke.add_test("option_target", {
