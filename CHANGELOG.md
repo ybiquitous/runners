@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.11.0...HEAD)
 
 - Add a feature to mask secure strings on TraceWriter [#537](https://github.com/sider/runners/pull/537)
+- [ShellCheck] No warnings when no analyzed files [#538](https://github.com/sider/runners/pull/538)
 
 ## 0.11.0
 
