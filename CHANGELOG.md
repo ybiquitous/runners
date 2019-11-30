@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Bump checkstyle from 8.26 to 8.27 [#540](https://github.com/sider/runners/pull/540)
 - Bump reek from 5.4.0 to 5.5.0 [#541](https://github.com/sider/runners/pull/541)
 - Bump symfony2-coding-standard from 3.9.2 to 3.10.0 [#542](https://github.com/sider/runners/pull/542)
+- Bump eslint from 6.6.0 to 6.7.2 [#544](https://github.com/sider/runners/pull/544)
 
 ## 0.12.0
 
