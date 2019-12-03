@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.11.1...HEAD)
 
+- Add Workspace::Git to fetch source code via Git [#548](https://github.com/sider/runners/pull/548)
+
 ## 0.11.1
 
 [Full diff](https://github.com/sider/runners/compare/0.11.0...0.11.1)

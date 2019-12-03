@@ -13,6 +13,8 @@ class Runners::Workspace
   def decrypt_by_openssl: (Pathname, String, Pathname) -> void
   def extract: (Pathname, Pathname) -> void
   def archive_source: () -> Options::ArchiveSource
+  def git_source: () -> Options::GitSource
+  def root_tmp_dir: () -> Pathname
 end
 
 class Runners::Workspace::HTTP < Workspace
@@ -27,4 +29,13 @@ class Runners::Workspace::File < Workspace
   def prepare_base_source: (Pathname) -> void
   def prepare_head_source: (Pathname) -> void
   def provision: (Pathname, Pathname, String?) -> void
+end
+
+class Runners::Workspace::Git < Workspace
+  def prepare_base_source: (Pathname) -> void
+  def prepare_head_source: (Pathname) -> void
+  def provision: (String, Pathname) -> void
+  def git_directory: () -> Pathname
+  def remote_url: () -> URI
+  def git_fetch_args: () -> Array<String>
 end

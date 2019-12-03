@@ -77,17 +77,21 @@ class FileUtils
   def self.rm: (Array<String>) -> void
   def self.install: (String, String, ?any) -> void
   def self.copy_entry: (any, any) -> void
+  def self.remove_entry: (String|Pathname, ?bool) -> void
 end
 
 class Dir
   def self.mktmpdir: <'a> { (String) -> 'a } -> 'a
+                   | () -> String
 end
 
 class URI
   def self.parse: (String) -> URI
+  def self.join: (*String) -> URI
   def path: -> String
   def scheme: -> String
   def host: -> String
+  def userinfo=: (String) -> String
 end
 
 class Net::HTTP

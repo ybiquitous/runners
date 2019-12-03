@@ -19,11 +19,11 @@ class Runners::Options::GitSource
   attr_accessor git_http_url: String
   attr_accessor owner: String
   attr_accessor repo: String
-  attr_accessor token: String?
+  attr_accessor git_http_userinfo: String?
   attr_accessor pull_number: Integer?
 
   def initialize: (head: String, ?base: String, git_http_url: String,
-                   owner: String, repo: String, ?token: String, ?pull_number: Integer) -> any
+                   owner: String, repo: String, ?git_http_userinfo: String, ?pull_number: Integer) -> any
 end
 
 class Runners::Options::ArchiveSource
