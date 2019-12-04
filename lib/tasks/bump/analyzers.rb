@@ -4,7 +4,7 @@ require "json"
 namespace :bump do
   desc "Bump analyzers and create new pull requests"
   task :analyzers do
-    BumpAnayzers.each do |t|
+    BumpAnalyzers.each do |t|
       puts "Bumping #{t.analyzer}..."
 
       t.update_version!
@@ -26,7 +26,7 @@ namespace :bump do
   end
 end
 
-BumpAnayzers = Struct.new(
+BumpAnalyzers = Struct.new(
   :analyzer, :analyzer_name, :github_repo,
   :current_version, :updated, :pull_request_url,
   keyword_init: true
@@ -46,14 +46,17 @@ BumpAnayzers = Struct.new(
     end
   end
 
+  ANALYZERS_UNSUPPORTED_BY_DEPENDABOT = {
+    cppcheck: { name: "Cppcheck", github: "danmar/cppcheck" },
+    cpplint: { name: "cpplint", github: "cpplint/cpplint" },
+    javasee:  { name: "JavaSee", github: "sider/JavaSee" },
+    misspell: { name: "Misspell", github: "client9/misspell" },
+    shellcheck: { name: "ShellCheck", github: "koalaman/shellcheck" },
+    swiftlint: { name: "SwiftLint", github: "realm/SwiftLint" },
+  }.freeze
+
   def self.each
-    {
-      cppcheck: { name: "Cppcheck", github: "danmar/cppcheck" },
-      javasee:  { name: "JavaSee", github: "sider/JavaSee" },
-      misspell: { name: "Misspell", github: "client9/misspell" },
-      shellcheck: { name: "ShellCheck", github: "koalaman/shellcheck" },
-      swiftlint: { name: "SwiftLint", github: "realm/SwiftLint" },
-    }.each do |analyzer, meta|
+    ANALYZERS_UNSUPPORTED_BY_DEPENDABOT.each do |analyzer, meta|
       yield new(
         analyzer: analyzer,
         analyzer_name: meta.fetch(:name),
