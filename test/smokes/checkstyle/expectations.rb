@@ -4,7 +4,7 @@ Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'checkstyle', version: '8.26'},
+  analyzer: {name: 'checkstyle', version: '8.27'},
   issues: [
     {
       message: "The name of the outer type and the file do not match.",
@@ -45,7 +45,7 @@ Smoke.add_test("config", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'checkstyle', version: '8.26'},
+  analyzer: {name: 'checkstyle', version: '8.27'},
   issues: [
     {
       message: "Parameter args should be final.",
@@ -87,7 +87,7 @@ Smoke.add_test("failure", {
   timestamp: :_,
   type: "failure",
   message: "Could not find config XML file 'custom.xml'.",
-  analyzer: { name: "checkstyle", version: "8.26" },
+  analyzer: { name: "checkstyle", version: "8.27" },
 })
 
 Smoke.add_test("broken_sideci_yml", {
@@ -136,7 +136,7 @@ Smoke.add_test("properties", {
       object: { severity: "error" },
     },
   ],
-  analyzer: {name: 'checkstyle', version: '8.26'}
+  analyzer: {name: 'checkstyle', version: '8.27'}
 })
 
 Smoke.add_test("syntax_error", {
@@ -144,5 +144,5 @@ Smoke.add_test("syntax_error", {
   timestamp: :_,
   type: "failure",
   message: "com.puppycrawl.tools.checkstyle.api.CheckstyleException: Exception was thrown while processing ./Foo.java",
-  analyzer: { name: "checkstyle", version: "8.26" },
+  analyzer: { name: "checkstyle", version: "8.27" },
 })

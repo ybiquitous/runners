@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - Bump jshint from 2.10.2 to 2.10.3 [#543](https://github.com/sider/runners/pull/543)
 - Bump pmd-java from 6.19.0 to 6.20.0 [#539](https://github.com/sider/runners/pull/539)
+- Bump checkstyle from 8.26 to 8.27 [#540](https://github.com/sider/runners/pull/540)
 
 ## 0.12.0
 
