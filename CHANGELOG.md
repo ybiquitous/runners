@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - [PMD Java] Find design issues by default [#563](https://github.com/sider/runners/pull/563)
 - [PMD Java] Save issue details [#565](https://github.com/sider/runners/pull/565)
 - [Reek] Improve issue message [#566](https://github.com/sider/runners/pull/566)
+- Bump devon_rex images from 2.10.0 to master [#568](https://github.com/sider/runners/pull/568)
 
 ## 0.12.0
 
