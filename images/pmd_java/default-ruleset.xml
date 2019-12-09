@@ -9,6 +9,10 @@
   </description>
 
   <rule ref="category/java/bestpractices.xml" />
+  <rule ref="category/java/design.xml">
+    <!-- NOTE: Prevent the warning "No packages or classes specified" -->
+    <exclude name="LoosePackageCoupling" />
+  </rule>
   <rule ref="category/java/errorprone.xml" />
   <rule ref="category/java/multithreading.xml" />
   <rule ref="category/java/performance.xml" />
@@ -16,7 +20,6 @@
 
   <!-- Exclude stylistic rules.
   <rule ref="category/java/codestyle.xml" />
-  <rule ref="category/java/design.xml" />
   <rule ref="category/java/documentation.xml" />
   -->
 </ruleset>
