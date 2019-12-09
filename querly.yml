@@ -20,3 +20,23 @@ rules:
     examples:
       - before: trace_writer.status(status)
       - before: "trace_writer.status(status, recorded_at: Time.now)"
+  - id: sider.runners.sh-util-in-rake-tasks
+    pattern:
+      - sh(_)
+    message: |
+      Consider passing multiple arguments instead of a single argument to `sh` in Rake tasks.
+
+      In case of including meta-characters or any shell specific words, passing multiple arguments is recommended.
+      When passing a single argument, the command is run via the system shell (e.g. `/bin/sh`).
+
+      See also:
+      * https://www.rubydoc.info/gems/rake/FileUtils#sh-instance_method
+      * https://ruby-doc.org/core-2.6.5/Kernel.html#method-i-exec
+    justification:
+      - When required to run the command via the system shell.
+      - When the command has no arguments.
+    examples:
+      - before: |
+          sh "echo #{username}"
+        after: |
+          sh "echo", username

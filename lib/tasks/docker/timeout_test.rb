@@ -18,17 +18,17 @@ namespace :docker do
     end
 
     # Change the Docker image and include "rr"
-    sh "docker run --name #{container_name} --entrypoint bash #{image_name} gem install rr"
-    sh "docker commit --change='ENTRYPOINT #{entrypoint}' --change='CMD []' #{container_name} #{image_name}"
+    sh "docker", "run", "--name", container_name, "--entrypoint", "bash", image_name, "gem", "install", "rr"
+    sh "docker", "commit", "--change", "ENTRYPOINT #{entrypoint}", "--change", "CMD []", container_name, image_name
 
-    _, stderr, status = Open3.capture3 "docker run --rm #{image_name}"
+    _, stderr, status = Open3.capture3 "docker", "run", "--rm", image_name
     status.exitstatus == 124 or abort "Expected exit status is 124, but the actual value is #{res.exitstatus}"
     !stderr.include?('unexpected method invocation') or abort "Bugsnag is expected to be called"
-    sh "pgrep sleep" do |ok|
+    sh "pgrep", "sleep" do |ok|
       abort "sleep(1) still remains! It's unexpected." if ok
     end
   ensure
-    sh "docker rm --force #{container_name}"
+    sh "docker", "rm", "--force", container_name
   end
 
   def container_name

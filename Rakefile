@@ -125,19 +125,19 @@ namespace :docker do
 
   desc 'Run docker build'
   task :build => 'dockerfile:generate' do
-    sh "docker build -t #{image_name} -f #{build_context}/Dockerfile ."
+    sh "docker", "build", "--tag", image_name, "--file", "#{build_context}/Dockerfile", "."
   end
 
   desc 'Run smoke test on Docker'
   task :smoke do
-    sh "bin/runners_smoke #{image_name} test/smokes/#{analyzer}/expectations.rb"
+    sh "bin/runners_smoke", image_name, "test/smokes/#{analyzer}/expectations.rb"
   end
 
   desc 'Run docker push'
   task :push do
-    sh "docker login -u #{docker_user} -p #{docker_password}"
-    sh "docker tag #{image_name} #{image_name_latest}"
-    sh "docker push #{image_name}"
-    sh "docker push #{image_name_latest}"
+    sh "docker", "login", "--username", docker_user, "--password", docker_password
+    sh "docker", "tag", image_name, image_name_latest
+    sh "docker", "push", image_name
+    sh "docker", "push", image_name_latest
   end
 end
