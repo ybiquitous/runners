@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Bump pmd-java from 6.19.0 to 6.20.0 [#539](https://github.com/sider/runners/pull/539)
 - Bump checkstyle from 8.26 to 8.27 [#540](https://github.com/sider/runners/pull/540)
 - Bump reek from 5.4.0 to 5.5.0 [#541](https://github.com/sider/runners/pull/541)
+- Bump symfony2-coding-standard from 3.9.2 to 3.10.0 [#542](https://github.com/sider/runners/pull/542)
 
 ## 0.12.0
 

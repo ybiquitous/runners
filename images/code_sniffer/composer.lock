@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94ae8cf3a07dda30a9ad6151c6c2f249",
+    "content-hash": "6e60d372f60b69f31f573ce0ca8dcdde",
     "packages": [
         {
             "name": "cakephp/cakephp-codesniffer",
@@ -53,16 +53,16 @@
         },
         {
             "name": "escapestudios/symfony2-coding-standard",
-            "version": "3.9.2",
+            "version": "3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/djoos/Symfony-coding-standard.git",
-                "reference": "369b5f2579be6aed478ca3a4248619eab6e54e41"
+                "reference": "3ddef0c310ba5899c934fa0b580b54031b6c6cf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/djoos/Symfony-coding-standard/zipball/369b5f2579be6aed478ca3a4248619eab6e54e41",
-                "reference": "369b5f2579be6aed478ca3a4248619eab6e54e41",
+                "url": "https://api.github.com/repos/djoos/Symfony-coding-standard/zipball/3ddef0c310ba5899c934fa0b580b54031b6c6cf1",
+                "reference": "3ddef0c310ba5899c934fa0b580b54031b6c6cf1",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "phpcs",
                 "symfony"
             ],
-            "time": "2019-09-25T08:43:58+00:00"
+            "time": "2019-11-29T12:49:11+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
