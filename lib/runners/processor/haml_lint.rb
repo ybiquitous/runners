@@ -20,6 +20,10 @@ module Runners
                         )
                       })
       }
+
+      let :issue, object(
+        severity: string?,
+      )
     end
 
     # DEPRECATED: Implicit dependencies
@@ -155,29 +159,34 @@ module Runners
       "--config=#{config}" if config
     end
 
-    # @param stdout [String]
-    def parse_result(stdout)
-      JSON.parse(stdout)['files'].flat_map do |file|
-        path = file['path']
-        file['offenses'].map do |offense|
-          id = offense['linter_name']
-          message = offense['message']
-          line = offense['location']['line']
+    def parse_result(output)
+      JSON.parse(output, symbolize_names: true).fetch(:files).flat_map do |file|
+        path = file.fetch(:path)
+        file.fetch(:offenses).map do |offense|
+          id = offense[:linter_name]
+          message = offense[:message]
+          line = offense.dig(:location, :line)
 
-          loc = Location.new(
-            start_line: line,
-            start_column: nil,
-            end_line: nil,
-            end_column: nil
-          )
           Issue.new(
             path: relative_path(path),
-            location: loc,
+            location: Location.new(start_line: line),
             id: id,
             message: message,
+            links: build_links(id),
+            object: {
+              severity: offense[:severity],
+            },
+            schema: Schema.issue,
           )
         end
       end
+    end
+
+    def build_links(issue_id)
+      # NOTE: Syntax errors are produced by HAML itself, not HAML-Lint.
+      return [] if issue_id == "Syntax"
+
+      ["https://github.com/sds/haml-lint/blob/v#{analyzer_version}/lib/haml_lint/linter##{issue_id.downcase}"]
     end
 
     def run_analyzer(targets, options)

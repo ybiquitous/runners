@@ -7,11 +7,11 @@ Smoke.add_test(
   type: 'success',
   issues: [{
     message: 'Avoid defining `class` in attributes hash for static class names',
-    links: [],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#classattributewithstaticvalue"],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
     location: { start_line: 4 },
-    object: nil,
+    object: { severity: "warning" },
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
@@ -21,11 +21,11 @@ Smoke.add_test('with-sideci.yml', {
   type: 'success',
   issues: [{
     message: 'Avoid defining `class` in attributes hash for static class names',
-    links: [],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#classattributewithstaticvalue"],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
     location: { start_line: 4 },
-    object: nil,
+    object: { severity: "warning" },
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'},
 }, {
@@ -43,18 +43,18 @@ Smoke.add_test(
   type: 'success',
   issues: [{
     message: "Lint/UselessAssignment: Useless assignment to variable - `unused_variable`.",
-    links: [],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#rubocop"],
     id: "RuboCop",
     path: "test.haml",
     location: {start_line: 3 },
-    object: nil,
+    object: { severity: "warning" },
   }, {
     message: "Layout/TrailingEmptyLines: Final newline missing.",
-    links: [],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#rubocop"],
     id: "RuboCop",
     path: "test.haml",
     location: {start_line: 5 },
-    object: nil,
+    object: { severity: "warning" },
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
@@ -65,11 +65,11 @@ Smoke.add_test(
   type: 'success',
   issues: [{
     message: "Lint/UselessAssignment: Useless assignment to variable - `unused_variable`. (https://rubystyle.guide#underscore-unused-vars)",
-    links: [],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#rubocop"],
     id: "RuboCop",
     path: "test.haml",
     location: {start_line: 3 },
-    object: nil,
+    object: { severity: "warning" },
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
@@ -82,11 +82,11 @@ Smoke.add_test(
   type: 'success',
   issues: [{
     message: 'Avoid defining `class` in attributes hash for static class names',
-    links: [],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#classattributewithstaticvalue"],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
     location: { start_line: 4 },
-    object: nil,
+    object: { severity: "warning" },
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
@@ -97,11 +97,11 @@ Smoke.add_test("with_exclude_files", {
   issues: [
     {
       message: "3 consecutive Ruby scripts can be merged into a single `:ruby` filter",
-      links: [],
+      links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#consecutivesilentscripts"],
       id: "ConsecutiveSilentScripts",
       path: "hello.haml",
       location: { start_line: 2 },
-      object: nil,
+      object: { severity: "warning" },
     },
     {
       message:  "Illegal nesting: content can't be both given on the same line as %span and nested within it.",
@@ -109,7 +109,7 @@ Smoke.add_test("with_exclude_files", {
       id: "Syntax",
       path: "test.haml",
       location: { start_line: 3 },
-      object: nil,
+      object: { severity: "error" },
     }
   ],
   analyzer: { name: 'haml_lint', version: '0.34.0' }
@@ -130,11 +130,11 @@ Smoke.add_test(
   type: 'success',
   issues: [{
              message: 'Avoid defining `class` in attributes hash for static class names',
-             links: [],
+             links: ["https://github.com/sds/haml-lint/blob/v0.26.0/lib/haml_lint/linter#classattributewithstaticvalue"],
              id: 'ClassAttributeWithStaticValue',
              path: 'test.haml',
              location: { start_line: 4 },
-             object: nil,
+             object: { severity: "warning" },
            }],
   analyzer: {name: 'haml_lint', version: '0.26.0'})
 
@@ -156,11 +156,11 @@ Smoke.add_test(
   type: 'success',
   issues: [{
              message: 'Avoid defining `class` in attributes hash for static class names',
-             links: [],
+             links: ["https://github.com/sds/haml-lint/blob/v0.28.0/lib/haml_lint/linter#classattributewithstaticvalue"],
              id: 'ClassAttributeWithStaticValue',
              path: 'test.haml',
              location: { start_line: 4 },
-             object: nil,
+             object: { severity: "warning" },
            }],
   analyzer: {name: 'haml_lint', version: '0.28.0'}
 )
@@ -173,11 +173,11 @@ Smoke.add_test('pinned_haml_version', {
   type: 'success',
   issues: [{
     message: 'Avoid defining `class` in attributes hash for static class names',
-    links: [],
+    links: ["https://github.com/sds/haml-lint/blob/v0.32.0/lib/haml_lint/linter#classattributewithstaticvalue"],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
     location: { start_line: 4 },
-    object: nil,
+    object: { severity: "warning" },
   }],
   analyzer: { name: 'haml_lint', version: '0.32.0' }
 })
