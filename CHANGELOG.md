@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.12.0...HEAD)
 
 - Bump jshint from 2.10.2 to 2.10.3 [#543](https://github.com/sider/runners/pull/543)
+- Bump pmd-java from 6.19.0 to 6.20.0 [#539](https://github.com/sider/runners/pull/539)
 
 ## 0.12.0
 
