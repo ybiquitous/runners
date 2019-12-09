@@ -8,38 +8,40 @@ See also another related project, called [devon_rex](https://github.com/sider/de
 
 ## Supported analyzers
 
+Each analyzer can be available as a Docker image.
+
 *(in alphabetical order)*
 
-- Brakeman
-- Checkstyle
-- CoffeeLint
-- Cppcheck
-- cpplint
-- ESLint
-- Flake8
-- go vet
-- Golint
-- Go Meta Linter
-- Goodcheck
-- HAML-Lint
-- JSHint
-- JavaSee
-- ktlint
-- Misspell
-- PHPMD
-- PHP_CodeSniffer
-- PMD Java
-- Phinder
-- Querly
-- Rails Best Practices
-- Reek
-- RuboCop
-- SCSS-Lint
-- ShellCheck
-- stylelint
-- SwiftLint
-- TSLint
-- TyScan
+- [Brakeman](https://hub.docker.com/r/sider/runner_brakeman)
+- [Checkstyle](https://hub.docker.com/r/sider/runner_checkstyle)
+- [CoffeeLint](https://hub.docker.com/r/sider/runner_coffeelint)
+- [Cppcheck](https://hub.docker.com/r/sider/runner_cppcheck)
+- [cpplint](https://hub.docker.com/r/sider/runner_cpplint)
+- [ESLint](https://hub.docker.com/r/sider/runner_eslint)
+- [Flake8](https://hub.docker.com/r/sider/runner_flake8)
+- [go vet](https://hub.docker.com/r/sider/runner_go_vet)
+- [Golint](https://hub.docker.com/r/sider/runner_golint)
+- [Go Meta Linter](https://hub.docker.com/r/sider/runner_gometalinter)
+- [Goodcheck](https://hub.docker.com/r/sider/runner_goodcheck)
+- [HAML-Lint](https://hub.docker.com/r/sider/runner_haml_lint)
+- [JSHint](https://hub.docker.com/r/sider/runner_jshint)
+- [JavaSee](https://hub.docker.com/r/sider/runner_javasee)
+- [ktlint](https://hub.docker.com/r/sider/runner_ktlint)
+- [Misspell](https://hub.docker.com/r/sider/runner_misspell)
+- [PHPMD](https://hub.docker.com/r/sider/runner_phpmd)
+- [PHP_CodeSniffer](https://hub.docker.com/r/sider/runner_code_sniffer)
+- [PMD Java](https://hub.docker.com/r/sider/runner_pmd_java)
+- [Phinder](https://hub.docker.com/r/sider/runner_phinder)
+- [Querly](https://hub.docker.com/r/sider/runner_querly)
+- [Rails Best Practices](https://hub.docker.com/r/sider/runner_rails_best_practices)
+- [Reek](https://hub.docker.com/r/sider/runner_reek)
+- [RuboCop](https://hub.docker.com/r/sider/runner_rubocop)
+- [SCSS-Lint](https://hub.docker.com/r/sider/runner_scss_lint)
+- [ShellCheck](https://hub.docker.com/r/sider/runner_shellcheck)
+- [stylelint](https://hub.docker.com/r/sider/runner_stylelint)
+- [SwiftLint](https://hub.docker.com/r/sider/runner_swiftlint)
+- [TSLint](https://hub.docker.com/r/sider/runner_tslint)
+- [TyScan](https://hub.docker.com/r/sider/runner_tyscan)
 
 ## Testing
 
