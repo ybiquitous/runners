@@ -6,13 +6,13 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.12.0...HEAD)
 
+- Bump jshint from 2.10.2 to 2.10.3 [#543](https://github.com/sider/runners/pull/543)
+
 ## 0.12.0
 
 [Full diff](https://github.com/sider/runners/compare/0.11.1...0.12.0)
 
 - Add Workspace::Git to fetch source code via Git [#548](https://github.com/sider/runners/pull/548)
-
-- Bump jshint from 2.10.2 to 2.10.3 [#543](https://github.com/sider/runners/pull/543)
 
 ## 0.11.1
 
