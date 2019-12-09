@@ -13,14 +13,6 @@ module Runners
       }
     end
 
-    DEFAULT_RULESETS = %w[
-      category/java/bestpractices.xml
-      category/java/errorprone.xml
-      category/java/multithreading.xml
-      category/java/performance.xml
-      category/java/security.xml
-    ].freeze
-
     def self.ci_config_section_name
       'pmd_java'
     end
@@ -121,22 +113,19 @@ module Runners
 
     def check_runner_config(config)
       dir = check_directory(config)
-      trace_writer.message("Checking directory: #{dir}")
-
       rulesets = rulesets(config)
-      trace_writer.message("Rulesets: #{rulesets.join(", ")}")
-
       encoding = encoding(config)
-      trace_writer.message("Source encoding: #{encoding}") if encoding
-
       min_priority = min_priority(config)
-      trace_writer.message("Min priority: #{min_priority}") if min_priority
 
       yield dir, rulesets, encoding, min_priority
     end
 
     def rulesets(config)
-      array(config[:rulesets] || DEFAULT_RULESETS)
+      array(config[:rulesets] || default_ruleset)
+    end
+
+    def default_ruleset
+      (Pathname(Dir.home) / "default-ruleset.xml").realpath
     end
 
     def check_directory(config)
