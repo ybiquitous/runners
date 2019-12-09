@@ -4,7 +4,7 @@ Smoke.add_test("success", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'swiftlint', version: '0.37.0'},
+  analyzer: {name: 'swiftlint', version: '0.38.0'},
   issues: [
     {path: "test.swift",
      location: {start_line: 1},
@@ -19,7 +19,7 @@ Smoke.add_test("sideciyml", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'swiftlint', version: '0.37.0'},
+  analyzer: {name: 'swiftlint', version: '0.38.0'},
   issues: [
     {path: "test.swift",
      location: {start_line: 1},
@@ -90,7 +90,7 @@ Smoke.add_test("ignore_warnings", {
   guid: "test-guid",
   timestamp: :_,
   type: "success",
-  analyzer: {name: 'swiftlint', version: '0.37.0'},
+  analyzer: {name: 'swiftlint', version: '0.38.0'},
   issues: [
     {path: "test.swift",
      location: {start_line: 3},
@@ -106,7 +106,7 @@ Smoke.add_test("no_swift_file", {
   timestamp: :_,
   type: "success",
   issues: [],
-  analyzer: {name: 'swiftlint', version: '0.37.0'},
+  analyzer: {name: 'swiftlint', version: '0.38.0'},
 }, {
   warnings: [
     { message: "No lintable files found.", file: nil },
@@ -118,7 +118,7 @@ Smoke.add_test("no_config_file", {
   timestamp: :_,
   type: "failure",
   message: /\ASwiftLint aborted\.\n(.+)\nCould not read configuration file at path (.+)/m,
-  analyzer: {name: 'swiftlint', version: '0.37.0'},
+  analyzer: {name: 'swiftlint', version: '0.38.0'},
 }, {
   warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
     DEPRECATION WARNING!!!
@@ -141,5 +141,5 @@ Smoke.add_test("wrong_swiftlint_version_set", {
   type: "failure",
   # TODO: The message sometimes can be "". It should be "Loading configuration from '.swiftlint.yml'".
   message: :_,
-  analyzer: {name: 'swiftlint', version: '0.37.0'},
+  analyzer: {name: 'swiftlint', version: '0.38.0'},
 })

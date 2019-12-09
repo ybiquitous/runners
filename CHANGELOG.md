@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Bump eslint from 6.6.0 to 6.7.2 [#544](https://github.com/sider/runners/pull/544)
 - Bump wpcs from 2.1.1 to 2.2.0 [#546](https://github.com/sider/runners/pull/546)
 - Bump cakephp-codesniffer from 3.1.2 to 3.3.0 [#561](https://github.com/sider/runners/pull/561)
+- Bump SwiftLint from 0.37.0 to 0.38.0 [#557](https://github.com/sider/runners/pull/557)
 
 ## 0.12.0
 
