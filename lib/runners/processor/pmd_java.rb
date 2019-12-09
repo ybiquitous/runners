@@ -11,6 +11,12 @@ module Runners
                         min_priority: numeric?
                       })
       }
+
+      let :issue, object(
+        rule: string,
+        ruleset: string,
+        priority: string,
+      )
     end
 
     def self.ci_config_section_name
@@ -88,6 +94,12 @@ module Runners
               id: id,
               message: message,
               links: links,
+              object: {
+                rule: violation[:rule],
+                ruleset: violation[:ruleset],
+                priority: violation[:priority],
+              },
+              schema: Schema.issue,
             )
           end
 

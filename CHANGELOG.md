@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - Bump cakephp-codesniffer from 3.1.2 to 3.3.0 [#561](https://github.com/sider/runners/pull/561)
 - Bump SwiftLint from 0.37.0 to 0.38.0 [#557](https://github.com/sider/runners/pull/557)
 - [PMD Java] Find design issues by default [#563](https://github.com/sider/runners/pull/563)
+- [PMD Java] Save issue details [#565](https://github.com/sider/runners/pull/565)
 
 ## 0.12.0
 
