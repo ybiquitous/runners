@@ -19,7 +19,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: 'JSHint',
-    version: '2.10.2'
+    version: '2.10.3'
   }
 )
 
@@ -62,7 +62,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: 'JSHint',
-    version: '2.10.2'
+    version: '2.10.3'
   }
 )
 
@@ -85,7 +85,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: 'JSHint',
-    version: '2.10.2'
+    version: '2.10.3'
   }
 )
 
@@ -111,7 +111,7 @@ Smoke.add_test("with_options", {
       object: nil,
     }
   ],
-  analyzer: { name: 'JSHint', version: '2.10.2' },
+  analyzer: { name: 'JSHint', version: '2.10.3' },
 }, {
   warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
     DEPRECATION WARNING!!!
@@ -125,7 +125,7 @@ Smoke.add_test("broken_package_json", {
   timestamp: :_,
   type: "success",
   issues: [],
-  analyzer: { name: "JSHint", version: "2.10.2" },
+  analyzer: { name: "JSHint", version: "2.10.3" },
 }, {
   warnings: [
     { message: /`package.json` is broken: 767: unexpected token at/, file: "package.json" },
@@ -137,5 +137,5 @@ Smoke.add_test("invalid_output_xml", {
   timestamp: :_,
   type: "failure",
   message: 'The output XML is invalid: Illegal character "\\u0000" in raw string "Unexpected &apos;\\u0000&apos;."',
-  analyzer: { name: "JSHint", version: "2.10.2" },
+  analyzer: { name: "JSHint", version: "2.10.3" },
 })
