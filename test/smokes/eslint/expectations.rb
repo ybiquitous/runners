@@ -32,7 +32,7 @@ Smoke.add_test('no_config', {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.6.0'
+    version: '6.7.2'
   }
 })
 
@@ -82,13 +82,13 @@ Smoke.add_test('only_eslintrc', {
   message: Regexp.new(Regexp.quote(<<~MESSAGE)),
     Oops! Something went wrong! :(
 
-    ESLint: 6.6.0.
+    ESLint: 6.7.2.
 
     ESLint couldn't find the plugin "eslint-plugin-filenames".
   MESSAGE
   analyzer: {
     name: 'ESLint',
-    version: "6.6.0"
+    version: "6.7.2"
   },
 })
 
@@ -258,7 +258,7 @@ Smoke.add_test("no_files", {
   issues: [],
   analyzer: {
     name: 'ESLint',
-    version: '6.6.0'
+    version: '6.7.2'
   },
 })
 
@@ -376,7 +376,7 @@ Smoke.add_test("quiet", {
       links: ["https://eslint.org/docs/rules/semi"],
       id: "semi",
       path: "test.js",
-      location: { start_line: 1 },
+      location: { start_line: 1, start_column: 83, end_line: 2, end_column: 1 },
       object: {
         severity: "error",
         category: "Stylistic Issues",
@@ -386,7 +386,7 @@ Smoke.add_test("quiet", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.6.0'
+    version: '6.7.2'
   }
 }, {
   warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
@@ -418,7 +418,7 @@ Smoke.add_test("array_ignore_pattern", {
       links: ["https://eslint.org/docs/rules/semi"],
       id: "semi",
       path: "app.js",
-      location: { start_line: 1 },
+      location: { start_line: 1, start_column: 83, end_line: 2, end_column: 1 },
       object: {
         severity: "error",
         category: "Stylistic Issues",
@@ -428,7 +428,7 @@ Smoke.add_test("array_ignore_pattern", {
   ],
   analyzer: {
     name: 'ESLint',
-    version: '6.6.0'
+    version: '6.7.2'
   }
 })
 
@@ -612,7 +612,7 @@ Smoke.add_test('default_version_is_used', {
   issues: [],
   analyzer: {
     name: 'ESLint',
-    version: '6.6.0',
+    version: '6.7.2',
   }
 })
 
@@ -644,7 +644,7 @@ Smoke.add_test("eslintrc_js", {
   ],
   analyzer: {
     name: "ESLint",
-    version: "6.6.0",
+    version: "6.7.2",
   },
 })
 
