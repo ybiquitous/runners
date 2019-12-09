@@ -43,7 +43,6 @@ module Runners
       show_java_runtime_versions
 
       ensure_runner_config_schema(Schema.runner_config) do |config|
-        trace_writer.message("PMD version: #{analyzer_version}")
         delete_unchanged_files changes, only: [".java"]
 
         check_runner_config(config) do |dir, rulesets, encoding, min_priority|
