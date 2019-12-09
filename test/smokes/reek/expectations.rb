@@ -14,7 +14,7 @@ Smoke.add_test(
       id: 'DuplicateMethodCall',
       message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
       links: [
-        'https://github.com/troessner/reek/blob/v5.4.0/docs/Duplicate-Method-Call.md'
+        'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
       object: nil,
     },
@@ -26,7 +26,7 @@ Smoke.add_test(
       id: 'DuplicateMethodCall',
       message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
       links: [
-        'https://github.com/troessner/reek/blob/v5.4.0/docs/Duplicate-Method-Call.md'
+        'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
       object: nil,
     },
@@ -38,14 +38,14 @@ Smoke.add_test(
       id: 'DuplicateMethodCall',
       message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
       links: [
-        'https://github.com/troessner/reek/blob/v5.4.0/docs/Duplicate-Method-Call.md'
+        'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
       object: nil,
     },
   ],
   analyzer: {
     name: 'Reek',
-    version: '5.4.0'
+    version: '5.5.0'
   }
 )
 
@@ -63,14 +63,14 @@ Smoke.add_test(
         id: 'ModuleInitialize',
         message: "[ModuleInitialize] Cat has initialize method",
         links: [
-          'https://github.com/troessner/reek/blob/v5.4.0/docs/Module-Initialize.md'
+          'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
         object: nil,
       },
     ],
     analyzer: {
         name: 'Reek',
-        version: '5.4.0'
+        version: '5.5.0'
     }
 )
 
@@ -89,14 +89,14 @@ Smoke.add_test(
         id: 'ModuleInitialize',
         message: "[ModuleInitialize] Cat has initialize method",
         links: [
-          'https://github.com/troessner/reek/blob/v5.4.0/docs/Module-Initialize.md'
+          'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
         object: nil,
       },
     ],
     analyzer: {
       name: 'Reek',
-      version: '5.4.0'
+      version: '5.5.0'
     }
   },
   warnings: [
@@ -113,7 +113,7 @@ Smoke.add_test(
     {
       message: "[LongParameterList] Summer#weekend has 3 parameters",
       links: [
-        "https://github.com/troessner/reek/blob/v5.4.0/docs/Long-Parameter-List.md"
+        "https://github.com/troessner/reek/blob/v5.5.0/docs/Long-Parameter-List.md"
       ],
       id: "LongParameterList",
       path: "summer.rb",
@@ -124,7 +124,7 @@ Smoke.add_test(
     },
     {
       message: "[NilCheck] Summer#summer_vacation performs a nil-check",
-      links: ["https://github.com/troessner/reek/blob/v5.4.0/docs/Nil-Check.md"],
+      links: ["https://github.com/troessner/reek/blob/v5.5.0/docs/Nil-Check.md"],
       id: "NilCheck",
       path: "summer.rb",
       location: {
@@ -135,7 +135,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: 'Reek',
-    version: '5.4.0'
+    version: '5.5.0'
   }
 )
 
@@ -168,7 +168,7 @@ Smoke.add_test(
     {
       message: "[LongParameterList] WorldCup#europe has 14 parameters",
       links: [
-        "https://github.com/troessner/reek/blob/v5.4.0/docs/Long-Parameter-List.md"
+        "https://github.com/troessner/reek/blob/v5.5.0/docs/Long-Parameter-List.md"
       ],
       id: "LongParameterList",
       path: "world_cup.rb",
@@ -180,7 +180,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: 'Reek',
-    version: '5.4.0'
+    version: '5.5.0'
   }
 )
 
@@ -224,19 +224,19 @@ Smoke.add_test(
         id: 'ModuleInitialize',
         message: "[ModuleInitialize] Cat has initialize method",
         links: [
-          'https://github.com/troessner/reek/blob/v5.4.0/docs/Module-Initialize.md'
+          'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
         object: nil,
       },
     ],
     analyzer: {
       name: 'Reek',
-      version: '5.4.0',
+      version: '5.5.0',
     }
   },
   warnings: [
     { message: <<~MESSAGE, file: nil }
-      Sider tried to install `reek 4.0.0` according to your `Gemfile.lock`, but it installs `5.4.0` instead.
+      Sider tried to install `reek 4.0.0` according to your `Gemfile.lock`, but it installs `5.5.0` instead.
       Because `4.0.0` does not satisfy the Sider constraints [\">= 4.4.0\", \"< 6.0\"].
 
       If you want to use a different version of `reek`, update your `Gemfile.lock` to satisfy the constraint or specify the gem version in your `sider.yml`.
@@ -252,12 +252,12 @@ Smoke.add_test("regex_directory_directive", {
   issues: [
     {
       message: "[NilCheck] Autumn#silver_week performs a nil-check",
-      links: ["https://github.com/troessner/reek/blob/v5.4.0/docs/Nil-Check.md"],
+      links: ["https://github.com/troessner/reek/blob/v5.5.0/docs/Nil-Check.md"],
       id: "NilCheck",
       path: "app/models/seasons/test/summer.rb",
       location: { start_line: 8 },
       object: nil,
     }
   ],
-  analyzer: { name: 'Reek', version: "5.4.0" }
+  analyzer: { name: 'Reek', version: "5.5.0" }
 })
