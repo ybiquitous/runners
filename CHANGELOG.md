@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - Bump SwiftLint from 0.37.0 to 0.38.0 [#557](https://github.com/sider/runners/pull/557)
 - [PMD Java] Find design issues by default [#563](https://github.com/sider/runners/pull/563)
 - [PMD Java] Save issue details [#565](https://github.com/sider/runners/pull/565)
+- [Reek] Improve issue message [#566](https://github.com/sider/runners/pull/566)
 
 ## 0.12.0
 

@@ -12,7 +12,7 @@ Smoke.add_test(
         start_line: 4,
       },
       id: 'DuplicateMethodCall',
-      message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
+      message: "`Cat#self.call` calls 'self.new.call' 3 times",
       links: [
         'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
@@ -24,7 +24,7 @@ Smoke.add_test(
         start_line: 5,
       },
       id: 'DuplicateMethodCall',
-      message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
+      message: "`Cat#self.call` calls 'self.new.call' 3 times",
       links: [
         'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
@@ -36,7 +36,7 @@ Smoke.add_test(
         start_line: 6,
       },
       id: 'DuplicateMethodCall',
-      message: "[DuplicateMethodCall] Cat#self.call calls 'self.new.call' 3 times",
+      message: "`Cat#self.call` calls 'self.new.call' 3 times",
       links: [
         'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
@@ -61,7 +61,7 @@ Smoke.add_test(
             start_line: 1,
         },
         id: 'ModuleInitialize',
-        message: "[ModuleInitialize] Cat has initialize method",
+        message: "`Cat` has initialize method",
         links: [
           'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
@@ -87,7 +87,7 @@ Smoke.add_test(
             start_line: 1,
         },
         id: 'ModuleInitialize',
-        message: "[ModuleInitialize] Cat has initialize method",
+        message: "`Cat` has initialize method",
         links: [
           'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
@@ -111,7 +111,7 @@ Smoke.add_test(
   type: 'success',
   issues: [
     {
-      message: "[LongParameterList] Summer#weekend has 3 parameters",
+      message: "`Summer#weekend` has 3 parameters",
       links: [
         "https://github.com/troessner/reek/blob/v5.5.0/docs/Long-Parameter-List.md"
       ],
@@ -123,7 +123,7 @@ Smoke.add_test(
       object: nil,
     },
     {
-      message: "[NilCheck] Summer#summer_vacation performs a nil-check",
+      message: "`Summer#summer_vacation` performs a nil-check",
       links: ["https://github.com/troessner/reek/blob/v5.5.0/docs/Nil-Check.md"],
       id: "NilCheck",
       path: "summer.rb",
@@ -166,7 +166,7 @@ Smoke.add_test(
   type: 'success',
   issues: [
     {
-      message: "[LongParameterList] WorldCup#europe has 14 parameters",
+      message: "`WorldCup#europe` has 14 parameters",
       links: [
         "https://github.com/troessner/reek/blob/v5.5.0/docs/Long-Parameter-List.md"
       ],
@@ -196,7 +196,7 @@ Smoke.add_test(
         start_line: 1,
       },
       id: 'ModuleInitialize',
-      message: "[ModuleInitialize] Cat has initialize method",
+      message: "`Cat` has initialize method",
       links: [
         'https://github.com/troessner/reek/blob/master/docs/Module-Initialize.md'
       ],
@@ -222,7 +222,7 @@ Smoke.add_test(
           start_line: 1,
         },
         id: 'ModuleInitialize',
-        message: "[ModuleInitialize] Cat has initialize method",
+        message: "`Cat` has initialize method",
         links: [
           'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
@@ -251,7 +251,7 @@ Smoke.add_test("regex_directory_directive", {
   type: 'success',
   issues: [
     {
-      message: "[NilCheck] Autumn#silver_week performs a nil-check",
+      message: "`Autumn#silver_week` performs a nil-check",
       links: ["https://github.com/troessner/reek/blob/v5.5.0/docs/Nil-Check.md"],
       id: "NilCheck",
       path: "app/models/seasons/test/summer.rb",

@@ -48,17 +48,11 @@ module Runners
         # NOTE: reek returns top-level JSON array
         JSON.parse(stdout, symbolize_names: true).each do |hash|
           hash[:lines].each do |line|
-            loc = Location.new(
-              start_line: line,
-              start_column: nil,
-              end_line: nil,
-              end_column: nil
-            )
             result.add_issue Issue.new(
               path: relative_path(hash[:source]),
-              location: loc,
+              location: Location.new(start_line: line),
               id: hash[:smell_type],
-              message: "[#{hash[:smell_type]}] #{hash[:context]} #{hash[:message]}",
+              message: "`#{hash[:context]}` #{hash[:message]}",
               links: v4? ? [hash[:wiki_link]] : [hash[:documentation_link]]
             )
           end
