@@ -7,13 +7,13 @@ Smoke.add_test(
   type: 'success',
   issues: [{
     message: 'Avoid defining `class` in attributes hash for static class names',
-    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#classattributewithstaticvalue"],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue"],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
     location: { start_line: 4 },
     object: { severity: "warning" },
   }],
-  analyzer: {name: 'haml_lint', version: '0.34.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.1'})
 
 Smoke.add_test('with-sideci.yml', {
   guid: 'test-guid',
@@ -21,13 +21,13 @@ Smoke.add_test('with-sideci.yml', {
   type: 'success',
   issues: [{
     message: 'Avoid defining `class` in attributes hash for static class names',
-    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#classattributewithstaticvalue"],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue"],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
     location: { start_line: 4 },
     object: { severity: "warning" },
   }],
-  analyzer: {name: 'haml_lint', version: '0.34.0'},
+  analyzer: {name: 'haml_lint', version: '0.34.1'},
 }, {
   warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
     DEPRECATION WARNING!!!
@@ -43,20 +43,13 @@ Smoke.add_test(
   type: 'success',
   issues: [{
     message: "Lint/UselessAssignment: Useless assignment to variable - `unused_variable`.",
-    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#rubocop"],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#rubocop"],
     id: "RuboCop",
     path: "test.haml",
     location: {start_line: 3 },
     object: { severity: "warning" },
-  }, {
-    message: "Layout/TrailingEmptyLines: Final newline missing.",
-    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#rubocop"],
-    id: "RuboCop",
-    path: "test.haml",
-    location: {start_line: 5 },
-    object: { severity: "warning" },
   }],
-  analyzer: {name: 'haml_lint', version: '0.34.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.1'})
 
 Smoke.add_test(
   'with-inherit-gem',
@@ -82,13 +75,13 @@ Smoke.add_test(
   type: 'success',
   issues: [{
     message: 'Avoid defining `class` in attributes hash for static class names',
-    links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#classattributewithstaticvalue"],
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue"],
     id: 'ClassAttributeWithStaticValue',
     path: 'test.haml',
     location: { start_line: 4 },
     object: { severity: "warning" },
   }],
-  analyzer: {name: 'haml_lint', version: '0.34.0'})
+  analyzer: {name: 'haml_lint', version: '0.34.1'})
 
 Smoke.add_test("with_exclude_files", {
   guid: 'test-guid',
@@ -97,7 +90,7 @@ Smoke.add_test("with_exclude_files", {
   issues: [
     {
       message: "3 consecutive Ruby scripts can be merged into a single `:ruby` filter",
-      links: ["https://github.com/sds/haml-lint/blob/v0.34.0/lib/haml_lint/linter#consecutivesilentscripts"],
+      links: ["https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#consecutivesilentscripts"],
       id: "ConsecutiveSilentScripts",
       path: "hello.haml",
       location: { start_line: 2 },
@@ -112,7 +105,7 @@ Smoke.add_test("with_exclude_files", {
       object: { severity: "error" },
     }
   ],
-  analyzer: { name: 'haml_lint', version: '0.34.0' }
+  analyzer: { name: 'haml_lint', version: '0.34.1' }
 })
 
 Smoke.add_test("broken_sideci_yml", {
