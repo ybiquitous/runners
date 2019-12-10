@@ -61,16 +61,12 @@ module Runners
         issues << issue
       end
 
-      def filter_issue
-        if block_given?
-          result = self.class.new(guid: guid, analyzer: analyzer)
-          issues.each do |issue|
-            result.add_issue(issue) if yield(issue)
-          end
-          result
-        else
-          enum_for :filter_issues
+      def filter_issues(changes)
+        result = self.class.new(guid: guid, analyzer: analyzer)
+        issues.each do |issue|
+          result.add_issue(issue) if changes.include?(issue)
         end
+        result
       end
     end
 

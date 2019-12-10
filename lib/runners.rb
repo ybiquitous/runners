@@ -33,6 +33,7 @@ require "active_support/core_ext/string/filters"
 require "active_support/core_ext/module/delegation"
 require "aws-sdk-s3"
 require "bugsnag"
+require "git_diff_parser"
 
 require "runners/version"
 require "runners/errors"

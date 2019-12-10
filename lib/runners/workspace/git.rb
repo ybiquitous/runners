@@ -45,5 +45,19 @@ module Runners
         command << "+refs/pull/#{pull_number}/head:refs/remotes/pull/#{pull_number}/head" if pull_number
       end
     end
+
+    def patches
+      base = git_source.base
+      head = git_source.head
+      if base && head
+        git_directory.yield_self do |path|
+          shell = Shell.new(current_dir: path, trace_writer: trace_writer, env_hash: {})
+          stdout, _ = shell.capture3!("git", "diff", base, head)
+          GitDiffParser.parse(stdout)
+        end
+      else
+        nil
+      end
+    end
   end
 end

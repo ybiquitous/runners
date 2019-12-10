@@ -5,6 +5,7 @@ class ResultTest < Minitest::Test
 
   Results = Runners::Results
   Issue = Runners::Issue
+  Changes = Runners::Changes
   Location = Runners::Location
   Analyzer = Runners::Analyzer
 
@@ -80,10 +81,8 @@ class ResultTest < Minitest::Test
       schema: nil
     )
 
-
-    result = result.filter_issue {|issue|
-      issue.path == Pathname("foo/bar/xxx.rb")
-    }
+    changes = Changes.new(changed_paths: [Pathname("foo/bar/xxx.rb")], unchanged_paths: [Pathname("foo/bar/baz.rb")], untracked_paths: [], patches: nil)
+    result = result.filter_issues(changes)
 
     assert result.valid?
 
@@ -104,6 +103,84 @@ class ResultTest < Minitest::Test
                          }
                        ],
                        analyzer: { name: "RuboCop", version: "1.3.2pre" }
+                     })
+
+  end
+
+  def test_success_filter_issue_with_patches
+    result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "Flake8", version: "3.7.9"))
+    result.add_issue Issue.new(
+      path: Pathname("a.py"),
+      location: Location.new(start_line: 1),
+      id: "F401",
+      message: "'os' imported but unused",
+    )
+    result.add_issue Issue.new(
+      path: Pathname("a.py"),
+      location: Location.new(start_line: 2),
+      id: "E302",
+      message: "expected 2 blank lines, found 0",
+    )
+    result.add_issue Issue.new(
+      path: Pathname("b.py"),
+      location: Location.new(start_line: 1),
+      id: "F401",
+      message: "'os' imported but unused",
+    )
+    result.add_issue Issue.new(
+      path: Pathname("b.py"),
+      location: Location.new(start_line: 5),
+      id: "E302",
+      message: "expected 2 blank lines, found 0",
+    )
+    result.add_issue Issue.new(
+      path: Pathname("a.py"),
+      location: nil,
+      id: "ZZZ",
+      message: "ERROR!",
+    )
+
+
+    changes = Changes.new(changed_paths: [Pathname("a.py")], unchanged_paths: [Pathname("b.py")], untracked_paths: [], patches: GitDiffParser.parse(<<~DIFF))
+      diff --git a/a.py b/a.py
+      index 23038dd..19bbab7 100644
+      --- a/a.py
+      +++ b/a.py
+      @@ -1,3 +1,3 @@
+       import os
+      -def f():
+      +def f1():
+           pass
+    DIFF
+    result = result.filter_issues(changes)
+
+    assert result.valid?
+
+    assert Runners::Schema::Result.success =~ result.as_json
+    assert_unifiable(result.as_json,
+                     {
+                       guid: result.guid,
+                       timestamp: result.timestamp.utc.iso8601,
+                       type: 'success',
+                       issues: [
+                         {
+                           path: "a.py",
+                           location: { start_line: 2  },
+                           id: "E302",
+                           message: "expected 2 blank lines, found 0",
+                           links: [],
+                           object: nil,
+                         },
+                         {
+                           path: "a.py",
+                           location: nil,
+                           id: "ZZZ",
+                           message: "ERROR!",
+                           links: [],
+                           object: nil,
+                         },
+                       ],
+                       analyzer: { name: "Flake8", version: "3.7.9" }
                      })
 
   end
