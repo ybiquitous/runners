@@ -1,5 +1,7 @@
 module Runners
   class Processor::Flake8 < Processor
+    include Python
+
     FLAKE8_OUTPUT_FORMAT = '%(code)s:::%(path)s:::%(row)d:::%(col)d:::%(text)s'.freeze
 
     Schema = StrongJSON.new do

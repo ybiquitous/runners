@@ -147,6 +147,7 @@ class Runners::Processor
   def build_field_reference_from_path: (StrongJSON::Type::ErrorPath | String) -> String
   def root_dir: -> Pathname
   def directory_traversal_attack?: (String) -> bool
+  def show_runtime_versions: -> void
 end
 
 type capture3_options = bool | Proc

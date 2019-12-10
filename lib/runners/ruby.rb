@@ -63,10 +63,11 @@ module Runners
       end
     end
 
-    def show_ruby_runtime_versions
+    def show_runtime_versions
       capture3! "ruby", "-v"
       capture3! "gem", "-v"
       capture3! "bundle", "-v"
+      capture3! "rbenv", "-v"
     end
 
     def ruby_analyzer_bin

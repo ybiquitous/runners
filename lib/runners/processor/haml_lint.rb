@@ -86,8 +86,6 @@ module Runners
       add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/ruby/haml-lint")
 
       ensure_runner_config_schema(Schema.runner_config) do
-        show_ruby_runtime_versions
-
         install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           yield
         end

@@ -46,8 +46,6 @@ module Runners
     end
 
     def analyze(changes)
-      show_java_runtime_versions
-
       ensure_runner_config_schema(Schema.runner_config) do |config|
         analyzer_version
 

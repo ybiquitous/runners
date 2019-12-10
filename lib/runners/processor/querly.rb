@@ -36,7 +36,6 @@ module Runners
 
     def setup
       ret = ensure_runner_config_schema(Schema.runner_config) do
-        show_ruby_runtime_versions
         install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           analyzer
           yield

@@ -4,7 +4,6 @@ module Runners::Ruby : Processor
   def default_specs: (Array<GemInstaller::Spec>, Hash<String, Array<String>>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
   def optional_specs: (Array<GemInstaller::Spec>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
   def user_specs: (Array<GemInstaller::Spec>, LockfileLoader::Lockfile) -> Array<GemInstaller::Spec>
-  def show_ruby_runtime_versions: -> void
   def ruby_analyzer_bin: -> Array<String>
   def installed_gem_versions: (String, *String, ?exception: bool) -> Hash<String, Array<String>>
   def default_gems: (?String, *String) -> Array<GemInstaller::Spec>

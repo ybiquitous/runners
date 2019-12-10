@@ -240,5 +240,9 @@ module Runners
       abs_current_dir_path = current_dir.expand_path.to_s
       !abs_path.start_with?(abs_current_dir_path)
     end
+
+    def show_runtime_versions
+      # noop by default
+    end
   end
 end
