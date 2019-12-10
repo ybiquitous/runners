@@ -81,12 +81,8 @@ namespace :dockerfile do
 end
 
 namespace :docker do
-  def image_name
-    "sider/runner_#{analyzer}:#{tag}"
-  end
-
-  def image_name_latest
-    "sider/runner_#{analyzer}:latest"
+  def image_name(image_tag = tag)
+    "sider/runner_#{analyzer}:#{image_tag}"
   end
 
   def build_context
@@ -134,10 +130,16 @@ namespace :docker do
   end
 
   desc 'Run docker push'
-  task :push do
+  task :push, [:tag] do |_task, args|
+    arg_tag = args.fetch(:tag, "latest")
+
     sh "docker", "login", "--username", docker_user, "--password", docker_password
-    sh "docker", "tag", image_name, image_name_latest
-    sh "docker", "push", image_name
-    sh "docker", "push", image_name_latest
+    begin
+      sh "docker", "tag", image_name, image_name(arg_tag)
+      sh "docker", "push", image_name
+      sh "docker", "push", image_name(arg_tag)
+    ensure
+      sh "docker", "logout"
+    end
   end
 end
