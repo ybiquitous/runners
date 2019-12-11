@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - Bump devon_rex images from 2.10.0 to master [#568](https://github.com/sider/runners/pull/568)
 - Show runtime version as possible [#575](https://github.com/sider/runners/pull/575)
 - Bump haml_lint from 0.34.0 to 0.34.1 [#576](https://github.com/sider/runners/pull/576)
+- [PHPMD] Output report to file instead of STDOUT [#577](https://github.com/sider/runners/pull/577)
 
 ## 0.12.0
 

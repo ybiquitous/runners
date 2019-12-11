@@ -123,13 +123,26 @@ module Runners
     end
 
     def run_analyzer(changes, targets, rule, options)
+      report_file = working_dir / "phpmd-report-#{Time.now.to_i}.xml"
+
       # PHPMD exits 1 when some violations are found.
       # The `--ignore-violation-on-exit` will exit with a zero code, even if any violations are found.
-      # See. https://phpmd.org/documentation/index.html
-      commandline = [analyzer_bin, targets, 'xml', rule, '--ignore-violations-on-exit'] + options
-      stdout, _ = capture3!(*commandline)
+      # See https://phpmd.org/documentation/index.html
+      command_line = [
+        analyzer_bin, targets, "xml", rule, "--ignore-violations-on-exit",
+        "--report-file", report_file.to_s, *options,
+      ]
+      capture3!(*command_line)
 
-      xml_doc = REXML::Document.new(stdout)
+      output_xml =
+        if report_file.exist?
+          report_file.read
+        else
+          raise "Failed to output a report file via the command: #{command_line.join(' ')}"
+        end
+
+      trace_writer.message output_xml
+      xml_doc = REXML::Document.new(output_xml)
 
       change_paths = changes.changed_files.map(&:path)
       errors = []
