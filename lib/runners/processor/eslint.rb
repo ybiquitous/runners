@@ -210,7 +210,7 @@ module Runners
       # NOTE: We must use the `--output-file` option because some plugins may output a non-JSON text to STDOUT.
       #
       # @see https://github.com/typescript-eslint/typescript-eslint/blob/v2.6.0/packages/typescript-estree/src/parser.ts#L237-L247
-      output_file = Pathname(Dir.tmpdir) / "eslint-output.json"
+      output_file = working_dir / "eslint-output-#{Time.now.to_i}.json"
 
       _stdout, stderr, status = capture3(
         nodejs_analyzer_bin,
