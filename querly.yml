@@ -40,3 +40,17 @@ rules:
           sh "echo #{username}"
         after: |
           sh "echo", username
+  - id: sider.runners.tmpdir
+    pattern:
+      - Dir.tmpdir
+    message: |
+      Consider using `working_dir` instead of `Dir.tmpdir`.
+
+      It is ensured that `working_dir` is deleted before the program exits.
+    justification:
+      - When `Dir.tmpdir` is not used for actual analyzing.
+    examples:
+      - before: |
+          output_file = Pathname(Dir.tmpdir) / "output.json"
+      - after: |
+          output_file = working_dir / "output.json"
