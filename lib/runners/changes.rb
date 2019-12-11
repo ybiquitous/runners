@@ -1,42 +1,13 @@
 module Runners
   class Changes
-    class ChangedFile
-      # @dynamic path
-      attr_reader :path
-
-      def initialize(path:)
-        @path = path
-      end
-
-      def ==(other)
-        other.is_a?(ChangedFile) && other.path == path
-      end
-
-      def eql?(other)
-        self == other
-      end
-
-      def hash
-        path.hash
-      end
-    end
-
-    # @dynamic changed_files, unchanged_paths, untracked_paths
-    attr_reader :changed_files
+    attr_reader :changed_paths
     attr_reader :unchanged_paths
     attr_reader :untracked_paths
 
-    def initialize(changed_files:, unchanged_paths:, untracked_paths:)
-      @changed_files = changed_files
+    def initialize(changed_paths:, unchanged_paths:, untracked_paths:)
+      @changed_paths = changed_paths
       @unchanged_paths = unchanged_paths
       @untracked_paths = untracked_paths
-    end
-
-    def ==(other)
-      other.is_a?(Changes) &&
-        other.changed_files == changed_files &&
-        other.unchanged_paths == unchanged_paths &&
-        other.untracked_paths == untracked_paths
     end
 
     def delete_unchanged(dir:, except: [], only: [])
@@ -59,11 +30,8 @@ module Runners
     end
 
     def self.calculate(base_dir:, head_dir:, working_dir:)
-      # @type var changed_paths: Array<Pathname>
       changed_paths = []
-      # @type var unchanged_paths: Array<Pathname>
       unchanged_paths = []
-      # @type var untracked_paths: Array<Pathname>
       untracked_paths = []
 
       Pathname.glob(working_dir + "**/*", File::FNM_DOTMATCH).each do |working_path|
@@ -97,7 +65,7 @@ module Runners
         end
       end
 
-      new(changed_files: changed_paths.sort!.map {|path| ChangedFile.new(path: path) },
+      new(changed_paths: changed_paths.sort,
           unchanged_paths: unchanged_paths.sort!,
           untracked_paths: untracked_paths.sort!)
     end

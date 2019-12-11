@@ -5,7 +5,7 @@ class ChangesTest < Minitest::Test
 
   Changes = Runners::Changes
 
-  def test_changed_files
+  def test_changed_paths
     mktmpdir do |base_path|
       mktmpdir do |head_path|
         mktmpdir do |working_path|
@@ -30,7 +30,7 @@ class ChangesTest < Minitest::Test
 
           changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path)
 
-          assert_equal [Pathname("changed1.rb"), Pathname("changed2.rb")], changes.changed_files.map(&:path)
+          assert_equal [Pathname("changed1.rb"), Pathname("changed2.rb")], changes.changed_paths
           assert_equal [Pathname("unchanged.rb")], changes.unchanged_paths
           assert_equal [Pathname("built1.rb"), Pathname("built2.rb")], changes.untracked_paths
         end
@@ -38,8 +38,8 @@ class ChangesTest < Minitest::Test
     end
   end
 
-  def test_changed_files_with_empty_base
-    # This is simulation for diff disabled mode, put everything to changed_files
+  def test_changed_paths_with_empty_base
+    # This is simulation for diff disabled mode, put everything to changed_paths
     mktmpdir do |base_path|
       mktmpdir do |head_path|
         mktmpdir do |working_path|
@@ -61,7 +61,7 @@ class ChangesTest < Minitest::Test
 
           changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path)
 
-          assert_equal [Pathname("changed1.rb"), Pathname("changed2.rb"), Pathname("unchanged.rb")], changes.changed_files.map(&:path)
+          assert_equal [Pathname("changed1.rb"), Pathname("changed2.rb"), Pathname("unchanged.rb")], changes.changed_paths
           assert_equal [], changes.unchanged_paths
           assert_equal [Pathname("built1.rb"), Pathname("built2.rb")], changes.untracked_paths
         end
@@ -75,7 +75,7 @@ class ChangesTest < Minitest::Test
       dir.join("file2").write("foo")
       dir.join("file3").write("foo")
 
-      changes = Changes.new(changed_files: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [])
+      changes = Changes.new(changed_paths: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [])
 
       changes.delete_unchanged(dir: dir)
 
@@ -91,7 +91,7 @@ class ChangesTest < Minitest::Test
       dir.join("file2").write("foo")
       dir.join("file3").write("foo")
 
-      changes = Changes.new(changed_files: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [])
+      changes = Changes.new(changed_paths: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [])
 
       changes.delete_unchanged(dir: dir, only: ["file[2-3]"], except: ["file3"])
 

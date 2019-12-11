@@ -57,8 +57,8 @@ module Runners
       delete_unchanged_files(changes, only: target_files(config), except: config[:custom_rule_path] || [])
 
       trace_writer.message "Changed files:" do
-        changes.changed_files.each do |file|
-          trace_writer.message "  * #{file.path}"
+        changes.changed_paths.each do |path|
+          trace_writer.message "  * #{path}"
         end
       end
 
@@ -144,7 +144,7 @@ module Runners
       trace_writer.message output_xml
       xml_doc = REXML::Document.new(output_xml)
 
-      change_paths = changes.changed_files.map(&:path)
+      change_paths = changes.changed_paths
       errors = []
       xml_doc.root.each_element('error') do |error|
         errors << error[:msg] if change_paths.include?(relative_path(error[:filename]))
