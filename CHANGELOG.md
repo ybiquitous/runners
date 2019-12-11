@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file.
 - [Reek] Improve issue message [#566](https://github.com/sider/runners/pull/566)
 - [HAML-Lint] Save issue link and severity [#567](https://github.com/sider/runners/pull/567)
 - Bump devon_rex images from 2.10.0 to master [#568](https://github.com/sider/runners/pull/568)
+- Bump devon_rex images from master to 2.11.0 [#578](https://github.com/sider/runners/pull/578)
 - Show runtime version as possible [#575](https://github.com/sider/runners/pull/575)
 - Bump haml_lint from 0.34.0 to 0.34.1 [#576](https://github.com/sider/runners/pull/576)
 
