@@ -42,7 +42,7 @@ class WorkspaceTest < Minitest::Test
         assert (workspace.working_dir + "querly.gemspec").file?
         refute (workspace.working_dir + "foo.tgz").file?
 
-        refute changes.changed_files.empty?
+        refute changes.changed_paths.empty?
         refute changes.unchanged_paths.empty?
         assert changes.untracked_paths.empty?
       end
@@ -56,7 +56,7 @@ class WorkspaceTest < Minitest::Test
         assert (workspace.working_dir / "README.md").file?
         refute (workspace.working_dir / ".git").exist?
 
-        refute changes.changed_files.empty?
+        refute changes.changed_paths.empty?
         refute changes.unchanged_paths.empty?
         assert changes.untracked_paths.empty?
 
@@ -72,7 +72,7 @@ class WorkspaceTest < Minitest::Test
         assert (workspace.working_dir + "querly.gemspec").file?
         refute (workspace.working_dir + "foo.tgz").file?
 
-        refute changes.changed_files.empty?
+        refute changes.changed_paths.empty?
         assert changes.unchanged_paths.empty?
         assert changes.untracked_paths.empty?
       end

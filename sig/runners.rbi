@@ -85,20 +85,15 @@ class Runners::Results::Error < Runners::Results::Base
 end
 
 class Runners::Changes
-  attr_reader changed_files: Array<ChangedFile>
+  attr_reader changed_paths: Array<Pathname>
   attr_reader unchanged_paths: Array<Pathname>
   attr_reader untracked_paths: Array<Pathname>
 
-  def initialize: (changed_files: Array<ChangedFile>,
+  def initialize: (changed_paths: Array<Pathname>,
                    unchanged_paths: Array<Pathname>,
                    untracked_paths: Array<Pathname>) -> any
   def delete_unchanged: (dir: Pathname, ?except: Array<String>, ?only: Array<String>) { (Pathname) -> void }-> void
   def self.calculate: (base_dir: Pathname, head_dir: Pathname, working_dir: Pathname) -> instance
-end
-
-class Runners::Changes::ChangedFile
-  attr_reader path: Pathname
-  def initialize: (path: Pathname) -> any
 end
 
 class Runners::Processor
