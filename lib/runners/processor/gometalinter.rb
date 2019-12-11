@@ -1,5 +1,7 @@
 module Runners
   class Processor::Gometalinter < Processor
+    include Go
+
     def self.ci_config_section_name
       # Section name in sideci.yml, Generally it is the name of analyzer tool.
       "gometalinter"

@@ -1,5 +1,7 @@
 module Runners
   class Processor::ScssLint < Processor
+    include Ruby
+
     Schema = StrongJSON.new do
       let :runner_config, object(
         root_dir: string?,
@@ -24,6 +26,10 @@ module Runners
 
     def self.ci_config_section_name
       'scss_lint'
+    end
+
+    def analyzer_version
+      @analyzer_version ||= extract_version! analyzer_bin
     end
 
     def setup

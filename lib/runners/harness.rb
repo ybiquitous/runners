@@ -40,6 +40,7 @@ module Runners
 
             instance.push_root_dir do
               trace_writer.header "Setting up analyzer"
+              instance.show_runtime_versions
               result = instance.setup do
                 trace_writer.header "Running analyzer"
                 instance.analyze(changes)

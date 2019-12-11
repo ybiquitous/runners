@@ -24,7 +24,6 @@ module Runners
     end
 
     def setup
-      show_runtime_versions
       add_warning_if_deprecated_options([:options], doc: "https://help.sider.review/tools/javascript/jshint")
       yield
     end
