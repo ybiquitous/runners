@@ -40,7 +40,7 @@ module Runners
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
         check_runner_config(config) do |targets, rule, options|
-          prepare_analysis_files(changes, config)
+          delete_unchanged_files(changes, only: target_files(config), except: config[:custom_rule_path] || [])
           run_analyzer(changes, targets, rule, options)
         end
       end
@@ -51,26 +51,6 @@ module Runners
     def target_files(config)
       _, suffixes = suffixes(config)
       suffixes&.split(",")&.map { |suffix| "*.#{suffix}" } || ["*.php"]
-    end
-
-    def prepare_analysis_files(changes, config)
-      delete_unchanged_files(changes, only: target_files(config), except: config[:custom_rule_path] || [])
-
-      trace_writer.message "Changed files:" do
-        changes.changed_paths.each do |path|
-          trace_writer.message "  * #{path}"
-        end
-      end
-
-      trace_writer.message "Untracked files:" do
-        changes.untracked_paths.each do |path|
-          trace_writer.message "  * #{path}"
-        end
-      end
-
-      trace_writer.message "Existing files:" do
-        capture3('find', '.', '-type', 'f')
-      end
     end
 
     def check_runner_config(config)

@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file.
 - Bump haml_lint from 0.34.0 to 0.34.1 [#576](https://github.com/sider/runners/pull/576)
 - [PHPMD] Output report to file instead of STDOUT [#577](https://github.com/sider/runners/pull/577)
 - Filter issues with the "diff lines" [#584](https://github.com/sider/runners/pull/584)
+- [PHPMD] Reduce trace size [#588](https://github.com/sider/runners/pull/588)
 
 ## 0.12.0
 
