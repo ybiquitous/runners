@@ -122,7 +122,14 @@ module Runners
         end
 
       trace_writer.message output_xml
-      xml_doc = REXML::Document.new(output_xml)
+
+      begin
+        xml_doc = REXML::Document.new(output_xml)
+      rescue REXML::ParseException => exn
+        trace_writer.error exn.message
+        return Results::Failure.new(guid: guid, analyzer: analyzer,
+                                    message: "Invalid XML was output. See the log for details.")
+      end
 
       change_paths = changes.changed_paths
       errors = []

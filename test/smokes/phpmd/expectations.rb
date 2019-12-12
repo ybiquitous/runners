@@ -160,3 +160,11 @@ Smoke.add_test("custom_rule", {
   ],
   analyzer: { name: "phpmd", version: "2.7.0" },
 })
+
+Smoke.add_test("invalid_output_xml", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "failure",
+  message: "Invalid XML was output. See the log for details.",
+  analyzer: { name: "phpmd", version: "2.7.0" },
+})

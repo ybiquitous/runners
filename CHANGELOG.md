@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - [PHPMD] Output report to file instead of STDOUT [#577](https://github.com/sider/runners/pull/577)
 - Filter issues with the "diff lines" [#584](https://github.com/sider/runners/pull/584)
 - [PHPMD] Reduce trace size [#588](https://github.com/sider/runners/pull/588)
+- [PHPMD] Handle invalid output XML [#589](https://github.com/sider/runners/pull/589)
 
 ## 0.12.0
 
