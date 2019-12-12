@@ -20,7 +20,6 @@ require "rexml/document"
 require "shellwords"
 require "digest/sha2"
 require "locale"
-require "sysexits"
 require 'retryable'
 require "active_support"
 require "active_support/inflector"
