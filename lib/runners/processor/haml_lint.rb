@@ -218,11 +218,8 @@ module Runners
     #
     # @see https://github.com/sds/haml-lint/issues/317
     def add_rubocop_warnings_if_exists(stderr)
-      stderr.each_line(chomp: true) do |line|
-        line.match(/\b(cannot load such file -- [\w-]+)\b/) do |match|
-          error_message, = match.captures
-          add_warning error_message
-        end
+      stderr.scan(/\bcannot load such file -- [\w-]+\b/) do |message|
+        add_warning message
       end
     end
   end
