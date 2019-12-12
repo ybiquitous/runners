@@ -214,4 +214,5 @@ class Runners::CLI
   def validate_analyzer!: () -> void
   def run: () -> result
   def io: () -> Runners::IO
+  def sensitive_strings: () -> Array<String>
 end
