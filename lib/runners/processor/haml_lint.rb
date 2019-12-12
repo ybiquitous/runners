@@ -195,7 +195,7 @@ module Runners
         'json',
         *options,
       )
-      unless [Sysexits::EX_DATAERR, Sysexits::EX_OK].include?(status.exitstatus)
+      unless [65, 0].include?(status.exitstatus)
         return Results::Failure.new(guid: guid, message: <<~MESSAGE, analyzer: analyzer)
           stdout:
           #{stdout}
