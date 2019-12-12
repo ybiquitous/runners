@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file.
 - Filter issues with the "diff lines" [#584](https://github.com/sider/runners/pull/584)
 - [PHPMD] Reduce trace size [#588](https://github.com/sider/runners/pull/588)
 - [PHPMD] Handle invalid output XML [#589](https://github.com/sider/runners/pull/589)
+- [HAML-Lint] Add warnings if RuboCop fails [#587](https://github.com/sider/runners/pull/587)
 
 ## 0.12.0
 

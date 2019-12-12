@@ -195,6 +195,8 @@ module Runners
         'json',
         *options,
       )
+
+      # @see https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/cli.rb#L110
       unless [65, 0].include?(status.exitstatus)
         return Results::Failure.new(guid: guid, message: <<~MESSAGE, analyzer: analyzer)
           stdout:
@@ -205,8 +207,22 @@ module Runners
         MESSAGE
       end
 
+      add_rubocop_warnings_if_exists(stderr)
+
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
         parse_result(stdout).each { |v| result.add_issue(v) }
+      end
+    end
+
+    # NOTE: HAML-Lint exits successfully even if RuboCop fails.
+    #
+    # @see https://github.com/sds/haml-lint/issues/317
+    def add_rubocop_warnings_if_exists(stderr)
+      stderr.each_line(chomp: true) do |line|
+        line.match(/\b(cannot load such file -- [\w-]+)\b/) do |match|
+          error_message, = match.captures
+          add_warning error_message
+        end
       end
     end
   end

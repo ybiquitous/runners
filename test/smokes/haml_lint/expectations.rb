@@ -66,8 +66,6 @@ Smoke.add_test(
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
-# rubocop-rspec will not be installed because `Gemfile.lock` does not exists.
-# However, haml-lint does not stop to perform the analysis, and reports other offenses.
 Smoke.add_test(
   'rubocop-rspec',
   guid: 'test-guid',
@@ -173,4 +171,21 @@ Smoke.add_test('pinned_haml_version', {
     object: { severity: "warning" },
   }],
   analyzer: { name: 'haml_lint', version: '0.32.0' }
+})
+
+Smoke.add_test('missing_rubocop_required_gems', {
+  guid: 'test-guid',
+  timestamp: :_,
+  type: 'success',
+  issues: [{
+    message: 'Avoid defining `class` in attributes hash for static class names',
+    links: ["https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue"],
+    id: 'ClassAttributeWithStaticValue',
+    path: 'test.haml',
+    location: { start_line: 1 },
+    object: { severity: "warning" },
+  }],
+  analyzer: { name: 'haml_lint', version: '0.34.1' },
+}, {
+  warnings: [{ message: 'cannot load such file -- rubocop-performance', file: nil }],
 })
