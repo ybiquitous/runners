@@ -65,7 +65,7 @@ class Runners::Results::Success < Runners::Results::Base
 
   def initialize: (guid: String, analyzer: Analyzer) -> any
   def add_issue: (Runners::Issue) -> void
-  def (constructor) filter_issue: { (Runners::Issue) -> bool } -> instance
+  def (constructor) filter_issues: (Changes) -> instance
 end
 
 class Runners::Results::Failure < Runners::Results::Base
@@ -88,12 +88,15 @@ class Runners::Changes
   attr_reader changed_paths: Array<Pathname>
   attr_reader unchanged_paths: Array<Pathname>
   attr_reader untracked_paths: Array<Pathname>
+  attr_reader patches: GitDiffParser::Patches | nil
 
   def initialize: (changed_paths: Array<Pathname>,
                    unchanged_paths: Array<Pathname>,
-                   untracked_paths: Array<Pathname>) -> any
+                   untracked_paths: Array<Pathname>,
+                   patches: GitDiffParser::Patches | nil) -> any
   def delete_unchanged: (dir: Pathname, ?except: Array<String>, ?only: Array<String>) { (Pathname) -> void }-> void
-  def self.calculate: (base_dir: Pathname, head_dir: Pathname, working_dir: Pathname) -> instance
+  def include?: (Issue) -> bool
+  def self.calculate: (base_dir: Pathname, head_dir: Pathname, working_dir: Pathname, patches: GitDiffParser::Patches | nil) -> instance
 end
 
 class Runners::Processor

@@ -60,4 +60,20 @@ class WorkspaceGitTest < Minitest::Test
                           +refs/heads/*:refs/remotes/origin/*], workspace.send(:git_fetch_args)
     end
   end
+
+  def test_patches_returns_nil_because_base_is_nil
+    with_workspace(head: "998bc02a913e3899f3a1cd327e162dd54d489a4b",
+                   git_http_url: "https://github.com", owner: "sider", repo: "runners", pull_number: 533) do |workspace|
+      assert_instance_of Runners::Workspace::Git, workspace
+      assert_nil workspace.send(:patches)
+    end
+  end
+
+  def test_patches_returns_patches
+    with_workspace(base: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", head: "998bc02a913e3899f3a1cd327e162dd54d489a4b",
+                   git_http_url: "https://github.com", owner: "sider", repo: "runners", pull_number: 533) do |workspace|
+      assert_instance_of Runners::Workspace::Git, workspace
+      assert_instance_of GitDiffParser::Patches, workspace.send(:patches)
+    end
+  end
 end

@@ -3,11 +3,13 @@ module Runners
     attr_reader :changed_paths
     attr_reader :unchanged_paths
     attr_reader :untracked_paths
+    attr_reader :patches
 
-    def initialize(changed_paths:, unchanged_paths:, untracked_paths:)
+    def initialize(changed_paths:, unchanged_paths:, untracked_paths:, patches:)
       @changed_paths = changed_paths
       @unchanged_paths = unchanged_paths
       @untracked_paths = untracked_paths
+      @patches = patches
     end
 
     def delete_unchanged(dir:, except: [], only: [])
@@ -29,7 +31,23 @@ module Runners
       FileUtils.rm(files_to_delete.map(&:to_s))
     end
 
-    def self.calculate(base_dir:, head_dir:, working_dir:)
+    def include?(issue)
+      gdp = patches # NOTE: This assignment is required for typecheck by Steep
+      if gdp
+        location = issue.location
+        return true unless location
+        patch = gdp.find_patch_by_file(issue.path.to_s)
+        if patch && location
+          patch.changed_lines.one? { |line| location.start_line == line.number }
+        else
+          false
+        end
+      else
+        Set.new(changed_paths).member?(issue.path)
+      end
+    end
+
+    def self.calculate(base_dir:, head_dir:, working_dir:, patches:)
       changed_paths = []
       unchanged_paths = []
       untracked_paths = []
@@ -65,9 +83,10 @@ module Runners
         end
       end
 
-      new(changed_paths: changed_paths.sort,
+      new(changed_paths: changed_paths.sort!,
           unchanged_paths: unchanged_paths.sort!,
-          untracked_paths: untracked_paths.sort!)
+          untracked_paths: untracked_paths.sort!,
+          patches: patches)
     end
   end
 end

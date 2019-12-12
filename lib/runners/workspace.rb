@@ -52,7 +52,7 @@ module Runners
             end
 
             changes = trace_writer.message "Calculating changes between head and base..." do
-              Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_dir)
+              Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_dir, patches: patches)
             end
 
             yield git_ssh_path, changes
@@ -171,6 +171,10 @@ module Runners
         out, status = Open3.capture2e("tar", "xf", archive.to_s, chdir: dir)
         raise "Extracting archive failed - #{out}" unless status.success?
       end
+    end
+
+    def patches
+      nil
     end
   end
 end

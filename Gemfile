@@ -12,6 +12,7 @@ gem 'sysexits', '~> 1.1'
 gem 'aws-sdk-s3'
 gem 'bugsnag'
 gem 'rexml', ">= 3.2", '< 4.0'
+gem 'git_diff_parser'
 
 group :development, :test do
   gem 'rake'

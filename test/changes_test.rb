@@ -28,7 +28,7 @@ class ChangesTest < Minitest::Test
           base_path.join("ignored.rb").write("Read, write, and share stories that matter")
           head_path.join("ignored.rb").write("Reinventing teamwork")
 
-          changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path)
+          changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path, patches: nil)
 
           assert_equal [Pathname("changed1.rb"), Pathname("changed2.rb")], changes.changed_paths
           assert_equal [Pathname("unchanged.rb")], changes.unchanged_paths
@@ -59,7 +59,7 @@ class ChangesTest < Minitest::Test
 
           head_path.join("ignored.rb").write("Reinventing teamwork")
 
-          changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path)
+          changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path, patches: nil)
 
           assert_equal [Pathname("changed1.rb"), Pathname("changed2.rb"), Pathname("unchanged.rb")], changes.changed_paths
           assert_equal [], changes.unchanged_paths
@@ -75,7 +75,7 @@ class ChangesTest < Minitest::Test
       dir.join("file2").write("foo")
       dir.join("file3").write("foo")
 
-      changes = Changes.new(changed_paths: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [])
+      changes = Changes.new(changed_paths: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [], patches: nil)
 
       changes.delete_unchanged(dir: dir)
 
@@ -91,7 +91,7 @@ class ChangesTest < Minitest::Test
       dir.join("file2").write("foo")
       dir.join("file3").write("foo")
 
-      changes = Changes.new(changed_paths: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [])
+      changes = Changes.new(changed_paths: [], unchanged_paths: [Pathname("file1"), Pathname("file2"), Pathname("file3")], untracked_paths: [], patches: nil)
 
       changes.delete_unchanged(dir: dir, only: ["file[2-3]"], except: ["file3"])
 
@@ -110,7 +110,7 @@ class ChangesTest < Minitest::Test
           working_path.join("baz").make_symlink(Pathname("foo"))
           working_path.join("link").make_symlink(Pathname("../aaaaa"))
 
-          changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path)
+          changes = Changes.calculate(base_dir: base_path, head_dir: head_path, working_dir: working_path, patches: nil)
 
           assert changes.untracked_paths.include?(Pathname("foo"))
           assert changes.untracked_paths.include?(Pathname("baz"))

@@ -49,8 +49,7 @@ module Runners
               case result
               when Results::Success
                 trace_writer.message "Removing issues from unchanged or untracked files..." do
-                  changed_paths = Set.new(changes.changed_paths)
-                  result.filter_issue { |issue| changed_paths.member?(issue.path) }
+                  result.filter_issues(changes)
                 end
               else
                 result

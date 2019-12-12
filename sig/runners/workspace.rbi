@@ -15,6 +15,7 @@ class Runners::Workspace
   def archive_source: () -> Options::ArchiveSource
   def git_source: () -> Options::GitSource
   def root_tmp_dir: () -> Pathname
+  def patches: () -> GitDiffParser::Patches?
 end
 
 class Runners::Workspace::HTTP < Workspace
