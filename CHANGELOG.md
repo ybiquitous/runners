@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 - [HAML-Lint] Add warnings if RuboCop fails [#587](https://github.com/sider/runners/pull/587)
 - Bump goodcheck from 2.4.4 to 2.4.5 [#591](https://github.com/sider/runners/pull/591)
 - Hide userinfo of HTTP URI from the traces [#585](https://github.com/sider/runners/pull/585)
+- [PHPCS] Empower runner [#592](https://github.com/sider/runners/pull/592)
 
 ## 0.12.0
 
