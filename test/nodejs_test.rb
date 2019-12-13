@@ -7,7 +7,6 @@ class NodejsTest < Minitest::Test
   Dependency = Runners::Nodejs::Dependency
   DefaultDependencies = Runners::Nodejs::DefaultDependencies
   InvalidDefaultDependencies = Runners::Nodejs::InvalidDefaultDependencies
-  DuplicateLockfiles = Runners::Nodejs::DuplicateLockfiles
   ConstraintsNotSatisfied = Runners::Nodejs::ConstraintsNotSatisfied
   NpmInstallFailed = Runners::Nodejs::NpmInstallFailed
   YarnInstallFailed = Runners::Nodejs::YarnInstallFailed
@@ -259,15 +258,16 @@ class NodejsTest < Minitest::Test
       option = Runners::Nodejs::INSTALL_OPTION_ALL
 
       processor.stub :nodejs_analyzer_global_version, "5.15.0" do
-        error = assert_raises DuplicateLockfiles do
-          processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
-        end
+        processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
 
-        expected_message = <<~MSG.strip
-          There are two duplicate lockfiles (`package-lock.json` and `yarn.lock`). Please remove either for accurate analysis.
-        MSG
-        assert_equal expected_message, error.message
-        assert_equal [expected_message], actual_errors
+        stdout, _ = processor.capture3!(processor.nodejs_analyzer_bin, "-v")
+        assert_equal "v6.0.1\n", stdout
+
+        expected_warning =
+          "Two lock files `package-lock.json` and `yarn.lock` are found. " \
+          "Sider uses `yarn.lock` in this case, but please consider deleting either file for more accurate analysis."
+        actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
+        assert_equal [expected_warning], actual_warnings
       end
     end
   end
