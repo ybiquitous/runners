@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - [PHPMD] Reduce trace size [#588](https://github.com/sider/runners/pull/588)
 - [PHPMD] Handle invalid output XML [#589](https://github.com/sider/runners/pull/589)
 - [HAML-Lint] Add warnings if RuboCop fails [#587](https://github.com/sider/runners/pull/587)
+- Bump goodcheck from 2.4.4 to 2.4.5 [#591](https://github.com/sider/runners/pull/591)
 
 ## 0.12.0
 
