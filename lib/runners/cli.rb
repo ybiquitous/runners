@@ -41,7 +41,7 @@ module Runners
       io.flush! # Write or upload empty content to let the caller of Runners notice the beginning of the analysis.
       with_working_dir do |working_dir|
         writer = JSONSEQ::Writer.new(io: io)
-        trace_writer = TraceWriter.new(writer: writer)
+        trace_writer = TraceWriter.new(writer: writer, sensitive_strings: sensitive_strings)
         trace_writer.header "Analysis started"
 
         harness = Harness.new(guid: guid, processor_class: processor_class, options: options, working_dir: working_dir, trace_writer: trace_writer)
@@ -69,6 +69,16 @@ module Runners
 
     def io
       @io ||= options.io
+    end
+
+    def sensitive_strings
+      @sensitive_strings ||= [].tap do |strings|
+        source = options.source
+        if source.is_a?(Options::GitSource)
+          # @type var source: Options::GitSource
+          strings << source.git_http_userinfo if source.git_http_userinfo
+        end
+      end
     end
   end
 end
