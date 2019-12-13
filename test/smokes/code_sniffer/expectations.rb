@@ -10,7 +10,7 @@ Smoke.add_test("success", {
       id: "PSR2.Files.ClosingTag.NotAllowed",
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
-      object: nil,
+      object: { type: "ERROR", severity: 5, fixable: true },
     }
   ],
   analyzer: {
@@ -29,7 +29,7 @@ Smoke.add_test("specified_dir", {
       id: "PSR2.Files.ClosingTag.NotAllowed",
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
-      object: nil,
+      object: { type: "ERROR", severity: 5, fixable: true },
     }
   ],
   analyzer: {
@@ -84,7 +84,7 @@ Smoke.add_test("version_2", {
       id: "PSR2.Files.ClosingTag.NotAllowed",
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
-      object: nil,
+      object: { type: "ERROR", severity: 5, fixable: true },
     }
   ],
   analyzer: {
@@ -107,7 +107,7 @@ Smoke.add_test("autodetect_cakephp", {
       id: "CakePHP.Commenting.FunctionComment.Missing",
       message: 'Missing doc comment for function foo()',
       links: [],
-      object: nil,
+      object: { type: "ERROR", severity: 5, fixable: false },
     },
   ],
   analyzer: {
@@ -126,14 +126,14 @@ Smoke.add_test("autodetect_symfony", {
       id: "Squiz.Functions.GlobalFunction.Found",
       message: 'Consider putting global function "foo" in a static class',
       links: [],
-      object: nil,
+      object: { type: "WARNING", severity: 5, fixable: false },
     },
     { path: "src/test.php",
       location: { start_line: 2 },
       id: "Symfony.Commenting.FunctionComment.Missing",
       message: 'Missing doc comment for function foo()',
       links: [],
-      object: nil,
+      object: { type: "ERROR", severity: 5, fixable: false },
     },
   ],
   analyzer: {

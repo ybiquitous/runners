@@ -21,6 +21,12 @@ module Runners
                                           ))
                       })
       }
+
+      let :issue, object(
+        type: string,
+        severity: integer,
+        fixable: boolean,
+      )
     end
 
     def self.ci_config_section_name
@@ -140,55 +146,43 @@ module Runners
       end
     end
 
-    def print_large_string(str)
-      max_size = 24_000
-      if str.size <= max_size
-        trace_writer.message str
-      else
-        # NOTE: To avoid stalling, it outputs prefix and suffix only.
-        trace_writer.message str[0...(max_size / 2)]
-        trace_writer.message '......'
-        trace_writer.message str[(str.size - (max_size / 2))...str.size]
-      end
-    end
-
     def run_analyzer(options, target)
-      output = working_dir + 'output.txt'
-      # code_sniffer always exists with "statsu = 1" when any warnings exist, so we don't see the status code.
-      #
-      # Runtime erros such as "directory not found" will be displayed in stdout.
-      #
-      # Without `--report-json`, if users configure with `<arg name="report" value="summary"/>`,
-      # all output is mixed in stdout. So, we have to write output to a file.
-      capture3(
+      output_file = working_dir / "phpcs-output-#{Time.now.to_i}.json"
+
+      capture3!(
         analyzer_bin,
         '--report=json',
-        "--report-json=#{output}",
+        "--report-json=#{output_file}",
+        "-q", # Enable quiet mode. See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#quieting-output
+        "--runtime-set", "ignore_errors_on_exit", "1", # See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Configuration-Options#ignoring-errors-when-generating-the-exit-code
+        "--runtime-set", "ignore_warnings_on_exit", "1", # See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Configuration-Options#ignoring-warnings-when-generating-the-exit-code
         *options,
         target
       )
 
-      stdout = output.read
-      trace_writer.message "Result Output:"
-      print_large_string(stdout)
+      unless output_file.exist?
+        return Results::Failure.new(guid: guid, analyzer: analyzer, message: "No JSON output.")
+      end
+
+      output = output_file.read
+      trace_writer.message output
 
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
         issues = []
 
-        JSON.parse(stdout, symbolize_names: true)[:files].each do |path, suggests|
+        JSON.parse(output, symbolize_names: true)[:files].each do |path, suggests|
           suggests[:messages].each do |suggest|
-            loc = Location.new(
-              start_line: suggest[:line].to_i,
-              start_column: nil,
-              end_line: nil,
-              end_column: nil
-            )
-
             issues << Issue.new(
               path: relative_path(path.to_s),
-              location: loc,
+              location: Location.new(start_line: suggest[:line]),
               id: suggest[:source],
               message: suggest[:message],
+              object: {
+                type: suggest[:type],
+                severity: suggest[:severity],
+                fixable: suggest[:fixable],
+              },
+              schema: Schema.issue,
             )
           end
         end
@@ -197,11 +191,6 @@ module Runners
           result.add_issue issue
         end
       end
-    rescue JSON::ParserError => exn
-      trace_writer.message exn.inspect.truncate(1000)
-      Results::Failure.new(guid: guid,
-                                        analyzer: analyzer,
-                                        message: "code sniffer output parsing failed")
     end
   end
 end
