@@ -5,7 +5,6 @@ module Runners
     class InvalidNpmVersion < SystemError; end
     class InvalidYarnVersion < SystemError; end
 
-    class DuplicateLockfiles < UserError; end
     class ConstraintsNotSatisfied < UserError; end
     class NpmInstallFailed < UserError; end
     class YarnInstallFailed < UserError; end
@@ -58,9 +57,11 @@ module Runners
       return if install_option == INSTALL_OPTION_NONE
 
       if package_json_path.exist?
-        check_duplicate_lockfiles
-
         if yarn_lock_path.exist?
+          if package_lock_json_path.exist?
+            add_warning "Two lock files `package-lock.json` and `yarn.lock` are found. " \
+                        "Sider uses `yarn.lock` in this case, but please consider deleting either file for more accurate analysis."
+          end
           yarn_install(install_option)
         else
           npm_install(install_option)
@@ -102,16 +103,6 @@ module Runners
       actual_default_version = nodejs_analyzer_global_version
       unless default.version == actual_default_version
         raise InvalidDefaultDependencies, "The default dependency `#{default.name}` version must be `#{default.version}`, but actually `#{actual_default_version}`"
-      end
-    end
-
-    def check_duplicate_lockfiles
-      if package_lock_json_path.exist? && yarn_lock_path.exist?
-        message = <<~MSG.strip
-          There are two duplicate lockfiles (`package-lock.json` and `yarn.lock`). Please remove either for accurate analysis.
-        MSG
-        trace_writer.error message
-        raise DuplicateLockfiles, message
       end
     end
 
@@ -205,8 +196,10 @@ module Runners
     end
 
     def check_installed_nodejs_deps(constraints, default_dependency)
-      # NOTE: `npm ls` fails when any peer dependencies are missing. Also, the command output can be too long.
-      stdout, _, _ = capture3 "npm", "ls", "--depth=0", "--json", trace_stdout: false
+      # NOTE: `npm ls` fails when any peer dependencies are missing.
+      #        Also, this scans `node_modules/` without `package-lock.json`.
+      #        Also, the command output can be too long.
+      stdout, _, _ = capture3 "npm", "ls", "--depth=0", "--json", "--package-lock=false", trace_stdout: false
       installed_deps = JSON.parse(stdout)["dependencies"]
 
       return unless installed_deps

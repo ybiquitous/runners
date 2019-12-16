@@ -673,3 +673,13 @@ Smoke.add_test("typescript", {
 }, {
   warnings: [{ message: /The required dependency `eslint` may not have been correctly installed/, file: "package.json" }],
 })
+
+Smoke.add_test("duplicate_lock_files", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [],
+  analyzer: { name: "ESLint", version: "5.16.0" },
+}, {
+  warnings: [{ message: /Two lock files `package-lock.json` and `yarn.lock` are found/, file: nil }],
+})

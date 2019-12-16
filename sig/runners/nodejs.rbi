@@ -15,7 +15,6 @@ module Runners::Nodejs : Processor
   def nodejs_analyzer_global_version: -> String
   def nodejs_analyzer_local_version: -> String
   def check_nodejs_default_deps: (DefaultDependencies, Hash<String, Constraint>) -> void
-  def check_duplicate_lockfiles: -> void
   def npm_install: (npm_install_option) -> void
   def yarn_install: (npm_install_option) -> void
   def check_installed_nodejs_deps: (Hash<String, Constraint>, Dependency) -> void
