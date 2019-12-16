@@ -1,4 +1,5 @@
 require "open3"
+require "tmpdir"
 
 namespace :docker do
   desc 'Run timeout_test to ensure timeout(1) stops Runners'
