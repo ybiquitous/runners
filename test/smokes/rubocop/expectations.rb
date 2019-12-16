@@ -133,7 +133,7 @@ Smoke.add_test(
     },
   },
   warnings: [
-    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
+    { message: /The 0.50.0 and older versions are deprecated. Sider will drop these versions on January 31, 2020./, file: "Gemfile" },
     { message: "Style/Tab has the wrong namespace - should be Layout", file: ".rubocop.yml" },
   ],
 )

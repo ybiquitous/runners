@@ -71,7 +71,7 @@ Smoke.add_test('sideci_valid_npm_install_option', {
     version: '3.19.0'
   }
 }, {
-  warnings: [{ message: /The 3.19.0 and older versions are deprecated/, file: "package.json" }],
+  warnings: [{ message: /The 3.19.0 and older versions are deprecated. Sider will drop these versions on January 31, 2020./, file: "package.json" }],
 })
 
 # This test case's .eslintrc includes ESLint plugin, thus Sider fails because of the plugin unavailable.

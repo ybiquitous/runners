@@ -83,7 +83,7 @@ module Runners
       ensure_runner_config_schema(Schema.runner_config) do
         install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           analyzer
-          add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "Gemfile")
+          add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "Gemfile", deadline: Time.new(2020, 1, 31))
           yield
         end
       end
