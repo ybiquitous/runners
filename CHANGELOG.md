@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.13.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.13.1...HEAD)
+
+## 0.13.1
+
+[Full diff](https://github.com/sider/runners/compare/0.13.0...0.13.1)
 
 - [Flake8] Fix error if `.python-version` file exists [#602](https://github.com/sider/runners/pull/602)
 
