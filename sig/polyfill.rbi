@@ -43,6 +43,7 @@ class Time
   def self.now: -> Time
   def utc: -> self
   def iso8601: -> String
+  def strftime: (String) -> String
   def -: (Integer) -> self
        | (Time) -> Integer
   def +: (Integer) -> self

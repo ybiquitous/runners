@@ -300,10 +300,16 @@ class ProcessorTest < Minitest::Test
       processor.add_warning_if_deprecated_version(minimum: '1.0.0')
       processor.add_warning_if_deprecated_version(minimum: '1.0.1')
       processor.add_warning_if_deprecated_version(minimum: '2.0.0', file: "foo")
+      processor.add_warning_if_deprecated_version(minimum: '2.0.0', deadline: Time.new(2020, 1, 9))
 
       expected_message = ->(v) { <<~MSG.strip }
         DEPRECATION WARNING!!!
         The 1.0.0 and older versions are deprecated. Sider will drop these versions in the near future.
+        Please consider upgrading to #{v} or a newer version.
+      MSG
+      expected_message2 = ->(v) { <<~MSG.strip }
+        DEPRECATION WARNING!!!
+        The 1.0.0 and older versions are deprecated. Sider will drop these versions on January 9, 2020.
         Please consider upgrading to #{v} or a newer version.
       MSG
 
@@ -311,6 +317,7 @@ class ProcessorTest < Minitest::Test
         [
           { trace: "warning", message: expected_message.call("1.0.1"), file: nil },
           { trace: "warning", message: expected_message.call("2.0.0"), file: "foo" },
+          { trace: "warning", message: expected_message2.call("2.0.0"), file: nil },
         ],
         trace_writer.writer.map { |hash| hash.slice(:trace, :message, :file) },
       )
@@ -318,6 +325,7 @@ class ProcessorTest < Minitest::Test
         [
           { message: expected_message.call("1.0.1"), file: nil },
           { message: expected_message.call("2.0.0"), file: "foo" },
+          { message: expected_message2.call("2.0.0"), file: nil },
         ],
         processor.warnings,
       )

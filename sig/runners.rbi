@@ -134,7 +134,7 @@ class Runners::Processor
 
   def delete_unchanged_files: (Changes, ?except: Array<String>, ?only: Array<String>) -> void
   def add_warning: (String, ?file: String?) -> void
-  def add_warning_if_deprecated_version: (minimum: String, ?file: String?) -> void
+  def add_warning_if_deprecated_version: (minimum: String, ?file: String?, ?deadline: Time?) -> void
   def add_warning_if_deprecated_options: (Array<Symbol>, doc: String) -> void
   def self.ci_config_section_name: () -> String
   def analyzer: -> Analyzer

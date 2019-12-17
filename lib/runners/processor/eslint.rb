@@ -59,7 +59,7 @@ module Runners
           return Results::Failure.new(guid: guid, message: exn.message, analyzer: nil)
         end
         analyzer
-        add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "package.json")
+        add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "package.json", deadline: Time.new(2020, 1, 31))
         yield
       end
     end

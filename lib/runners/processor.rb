@@ -209,11 +209,12 @@ module Runners
       @warnings << {message: message, file: file}
     end
 
-    def add_warning_if_deprecated_version(minimum:, file: nil)
+    def add_warning_if_deprecated_version(minimum:, file: nil, deadline: nil)
       unless Gem::Version.create(minimum) <= Gem::Version.create(analyzer_version)
+        deadline_str = deadline ? deadline.strftime('on %B %-d, %Y') : 'in the near future'
         add_warning <<~MSG.strip, file: file
           DEPRECATION WARNING!!!
-          The #{analyzer_version} and older versions are deprecated. Sider will drop these versions in the near future.
+          The #{analyzer_version} and older versions are deprecated. Sider will drop these versions #{deadline_str}.
           Please consider upgrading to #{minimum} or a newer version.
         MSG
       end
