@@ -28,7 +28,9 @@ module Runners
 
     def analyze(changes)
       ensure_runner_config_schema(Schema.runner_config) do |config|
-        capture3!('pyenv', 'global', detected_python_version(config))
+        capture3! 'pyenv', 'global', detected_python_version(config)
+        capture3! "python", "--version" # NOTE: `show_runtime_versions` does not work...
+        capture3! "pip", "--version"
         prepare_plugins(config)
         run_analyzer
       end
