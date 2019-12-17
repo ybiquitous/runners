@@ -209,3 +209,27 @@ Smoke.add_test("broken_sideci_yml", {
   message: "Invalid configuration in `sideci.yml`: unexpected value at config: `$.linter.flake8.plugins`",
   analyzer: nil
 })
+
+Smoke.add_test("python2", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [],
+  analyzer: { name: "Flake8", version: "3.7.9" },
+})
+
+Smoke.add_test("dot_python_version", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [],
+  analyzer: { name: "Flake8", version: "3.7.9" },
+})
+
+Smoke.add_test("dot_python_version_2", {
+  guid: "test-guid",
+  timestamp: :_,
+  type: "success",
+  issues: [],
+  analyzer: { name: "Flake8", version: "3.7.9" },
+})
