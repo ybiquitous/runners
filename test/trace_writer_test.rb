@@ -49,6 +49,18 @@ class TraceWriterTest < Minitest::Test
     assert writer.writer.all? {|trace| trace[:trace] == 'message' && (trace[:message] == 'a'*4000 || trace[:message] == 'a'*4000 + '\\')}
   end
 
+  def test_message_with_limit
+    writer.message("abcdef", limit: 3)
+    assert_equal 1, writer.writer.size
+    assert writer.writer.all? {|trace| trace[:trace] == 'message' && trace[:message] == "abc...(truncated)" }
+  end
+
+  def test_message_with_omission
+    writer.message("abcdef", limit: 3, omission: "...")
+    assert_equal 1, writer.writer.size
+    assert writer.writer.all? {|trace| trace[:trace] == 'message' && trace[:message] == "abc..." }
+  end
+
   def test_warning
     writer.warning('hogehoge warn', recorded_at: now)
     writer.warning('hogehoge warn2', file: 'path/to/file.rb', recorded_at: now)

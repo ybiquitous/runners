@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.13.1...HEAD)
 
+- Truncate long message on trace [#605](https://github.com/sider/runners/pull/605)
+
 ## 0.13.1
 
 [Full diff](https://github.com/sider/runners/compare/0.13.0...0.13.1)

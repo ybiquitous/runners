@@ -26,8 +26,7 @@ class Runners::TraceWriter
   def status: (Process::Status, ?recorded_at: Time) -> void
   def stdout: (String, ?recorded_at: Time, ?max_length: Integer) -> void
   def stderr: (String, ?recorded_at: Time, ?max_length: Integer) -> void
-  def message: (String, ?recorded_at: Time, ?max_length: Integer) -> void
-             | <'x> (String, ?recorded_at: Time, ?max_length: Integer) { -> 'x } -> 'x
+  def message: (String, ?recorded_at: Time, ?max_length: Integer, ?limit: Integer, ?omission: String) ?{ -> any } -> any
   def header: (String, ?recorded_at: Time) -> void
   def warning: (String, ?file: any, ?recorded_at: Time) -> void
   def ci_config: (Hash<any, any>, ?recorded_at: Time) -> void

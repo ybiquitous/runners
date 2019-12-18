@@ -165,7 +165,7 @@ module Runners
       end
 
       output = output_file.read
-      trace_writer.message output
+      trace_writer.message output, limit: 24_000 # Avoid timeout
 
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
         issues = []
