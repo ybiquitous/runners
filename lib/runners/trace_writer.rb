@@ -31,9 +31,12 @@ module Runners
       end
     end
 
-    # @type method message: (String, ?recorded_at: Time, ?max_length: Integer) ?{ -> any } -> any
-    def message(message, recorded_at: Time.now, max_length: 4_000)
-      each_slice(masked_string(message), size: max_length) do |text|
+    def message(message, recorded_at: Time.now, max_length: 4_000, limit: 40_000, omission: "...(truncated)")
+      string = masked_string(message)
+      if string.size > limit
+        string = string[0, limit] + omission
+      end
+      each_slice(string, size: max_length) do |text|
         self << { trace: 'message', message: text, recorded_at: recorded_at.utc.iso8601 }
       end
       if block_given?
