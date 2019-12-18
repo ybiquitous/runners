@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.13.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.13.2...HEAD)
+
+## 0.13.2
+
+[Full diff](https://github.com/sider/runners/compare/0.13.1...0.13.2)
 
 - Truncate long message on trace [#605](https://github.com/sider/runners/pull/605)
 
