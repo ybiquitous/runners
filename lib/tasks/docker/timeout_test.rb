@@ -6,7 +6,6 @@ namespace :docker do
   task :timeout_test do
     # NOTE: Either analyzer is fine, I chose it because of its lightness.
     ENV['ANALYZER'] = 'code_sniffer'
-    ENV['TAG'] = 'dev'
     ENV['RUNNERS_TIMEOUT'] = '5s'
 
     # Build docker images with dummy code
