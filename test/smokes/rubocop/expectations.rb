@@ -9,7 +9,7 @@ Smoke.add_test(
     issues: [
       {:message=>
        "Literal `true` appeared as a condition.",
-      :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_lint.md#lintliteralascondition"],
+      :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_lint.md#lintliteralascondition"],
       :id=>"Lint/LiteralAsCondition",
       :path=>"app/controllers/users_controller.rb",
       :object=>{:severity=>"warning", :corrected=>false},
@@ -17,7 +17,7 @@ Smoke.add_test(
        {:start_line=>23, :start_column=>8, :end_line=>23, :end_column=>11}},
      {:message=>
        "Shadowing outer local variable - `v`.",
-      :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_lint.md#lintshadowingouterlocalvariable"],
+      :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_lint.md#lintshadowingouterlocalvariable"],
       :id=>"Lint/ShadowingOuterLocalVariable",
       :path=>"app/controllers/users_controller.rb",
       :object=>{:severity=>"warning", :corrected=>false},
@@ -25,7 +25,7 @@ Smoke.add_test(
        {:start_line=>27, :start_column=>30, :end_line=>27, :end_column=>30}},
      {:message=>
        "Useless assignment to variable - `v`.",
-      :links=>["https://rubystyle.guide#underscore-unused-vars", "https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_lint.md#lintuselessassignment"],
+      :links=>["https://rubystyle.guide#underscore-unused-vars", "https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_lint.md#lintuselessassignment"],
       :id=>"Lint/UselessAssignment",
       :path=>"app/controllers/users_controller.rb",
       :object=>{:severity=>"warning", :corrected=>false},
@@ -33,7 +33,7 @@ Smoke.add_test(
        {:start_line=>26, :start_column=>5, :end_line=>26, :end_column=>5}},
      {:message=>
        "Prefer symbols instead of strings as hash keys.",
-      :links=>["https://rubystyle.guide#symbols-as-keys", "https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_style.md#stylestringhashkeys"],
+      :links=>["https://rubystyle.guide#symbols-as-keys", "https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_style.md#stylestringhashkeys"],
       :id=>"Style/StringHashKeys",
       :path=>"config/environments/development.rb",
       :object=>{:severity=>"convention", :corrected=>false},
@@ -41,7 +41,7 @@ Smoke.add_test(
        {:start_line=>21, :start_column=>7, :end_line=>21, :end_column=>21}},
      {:message=>
        "Prefer symbols instead of strings as hash keys.",
-      :links=>["https://rubystyle.guide#symbols-as-keys", "https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_style.md#stylestringhashkeys"],
+      :links=>["https://rubystyle.guide#symbols-as-keys", "https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_style.md#stylestringhashkeys"],
       :id=>"Style/StringHashKeys",
       :path=>"config/environments/test.rb",
       :object=>{:severity=>"convention", :corrected=>false},
@@ -50,7 +50,7 @@ Smoke.add_test(
     ],
     analyzer: {
       name: 'RuboCop',
-      version: '0.77.0'
+      version: '0.78.0'
     },
   }
 )
@@ -63,7 +63,7 @@ Smoke.add_test(
   issues: [
     {
       "message": "Missing top-level class documentation comment.",
-      "links": ["https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_style.md#styledocumentation"],
+      "links": ["https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_style.md#styledocumentation"],
       "id": "Style/Documentation",
       "path": "app.rb",
       "location": {
@@ -81,7 +81,7 @@ Smoke.add_test(
       "message": "Put empty method definitions on a single line.",
       "links": [
         "https://rubystyle.guide#no-single-line-methods",
-        "https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_style.md#styleemptymethod",
+        "https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_style.md#styleemptymethod",
       ],
       "id": "Style/EmptyMethod",
       "path": "app.rb",
@@ -99,7 +99,7 @@ Smoke.add_test(
   ],
   analyzer: {
     name: 'RuboCop',
-    version: '0.77.0'
+    version: '0.78.0'
   },
 )
 
@@ -217,7 +217,7 @@ Smoke.add_test(
     issues: [
       {:message=>
          "Use the `&&` operator to compare multiple values.",
-       :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_lint.md#lintmultiplecomparison"],
+       :links=>["https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_lint.md#lintmultiplecomparison"],
        :id=>"Lint/MultipleComparison",
        :path=>"test.rb",
        :object=>{:severity=>"warning", :corrected=>false},
@@ -226,7 +226,7 @@ Smoke.add_test(
     ],
     analyzer: {
       name: 'RuboCop',
-      version: '0.77.0',
+      version: '0.78.0',
     },
   }
 )
@@ -240,7 +240,7 @@ Smoke.add_test(
     message: 'Error: Cops cannot be both enabled by default and disabled by default',
     analyzer: {
       name: 'RuboCop',
-      version: '0.77.0',
+      version: '0.78.0',
     },
   }
 )
@@ -260,7 +260,7 @@ Smoke.add_test('with_safe_cops', {
   issues: [
     {
       message: "Empty `ensure` block detected.",
-      links: ["https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_lint.md#lintemptyensure"],
+      links: ["https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_lint.md#lintemptyensure"],
       id: "Lint/EmptyEnsure",
       path: "drink.rb",
       location: { start_line: 12, start_column: 3, end_line: 12, end_column: 8 },
@@ -268,20 +268,23 @@ Smoke.add_test('with_safe_cops', {
     },
     {
       message:  "Do not chain ordinary method call after safe navigation operator.",
-      links: ["https://github.com/rubocop-hq/rubocop/blob/v0.77.0/manual/cops_lint.md#lintsafenavigationchain"],
+      links: ["https://github.com/rubocop-hq/rubocop/blob/v0.78.0/manual/cops_lint.md#lintsafenavigationchain"],
       id: "Lint/SafeNavigationChain",
       path: "drink.rb",
       location: { start_line: 18, start_column: 21, end_line: 18, end_column: 27 },
       object: { severity: "warning", corrected: false },
     }
   ],
-  analyzer: { name: 'RuboCop', version: '0.77.0' },
+  analyzer: { name: 'RuboCop', version: '0.78.0' },
 }, {
-  warnings: [{ message: <<~MSG.strip, file: "sideci.yml" }],
-    DEPRECATION WARNING!!!
-    The `$.linter.rubocop.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
-    Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/ruby/rubocop ).
-  MSG
+  warnings: [
+    { message: <<~MSG.strip, file: "sideci.yml" },
+      DEPRECATION WARNING!!!
+      The `$.linter.rubocop.options` option(s) in your `sideci.yml` are deprecated and will be removed in the near future.
+      Please update to the new option(s) according to our documentation (see https://help.sider.review/tools/ruby/rubocop ).
+    MSG
+    { message: "Metrics/LineLength has the wrong namespace - should be Layout", file: "my.rubocop.yml" }
+  ],
 })
 
 Smoke.add_test("using_option_with_incorrect_rubocop_version", {
@@ -386,7 +389,7 @@ Smoke.add_test("rails_and_performance", {
       object: { severity: "convention", corrected: false },
     },
   ],
-  analyzer: { name: "RuboCop", version: "0.77.0" },
+  analyzer: { name: "RuboCop", version: "0.78.0" },
 })
 
 Smoke.add_test("rails_and_performance_old", {
