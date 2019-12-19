@@ -32,8 +32,9 @@ COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
+    bundle config --local without development:test && \
     bundle config && \
-    bundle install --without='development test'
+    bundle install
 # Copy the main source code
 COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
 COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib

@@ -11,8 +11,9 @@ COPY --chown=analyzer_runner:nogroup Gemfile* ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config --global jobs 4 && \
     bundle config --global retry 3 && \
+    bundle config --local without development:test && \
     bundle config && \
-    bundle install --without='development test'
+    bundle install
 
 # Install the default version
 COPY --chown=analyzer_runner:nogroup images/reek/Gemfile ${RUNNER_USER_HOME}/reek_Gemfile
