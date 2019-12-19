@@ -142,4 +142,9 @@ namespace :docker do
       sh "docker", "logout"
     end
   end
+
+  desc 'Run interactive shell in the specified Docker container'
+  task :shell do
+    sh "docker", "run", "-it", "--rm", "--entrypoint=bash", image_name
+  end
 end
