@@ -93,6 +93,30 @@ $ tree -L 1 -d
 
 ### Testing
 
+#### Unit test
+
+You can run unit tests via the `rake test` command as follow.
+
+All tests:
+
+```shell
+$ bundle exec rake test
+```
+
+Only a test file:
+
+```shell
+$ bundle exec rake test TEST=test/cli_test.rb
+```
+
+Only a test method:
+
+```shell
+$ bundle exec rake test TEST=test/cli_test.rb TESTOPTS='--name=test_parsing_options'
+```
+
+#### Smoke test
+
 You can run smoke tests via the `rake docker:smoke` command as follow:
 
 ```shell
