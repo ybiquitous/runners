@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.13.2...HEAD)
 
+- [HAML-Lint] Bump rubocop-rspec from 1.37.0 to 1.37.1 [#601](https://github.com/sider/runners/pull/601)
+
 ## 0.13.2
 
 [Full diff](https://github.com/sider/runners/compare/0.13.1...0.13.2)
