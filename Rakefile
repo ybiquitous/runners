@@ -101,14 +101,7 @@ namespace :docker do
   end
 
   def tag
-    key = 'TAG'
-    ENV[key].tap do |value|
-      abort <<~MSG if value.nil? || value.empty?
-        Error: `#{key}` environment variable must be required. For example, run as follow:
-
-            $ #{key}=dev bundle exec rake docker:build
-      MSG
-    end
+    ENV.fetch('TAG', 'dev')
   end
 
   def docker_user
