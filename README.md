@@ -43,17 +43,94 @@ Each analyzer can be available as a Docker image.
 - [TSLint](https://hub.docker.com/r/sider/runner_tslint)
 - [TyScan](https://hub.docker.com/r/sider/runner_tyscan)
 
-## Testing
+## Developer guide
+
+Please follow these instructions.
+
+### Prerequisites
+
+The latest version recommended.
+
+- Ruby
+- Bundler
+- Docker
+
+### Setup
+
+When checking out the source code, run the following command:
+
+```shell
+$ bundle install
+```
+
+Next, run the following command to show available commands in the project:
+
+```shell
+$ bundle exec rake --tasks
+```
+
+These commands will help you develop! :wink:
+
+### Project structure
+
+```shell
+$ tree -L 1 -d
+.
+├── bin
+├── images
+├── lib
+├── sig
+└── test
+
+5 directories
+```
+
+- `bin`: Entry point to launch a runner
+- `images`: Docker images
+- `lib`: Core programs
+- `sig`: Ruby signature files for type-checking
+- `test`: Unit tests and smoke tests
+
+### Testing
+
+#### Unit test
+
+You can run unit tests via the `rake test` command as follow.
+
+All tests:
+
+```shell
+$ bundle exec rake test
+```
+
+Only a test file:
+
+```shell
+$ bundle exec rake test TEST=test/cli_test.rb
+```
+
+Only a test method:
+
+```shell
+$ bundle exec rake test TEST=test/cli_test.rb TESTOPTS='--name=test_parsing_options'
+```
+
+#### Smoke test
 
 You can run smoke tests via the `rake docker:smoke` command as follow:
 
 ```shell
-$ bundle exec rake docker:build
-$ bundle exec rake docker:smoke ANALYZER=some_analyzer [ONLY=test1,test2,...] [SHOW_TRACE=true]
+$ bundle exec rake docker:smoke ANALYZER=rubocop [ONLY=test1,test2,...] [SHOW_TRACE=true]
 ```
 
 - `ONLY`: Specify test name(s). You can specify a comma-separated list.
 - `SHOW_TRACE`: Show trace log to console. Useful to debug.
+
+If you want to run tests right after changing code, you can run one command as follow:
+
+```shell
+$ bundle exec rake docker:build docker:smoke ANALYZER=rubocop
+```
 
 ## License
 
