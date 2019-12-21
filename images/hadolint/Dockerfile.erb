@@ -1,0 +1,14 @@
+FROM sider/devon_rex_base:2.11.0
+
+ARG HADOLINT_VERSION="1.17.4"
+
+USER root
+
+RUN curl -sSL -o /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64 && \
+    chmod +x /usr/local/bin/hadolint && \
+    hadolint -v
+
+USER $RUNNER_USER
+
+<%= render_erb 'images/Dockerfile.base.erb' %>
+<%= render_erb 'images/Dockerfile.end.erb' %>

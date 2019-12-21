@@ -182,6 +182,10 @@ jobs:
     environment:
       ANALYZER: cpplint
     <<: *runner_job
+  runner_hadolint:
+    environment:
+      ANALYZER: hadolint
+    <<: *runner_job
 
 workflows:
   version: 2
@@ -219,3 +223,4 @@ workflows:
       - runner_ktlint: { filters: { tags: { only: /.*/ } } }
       - runner_shellcheck: { filters: { tags: { only: /.*/ } } }
       - runner_cpplint: { filters: { tags: { only: /.*/ } } }
+      - runner_hadolint: { filters: { tags: { only: /.*/ } } }
