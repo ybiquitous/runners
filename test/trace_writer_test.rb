@@ -8,7 +8,7 @@ class TraceWriterTest < Minitest::Test
   end
 
   def now
-    Time.utc(2017,8,1)
+    Time.utc(2017, 8, 1, 22, 34, 51.200)
   end
 
   def test_each_slice
@@ -25,70 +25,65 @@ class TraceWriterTest < Minitest::Test
   def test_stdout
     writer.stdout("hogehoge hugahuga", max_length: 10, recorded_at: now)
 
-    assert_equal [{ trace: 'stdout', string: "hogehoge h\\", recorded_at: now.utc.iso8601 },
-                  { trace: 'stdout', string: "ugahuga", recorded_at: now.utc.iso8601 }], writer.writer
+    assert_equal [{ trace: :stdout, string: "hogehoge h\\", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :stdout, string: "ugahuga", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false }], writer.writer
   end
 
   def test_stderr
     writer.stderr("hogehoge hugahuga", max_length: 10, recorded_at: now)
 
-    assert_equal [{ trace: 'stderr', string: "hogehoge h\\", recorded_at: now.utc.iso8601 },
-                  { trace: 'stderr', string: "ugahuga", recorded_at: now.utc.iso8601 }], writer.writer
+    assert_equal [{ trace: :stderr, string: "hogehoge h\\", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :stderr, string: "ugahuga", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false }], writer.writer
   end
 
   def test_message_with_block
-    writer.message("Hello World") do sleep 0.1 end
+    return_values = [
+      Time.utc(2001, 1, 1, 0, 0, 0),
+      Time.utc(2001, 1, 1, 0, 1, 0),
+    ]
+    stub(writer).now { return_values.shift }
+    writer.message("Hello", recorded_at: now) { "noop" }
 
-    assert writer.writer.any? {|trace| trace[:trace] == 'message' && trace[:message] == "Hello World" }
-    assert writer.writer.any? {|trace| trace[:trace] == 'message' && trace[:message] =~ /\A    -> 0\.\d{4}s\Z/ }
+    assert_equal [{ trace: :message, message: "Hello", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false, duration_in_ms: 0 },
+                  { trace: :message, message: "-> 60.0s", recorded_at: "2017-08-01T22:35:51.200Z", truncated: false, duration_in_ms: 60000 }], writer.writer
   end
 
   def test_message_with_long_content
-    writer.message('a'*4000*4)
-    assert_equal 4, writer.writer.size
-    assert writer.writer.all? {|trace| trace[:trace] == 'message' && (trace[:message] == 'a'*4000 || trace[:message] == 'a'*4000 + '\\')}
+    long_text = 'a' * 10
+    writer.message(long_text * 4, max_length: 10, recorded_at: now)
+    assert_equal [{ trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true }], writer.writer
   end
 
   def test_message_with_limit
-    writer.message("abcdef", limit: 3)
-    assert_equal 1, writer.writer.size
-    assert writer.writer.all? {|trace| trace[:trace] == 'message' && trace[:message] == "abc...(truncated)" }
+    writer.message("abcdef", limit: 3, recorded_at: now)
+    assert_equal [{ trace: :message, message: "abc...(truncated)", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true }], writer.writer
   end
 
   def test_message_with_omission
-    writer.message("abcdef", limit: 3, omission: "...")
-    assert_equal 1, writer.writer.size
-    assert writer.writer.all? {|trace| trace[:trace] == 'message' && trace[:message] == "abc..." }
+    writer.message("abcdef", limit: 3, omission: "...", recorded_at: now)
+    assert_equal [{ trace: :message, message: "abc...", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true }], writer.writer
   end
 
   def test_warning
     writer.warning('hogehoge warn', recorded_at: now)
     writer.warning('hogehoge warn2', file: 'path/to/file.rb', recorded_at: now)
 
-    assert_equal [{ trace: 'warning', message: "hogehoge warn", file: nil, recorded_at: now.utc.iso8601 },
-                  { trace: 'warning', message: "hogehoge warn2", file: 'path/to/file.rb', recorded_at: now.utc.iso8601 }], writer.writer
+    assert_equal [{ trace: :warning, message: "hogehoge warn", file: nil, recorded_at: "2017-08-01T22:34:51.200Z" },
+                  { trace: :warning, message: "hogehoge warn2", file: 'path/to/file.rb', recorded_at: "2017-08-01T22:34:51.200Z" }], writer.writer
   end
 
   def test_ci_config
     content = {'linter' => {'rubocop' => {'config' => 'myrubocop.yml'}}}
-    writer.ci_config(content, recorded_at: now)
-    assert_equal [{ trace: 'ci_config', content: content, recorded_at: now.utc.iso8601 }], writer.writer
+    writer.ci_config(content, file: "foo.yml", recorded_at: now)
+    assert_equal [{ trace: :ci_config, content: content, file: "foo.yml", recorded_at: "2017-08-01T22:34:51.200Z" }], writer.writer
   end
 
   def test_error
     writer.error('hoge error', recorded_at: now)
-    assert_equal [{ trace: 'error', message: 'hoge error', recorded_at: now.utc.iso8601 }], writer.writer
-  end
-
-  def test_format_duration_in_secs
-    assert_equal '10.0', writer.send(:format_duration_in_secs, 10.0)
-    assert_equal '1.0', writer.send(:format_duration_in_secs, 1.0)
-    assert_equal '0.1', writer.send(:format_duration_in_secs, 0.1)
-    assert_equal '0.01', writer.send(:format_duration_in_secs, 0.01)
-    assert_equal '0.001', writer.send(:format_duration_in_secs, 0.001)
-    assert_equal '0.0001', writer.send(:format_duration_in_secs, 0.0001)
-    assert_equal '0.0001', writer.send(:format_duration_in_secs, 0.00001)
-    assert_equal '0.0001', writer.send(:format_duration_in_secs, 0.000001)
+    assert_equal [{ trace: :error, message: 'hoge error', recorded_at: "2017-08-01T22:34:51.200Z", truncated: false }], writer.writer
   end
 
   def test_masked_string
@@ -101,13 +96,13 @@ class TraceWriterTest < Minitest::Test
     writer.error("'hidden' in error", recorded_at: now)
     writer.warning("'hidden' in warning", recorded_at: now)
     expected = [
-      { trace: 'command_line', command_line: %w[cat https://user:[FILTERED]@github.com], recorded_at: now.utc.iso8601 },
-      { trace: 'stdout', string: "[FILTERED] in stdout", recorded_at: now.utc.iso8601 },
-      { trace: 'stderr', string: "[FILTERED] in stderr", recorded_at: now.utc.iso8601 },
-      { trace: 'message', message: "Your '[FILTERED]' should not be exposed", recorded_at: now.utc.iso8601 },
-      { trace: 'header', message: "'[FILTERED]' in header", recorded_at: now.utc.iso8601 },
-      { trace: 'error', message: "'[FILTERED]' in error", recorded_at: now.utc.iso8601 },
-      { trace: 'warning', message: "'[FILTERED]' in warning", file: nil, recorded_at: now.utc.iso8601 },
+      { trace: :command_line, command_line: %w[cat https://user:[FILTERED]@github.com], recorded_at: "2017-08-01T22:34:51.200Z" },
+      { trace: :stdout, string: "[FILTERED] in stdout", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false },
+      { trace: :stderr, string: "[FILTERED] in stderr", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false },
+      { trace: :message, message: "Your '[FILTERED]' should not be exposed", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false },
+      { trace: :header, message: "'[FILTERED]' in header", recorded_at: "2017-08-01T22:34:51.200Z" },
+      { trace: :error, message: "'[FILTERED]' in error", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false },
+      { trace: :warning, message: "'[FILTERED]' in warning", file: nil, recorded_at: "2017-08-01T22:34:51.200Z" },
     ]
     assert_equal expected, writer.writer
   end

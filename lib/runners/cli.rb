@@ -42,7 +42,8 @@ module Runners
       with_working_dir do |working_dir|
         writer = JSONSEQ::Writer.new(io: io)
         trace_writer = TraceWriter.new(writer: writer, sensitive_strings: sensitive_strings)
-        trace_writer.header "Analysis started"
+        started_at = Time.now
+        trace_writer.header "Analysis started", recorded_at: started_at
 
         harness = Harness.new(guid: guid, processor_class: processor_class, options: options, working_dir: working_dir, trace_writer: trace_writer)
 
@@ -60,7 +61,9 @@ module Runners
           writer << Schema::Result.envelope.coerce(json)
         end
         result.tap do
-          trace_writer.header "Analysis finished"
+          finished_at = Time.now
+          duration = finished_at - started_at
+          trace_writer.header "Analysis finished in #{duration.round(3)}s", recorded_at: finished_at
         end
       end
     ensure

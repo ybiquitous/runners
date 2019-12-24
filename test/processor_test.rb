@@ -44,10 +44,10 @@ class ProcessorTest < Minitest::Test
       assert_match "1 2 3\n", stdout
       assert_equal "", stderr
 
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'command_line' && hash[:command_line] == %w(/bin/echo 1 2 3) }
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'stdout' && hash[:string] == "1 2 3\n" }
-      refute trace_writer.writer.find {|hash| hash[:trace] == 'stderr' }
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'status' && hash[:status] == 0 }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :command_line && hash[:command_line] == %w(/bin/echo 1 2 3) }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :stdout && hash[:string] == "1 2 3\n" }
+      refute trace_writer.writer.find {|hash| hash[:trace] == :stderr }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :status && hash[:status] == 0 }
     end
   end
 
@@ -70,8 +70,8 @@ class ProcessorTest < Minitest::Test
       assert_instance_of Process::Status, error.status
       assert_equal path, error.dir
 
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'command_line' && hash[:command_line] == ["rmdir", "no such dir"] }
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'stderr' }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :command_line && hash[:command_line] == ["rmdir", "no such dir"] }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :stderr }
     end
   end
 
@@ -156,8 +156,7 @@ class ProcessorTest < Minitest::Test
       assert_equal({ "root_dir" => "app/bar", "glob" => "**/*.foo", "options" => { "exclude" => ".git" } }, processor.ci_section("glob" => "**/*.foo"))
       assert_equal({ "root_dir" => "app/bar", "options" => { "exclude" => ".git", "ignore" => "node_modules" } }, processor.ci_section("options" => { "ignore" => "node_modules" }))
 
-      assert(trace_writer.writer.find{|hash|
-        hash[:trace] == 'ci_config' && hash[:content] })
+      assert(trace_writer.writer.find{|hash| hash[:trace] == :ci_config && hash[:content] })
       assert(processor.ci_config.is_a?(Hash))
     end
 
@@ -283,8 +282,8 @@ class ProcessorTest < Minitest::Test
       processor.add_warning('piyopiyo')
       processor.add_warning('hogehogehoge', file: 'path/to/hogehoge.rb')
 
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'warning' && hash[:message] == 'piyopiyo' && hash[:file] == nil }
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'warning' && hash[:message] == 'hogehogehoge' && hash[:file] == 'path/to/hogehoge.rb' }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :warning && hash[:message] == 'piyopiyo' && hash[:file] == nil }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :warning && hash[:message] == 'hogehogehoge' && hash[:file] == 'path/to/hogehoge.rb' }
 
       assert_equal [{message: 'piyopiyo', file: nil}, {message: 'hogehogehoge', file: 'path/to/hogehoge.rb'}], processor.warnings
     end
@@ -315,9 +314,9 @@ class ProcessorTest < Minitest::Test
 
       assert_equal(
         [
-          { trace: "warning", message: expected_message.call("1.0.1"), file: nil },
-          { trace: "warning", message: expected_message.call("2.0.0"), file: "foo" },
-          { trace: "warning", message: expected_message2.call("2.0.0"), file: nil },
+          { trace: :warning, message: expected_message.call("1.0.1"), file: nil },
+          { trace: :warning, message: expected_message.call("2.0.0"), file: "foo" },
+          { trace: :warning, message: expected_message2.call("2.0.0"), file: nil },
         ],
         trace_writer.writer.map { |hash| hash.slice(:trace, :message, :file) },
       )
@@ -349,7 +348,7 @@ class ProcessorTest < Minitest::Test
       MSG
 
       assert_equal(
-        [{ trace: "warning", message: expected_message, file: "sider.yml" }],
+        [{ trace: :warning, message: expected_message, file: "sider.yml" }],
         trace_writer.writer.map { |hash| hash.slice(:trace, :message, :file) },
       )
       assert_equal(
@@ -439,8 +438,8 @@ class ProcessorTest < Minitest::Test
       # Returns status, stdout, and stderr
       assert_instance_of Process::Status, status
 
-      refute trace_writer.writer.find {|hash| hash[:trace] == 'status' && hash[:status] == 0 }
-      assert trace_writer.writer.find {|hash| hash[:trace] == 'error' && hash[:message] =~ /Process aborted or coredumped:/ }
+      refute trace_writer.writer.find {|hash| hash[:trace] == :status && hash[:status] == 0 }
+      assert trace_writer.writer.find {|hash| hash[:trace] == :error && hash[:message] =~ /Process aborted or coredumped:/ }
     end
   end
 

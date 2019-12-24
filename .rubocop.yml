@@ -4,3 +4,7 @@ inherit_gem:
 
 Style/MutableConstant:
   Enabled: true
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "test/**/*_test.rb"
