@@ -19,20 +19,20 @@ class TraceWriterTest < Minitest::Test
       end
     end
 
-    assert_equal ["123\\", "456\\", "789\\", "0"], slices
+    assert_equal ["123", "456", "789", "0"], slices
   end
 
   def test_stdout
     writer.stdout("hogehoge hugahuga", max_length: 10, recorded_at: now)
 
-    assert_equal [{ trace: :stdout, string: "hogehoge h\\", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+    assert_equal [{ trace: :stdout, string: "hogehoge h", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
                   { trace: :stdout, string: "ugahuga", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false }], writer.writer
   end
 
   def test_stderr
     writer.stderr("hogehoge hugahuga", max_length: 10, recorded_at: now)
 
-    assert_equal [{ trace: :stderr, string: "hogehoge h\\", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+    assert_equal [{ trace: :stderr, string: "hogehoge h", recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
                   { trace: :stderr, string: "ugahuga", recorded_at: "2017-08-01T22:34:51.200Z", truncated: false }], writer.writer
   end
 
@@ -51,10 +51,10 @@ class TraceWriterTest < Minitest::Test
   def test_message_with_long_content
     long_text = 'a' * 10
     writer.message(long_text * 4, max_length: 10, recorded_at: now)
-    assert_equal [{ trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
-                  { trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
-                  { trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
-                  { trace: :message, message: long_text + '\\', recorded_at: "2017-08-01T22:34:51.200Z", truncated: true }], writer.writer
+    assert_equal [{ trace: :message, message: long_text, recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :message, message: long_text, recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :message, message: long_text, recorded_at: "2017-08-01T22:34:51.200Z", truncated: true },
+                  { trace: :message, message: long_text, recorded_at: "2017-08-01T22:34:51.200Z", truncated: true }], writer.writer
   end
 
   def test_message_with_limit

@@ -92,11 +92,8 @@ module Runners
 
       while string.length > 0
         slice = string.slice!(0, size)
-        if slice.length == size
-          yield slice + "\\", true
-        else
-          yield slice, false
-        end
+        truncated = slice.length == size
+        yield slice, truncated
       end
     end
 
