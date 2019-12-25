@@ -211,7 +211,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -238,7 +238,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -270,7 +270,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -291,7 +291,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -310,7 +310,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -347,7 +347,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -373,7 +373,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -392,7 +392,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
@@ -422,7 +422,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "Cppcheck", version: "1.89" }
+  analyzer: { name: "Cppcheck", version: "1.90" }
 )
 
 Smoke.add_test(
