@@ -140,7 +140,7 @@ class RubyTest < Minitest::Test
         assert_equal "1.32.0", hash["rubocop-rspec"]
       end
 
-      assert_equal([<<~MSG], trace_writer.writer.select { |m| m[:trace] == 'message' }.map { |m| m[:message] })
+      assert_equal([<<~MSG], trace_writer.writer.select { |m| m[:trace] == :message }.map { |m| m[:message] })
         source "https://rubygems.org"
 
         gem "strong_json", "0.5.0", "<= 0.8.0"

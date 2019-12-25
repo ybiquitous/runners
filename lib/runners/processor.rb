@@ -25,7 +25,7 @@ module Runners
         if ci_config_path.file?
           begin
             YAML.load_file(ci_config_path.to_s, fallback: {}).tap do |conf|
-              trace_writer.ci_config(conf)
+              trace_writer.ci_config(conf, file: ci_config_path.basename.to_s)
             end
           rescue Psych::SyntaxError => exn
             message = "Your `#{relative_path(ci_config_path.to_s)}` file may be broken (line #{exn.line}, column #{exn.column})."

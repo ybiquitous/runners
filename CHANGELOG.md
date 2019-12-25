@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.14.0...HEAD)
 
+- Renewal trace [#624](https://github.com/sider/runners/pull/624)
+
 ## 0.14.0
 
 [Full diff](https://github.com/sider/runners/compare/0.13.2...0.14.0)

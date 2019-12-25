@@ -26,9 +26,9 @@ class ShellTest < Minitest::Test
       assert_equal "", stderr
       assert status.success?
       assert_trace_writer [
-        { trace: "command_line", command_line: ["echo", "Hello"] },
-        { trace: "stdout", string: "Hello\n" },
-        { trace: "status", status: 0 },
+        { trace: :command_line, command_line: ["echo", "Hello"] },
+        { trace: :stdout, string: "Hello\n", truncated: false },
+        { trace: :status, status: 0 },
       ]
     end
   end
@@ -43,8 +43,8 @@ class ShellTest < Minitest::Test
       assert_equal "", stderr
       assert status.success?
       assert_trace_writer [
-        { trace: "command_line", command_line: ["echo", "Hello"] },
-        { trace: "status", status: 0 },
+        { trace: :command_line, command_line: ["echo", "Hello"] },
+        { trace: :status, status: 0 },
       ]
     end
   end
@@ -59,9 +59,9 @@ class ShellTest < Minitest::Test
       assert_equal "Hello\n", stderr
       assert status.success?
       assert_trace_writer [
-        { trace: "command_line", command_line: ["echo Hello | tee /dev/stderr"] },
-        { trace: "stdout", string: "Hello\n" },
-        { trace: "status", status: 0 },
+        { trace: :command_line, command_line: ["echo Hello | tee /dev/stderr"] },
+        { trace: :stdout, string: "Hello\n", truncated: false },
+        { trace: :status, status: 0 },
       ]
     end
   end
@@ -82,10 +82,10 @@ class ShellTest < Minitest::Test
       assert_equal 1, error.status.exitstatus
       assert_equal path, error.dir
       assert_trace_writer [
-        { trace: "command_line", command_line: ["echo Error | tee /dev/stderr && exit 1"] },
-        { trace: "stdout", string: "Error\n" },
-        { trace: "stderr", string: "Error\n" },
-        { trace: "status", status: 1 },
+        { trace: :command_line, command_line: ["echo Error | tee /dev/stderr && exit 1"] },
+        { trace: :stdout, string: "Error\n", truncated: false },
+        { trace: :stderr, string: "Error\n", truncated: false },
+        { trace: :status, status: 1 },
       ]
 
       assert_equal({
@@ -112,9 +112,9 @@ class ShellTest < Minitest::Test
       assert_equal "", stderr
       assert_equal 1, status.exitstatus
       assert_trace_writer [
-        { trace: "command_line", command_line: ["echo Hello && exit 1"] },
-        { trace: "stdout", string: "Hello\n" },
-        { trace: "status", status: 1 },
+        { trace: :command_line, command_line: ["echo Hello && exit 1"] },
+        { trace: :stdout, string: "Hello\n", truncated: false },
+        { trace: :status, status: 1 },
       ]
     end
   end

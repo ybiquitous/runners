@@ -29,10 +29,11 @@ class Runners::TraceWriter
   def message: (String, ?recorded_at: Time, ?max_length: Integer, ?limit: Integer, ?omission: String) ?{ -> any } -> any
   def header: (String, ?recorded_at: Time) -> void
   def warning: (String, ?file: any, ?recorded_at: Time) -> void
-  def ci_config: (Hash<any, any>, ?recorded_at: Time) -> void
+  def ci_config: (Hash<any, any>, file: String, ?recorded_at: Time) -> void
   def error: (String, ?recorded_at: Time, ?max_length: Integer) -> void
-  def <<: (any) -> void
-  def each_slice: (String, size: Integer) { (String) -> void } -> void
+  def <<: (Hash<Symbol, any>) -> void
+  def now: -> Time
+  def each_slice: (String, size: Integer) { (String, bool) -> void } -> void
   def masked_string: (String) -> String
 end
 

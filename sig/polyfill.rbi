@@ -45,7 +45,7 @@ class Time
   def iso8601: -> String
   def strftime: (String) -> String
   def -: (Integer) -> self
-       | (Time) -> Integer
+       | (Time) -> Float
   def +: (Integer) -> self
 end
 

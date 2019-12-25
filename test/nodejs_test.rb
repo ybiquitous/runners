@@ -30,7 +30,7 @@ class NodejsTest < Minitest::Test
   end
 
   def actual_errors
-    trace_writer.writer.select { |entry| entry[:trace] == "error" }.map { |entry| entry[:message] }
+    trace_writer.writer.select { |entry| entry[:trace] == :error }.map { |entry| entry[:message] }
   end
 
   def new_processor(working_dir:)
@@ -160,7 +160,7 @@ class NodejsTest < Minitest::Test
         stdout, _ = processor.capture3!(processor.nodejs_analyzer_bin, "-v")
         assert_equal "v5.0.0\n", stdout
 
-        assert_equal(0, trace_writer.writer.count { |e| e[:trace] == "warning" })
+        assert_equal(0, trace_writer.writer.count { |e| e[:trace] == :warning })
       end
     end
   end
@@ -236,7 +236,7 @@ class NodejsTest < Minitest::Test
         stdout, _ = processor.capture3!(processor.nodejs_analyzer_bin, "-v")
         assert_equal "v6.0.1\n", stdout
 
-        assert_equal(0, trace_writer.writer.count { |e| e[:trace] == "warning" })
+        assert_equal(0, trace_writer.writer.count { |e| e[:trace] == :warning })
       end
     end
   end
@@ -266,7 +266,7 @@ class NodejsTest < Minitest::Test
         expected_warning =
           "Two lock files `package-lock.json` and `yarn.lock` are found. " \
           "Sider uses `yarn.lock` in this case, but please consider deleting either file for more accurate analysis."
-        actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
+        actual_warnings = trace_writer.writer.select { |e| e[:trace] == :warning }.map { |e| e[:message] }
         assert_equal [expected_warning], actual_warnings
       end
     end
@@ -414,7 +414,7 @@ class NodejsTest < Minitest::Test
         If you want to use `npm ci`, please change your install option from `development` to `true`.
         For details about the npm behavior, see https://npm.community/t/npm-ci-only-dev-does-not-install-anything/3068
       MSG
-      actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
+      actual_warnings = trace_writer.writer.select { |e| e[:trace] == :warning }.map { |e| e[:message] }
       assert_equal [expected_warning, expected_warning], actual_warnings
       assert_equal [
         { message: expected_warning, file: "package.json" },
@@ -476,7 +476,7 @@ class NodejsTest < Minitest::Test
         Yarn does not have a same feature as `npm install --only=development`, so the option `development` will be ignored.
         See https://github.com/yarnpkg/yarn/issues/3254 for details.
       MSG
-      actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
+      actual_warnings = trace_writer.writer.select { |e| e[:trace] == :warning }.map { |e| e[:message] }
       assert_equal [expected_warning], actual_warnings
       assert_equal [{ message: expected_warning, file: "yarn.lock" }], processor.warnings
     end
@@ -542,7 +542,7 @@ class NodejsTest < Minitest::Test
         "No required dependencies for analysis were installed. Instead, the pre-installed `eslint@5.1.0` will be used.",
         "The required dependency `eslint` may not have been correctly installed. It may be a missing peer dependency."
       ]
-      actual_warnings = trace_writer.writer.select { |e| e[:trace] == "warning" }.map { |e| e[:message] }
+      actual_warnings = trace_writer.writer.select { |e| e[:trace] == :warning }.map { |e| e[:message] }
       assert_equal expected_warnings, actual_warnings
       assert_equal [
         { message: expected_warnings[0], file: "package.json" },
