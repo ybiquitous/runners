@@ -2,22 +2,16 @@ module Runners
   class Processor
     class CIConfigBroken < UserError; end
 
-    # @dynamic guid, working_dir, git_ssh_path, trace_writer, warnings, ci_config, ci_config_for_collect
-    attr_reader :guid
-    attr_reader :working_dir
-    attr_reader :git_ssh_path
-    attr_reader :trace_writer
-    attr_reader :warnings
-    attr_reader :ci_config
-    attr_reader :ci_config_for_collect
-    attr_reader :shell
+    attr_reader :guid, :workspace, :working_dir, :git_ssh_path, :trace_writer, :warnings, :ci_config, :ci_config_for_collect, :shell
 
     delegate :push_dir, :current_dir, :capture3, :capture3!, :capture3_trace, :capture3_with_retry!, to: :shell
     delegate :env_hash, :push_env_hash, to: :shell
+    delegate :git_blame_info, to: :workspace
 
-    def initialize(guid:, working_dir:, git_ssh_path:, trace_writer:)
+    def initialize(guid:, workspace:, git_ssh_path:, trace_writer:)
       @guid = guid
-      @working_dir = working_dir
+      @workspace = workspace
+      @working_dir = workspace.working_dir
       @git_ssh_path = git_ssh_path
       @trace_writer = trace_writer
       @warnings = []

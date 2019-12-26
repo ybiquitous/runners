@@ -11,6 +11,7 @@ Smoke.add_test("success", {
       message: "Printf call has arguments but no formatting directives",
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {

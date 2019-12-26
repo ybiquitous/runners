@@ -71,6 +71,7 @@ class Digest
 end
 
 class Digest::SHA1
+  def self.hexdigest: (String) -> String
   def file: (String) -> instance
 end
 

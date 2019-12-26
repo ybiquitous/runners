@@ -16,6 +16,7 @@ Smoke.add_test("basic", {
           message: "Specify 3rd parameter explicitly when calling in_array to avoid unexpected comparison results.",
           justifications: [],
         },
+        git_blame_info: nil,
       },
       {
         id: "sample.var_dump",
@@ -28,6 +29,7 @@ Smoke.add_test("basic", {
           message: "Do not use var_dump.",
           justifications: ["Allowed when debugging"],
         },
+        git_blame_info: nil,
       },
     ],
     analyzer: {
@@ -52,6 +54,7 @@ Smoke.add_test("options", {
         message: "Specify 3rd parameter explicitly when calling in_array to avoid unexpected comparison results.",
         justifications: [],
       },
+      git_blame_info: nil,
     },
     {
       id: "sample.var_dump",
@@ -64,6 +67,7 @@ Smoke.add_test("options", {
         message: "Do not use var_dump.",
         justifications: [],
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -88,6 +92,7 @@ Smoke.add_test("test_failed", {
         message: "Specify 3rd parameter explicitly when calling in_array to avoid unexpected comparison results.",
         justifications: [],
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -138,6 +143,7 @@ Smoke.add_test("ctp_file", {
         message: "Specify 3rd parameter explicitly when calling in_array to avoid unexpected comparison results.",
         justifications: []
       },
+      git_blame_info: nil,
       message: "Specify 3rd parameter explicitly when calling in_array to avoid unexpected comparison results.",
       links: [],
       id: "sample.in_array_without_3rd_param",
@@ -183,6 +189,7 @@ Smoke.add_test("rule_option_as_config_file", {
         message: "Do not use `var_dump`",
         justifications: [],
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {

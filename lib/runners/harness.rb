@@ -33,7 +33,7 @@ module Runners
         workspace.open do |git_ssh_path, changes|
 
           begin
-            instance = processor_class.new(guid: guid, working_dir: working_dir, git_ssh_path: git_ssh_path&.to_s, trace_writer: trace_writer)
+            instance = processor_class.new(guid: guid, workspace: workspace, git_ssh_path: git_ssh_path&.to_s, trace_writer: trace_writer)
 
             root_dir_not_found = instance.check_root_dir_exist
             return root_dir_not_found if root_dir_not_found

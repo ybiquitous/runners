@@ -5,17 +5,26 @@ type Runners::Schema::Types::location = {
   end_column: Integer?
 }
 
+type Runners::Schema::Types::git_blame_info = {
+  commit: String,
+  original_line: Integer,
+  final_line: Integer,
+  line_hash: String,
+}
+
 type Runners::Schema::Types::issue = {
   id: String,
   path: String,
   location: location,
   message: String,
   links: Array<String>,
-  object: any?
+  object: any?,
+  git_blame_info: git_blame_info?,
 }
 
 class Runners::Schema::Types::Issue < StrongJSON
   def location: -> StrongJSON::Type::Enum<location>
+  def git_blame_info: -> StrongJSON::Type::Object<git_blame_info>
   def issue: -> StrongJSON::Type::Object<issue>
 end
 

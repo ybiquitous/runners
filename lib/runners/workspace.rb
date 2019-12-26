@@ -176,5 +176,9 @@ module Runners
     def patches
       nil
     end
+
+    def git_blame_info(path_string, start_line, end_line)
+      []
+    end
   end
 end

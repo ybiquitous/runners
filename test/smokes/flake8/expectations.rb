@@ -15,6 +15,7 @@ Smoke.add_test(
       message: "IndentationError: unexpected indent",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "app1/admin.py",
@@ -25,6 +26,7 @@ Smoke.add_test(
       message: "'django.contrib.admin' imported but unused",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "app1/tests.py",
@@ -35,6 +37,7 @@ Smoke.add_test(
       message: "'django.test.TestCase' imported but unused",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "manage.py",
@@ -45,6 +48,7 @@ Smoke.add_test(
       message: "'django' imported but unused",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: 'app1/models.py',
@@ -55,6 +59,7 @@ Smoke.add_test(
       message: "dictionary key 'name' repeated with different values",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: 'app1/models.py',
@@ -65,6 +70,7 @@ Smoke.add_test(
       message: "dictionary key 'name' repeated with different values",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "app1/models.py",
@@ -75,6 +81,7 @@ Smoke.add_test(
       message: "undefined name 'ok'",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "app1/models.py",
@@ -85,6 +92,7 @@ Smoke.add_test(
       message: "local variable 'foo' is assigned to but never used",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -108,6 +116,7 @@ Smoke.add_test(
       links: [],
       message: "over-indented",
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "foo.py",
@@ -118,6 +127,7 @@ Smoke.add_test(
       message: "indentation contains tabs",
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -153,6 +163,7 @@ Smoke.add_test(
       message: '"id" is a python builtin and is being shadowed, consider renaming the variable',
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -173,6 +184,7 @@ Smoke.add_test(
      :path=>"foo.py",
      :location=>{:start_line=>4},
      :object=>nil,
+     :git_blame_info=>nil,
     },
     {:message=>"local variable 'a' is assigned to but never used",
      :links=>[],
@@ -180,6 +192,7 @@ Smoke.add_test(
      :path=>"foo.py",
      :location=>{:start_line=>5},
      :object=>nil,
+     :git_blame_info=>nil,
     },
     {:message=>"local variable 'b' is assigned to but never used",
      :links=>[],
@@ -187,6 +200,7 @@ Smoke.add_test(
      :path=>"foo.py",
      :location=>{:start_line=>6},
      :object=>nil,
+     :git_blame_info=>nil,
     },
     {:message=>"blank line at end of file",
      :links=>[],
@@ -194,6 +208,7 @@ Smoke.add_test(
      :path=>"foo.py",
      :location=>{:start_line=>8},
      :object=>nil,
+     :git_blame_info=>nil,
     },
   ],
   analyzer: {

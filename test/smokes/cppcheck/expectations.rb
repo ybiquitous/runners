@@ -19,6 +19,7 @@ Smoke.add_test(
         cwe: "788",
         location_info: "Array index out of bounds",
       },
+      git_blame_info: nil,
     },
     {
       id: "autoVariables",
@@ -33,6 +34,7 @@ Smoke.add_test(
         cwe: "562",
         location_info: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "ctunullpointer",
@@ -47,6 +49,7 @@ Smoke.add_test(
         cwe: "476",
         location_info: "Dereferencing argument q that is null",
       },
+      git_blame_info: nil,
     },
     {
       id: "ctunullpointer",
@@ -61,6 +64,7 @@ Smoke.add_test(
         cwe: "476",
         location_info: "Assignment 'a=0', assigned value is 0",
       },
+      git_blame_info: nil,
     },
     {
       id: "ctunullpointer",
@@ -75,6 +79,7 @@ Smoke.add_test(
         cwe: "476",
         location_info: "Calling function f, 1st argument is null",
       },
+      git_blame_info: nil,
     },
     {
       id: "invalidContainer",
@@ -89,6 +94,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: "Variable created here.",
       },
+      git_blame_info: nil,
     },
     {
       id: "invalidContainer",
@@ -103,6 +109,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "invalidContainer",
@@ -117,6 +124,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: "Assuming condition is true.",
       },
+      git_blame_info: nil,
     },
     {
       id: "invalidContainer",
@@ -131,6 +139,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: "Iterator to container is created here.",
       },
+      git_blame_info: nil,
     },
     {
       id: "invalidContainer",
@@ -145,6 +154,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: "Assuming condition is true.",
       },
+      git_blame_info: nil,
     },
     {
       id: "invalidContainer",
@@ -159,6 +169,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: "Assuming condition is true.",
       },
+      git_blame_info: nil,
     },
     {
       id: "invalidContainer",
@@ -173,6 +184,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: "After calling 'erase', iterators or references to the container's data may be invalid .",
       },
+      git_blame_info: nil,
     },
     {
       id: "nullPointer",
@@ -187,6 +199,7 @@ Smoke.add_test(
         cwe: "476",
         location_info: "Null pointer dereference",
       },
+      git_blame_info: nil,
     },
     {
       id: "nullPointer",
@@ -201,6 +214,7 @@ Smoke.add_test(
         cwe: "476",
         location_info: "Assignment 'a=0', assigned value is 0",
       },
+      git_blame_info: nil,
     },
     {
       id: "nullPointer",
@@ -215,6 +229,7 @@ Smoke.add_test(
         cwe: "476",
         location_info: "Calling function 'f', 1st argument 'a' value is 0",
       },
+      git_blame_info: nil,
     },
     {
       id: "syntaxError",
@@ -229,6 +244,7 @@ Smoke.add_test(
         cwe: nil,
         location_info: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -266,6 +282,7 @@ Smoke.add_test(
         cwe: "562",
         location_info: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -293,6 +310,7 @@ Smoke.add_test(
         cwe: "788",
         location_info: "Array index out of bounds",
       },
+      git_blame_info: nil,
     },
     {
       id: "autoVariables",
@@ -307,6 +325,7 @@ Smoke.add_test(
         cwe: "562",
         location_info: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -334,6 +353,7 @@ Smoke.add_test(
         cwe: "788",
         location_info: "Array index out of bounds",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -361,6 +381,7 @@ Smoke.add_test(
         cwe: nil,
         location_info: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -388,6 +409,7 @@ Smoke.add_test(
         cwe: "664",
         location_info: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "seekOnAppendedFile",
@@ -402,6 +424,7 @@ Smoke.add_test(
         cwe: "398",
         location_info: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "unusedFunction",
@@ -416,6 +439,7 @@ Smoke.add_test(
         cwe: "561",
         location_info: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -443,6 +467,7 @@ Smoke.add_test(
         cwe: nil,
         location_info: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -470,6 +495,7 @@ Smoke.add_test(
         cwe: "369",
         location_info: "Division by zero",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -497,6 +523,7 @@ Smoke.add_test(
         cwe: "788",
         location_info: "Array index out of bounds",
       },
+      git_blame_info: nil,
     },
     {
       id: "syntaxError",
@@ -511,6 +538,7 @@ Smoke.add_test(
         cwe: nil,
         location_info: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {

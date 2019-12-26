@@ -16,6 +16,7 @@ Smoke.add_test("success", {
         severity: "style",
         fix: { replacements: :_ },
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2020",
@@ -28,6 +29,7 @@ Smoke.add_test("success", {
         severity: "info",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2034",
@@ -40,6 +42,7 @@ Smoke.add_test("success", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2034",
@@ -52,6 +55,7 @@ Smoke.add_test("success", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2039",
@@ -64,6 +68,7 @@ Smoke.add_test("success", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2060",
@@ -76,6 +81,7 @@ Smoke.add_test("success", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2086",
@@ -109,6 +115,7 @@ Smoke.add_test("success", {
           ],
         },
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2162",
@@ -121,6 +128,7 @@ Smoke.add_test("success", {
         severity: "info",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -142,6 +150,7 @@ Smoke.add_test("shellcheckrc", {
         severity: "info",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2249",
@@ -154,6 +163,7 @@ Smoke.add_test("shellcheckrc", {
         severity: "info",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -183,6 +193,7 @@ Smoke.add_test("option_target", {
         severity: "error",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC1113",
@@ -195,6 +206,7 @@ Smoke.add_test("option_target", {
         severity: "error",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -216,6 +228,7 @@ Smoke.add_test("option_target_complex", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -237,6 +250,7 @@ Smoke.add_test("option_include", {
         severity: "error",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2105",
@@ -249,6 +263,7 @@ Smoke.add_test("option_include", {
         severity: "error",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -270,6 +285,7 @@ Smoke.add_test("option_exclude", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -291,6 +307,7 @@ Smoke.add_test("option_enable", {
         severity: "style",
         fix: { replacements: :_ },
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2249",
@@ -303,6 +320,7 @@ Smoke.add_test("option_enable", {
         severity: "info",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -324,6 +342,7 @@ Smoke.add_test("option_enable_all", {
         severity: "style",
         fix: { replacements: :_ },
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2249",
@@ -336,6 +355,7 @@ Smoke.add_test("option_enable_all", {
         severity: "info",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2250",
@@ -348,6 +368,7 @@ Smoke.add_test("option_enable_all", {
         severity: "style",
         fix: { replacements: :_ },
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -369,6 +390,7 @@ Smoke.add_test("option_shell", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
     {
       id: "SC2039",
@@ -381,6 +403,7 @@ Smoke.add_test("option_shell", {
         severity: "warning",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },
@@ -402,6 +425,7 @@ Smoke.add_test("option_severity", {
         severity: "error",
         fix: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "ShellCheck", version: "0.7.0" },

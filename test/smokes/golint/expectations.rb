@@ -11,6 +11,7 @@ Smoke.add_test("success", {
       message: "don't use underscores in Go names; var awesome_text should be awesomeText",
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {

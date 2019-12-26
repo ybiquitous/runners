@@ -8,6 +8,7 @@ class ResultTest < Minitest::Test
   Changes = Runners::Changes
   Location = Runners::Location
   Analyzer = Runners::Analyzer
+  GitBlameInfo = Runners::GitBlameInfo
 
   def test_success_result
     result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "RuboCop", version: "1.3.2pre"))
@@ -19,7 +20,8 @@ class ResultTest < Minitest::Test
       object: {
         args: [1,2,3]
       },
-      schema: nil
+      schema: nil,
+      git_blame_info: GitBlameInfo.new(commit: "c", original_line: 3, final_line: 5, line_hash: "abc"),
     )
     result.add_issue Issue.new(
       path: Pathname("foo/bar/baz.rb"),
@@ -44,6 +46,7 @@ class ResultTest < Minitest::Test
                            message: "abc def",
                            links: [],
                            object: nil,
+                           git_blame_info: nil,
                          },
                          {
                            path: "foo/bar/baz.rb",
@@ -51,7 +54,8 @@ class ResultTest < Minitest::Test
                            id: "some_error_id",
                            message: "abc def",
                            links: [],
-                           object: { args: [1,2,3] }
+                           object: { args: [1,2,3] },
+                           git_blame_info: { commit: "c", original_line: 3, final_line: 5, line_hash: "abc" },
                          },
                        ],
                        analyzer: { name: "RuboCop", version: "1.3.2pre" }
@@ -99,7 +103,8 @@ class ResultTest < Minitest::Test
                            id: "some_error_id",
                            message: "abc def",
                            links: [],
-                           object: { args: [1,2,3] }
+                           object: { args: [1,2,3] },
+                           git_blame_info: nil,
                          }
                        ],
                        analyzer: { name: "RuboCop", version: "1.3.2pre" }
@@ -170,6 +175,7 @@ class ResultTest < Minitest::Test
                            message: "expected 2 blank lines, found 0",
                            links: [],
                            object: nil,
+                           git_blame_info: nil,
                          },
                          {
                            path: "a.py",
@@ -178,6 +184,7 @@ class ResultTest < Minitest::Test
                            message: "ERROR!",
                            links: [],
                            object: nil,
+                           git_blame_info: nil,
                          },
                        ],
                        analyzer: { name: "Flake8", version: "3.7.9" }
@@ -213,7 +220,8 @@ class ResultTest < Minitest::Test
                            id: "some_error_id",
                            message: "abc def",
                            links: [],
-                           object: { args: [1,2,3] }
+                           object: { args: [1,2,3] },
+                           git_blame_info: nil,
                          }
                        ],
                        analyzer: { name: "Goodcheck", version: "1.6.0" }

@@ -101,6 +101,7 @@ end
 
 class Runners::Processor
   attr_reader guid: String
+  attr_reader workspace: Workspace
   attr_reader working_dir: Pathname
   attr_reader git_ssh_path: String
   attr_reader trace_writer: TraceWriter
@@ -109,7 +110,7 @@ class Runners::Processor
   attr_reader ci_config: any
   attr_reader ci_config_for_collect: any
 
-  def initialize: (guid: any, working_dir: any, git_ssh_path: any, trace_writer: TraceWriter) -> any
+  def initialize: (guid: any, workspace: Workspace, git_ssh_path: any, trace_writer: TraceWriter) -> any
   def relative_path: (String, ?from: Pathname) -> Pathname
   def setup: () { -> result } -> result
   def analyze: (Changes) -> result
@@ -146,6 +147,7 @@ class Runners::Processor
   def root_dir: -> Pathname
   def directory_traversal_attack?: (String) -> bool
   def show_runtime_versions: -> void
+  def git_blame_info: (String, Integer, Integer) -> Array<GitBlameInfo>
 end
 
 type capture3_options = bool | Proc

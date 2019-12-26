@@ -11,6 +11,7 @@ Smoke.add_test("success", {
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: true },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -30,6 +31,7 @@ Smoke.add_test("specified_dir", {
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: true },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -85,6 +87,7 @@ Smoke.add_test("version_2", {
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: true },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -108,6 +111,7 @@ Smoke.add_test("autodetect_cakephp", {
       message: 'Missing doc comment for function foo()',
       links: [],
       object: { type: "ERROR", severity: 5, fixable: false },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -127,6 +131,7 @@ Smoke.add_test("autodetect_symfony", {
       message: 'Consider putting global function "foo" in a static class',
       links: [],
       object: { type: "WARNING", severity: 5, fixable: false },
+      git_blame_info: nil,
     },
     { path: "src/test.php",
       location: { start_line: 2 },
@@ -134,6 +139,7 @@ Smoke.add_test("autodetect_symfony", {
       message: 'Missing doc comment for function foo()',
       links: [],
       object: { type: "ERROR", severity: 5, fixable: false },
+      git_blame_info: nil,
     },
   ],
   analyzer: {

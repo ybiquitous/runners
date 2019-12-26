@@ -11,6 +11,7 @@ Smoke.add_test("success", {
       message: "Avoid unused local variables such as '$hoge'.",
       links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -39,6 +40,7 @@ Smoke.add_test("valid_options", {
       message: "Avoid unused local variables such as '$hoge'.",
       links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
       object: nil,
+      git_blame_info: nil,
     },
     { path: "foo.phtml",
       location: { start_line: 5, end_line: 5 },
@@ -46,6 +48,7 @@ Smoke.add_test("valid_options", {
       message: "Avoid unused local variables such as '$var'.",
       links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
       object: nil,
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -82,6 +85,7 @@ Smoke.add_test("php_7.1", {
       message: "Avoid unused private fields such as '$unusedVariable'.",
       links: ["https://phpmd.org/rules/unusedcode.html#unusedprivatefield"],
       object: nil,
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -101,6 +105,7 @@ Smoke.add_test("php_7.3", {
       message: "Avoid unused local variables such as '$hoge'.",
       links: ["https://phpmd.org/rules/unusedcode.html#unusedlocalvariable"],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -140,6 +145,7 @@ Smoke.add_test("custom_rule", {
       message: "Please do not use functions.",
       links: ["https://example.com/phpmd/rules/no-functions"],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "Custom_NoFunctions.php",
@@ -148,6 +154,7 @@ Smoke.add_test("custom_rule", {
       message: "Please do not use methods.",
       links: ["https://example.com/phpmd/rules/no-methods"],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: "custom/rules/NoMethods.php",
@@ -156,6 +163,7 @@ Smoke.add_test("custom_rule", {
       message: "Please do not use methods.",
       links: ["https://example.com/phpmd/rules/no-methods"],
       object: nil,
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "phpmd", version: "2.7.0" },

@@ -15,6 +15,7 @@ Smoke.add_test(
       message: 'Bad invocation.',
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -38,6 +39,7 @@ Smoke.add_test(
       message: 'Use the function form of "use strict".',
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: 'index.js',
@@ -48,6 +50,7 @@ Smoke.add_test(
       message: "'console' is not defined.",
       links: [],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: 'index.js',
@@ -58,6 +61,7 @@ Smoke.add_test(
       message: "'console' is not defined.",
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -81,6 +85,7 @@ Smoke.add_test(
       message: 'Bad invocation.',
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -109,6 +114,7 @@ Smoke.add_test("with_options", {
       path: "src/index.js",
       location: { start_line: 3 },
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: { name: 'JSHint', version: '2.10.3' },

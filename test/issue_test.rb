@@ -5,6 +5,7 @@ class IssueTest < Minitest::Test
 
   Issue = Runners::Issue
   Location = Runners::Location
+  GitBlameInfo = Runners::GitBlameInfo
 
   def test_structured_issue
     s = StrongJSON.new do
@@ -18,6 +19,7 @@ class IssueTest < Minitest::Test
       message: "test message",
       object: ["no such method??"],
       schema: s.object,
+      git_blame_info: GitBlameInfo.new(commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", original_line: 137, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8"),
     )
 
     assert_equal({
@@ -27,6 +29,7 @@ class IssueTest < Minitest::Test
       message: "test message",
       links: [],
       object: ["no such method??"],
+      git_blame_info: { commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", original_line: 137, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8" },
     }, issue.as_json)
   end
 
@@ -51,6 +54,7 @@ class IssueTest < Minitest::Test
       message: "test message",
       links: [],
       object: ["no such method??"],
+      git_blame_info: nil,
     }, issue.as_json)
   end
 
@@ -99,6 +103,7 @@ class IssueTest < Minitest::Test
       message: "Comment is missing??",
       links: ["https://github.com/foo.bar"],
       object: nil,
+      git_blame_info: nil,
     }, issue.as_json)
   end
 end

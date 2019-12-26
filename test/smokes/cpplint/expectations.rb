@@ -14,6 +14,7 @@ Smoke.add_test("default", {
       object: {
         confidence: "5",
       },
+      git_blame_info: nil,
     },
     {
       id: "whitespace/braces",
@@ -24,6 +25,7 @@ Smoke.add_test("default", {
       object: {
         confidence: "4",
       },
+      git_blame_info: nil,
     },
     {
       id: "whitespace/tab",
@@ -34,6 +36,7 @@ Smoke.add_test("default", {
       object: {
         confidence: "1",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "cpplint", version: "1.4.4" },
@@ -85,6 +88,7 @@ Smoke.add_test("option_filter", {
       object: {
         confidence: "4",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "cpplint", version: "1.4.4" },
@@ -112,6 +116,7 @@ Smoke.add_test("option_linelength", {
       object: {
         confidence: "2",
       },
+      git_blame_info: nil,
     },
     {
       id: "whitespace/line_length",
@@ -122,6 +127,7 @@ Smoke.add_test("option_linelength", {
       object: {
         confidence: "2",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "cpplint", version: "1.4.4" },
@@ -141,6 +147,7 @@ Smoke.add_test("option_target", {
       object: {
         confidence: "5",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "cpplint", version: "1.4.4" },
@@ -160,6 +167,7 @@ Smoke.add_test("option_target_multi", {
       object: {
         confidence: "5",
       },
+      git_blame_info: nil,
     },
     {
       id: "whitespace/braces",
@@ -170,6 +178,7 @@ Smoke.add_test("option_target_multi", {
       object: {
         confidence: "5",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "cpplint", version: "1.4.4" },
@@ -189,6 +198,7 @@ Smoke.add_test("no_line_number", {
       object: {
         confidence: "5",
       },
+      git_blame_info: nil,
     },
     {
       id: "build/include",
@@ -199,6 +209,7 @@ Smoke.add_test("no_line_number", {
       object: {
         confidence: "5",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "cpplint", version: "1.4.4" },

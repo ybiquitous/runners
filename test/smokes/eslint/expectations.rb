@@ -16,6 +16,7 @@ Smoke.add_test('no_config', {
         category: "Possible Errors",
         recommended: true,
       },
+      git_blame_info: nil,
     },
     {
       path: "index.js",
@@ -28,6 +29,7 @@ Smoke.add_test('no_config', {
         category: "Possible Errors",
         recommended: true,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -52,6 +54,7 @@ Smoke.add_test('sideci_valid_npm_install_option', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       path: "src/App.jsx",
@@ -64,6 +67,7 @@ Smoke.add_test('sideci_valid_npm_install_option', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -108,6 +112,7 @@ Smoke.add_test('dir_option_is_array', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       path: "dir2/index.js",
@@ -120,6 +125,7 @@ Smoke.add_test('dir_option_is_array', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       path: "dir2/index.js",
@@ -132,6 +138,7 @@ Smoke.add_test('dir_option_is_array', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       path: "dir1/App.jsx",
@@ -144,6 +151,7 @@ Smoke.add_test('dir_option_is_array', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -170,6 +178,7 @@ Smoke.add_test('dir_option_is_string', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       path: "dir2/index.js",
@@ -182,6 +191,7 @@ Smoke.add_test('dir_option_is_string', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -208,6 +218,7 @@ Smoke.add_test('pinned_eslint', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "'foo' is not defined.",
@@ -220,6 +231,7 @@ Smoke.add_test('pinned_eslint', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "'x' is assigned a value but never used.",
@@ -232,6 +244,7 @@ Smoke.add_test('pinned_eslint', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "'bar' is defined but never used.",
@@ -244,6 +257,7 @@ Smoke.add_test('pinned_eslint', {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: 'ESLint', version: '4.0.0'}
@@ -291,6 +305,7 @@ Smoke.add_test("pinned_eslint5", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "Missing JSX expression container around literal string",
@@ -303,6 +318,7 @@ Smoke.add_test("pinned_eslint5", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "`Hello world.` must be placed on a new line",
@@ -315,6 +331,7 @@ Smoke.add_test("pinned_eslint5", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "Component should be written as a pure function",
@@ -327,6 +344,7 @@ Smoke.add_test("pinned_eslint5", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "Component is not optimized. Please add a shouldComponentUpdate method.",
@@ -339,6 +357,7 @@ Smoke.add_test("pinned_eslint5", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -382,6 +401,7 @@ Smoke.add_test("quiet", {
         category: "Stylistic Issues",
         recommended: false,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -412,6 +432,7 @@ Smoke.add_test("array_ignore_pattern", {
         category: "Stylistic Issues",
         recommended: false,
       },
+      git_blame_info: nil,
     },
     {
       message: "Missing semicolon.",
@@ -424,6 +445,7 @@ Smoke.add_test("array_ignore_pattern", {
         category: "Stylistic Issues",
         recommended: false,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -448,6 +470,7 @@ Smoke.add_test("sider_config", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "Parsing error: The keyword 'import' is reserved",
@@ -460,6 +483,7 @@ Smoke.add_test("sider_config", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "'foo' is not defined.",
@@ -472,6 +496,7 @@ Smoke.add_test("sider_config", {
         category: "Variables",
         recommended: true,
       },
+      git_blame_info: nil,
     },
     {
       message: "'x' is assigned a value but never used.",
@@ -484,6 +509,7 @@ Smoke.add_test("sider_config", {
         category: "Variables",
         recommended: true,
       },
+      git_blame_info: nil,
     },
     {
       message: "'bar' is defined but never used.",
@@ -496,6 +522,7 @@ Smoke.add_test("sider_config", {
         category: "Variables",
         recommended: true,
       },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -519,6 +546,7 @@ Smoke.add_test("no_ignore", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "Parsing error: The keyword 'import' is reserved",
@@ -531,6 +559,7 @@ Smoke.add_test("no_ignore", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -554,6 +583,7 @@ Smoke.add_test("additional_options", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     },
     {
       message: "Parsing error: The keyword 'import' is reserved",
@@ -566,6 +596,7 @@ Smoke.add_test("additional_options", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -598,6 +629,7 @@ Smoke.add_test("prefer_npm_install_true_to_eslintrc", {
         category: nil,
         recommended: nil,
       },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -640,6 +672,7 @@ Smoke.add_test("eslintrc_js", {
         category: "Best Practices",
         recommended: false,
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -664,6 +697,7 @@ Smoke.add_test("typescript", {
         category: "Variables",
         recommended: "warn",
       },
+      git_blame_info: nil,
     },
   ],
   analyzer: {
