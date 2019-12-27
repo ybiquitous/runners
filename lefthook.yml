@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    prettier:
+      glob: "test/smokes/**/expectations.rb"
+      run: bundle exec rbprettier --write {staged_files} && git add {staged_files}
