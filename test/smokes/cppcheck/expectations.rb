@@ -13,13 +13,9 @@ Smoke.add_test(
       message: "Array 'a[2]' accessed at index 2, which is out of bounds.",
       links: [],
       object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "788",
-        location_info: "Array index out of bounds",
+        severity: "error", verbose: nil, inconclusive: false, cwe: "788", location_info: "Array index out of bounds"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "autoVariables",
@@ -32,9 +28,9 @@ Smoke.add_test(
         verbose: /Dangerous assignment - the function parameter is assigned the address of a local auto-variable/,
         inconclusive: false,
         cwe: "562",
-        location_info: nil,
+        location_info: nil
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "ctunullpointer",
@@ -47,9 +43,9 @@ Smoke.add_test(
         verbose: nil,
         inconclusive: false,
         cwe: "476",
-        location_info: "Dereferencing argument q that is null",
+        location_info: "Dereferencing argument q that is null"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "ctunullpointer",
@@ -62,9 +58,9 @@ Smoke.add_test(
         verbose: nil,
         inconclusive: false,
         cwe: "476",
-        location_info: "Assignment 'a=0', assigned value is 0",
+        location_info: "Assignment 'a=0', assigned value is 0"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "ctunullpointer",
@@ -77,9 +73,9 @@ Smoke.add_test(
         verbose: nil,
         inconclusive: false,
         cwe: "476",
-        location_info: "Calling function f, 1st argument is null",
+        location_info: "Calling function f, 1st argument is null"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "invalidContainer",
@@ -88,13 +84,29 @@ Smoke.add_test(
       message: "Using iterator to local container 'items' that may be invalid.",
       links: [],
       object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "664",
-        location_info: "Variable created here.",
+        severity: "error", verbose: nil, inconclusive: false, cwe: "664", location_info: "Variable created here."
       },
-      git_blame_info: nil,
+      git_blame_info: nil
+    },
+    {
+      id: "invalidContainer",
+      path: "src/erase.cpp",
+      location: { start_line: 9 },
+      message: "Using iterator to local container 'items' that may be invalid.",
+      links: [],
+      object: { severity: "error", verbose: nil, inconclusive: false, cwe: "664", location_info: nil },
+      git_blame_info: nil
+    },
+    {
+      id: "invalidContainer",
+      path: "src/erase.cpp",
+      location: { start_line: 9 },
+      message: "Using iterator to local container 'items' that may be invalid.",
+      links: [],
+      object: {
+        severity: "error", verbose: nil, inconclusive: false, cwe: "664", location_info: "Assuming condition is true."
+      },
+      git_blame_info: nil
     },
     {
       id: "invalidContainer",
@@ -107,39 +119,9 @@ Smoke.add_test(
         verbose: nil,
         inconclusive: false,
         cwe: "664",
-        location_info: nil,
+        location_info: "Iterator to container is created here."
       },
-      git_blame_info: nil,
-    },
-    {
-      id: "invalidContainer",
-      path: "src/erase.cpp",
-      location: { start_line: 9 },
-      message: "Using iterator to local container 'items' that may be invalid.",
-      links: [],
-      object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "664",
-        location_info: "Assuming condition is true.",
-      },
-      git_blame_info: nil,
-    },
-    {
-      id: "invalidContainer",
-      path: "src/erase.cpp",
-      location: { start_line: 9 },
-      message: "Using iterator to local container 'items' that may be invalid.",
-      links: [],
-      object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "664",
-        location_info: "Iterator to container is created here.",
-      },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "invalidContainer",
@@ -148,13 +130,9 @@ Smoke.add_test(
       message: "Using iterator to local container 'items' that may be invalid.",
       links: [],
       object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "664",
-        location_info: "Assuming condition is true.",
+        severity: "error", verbose: nil, inconclusive: false, cwe: "664", location_info: "Assuming condition is true."
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "invalidContainer",
@@ -163,13 +141,9 @@ Smoke.add_test(
       message: "Using iterator to local container 'items' that may be invalid.",
       links: [],
       object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "664",
-        location_info: "Assuming condition is true.",
+        severity: "error", verbose: nil, inconclusive: false, cwe: "664", location_info: "Assuming condition is true."
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "invalidContainer",
@@ -182,9 +156,9 @@ Smoke.add_test(
         verbose: nil,
         inconclusive: false,
         cwe: "664",
-        location_info: "After calling 'erase', iterators or references to the container's data may be invalid .",
+        location_info: "After calling 'erase', iterators or references to the container's data may be invalid ."
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "nullPointer",
@@ -193,13 +167,9 @@ Smoke.add_test(
       message: "Possible null pointer dereference: q",
       links: [],
       object: {
-        severity: "warning",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "476",
-        location_info: "Null pointer dereference",
+        severity: "warning", verbose: nil, inconclusive: false, cwe: "476", location_info: "Null pointer dereference"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "nullPointer",
@@ -212,9 +182,9 @@ Smoke.add_test(
         verbose: nil,
         inconclusive: false,
         cwe: "476",
-        location_info: "Assignment 'a=0', assigned value is 0",
+        location_info: "Assignment 'a=0', assigned value is 0"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "nullPointer",
@@ -227,9 +197,9 @@ Smoke.add_test(
         verbose: nil,
         inconclusive: false,
         cwe: "476",
-        location_info: "Calling function 'f', 1st argument 'a' value is 0",
+        location_info: "Calling function 'f', 1st argument 'a' value is 0"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "syntaxError",
@@ -237,31 +207,18 @@ Smoke.add_test(
       location: { start_line: 2 },
       message: "Unmatched '{'. Configuration: ''.",
       links: [],
-      object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: nil,
-        location_info: nil,
-      },
-      git_blame_info: nil,
-    },
+      object: { severity: "error", verbose: nil, inconclusive: false, cwe: nil, location_info: nil },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
-Smoke.add_test("no_target", {
-  guid: "test-guid",
-  timestamp: :_,
-  type: "success",
-  issues: [],
-  analyzer: { name: "Cppcheck", version: :_ },
-}, {
-  warnings: [{ message: "No linting files.", file: nil }],
-})
+Smoke.add_test(
+  "no_target",
+  { guid: "test-guid", timestamp: :_, type: "success", issues: [], analyzer: { name: "Cppcheck", version: :_ } },
+  { warnings: [{ message: "No linting files.", file: nil }] }
+)
 
 Smoke.add_test(
   "single_target",
@@ -276,19 +233,12 @@ Smoke.add_test(
       message: "Address of local auto-variable assigned to a function parameter.",
       links: [],
       object: {
-        severity: "error",
-        verbose: /Dangerous assignment -/,
-        inconclusive: false,
-        cwe: "562",
-        location_info: nil,
+        severity: "error", verbose: /Dangerous assignment -/, inconclusive: false, cwe: "562", location_info: nil
       },
-      git_blame_info: nil,
-    },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -304,13 +254,9 @@ Smoke.add_test(
       message: "Array 'a[2]' accessed at index 2, which is out of bounds.",
       links: [],
       object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "788",
-        location_info: "Array index out of bounds",
+        severity: "error", verbose: nil, inconclusive: false, cwe: "788", location_info: "Array index out of bounds"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "autoVariables",
@@ -319,19 +265,12 @@ Smoke.add_test(
       message: "Address of local auto-variable assigned to a function parameter.",
       links: [],
       object: {
-        severity: "error",
-        verbose: /Dangerous assignment -/,
-        inconclusive: false,
-        cwe: "562",
-        location_info: nil,
+        severity: "error", verbose: /Dangerous assignment -/, inconclusive: false, cwe: "562", location_info: nil
       },
-      git_blame_info: nil,
-    },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -347,19 +286,12 @@ Smoke.add_test(
       message: "Array 'a[2]' accessed at index 2, which is out of bounds.",
       links: [],
       object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "788",
-        location_info: "Array index out of bounds",
+        severity: "error", verbose: nil, inconclusive: false, cwe: "788", location_info: "Array index out of bounds"
       },
-      git_blame_info: nil,
-    },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -374,20 +306,11 @@ Smoke.add_test(
       location: { start_line: 2 },
       message: "Unmatched '{'. Configuration: ''.",
       links: [],
-      object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: nil,
-        location_info: nil,
-      },
-      git_blame_info: nil,
-    },
+      object: { severity: "error", verbose: nil, inconclusive: false, cwe: nil, location_info: nil },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -402,14 +325,8 @@ Smoke.add_test(
       location: { start_line: 5 },
       message: "Read operation on a file that was opened only for writing.",
       links: [],
-      object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "664",
-        location_info: nil,
-      },
-      git_blame_info: nil,
+      object: { severity: "error", verbose: nil, inconclusive: false, cwe: "664", location_info: nil },
+      git_blame_info: nil
     },
     {
       id: "seekOnAppendedFile",
@@ -417,14 +334,8 @@ Smoke.add_test(
       location: { start_line: 4 },
       message: "Repositioning operation performed on a file opened in append mode has no effect.",
       links: [],
-      object: {
-        severity: "warning",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "398",
-        location_info: nil,
-      },
-      git_blame_info: nil,
+      object: { severity: "warning", verbose: nil, inconclusive: false, cwe: "398", location_info: nil },
+      git_blame_info: nil
     },
     {
       id: "unusedFunction",
@@ -432,20 +343,11 @@ Smoke.add_test(
       location: { start_line: 1 },
       message: "The function 'foo' is never used.",
       links: [],
-      object: {
-        severity: "style",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "561",
-        location_info: nil,
-      },
-      git_blame_info: nil,
-    },
+      object: { severity: "style", verbose: nil, inconclusive: false, cwe: "561", location_info: nil },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -458,22 +360,20 @@ Smoke.add_test(
       id: "allocaCalled",
       path: "bad.c",
       location: { start_line: 2 },
-      message: "Obsolete function 'alloca' called. In C99 and later it is recommended to use a variable length array instead.",
+      message:
+        "Obsolete function 'alloca' called. In C99 and later it is recommended to use a variable length array instead.",
       links: [],
       object: {
         severity: "warning",
         verbose: /The obsolete function 'alloca' is called./,
         inconclusive: false,
         cwe: nil,
-        location_info: nil,
+        location_info: nil
       },
-      git_blame_info: nil,
-    },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -488,20 +388,11 @@ Smoke.add_test(
       location: { start_line: 5 },
       message: "Division by zero.",
       links: [],
-      object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "369",
-        location_info: "Division by zero",
-      },
-      git_blame_info: nil,
-    },
+      object: { severity: "error", verbose: nil, inconclusive: false, cwe: "369", location_info: "Division by zero" },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -517,13 +408,9 @@ Smoke.add_test(
       message: "Array 'a[1]' accessed at index 1, which is out of bounds.",
       links: [],
       object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: "788",
-        location_info: "Array index out of bounds",
+        severity: "error", verbose: nil, inconclusive: false, cwe: "788", location_info: "Array index out of bounds"
       },
-      git_blame_info: nil,
+      git_blame_info: nil
     },
     {
       id: "syntaxError",
@@ -531,20 +418,11 @@ Smoke.add_test(
       location: { start_line: 4 },
       message: "Code 'std::vector' is invalid C code. Use --std or --language to configure the language.",
       links: [],
-      object: {
-        severity: "error",
-        verbose: nil,
-        inconclusive: false,
-        cwe: nil,
-        location_info: nil,
-      },
-      git_blame_info: nil,
-    },
+      object: { severity: "error", verbose: nil, inconclusive: false, cwe: nil, location_info: nil },
+      git_blame_info: nil
+    }
   ],
-  analyzer: {
-    name: "Cppcheck",
-    version: "1.89",
-  },
+  analyzer: { name: "Cppcheck", version: "1.89" }
 )
 
 Smoke.add_test(
@@ -553,5 +431,5 @@ Smoke.add_test(
   timestamp: :_,
   type: "failure",
   message: "cppcheck: Unknown language 'foo' enforced.",
-  analyzer: { name: "Cppcheck", version: :_ },
+  analyzer: { name: "Cppcheck", version: :_ }
 )
