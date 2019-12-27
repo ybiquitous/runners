@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.15.0...HEAD)
 
+- Add git_blame_info field in the Issue schema [#630](https://github.com/sider/runners/pull/630)
+
 ## 0.15.0
 
 [Full diff](https://github.com/sider/runners/compare/0.14.0...0.15.0)
