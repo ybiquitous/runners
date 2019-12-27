@@ -46,6 +46,7 @@ GEM
     jmespath (1.4.0)
     jsonseq (0.2.0)
     language_server-protocol (3.14.0.1)
+    lefthook (0.7.0)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -57,6 +58,7 @@ GEM
     parallel (1.19.1)
     parser (2.7.0.0)
       ast (~> 2.4.0)
+    prettier (0.17.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -111,10 +113,12 @@ DEPENDENCIES
   bundler (>= 1.12, < 3.0)
   git_diff_parser
   jsonseq
+  lefthook
   locale
   meowcop
   minitest
   parallel
+  prettier
   querly
   rake
   retryable
