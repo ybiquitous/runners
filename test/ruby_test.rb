@@ -394,9 +394,9 @@ EOF
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -417,21 +417,21 @@ EOF
       end
     end
 
-    mktmpdir do |path|
-      (path + "Gemfile").write(<<EOF)
+    with_workspace do |workspace|
+      (workspace.working_dir + "Gemfile").write(<<EOF)
 source "https://rubygems.org"
 
 gem 'meowcop'
 EOF
 
-      shell.push_dir(path) do
+      shell.push_dir(workspace.working_dir) do
         Bundler.with_clean_env do
           shell.capture3!("bundle", "lock")
         end
       end
 
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -455,9 +455,9 @@ EOF
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -480,9 +480,9 @@ EOF
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -501,21 +501,21 @@ EOF
       include Runners::Ruby
     end
 
-    mktmpdir do |path|
-      (path + "Gemfile").write(<<EOF)
+    with_workspace do |workspace|
+      (workspace.working_dir + "Gemfile").write(<<EOF)
 source "https://rubygems.org"
 
 gem 'meowcop'
 EOF
 
-      shell.push_dir(path) do
+      shell.push_dir(workspace.working_dir) do
         Bundler.with_clean_env do
           shell.capture3!("bundle", "lock")
         end
       end
 
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -543,8 +543,8 @@ EOF
       end
     end
 
-    mktmpdir do |path|
-      (path + "Gemfile").write(<<EOF)
+    with_workspace do |workspace|
+      (workspace.working_dir + "Gemfile").write(<<EOF)
 source "https://rubygems.org"
 
 gem 'rubocop', '0.62.0'
@@ -554,14 +554,14 @@ gem 'meowcop'
 gem 'activerecord'
 EOF
 
-      shell.push_dir(path) do
+      shell.push_dir(workspace.working_dir) do
         Bundler.with_clean_env do
           shell.capture3!("bundle", "lock")
         end
       end
 
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -584,21 +584,21 @@ EOF
       include Runners::Ruby
     end
 
-    mktmpdir do |path|
-      (path + "Gemfile").write(<<EOF)
+    with_workspace do |workspace|
+      (workspace.working_dir + "Gemfile").write(<<EOF)
 source "https://rubygems.org"
 
 gem 'rubocop', '0.62.0'
 EOF
 
-      shell.push_dir(path) do
+      shell.push_dir(workspace.working_dir) do
         Bundler.with_clean_env do
           shell.capture3!("bundle", "lock")
         end
       end
 
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -632,9 +632,9 @@ EOF
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -660,9 +660,9 @@ EOF
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -695,7 +695,7 @@ EOF
                    ssh_key: (Pathname(__dir__) + "data/ruby_private_gem_deploy_key").read) do |workspace|
       workspace.open do |git_ssh_path|
         processor = klass.new(guid: SecureRandom.uuid,
-                              working_dir: workspace.working_dir,
+                              workspace: workspace,
                               git_ssh_path: git_ssh_path&.to_s,
                               trace_writer: workspace.trace_writer)
         processor.install_gems([Spec.new(name: "rubocop", version: ["0.63.0"])],
@@ -725,9 +725,9 @@ EOF
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(guid: SecureRandom.uuid,
-                            working_dir: path,
+                            workspace: workspace,
                             git_ssh_path: nil,
                             trace_writer: trace_writer)
 
@@ -741,9 +741,9 @@ EOF
   def test_installed_gem_versions
     klass = Class.new(Runners::Processor).include(Runners::Ruby)
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(
-        guid: SecureRandom.uuid, working_dir: path,
+        guid: SecureRandom.uuid, workspace: workspace,
         git_ssh_path: nil, trace_writer: trace_writer,
       )
 
@@ -780,9 +780,9 @@ EOF
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       processor = klass.new(
-        guid: SecureRandom.uuid, working_dir: path,
+        guid: SecureRandom.uuid, workspace: workspace,
         git_ssh_path: nil, trace_writer: trace_writer,
       )
 

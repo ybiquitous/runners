@@ -11,6 +11,7 @@ Smoke.add_test("success", {
                  message: "Calls to 'console.log' are not allowed.",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              },{
                  id: "no-shadowed-variable",
                  path: "range.ts",
@@ -18,6 +19,7 @@ Smoke.add_test("success", {
                  message: "Shadowed name: 'range'",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              },{
                  id: "object-literal-sort-keys",
                  path: "range.ts",
@@ -25,6 +27,7 @@ Smoke.add_test("success", {
                  message: "The key 'middle' is not sorted alphabetically",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              },{
                  id: "space-before-function-paren",
                  path: "range.ts",
@@ -32,6 +35,7 @@ Smoke.add_test("success", {
                  message: "Spaces before function parens are disallowed",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              },{
                  id: "trailing-comma",
                  path: "range.ts",
@@ -39,6 +43,7 @@ Smoke.add_test("success", {
                  message: "Missing trailing comma",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              }],
     analyzer: { name: "TSLint", version: "5.20.1" }
 })
@@ -54,6 +59,7 @@ Smoke.add_test("with-tslint-json", {
                  message: "Missing trailing comma",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              }],
     analyzer: { name: "TSLint", version: "5.20.1" }
 })
@@ -69,6 +75,7 @@ Smoke.add_test("npm-install", {
                  message: "interface name must start with a capitalized I",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              },{
                  id: "jsx-self-close",
                  path: "hello.tsx",
@@ -76,6 +83,7 @@ Smoke.add_test("npm-install", {
                  message: "JSX elements with no children must be self-closing",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              },{
                  id: "member-access",
                  path: "hello.tsx",
@@ -83,6 +91,7 @@ Smoke.add_test("npm-install", {
                  message: "The class method 'render' must be marked either 'private', 'public', or 'protected'",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              }],
     analyzer: { name: "TSLint", version: "5.2.0" }
 })
@@ -98,6 +107,7 @@ Smoke.add_test("custom-rules", {
                  message: "Meow!",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
              }],
     analyzer: { name: "TSLint", version: "5.4.3" }
 })
@@ -113,6 +123,7 @@ Smoke.add_test("tsconfig", {
                  message: "Calls to 'console.log' are not allowed.",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
               },{
                  id: "no-shadowed-variable",
                  path: "range.ts",
@@ -120,6 +131,7 @@ Smoke.add_test("tsconfig", {
                  message: "Shadowed name: 'range'",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
               },{
                  id: "object-literal-sort-keys",
                  path: "range.ts",
@@ -127,6 +139,7 @@ Smoke.add_test("tsconfig", {
                  message: "The key 'middle' is not sorted alphabetically",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
               },{
                  id: "space-before-function-paren",
                  path: "range.ts",
@@ -134,6 +147,7 @@ Smoke.add_test("tsconfig", {
                  message: "Spaces before function parens are disallowed",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
               },{
                  id: "trailing-comma",
                  path: "range.ts",
@@ -141,6 +155,7 @@ Smoke.add_test("tsconfig", {
                  message: "Missing trailing comma",
                  links: [],
                  object: nil,
+                 git_blame_info: nil,
               }],
     analyzer: { name: "TSLint", version: "5.20.1" }
 })
@@ -177,6 +192,7 @@ Smoke.add_test("deprecated-rules", {
              message: "'a' is declared but its value is never read.",
              links: [],
              object: nil,
+             git_blame_info: nil,
            },{
              id: "no-unused-variable",
              path: "index.ts",
@@ -184,6 +200,7 @@ Smoke.add_test("deprecated-rules", {
              message: "'b' is declared but its value is never read.",
              links: [],
              object: nil,
+             git_blame_info: nil,
            },{
              id: "no-unused-variable",
              path: "index.ts",
@@ -191,6 +208,7 @@ Smoke.add_test("deprecated-rules", {
              message: "All destructured elements are unused.",
              links: [],
              object: nil,
+             git_blame_info: nil,
            }],
   analyzer: { name: "TSLint", version: "5.11.0" }
 })
@@ -215,6 +233,7 @@ Smoke.add_test("with_options", {
       path: "src/range.ts",
       location: { start_line: 1,  end_line: 1 },
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: { name: "TSLint", version: "5.15.0" }
@@ -232,6 +251,7 @@ Smoke.add_test("rules-dir", {
       message: "Meow!",
       links: [],
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: { name: "TSLint", version: "5.15.0" }
@@ -249,6 +269,7 @@ Smoke.add_test("multiple-custom-rules", {
       path: "cat.ts",
       location: { start_line: 11, end_line: 16 },
       object: nil,
+      git_blame_info: nil,
     },
     {
       message: "Bow!",
@@ -257,6 +278,7 @@ Smoke.add_test("multiple-custom-rules", {
       path: "dog.ts",
       location: { start_line: 11, end_line: 16 },
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: { name: "TSLint", version: "5.15.0" }

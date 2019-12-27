@@ -6,8 +6,9 @@ module Runners
     attr_reader :message
     attr_reader :links
     attr_reader :object
+    attr_reader :git_blame_info
 
-    def initialize(path:, location:, id:, message:, links: [], object: nil, schema: nil)
+    def initialize(path:, location:, id:, message:, links: [], object: nil, schema: nil, git_blame_info: nil)
       path.instance_of?(Pathname) or
         raise ArgumentError, "#{path.inspect} must be a #{Pathname}"
 
@@ -25,6 +26,7 @@ module Runners
       @message = message
       @links = links
       @object = object
+      @git_blame_info = git_blame_info
     end
 
     def eql?(other)
@@ -42,7 +44,7 @@ module Runners
     end
 
     def hash
-      path.hash ^ location.hash ^ id.hash ^ message.hash ^ links.hash ^ object.hash
+      path.hash ^ location.hash ^ id.hash ^ message.hash ^ links.hash ^ object.hash ^ git_blame_info.hash
     end
 
     def as_json
@@ -53,6 +55,7 @@ module Runners
         message: message,
         links: links,
         object: object,
+        git_blame_info: git_blame_info&.to_h,
       )
     end
   end

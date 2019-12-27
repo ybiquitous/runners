@@ -17,6 +17,7 @@ Smoke.add_test("success", {
         :justifications => [],
         :examples => []
       },
+      git_blame_info: nil,
     },
     { path: "foo.rb",
       location: { :start_line => 1, :start_column => 7, :end_line => 1, :end_column => 34 },
@@ -31,7 +32,9 @@ Smoke.add_test("success", {
                     before: "Pathname.new(\"path\")",
                     after: "Pathname(\"path\")"
                   }
-                ] } }
+                ] },
+      git_blame_info: nil,
+    }
   ],
   analyzer: {
     name: "querly",
@@ -71,7 +74,9 @@ Smoke.add_test("invalid_config_file", {
       object: { :id => "com.test.pathname",
                 :messages => ["Use Pathname method instead"],
                 :justifications => [],
-                :examples => [] } }
+                :examples => [] },
+      git_blame_info: nil,
+    }
   ],
   analyzer: {
     name: "querly",
@@ -97,7 +102,8 @@ Smoke.add_test("slim", {
         messages: ["link_to\n\nSome message.\n"],
         justifications: [],
         examples: [],
-      }
+      },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -122,7 +128,8 @@ Smoke.add_test("haml", {
         messages: ["link_to\n\nSome message.\n"],
         justifications: [],
         examples: [],
-      }
+      },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -149,7 +156,9 @@ Smoke.add_test("lowest_deps", {
                     before: "Pathname.new(\"path\")",
                     after: "Pathname(\"path\")"
                   }
-                ] } }
+                ] },
+      git_blame_info: nil,
+    }
   ],
   analyzer: {
     name: "querly",

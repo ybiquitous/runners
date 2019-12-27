@@ -11,6 +11,7 @@ Smoke.add_test("phpcs3/success", {
           message: "A closing tag is not permitted at the end of a PHP file",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         }
     ],
     analyzer: {
@@ -30,6 +31,7 @@ Smoke.add_test("phpcs3/specified_dir", {
           message: "A closing tag is not permitted at the end of a PHP file",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         }
     ],
     analyzer: {
@@ -49,6 +51,7 @@ Smoke.add_test("phpcs3/custom_argument", {
           message: "Missing file doc comment",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: false },
+          git_blame_info: nil,
         },
         { path: "app.php",
           location: { :start_line => 8 },
@@ -56,6 +59,7 @@ Smoke.add_test("phpcs3/custom_argument", {
           message: "A closing tag is not permitted at the end of a PHP file",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         }
     ],
     analyzer: {
@@ -75,6 +79,7 @@ Smoke.add_test("phpcs3/cakephp", {
           message: "Doc block not aligned with code; expected indentation of 0 but found 4",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         },
         { path: "app.php",
           location: { :start_line => 6 },
@@ -82,6 +87,7 @@ Smoke.add_test("phpcs3/cakephp", {
           message: "Doc block not aligned with code; expected indentation of 0 but found 4",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         },
         { path: "app.php",
           location: { :start_line => 13 },
@@ -89,6 +95,7 @@ Smoke.add_test("phpcs3/cakephp", {
           message: "Doc block not aligned with code; expected indentation of 4 but found 8",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         },
         { path: "app.php",
           location: { :start_line => 19 },
@@ -96,6 +103,7 @@ Smoke.add_test("phpcs3/cakephp", {
           message: "Doc block not aligned with code; expected indentation of 4 but found 0",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         },
         { path: "app.php",
           location: { :start_line => 5 },
@@ -103,6 +111,7 @@ Smoke.add_test("phpcs3/cakephp", {
           message: "There must be one blank line after the namespace declaration",
           links: [],
           object: { type: "ERROR", severity: 5, fixable: true },
+          git_blame_info: nil,
         }
     ],
     analyzer: {
@@ -122,6 +131,7 @@ Smoke.add_test("phpcs3/wordpress", {
       message: "Missing file doc comment",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: false },
+      git_blame_info: nil,
     },
     {
       path: "app.php",
@@ -130,6 +140,7 @@ Smoke.add_test("phpcs3/wordpress", {
       message: "wp_redirect() found. Using wp_safe_redirect(), along with the allowed_redirect_hosts filter if needed, can help avoid any chances of malicious redirects within code. It is also important to remember to call exit() after a redirect so that no other unwanted code is executed.",
       links: [],
       object: { type: "WARNING", severity: 5, fixable: false },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -149,6 +160,7 @@ Smoke.add_test("phpcs3/symfony", {
       message: "Consider putting global function \"test\" in a static class",
       links: [],
       object: { type: "WARNING", severity: 5, fixable: false },
+      git_blame_info: nil,
     },
     { path: "app.php",
       location: { :start_line => 14 },
@@ -156,6 +168,7 @@ Smoke.add_test("phpcs3/symfony", {
       message: "Consider putting global function \"test\" in a static class",
       links: [],
       object: { type: "WARNING", severity: 5, fixable: false },
+      git_blame_info: nil,
     },
     { path: "app.php",
       location: { :start_line => 21 },
@@ -163,6 +176,7 @@ Smoke.add_test("phpcs3/symfony", {
       message: "Consider putting global function \"testWithCallBack\" in a static class",
       links: [],
       object: { type: "WARNING", severity: 5, fixable: false },
+      git_blame_info: nil,
     },
     { path: "app.php",
       location: { :start_line => 4 },
@@ -170,6 +184,7 @@ Smoke.add_test("phpcs3/symfony", {
       message: "Missing @return tag in function comment",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: false },
+      git_blame_info: nil,
     }
   ],
   analyzer: {

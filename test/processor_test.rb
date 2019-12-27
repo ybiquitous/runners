@@ -14,10 +14,10 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_capture3_env_setup
-    mktmpdir do |path|
-      mock(Open3).capture3({"RUBYOPT" => nil, "GIT_SSH" => (path + "id_rsa").to_s},
+    with_workspace do |workspace|
+      mock(Open3).capture3({"RUBYOPT" => nil, "GIT_SSH" => (workspace.working_dir / "id_rsa").to_s},
                            "ls",
-                           { chdir: path.to_s }) do
+                           { chdir: workspace.working_dir.to_s }) do
         status = Process::Status.allocate
 
         def status.success?; false end
@@ -27,15 +27,15 @@ class ProcessorTest < Minitest::Test
         ["", "", status]
       end
 
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: (path + "id_rsa").to_s, trace_writer: trace_writer)
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: (workspace.working_dir / "id_rsa").to_s, trace_writer: trace_writer)
 
       processor.capture3_trace("ls")
     end
   end
 
   def test_capture3_success
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       stdout, stderr, status = processor.capture3 "/bin/echo", "1", "2", "3"
 
@@ -52,8 +52,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_capture3bang_failure
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       error = begin
         processor.capture3! "rmdir", "no such dir"
@@ -68,7 +68,7 @@ class ProcessorTest < Minitest::Test
       assert_instance_of String, error.stdout_str
       assert_instance_of String, error.stderr_str
       assert_instance_of Process::Status, error.status
-      assert_equal path, error.dir
+      assert_equal workspace.working_dir, error.dir
 
       assert trace_writer.writer.find {|hash| hash[:trace] == :command_line && hash[:command_line] == ["rmdir", "no such dir"] }
       assert trace_writer.writer.find {|hash| hash[:trace] == :stderr }
@@ -76,8 +76,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_capture3_with_retry
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       assert_raises(Shell::ExecError) do
         processor.capture3_with_retry! "rmdir", "no such dir"
@@ -95,16 +95,16 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_relative_path_from
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       # Returns relative path from working_dir
-      assert_equal Pathname("foo/bar/baz"), processor.relative_path((path + "foo/bar/baz").to_s)
+      assert_equal Pathname("foo/bar/baz"), processor.relative_path((workspace.working_dir / "foo/bar/baz").to_s)
       # Returns relative path from given path
-      assert_equal Pathname("bar/baz"), processor.relative_path((path + "foo/bar/baz").to_s, from: path + "foo")
+      assert_equal Pathname("bar/baz"), processor.relative_path((workspace.working_dir / "foo/bar/baz").to_s, from: workspace.working_dir / "foo")
 
       # If relative path is given, interpreted from current_dir
-      processor.push_dir path + "foo" do
+      processor.push_dir workspace.working_dir / "foo" do
         assert_equal Pathname("foo/bar/baz"), processor.relative_path("bar/baz")
       end
     end
@@ -117,27 +117,27 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       # No sider.yml
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       assert_nil processor.ci_config
 
       assert_equal({}, processor.ci_section)
       assert_equal({ "hello" => "world" }, processor.ci_section({ "hello" => "world" }))
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       # With an empty sider.yml
-      path.join('sider.yml').write('')
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      workspace.working_dir.join('sider.yml').write('')
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       assert_equal({}, processor.ci_config)
 
       assert_equal({}, processor.ci_section)
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       # With sider.yml
-      (path + "sider.yml").write(YAML.dump({
+      (workspace.working_dir / "sider.yml").write(YAML.dump({
                                               "linter" => {
                                                 "foo_tool" => {
                                                   "root_dir" => "app/bar",
@@ -148,7 +148,7 @@ class ProcessorTest < Minitest::Test
                                               }
                                             }))
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       assert_instance_of Hash, processor.ci_config
       assert_instance_of Hash, processor.ci_section
       assert_equal({ "root_dir" => "app/bar", "options" => { "exclude" => ".git" } }, processor.ci_section)
@@ -160,36 +160,36 @@ class ProcessorTest < Minitest::Test
       assert(processor.ci_config.is_a?(Hash))
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       # With sideci.yml
-      (path + "sideci.yml").write(YAML.dump({
+      (workspace.working_dir / "sideci.yml").write(YAML.dump({
                                               "linter" => {
                                                 "foo_tool" => {
                                                   "root_dir" => "app"
                                                 }
                                               }
                                             }))
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       assert_equal({ "root_dir" => "app" }, processor.ci_section)
     end
 
-    mktmpdir do |path|
+    with_workspace do |workspace|
       # With sider.yml and sideci.yml
-      (path + "sider.yml").write(YAML.dump({
+      (workspace.working_dir / "sider.yml").write(YAML.dump({
                                               "linter" => {
                                                 "foo_tool" => {
                                                   "root_dir" => "app"
                                                 }
                                               }
                                             }))
-      (path + "sideci.yml").write(YAML.dump({
+      (workspace.working_dir / "sideci.yml").write(YAML.dump({
                                               "linter" => {
                                                 "foo_tool" => {
                                                   "root_dir" => "frontend"
                                                 }
                                               }
                                             }))
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       assert_equal({ "root_dir" => "app" }, processor.ci_section)
     end
   end
@@ -201,10 +201,10 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "path/to/unknown" } } }))
+    with_workspace do |workspace|
+      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "path/to/unknown" } } }))
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.check_root_dir_exist
       assert_instance_of Runners::Results::Failure, result
       assert_equal "`path/to/unknown` directory is not found! Please check `linter.foo_tool.root_dir` in your `sider.yml`", result.message
@@ -219,11 +219,11 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "abc" } } }))
-      (path + "abc").mkpath
+    with_workspace do |workspace|
+      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "abc" } } }))
+      (workspace.working_dir / "abc").mkpath
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       assert_nil processor.check_root_dir_exist
     end
   end
@@ -237,18 +237,18 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "app/bar" } } }))
-      (path + "app/bar").mkpath
+    with_workspace do |workspace|
+      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "app/bar" } } }))
+      (workspace.working_dir / "app/bar").mkpath
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       run_path = nil
       processor.push_root_dir do
         run_path = processor.current_dir
       end
 
-      assert_equal path + "app/bar", run_path
+      assert_equal workspace.working_dir / "app/bar", run_path
     end
   end
 
@@ -261,10 +261,10 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      (path + "app/bar").mkpath
+    with_workspace do |workspace|
+      (workspace.working_dir / "app/bar").mkpath
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       run_path = nil
       processor.push_root_dir do
@@ -272,13 +272,13 @@ class ProcessorTest < Minitest::Test
       end
 
 
-      assert_equal path, run_path
+      assert_equal workspace.working_dir, run_path
     end
   end
 
   def test_add_warning
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       processor.add_warning('piyopiyo')
       processor.add_warning('hogehogehoge', file: 'path/to/hogehoge.rb')
 
@@ -290,8 +290,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_add_warning_if_deprecated_version
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       stub(processor).analyzer_version { '1.0.0' }
 
@@ -332,8 +332,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_add_warning_if_deprecated_options
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       stub(processor.class).ci_config_section_name { "some" }
       stub(processor).ci_section { { "foo" => 1, "bar" => 2, "key" => true } }
@@ -365,10 +365,10 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "app/bar" } } }))
+    with_workspace do |workspace|
+      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => "app/bar" } } }))
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       config = processor.ensure_runner_config_schema(StrongJSON.new { let :config, object(root_dir: string?) }.config) { |c| c }
       assert_equal({ root_dir: "app/bar" }, config)
     end
@@ -381,10 +381,10 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "npm_install" => true } } }))
+    with_workspace do |workspace|
+      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "npm_install" => true } } }))
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.ensure_runner_config_schema(StrongJSON.new { let :config, object(root_dir: string?) }.config) { |c| c }
       assert_instance_of Runners::Results::Failure, result
       assert_equal "Invalid configuration in `sider.yml`: unknown attribute at config: `$.linter.foo_tool`", result.message
@@ -399,10 +399,10 @@ class ProcessorTest < Minitest::Test
       end
     end
 
-    mktmpdir do |path|
-      (path + "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => true } } }))
+    with_workspace do |workspace|
+      (workspace.working_dir / "sider.yml").write(YAML.dump({ "linter" => { "foo_tool" => { "root_dir" => true } } }))
 
-      processor = klass.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+      processor = klass.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
       result = processor.ensure_runner_config_schema(StrongJSON.new { let :config, object(root_dir: string?) }.config) { |c| c }
       assert_instance_of Runners::Results::Failure, result
       assert_equal "Invalid configuration in `sider.yml`: unexpected value at config: `$.linter.foo_tool.root_dir`", result.message
@@ -411,8 +411,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_abort_capture3
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       # Simulate aborted status
       stub(Open3).capture3 do
@@ -444,8 +444,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_env_hash
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       assert_equal({ "RUBYOPT" => nil, "GIT_SSH" => nil }, processor.env_hash)
 
@@ -459,8 +459,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_directory_traversal_attack?
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       assert processor.directory_traversal_attack?("../../etc/passwd")
       assert processor.directory_traversal_attack?("config/../../../etc/passwd")
@@ -470,16 +470,16 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_analyzer_bin
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       assert_equal "Runners::Processor", processor.analyzer_bin
     end
   end
 
   def test_analyzer_version
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       mock(processor).capture3!("Runners::Processor", "--version") { ["1.2.3", ""] }
       assert_equal "1.2.3", processor.analyzer_version
@@ -487,8 +487,8 @@ class ProcessorTest < Minitest::Test
   end
 
   def test_extract_version!
-    mktmpdir do |path|
-      processor = Processor.new(guid: SecureRandom.uuid, working_dir: path, git_ssh_path: nil, trace_writer: trace_writer)
+    with_workspace do |workspace|
+      processor = Processor.new(guid: SecureRandom.uuid, workspace: workspace, git_ssh_path: nil, trace_writer: trace_writer)
 
       # from stdout
       mock(processor).capture3!("foo", "--version") { ["Foo v10.20.1", ""] }

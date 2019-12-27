@@ -12,6 +12,7 @@ Smoke.add_test(
     path: 'test.haml',
     location: { start_line: 4 },
     object: { severity: "warning" },
+    git_blame_info: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.34.1'})
 
@@ -26,6 +27,7 @@ Smoke.add_test('with-sideci.yml', {
     path: 'test.haml',
     location: { start_line: 4 },
     object: { severity: "warning" },
+    git_blame_info: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.34.1'},
 }, {
@@ -48,6 +50,7 @@ Smoke.add_test(
     path: "test.haml",
     location: {start_line: 3 },
     object: { severity: "warning" },
+    git_blame_info: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.34.1'})
 
@@ -63,6 +66,7 @@ Smoke.add_test(
     path: "test.haml",
     location: {start_line: 3 },
     object: { severity: "warning" },
+    git_blame_info: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.34.0'})
 
@@ -78,6 +82,7 @@ Smoke.add_test(
     path: 'test.haml',
     location: { start_line: 4 },
     object: { severity: "warning" },
+    git_blame_info: nil,
   }],
   analyzer: {name: 'haml_lint', version: '0.34.1'})
 
@@ -93,6 +98,7 @@ Smoke.add_test("with_exclude_files", {
       path: "hello.haml",
       location: { start_line: 2 },
       object: { severity: "warning" },
+      git_blame_info: nil,
     },
     {
       message:  "Illegal nesting: content can't be both given on the same line as %span and nested within it.",
@@ -101,6 +107,7 @@ Smoke.add_test("with_exclude_files", {
       path: "test.haml",
       location: { start_line: 3 },
       object: { severity: "error" },
+      git_blame_info: nil,
     }
   ],
   analyzer: { name: 'haml_lint', version: '0.34.1' }
@@ -126,6 +133,7 @@ Smoke.add_test(
              path: 'test.haml',
              location: { start_line: 4 },
              object: { severity: "warning" },
+             git_blame_info: nil,
            }],
   analyzer: {name: 'haml_lint', version: '0.26.0'})
 
@@ -152,6 +160,7 @@ Smoke.add_test(
              path: 'test.haml',
              location: { start_line: 4 },
              object: { severity: "warning" },
+             git_blame_info: nil,
            }],
   analyzer: {name: 'haml_lint', version: '0.28.0'}
 )
@@ -169,6 +178,7 @@ Smoke.add_test('pinned_haml_version', {
     path: 'test.haml',
     location: { start_line: 4 },
     object: { severity: "warning" },
+    git_blame_info: nil,
   }],
   analyzer: { name: 'haml_lint', version: '0.32.0' }
 })
@@ -184,6 +194,7 @@ Smoke.add_test('missing_rubocop_required_gems', {
     path: 'test.haml',
     location: { start_line: 1 },
     object: { severity: "warning" },
+    git_blame_info: nil,
   }],
   analyzer: { name: 'haml_lint', version: '0.34.1' },
 }, {

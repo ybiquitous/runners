@@ -33,10 +33,10 @@ class NodejsTest < Minitest::Test
     trace_writer.writer.select { |entry| entry[:trace] == :error }.map { |entry| entry[:message] }
   end
 
-  def new_processor(working_dir:)
+  def new_processor(workspace:)
     processor_class.new(
       guid: SecureRandom.uuid,
-      working_dir: working_dir,
+      workspace: workspace,
       git_ssh_path: nil,
       trace_writer: trace_writer,
     )
@@ -53,28 +53,28 @@ class NodejsTest < Minitest::Test
   end
 
   def test_nodejs_analyzer_local_command
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       assert_equal "node_modules/.bin/eslint", processor.nodejs_analyzer_local_command
     end
   end
 
   def test_nodejs_analyzer_bin
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       assert_equal "eslint", processor.nodejs_analyzer_bin
 
-      (path / "node_modules/.bin").mkpath
-      (path / "node_modules/.bin/eslint").write("")
+      (workspace.working_dir / "node_modules/.bin").mkpath
+      (workspace.working_dir / "node_modules/.bin/eslint").write("")
       assert_equal "node_modules/.bin/eslint", processor.nodejs_analyzer_bin
     end
   end
 
   def test_analyzer_version_with_global
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       processor.stub :nodejs_analyzer_locally_installed?, false do
         processor.stub :nodejs_analyzer_global_version, "1.0.0" do
@@ -85,8 +85,8 @@ class NodejsTest < Minitest::Test
   end
 
   def test_analyzer_version_with_local
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       processor.stub :nodejs_analyzer_locally_installed?, true do
         processor.stub :nodejs_analyzer_local_version, "2.0.0" do
@@ -97,45 +97,45 @@ class NodejsTest < Minitest::Test
   end
 
   def test_package_json_path
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
-      assert_equal(path / "package.json", processor.package_json_path)
+      assert_equal(workspace.working_dir / "package.json", processor.package_json_path)
     end
   end
 
   def test_package_json
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       assert_raises Errno::ENOENT do
         processor.package_json
       end
 
-      (path / "package.json").write(JSON.generate(name: "foo", version: "1.0.0", number: 999, bool: false))
+      (workspace.working_dir / "package.json").write(JSON.generate(name: "foo", version: "1.0.0", number: 999, bool: false))
       assert_equal({ name: "foo", version: "1.0.0", number: 999, bool: false }, processor.package_json)
     end
   end
 
   def test_package_lock_json_path
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
-      assert_equal(path / "package-lock.json", processor.package_lock_json_path)
+      assert_equal(workspace.working_dir / "package-lock.json", processor.package_lock_json_path)
     end
   end
 
   def test_yarn_lock_path
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
-      assert_equal(path / "yarn.lock", processor.yarn_lock_path)
+      assert_equal(workspace.working_dir / "yarn.lock", processor.yarn_lock_path)
     end
   end
 
   def test_install_nodejs_deps
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       deps = { "eslint" => "5.0.0", "eslint-plugin-react" => "7.10.0" }
       processor.package_json_path.write(JSON.generate(devDependencies: deps))
@@ -166,13 +166,13 @@ class NodejsTest < Minitest::Test
   end
 
   def test_install_nodejs_deps_with_option_nil
-    mktmpdir do |path|
+    with_workspace do |workspace|
       defaults = DefaultDependencies.new(main: Dependency.new(name: "eslint", version: "5.15.0"))
       constraints = { "eslint" => Constraint.new(">= 5.0.0", "< 7.0.0") }
       option = nil
 
       # Without package.json
-      processor = new_processor(working_dir: path)
+      processor = new_processor(workspace: workspace)
       processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
         refute processor.package_json_path.exist?
@@ -180,7 +180,7 @@ class NodejsTest < Minitest::Test
       end
 
       # With package.json
-      processor = new_processor(working_dir: path)
+      processor = new_processor(workspace: workspace)
       processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.0" }))
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
@@ -191,13 +191,13 @@ class NodejsTest < Minitest::Test
   end
 
   def test_install_nodejs_deps_with_option_none
-    mktmpdir do |path|
+    with_workspace do |workspace|
       defaults = DefaultDependencies.new(main: Dependency.new(name: "eslint", version: "5.15.0"))
       constraints = { "eslint" => Constraint.new(">= 5.0.0", "< 7.0.0") }
       option = Runners::Nodejs::INSTALL_OPTION_NONE
 
       # Without package.json
-      processor = new_processor(working_dir: path)
+      processor = new_processor(workspace: workspace)
       processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
         refute processor.package_json_path.exist?
@@ -205,7 +205,7 @@ class NodejsTest < Minitest::Test
       end
 
       # With package.json
-      processor = new_processor(working_dir: path)
+      processor = new_processor(workspace: workspace)
       processor.stub :nodejs_analyzer_global_version, "5.15.0" do
         processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.0" }))
         processor.install_nodejs_deps(defaults, constraints: constraints, install_option: option)
@@ -216,8 +216,8 @@ class NodejsTest < Minitest::Test
   end
 
   def test_install_nodejs_deps_using_yarn
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.1" }))
       FileUtils.cp data("yarn.lock"), processor.yarn_lock_path
@@ -242,8 +242,8 @@ class NodejsTest < Minitest::Test
   end
 
   def test_install_nodejs_deps_with_duplicate_lockfiles
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.1" }))
       FileUtils.cp data("yarn.lock"), processor.yarn_lock_path
@@ -273,8 +273,8 @@ class NodejsTest < Minitest::Test
   end
 
   def test_check_nodejs_default_deps
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       defaults = DefaultDependencies.new(
         main: Dependency.new(name: "eslint", version: "5.15.0"),
@@ -323,10 +323,10 @@ class NodejsTest < Minitest::Test
   end
 
   def test_npm_install
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
-      node_modules = path / "node_modules"
+      node_modules = workspace.working_dir / "node_modules"
       typescript = node_modules / "typescript"
 
       package_json = {
@@ -335,7 +335,7 @@ class NodejsTest < Minitest::Test
         engines: { "node" => "8.0.0" },
       }
       processor.package_json_path.write(JSON.generate(package_json))
-      (path / ".npmrc").write("engine-strict = true")
+      (workspace.working_dir / ".npmrc").write("engine-strict = true")
 
       processor.send(:npm_install, Runners::Nodejs::INSTALL_OPTION_NONE)
       refute node_modules.exist?
@@ -366,10 +366,10 @@ class NodejsTest < Minitest::Test
   end
 
   def test_npm_install_using_ci
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
-      node_modules = path / "node_modules"
+      node_modules = workspace.working_dir / "node_modules"
       typescript = node_modules / "typescript"
 
       processor.package_json_path.write(JSON.generate(dependencies: { "typescript" => "3.5.3" }))
@@ -424,8 +424,8 @@ class NodejsTest < Minitest::Test
   end
 
   def test_npm_install_failed
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       processor.package_json_path.write(JSON.generate(dependencies: { "foo" => "github:sider/foo" }))
 
@@ -442,10 +442,10 @@ class NodejsTest < Minitest::Test
   end
 
   def test_yarn_install
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
-      node_modules = path / "node_modules"
+      node_modules = workspace.working_dir / "node_modules"
       eslint = node_modules / "eslint"
 
       processor.package_json_path.write(JSON.generate(dependencies: { "eslint" => "6.0.1" }))
@@ -483,8 +483,8 @@ class NodejsTest < Minitest::Test
   end
 
   def test_yarn_install_failed
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       # 'yarn install' fails because of incorrect package settings between yarn.lock and package.json
       FileUtils.cp incorrect_yarn_data("yarn.lock"), processor.yarn_lock_path
@@ -502,8 +502,8 @@ class NodejsTest < Minitest::Test
   end
 
   def test_check_installed_nodejs_deps
-    mktmpdir do |path|
-      processor = new_processor(working_dir: path)
+    with_workspace do |workspace|
+      processor = new_processor(workspace: workspace)
 
       npm_install = ->(json) {
         processor.package_json_path.write(JSON.generate(json))

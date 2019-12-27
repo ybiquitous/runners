@@ -7,7 +7,9 @@ module Runners
                            object(start_line: integer, end_line: integer),
                            object(start_line: integer))
 
-      let :issue, object(path: string, location: location, id: string, message: string, links: array(string), object: any)
+      let :git_blame_info, object(commit: string, line_hash: string, original_line: integer, final_line: integer)
+
+      let :issue, object(path: string, location: location, id: string, message: string, links: array(string), object: any, git_blame_info: optional(git_blame_info))
     end
 
     Result = _ = StrongJSON.new do

@@ -3,6 +3,8 @@ require_relative "../test_helper"
 class WorkspaceGitTest < Minitest::Test
   include TestHelper
 
+  GitBlameInfo = Runners::GitBlameInfo
+
   def test_prepare_head_source
     with_workspace(head: "998bc02a913e3899f3a1cd327e162dd54d489a4b",
                    git_http_url: "https://github.com", owner: "sider", repo: "runners", pull_number: 533) do |workspace|
@@ -74,6 +76,20 @@ class WorkspaceGitTest < Minitest::Test
                    git_http_url: "https://github.com", owner: "sider", repo: "runners", pull_number: 533) do |workspace|
       assert_instance_of Runners::Workspace::Git, workspace
       assert_instance_of GitDiffParser::Patches, workspace.send(:patches)
+    end
+  end
+
+  def test_git_blame_info
+    with_workspace(base: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", head: "998bc02a913e3899f3a1cd327e162dd54d489a4b",
+                   git_http_url: "https://github.com", owner: "sider", repo: "runners", pull_number: 533) do |workspace|
+      info = workspace.send(:git_blame_info, 'test/smokes/haml_lint/expectations.rb', 137, 140)
+      assert_equal(
+        [
+          GitBlameInfo.new(commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", original_line: 137, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8"),
+          GitBlameInfo.new(commit: "998bc02a913e3899f3a1cd327e162dd54d489a4b", original_line: 138, final_line: 138, line_hash: "a77048541cecbd797666107ed16818e10cc594cb"),
+          GitBlameInfo.new(commit: "998bc02a913e3899f3a1cd327e162dd54d489a4b", original_line: 139, final_line: 139, line_hash: "aa9e4a8125d41d419481f799965c6a8e98392502"),
+          GitBlameInfo.new(commit: "998bc02a913e3899f3a1cd327e162dd54d489a4b", original_line: 140, final_line: 140, line_hash: "03ad52e876f71079c3e662b6d5aac4b47f33698c"),
+        ], info)
     end
   end
 end

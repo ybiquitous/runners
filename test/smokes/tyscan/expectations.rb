@@ -14,7 +14,9 @@ Smoke.add_test("success", {
         message: "Note that the `name` is not full name, but nickname",
         links: [],
         object: { :id => "com.example.user_name",
-                  :message => "Note that the `name` is not full name, but nickname" } }
+                  :message => "Note that the `name` is not full name, but nickname" },
+        git_blame_info: nil,
+      }
   ],
   analyzer: {
     name: 'TyScan',
@@ -51,7 +53,9 @@ Smoke.add_test("package_json_not_found", {
       message: "Note that the `name` is not full name, but nickname",
       links: [],
       object: { :id => "com.example.user_name",
-                :message => "Note that the `name` is not full name, but nickname" } }
+                :message => "Note that the `name` is not full name, but nickname" },
+      git_blame_info: nil,
+    }
   ],
   analyzer: {
     name: 'TyScan',
@@ -78,7 +82,9 @@ Smoke.add_test("tyscan_not_found", {
       message: "Note that the `name` is not full name, but nickname",
       links: [],
       object: { :id => "com.example.user_name",
-                :message => "Note that the `name` is not full name, but nickname" } }
+                :message => "Note that the `name` is not full name, but nickname" },
+      git_blame_info: nil,
+    }
   ],
   analyzer: {
     name: 'TyScan',
@@ -119,14 +125,18 @@ Smoke.add_test("options", {
       message: "Note that the `name` is not full name, but nickname",
       links: [],
       object: { :id => "com.example.user_name",
-                :message => "Note that the `name` is not full name, but nickname" } },
+                :message => "Note that the `name` is not full name, but nickname" },
+      git_blame_info: nil,
+    },
     { path: "frontend/src/index.tsx",
       location: { :start_line => 14, :start_column => 19, :end_line => 14, :end_column => 28 },
       id: "com.example.user_name",
       message: "Note that the `name` is not full name, but nickname",
       links: [],
       object: { :id => "com.example.user_name",
-                :message => "Note that the `name` is not full name, but nickname" } },
+                :message => "Note that the `name` is not full name, but nickname" },
+      git_blame_info: nil,
+    },
   ],
   analyzer: {
     name: 'TyScan',
@@ -145,7 +155,9 @@ Smoke.add_test("tests_failed", {
       message: "Note that the `name` is not full name, but nickname",
       links: [],
       object: { :id => "com.example.user_name",
-                :message => "Note that the `name` is not full name, but nickname" } }
+                :message => "Note that the `name` is not full name, but nickname" },
+      git_blame_info: nil,
+    }
   ],
   analyzer: {
     name: 'TyScan',
@@ -165,6 +177,7 @@ Smoke.add_test("jsx_element", {
         id: "smoke.jsx",
         message: "Est-ce que nous avons confirmé français au le `id`."
       },
+      git_blame_info: nil,
       message: "Est-ce que nous avons confirmé français au le `id`.",
       links: [],
       id: "smoke.jsx",

@@ -5,8 +5,9 @@ class Runners::Issue
   attr_reader message: String
   attr_reader links: Array<String>
   attr_reader object: any
+  attr_reader git_blame_info: GitBlameInfo?
 
   def initialize: (path: Pathname, location: Location?, id: String, message: String,
-                   ?links: Array<String>, ?object: any, ?schema: any) -> any
+                   ?links: Array<String>, ?object: any, ?schema: any, ?git_blame_info: GitBlameInfo?) -> any
   def as_json: () -> any
 end

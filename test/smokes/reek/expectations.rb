@@ -17,6 +17,7 @@ Smoke.add_test(
         'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: 'cat.rb',
@@ -29,6 +30,7 @@ Smoke.add_test(
         'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
       object: nil,
+      git_blame_info: nil,
     },
     {
       path: 'cat.rb',
@@ -41,6 +43,7 @@ Smoke.add_test(
         'https://github.com/troessner/reek/blob/v5.5.0/docs/Duplicate-Method-Call.md'
       ],
       object: nil,
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -66,6 +69,7 @@ Smoke.add_test(
           'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
         object: nil,
+        git_blame_info: nil,
       },
     ],
     analyzer: {
@@ -92,6 +96,7 @@ Smoke.add_test(
           'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
         object: nil,
+        git_blame_info: nil,
       },
     ],
     analyzer: {
@@ -121,6 +126,7 @@ Smoke.add_test(
         start_line: 7
       },
       object: nil,
+      git_blame_info: nil,
     },
     {
       message: "`Summer#summer_vacation` performs a nil-check",
@@ -131,6 +137,7 @@ Smoke.add_test(
         start_line: 12
       },
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -176,6 +183,7 @@ Smoke.add_test(
         start_line: 3
       },
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -201,6 +209,7 @@ Smoke.add_test(
         'https://github.com/troessner/reek/blob/master/docs/Module-Initialize.md'
       ],
       object: nil,
+      git_blame_info: nil,
     },
   ],
   analyzer: {
@@ -227,6 +236,7 @@ Smoke.add_test(
           'https://github.com/troessner/reek/blob/v5.5.0/docs/Module-Initialize.md'
         ],
         object: nil,
+        git_blame_info: nil,
       },
     ],
     analyzer: {
@@ -257,6 +267,7 @@ Smoke.add_test("regex_directory_directive", {
       path: "app/models/seasons/test/summer.rb",
       location: { start_line: 8 },
       object: nil,
+      git_blame_info: nil,
     }
   ],
   analyzer: { name: 'Reek', version: "5.5.0" }

@@ -13,6 +13,7 @@ Smoke.add_test("success", {
       path: "src/Hello.java",
       location: { start_line: 3 },
       object: { severity: "warning" },
+      git_blame_info: nil,
     },
     {
       message: "'method def' child has incorrect indentation level 8, expected level should be 4.",
@@ -21,6 +22,7 @@ Smoke.add_test("success", {
       path: "src/Hello.java",
       location: { start_line: 6 },
       object: { severity: "warning" },
+      git_blame_info: nil,
     },
     {
       message: "'method def modifier' has incorrect indentation level 4, expected level should be 2.",
@@ -29,6 +31,7 @@ Smoke.add_test("success", {
       path: "src/Hello.java",
       location: { start_line: 5 },
       object: { severity: "warning" },
+      git_blame_info: nil,
     },
     {
       message: "'method def rcurly' has incorrect indentation level 4, expected level should be 2.",
@@ -37,6 +40,7 @@ Smoke.add_test("success", {
       path: "src/Hello.java",
       location: { start_line: 7 },
       object: { severity: "warning" },
+      git_blame_info: nil,
     }
   ],
 })
@@ -54,6 +58,7 @@ Smoke.add_test("config", {
       path: "src/Main.java",
       location: { start_line: 5 },
       object: { severity: "error" },
+      git_blame_info: nil,
     },
     {
       message: "Utility classes should not have a public or default constructor.",
@@ -62,6 +67,7 @@ Smoke.add_test("config", {
       path: "src/Main.java",
       location: { start_line: 3 },
       object: { severity: "error" },
+      git_blame_info: nil,
     },
     {
       message: "Missing package-info.java file.",
@@ -70,6 +76,7 @@ Smoke.add_test("config", {
       path: "src/Main.java",
       location: { start_line: 1 },
       object: { severity: "error" },
+      git_blame_info: nil,
     },
     {
       message: "Missing a Javadoc comment.",
@@ -78,6 +85,7 @@ Smoke.add_test("config", {
       path: "src/Main.java",
       location: { start_line: 5 },
       object: { severity: "error" },
+      git_blame_info: nil,
     }
   ]
 })
@@ -110,6 +118,7 @@ Smoke.add_test("properties", {
       path: "src/Main.java",
       location: { start_line: 3 },
       object: { severity: "error" },
+      git_blame_info: nil,
     },
     {
       message: "Line is longer than 50 characters (found 63).",
@@ -118,6 +127,7 @@ Smoke.add_test("properties", {
       path: "myruleset.xml",
       location: { start_line: 4 },
       object: { severity: "error" },
+      git_blame_info: nil,
     },
     {
       message: "Line is longer than 50 characters (found 54).",
@@ -126,6 +136,7 @@ Smoke.add_test("properties", {
       path: "myruleset.xml",
       location: { start_line: 8 },
       object: { severity: "error" },
+      git_blame_info: nil,
     },
     {
       message: "Line is longer than 50 characters (found 57).",
@@ -134,6 +145,7 @@ Smoke.add_test("properties", {
       path: "myruleset.xml",
       location: { start_line: 3 },
       object: { severity: "error" },
+      git_blame_info: nil,
     },
   ],
   analyzer: {name: 'checkstyle', version: '8.27'}

@@ -18,7 +18,8 @@ Smoke.add_test(
           id: "hello",
           message: "Hello world\n",
           justifications: []
-        }
+        },
+        git_blame_info: nil,
       }
     ],
   }
@@ -42,7 +43,8 @@ Smoke.add_test(
           id: "hello",
           message: "Hello world\n",
           justifications: []
-        }
+        },
+        git_blame_info: nil,
       }
     ],
   }

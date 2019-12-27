@@ -59,5 +59,17 @@ module Runners
         nil
       end
     end
+
+    def git_blame_info(path_string, start_line, end_line)
+      base = git_source.base
+      head = git_source.head
+      if base && head
+        shell = Shell.new(current_dir: git_directory, trace_writer: trace_writer, env_hash: {})
+        stdout, _ = shell.capture3!("git", "blame", "-p", "-L", "#{start_line},#{end_line}", "#{base}...#{head}", "--", path_string)
+        GitBlameInfo.parse(stdout)
+      else
+        []
+      end
+    end
   end
 end

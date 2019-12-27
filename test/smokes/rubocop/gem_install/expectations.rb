@@ -13,6 +13,7 @@ Smoke.add_test(
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -41,6 +42,7 @@ Smoke.add_test(
        :id=>"Style/StringLiterals",
        :path=>"Gemfile",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>1, :start_column=>8, :end_line=>1, :end_column=>8}},
     ],
@@ -67,6 +69,7 @@ Smoke.add_test(
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -93,6 +96,7 @@ Smoke.add_test(
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -119,6 +123,7 @@ Smoke.add_test(
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -145,6 +150,7 @@ Smoke.add_test(
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>5}},
     ],
@@ -171,6 +177,7 @@ Smoke.add_test(
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>10}},
     ],
@@ -212,6 +219,7 @@ Smoke.add_test(
        :id=>"Style/ExpandPathArguments",
        :path=>"test.gemspec",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>2, :start_column=>12, :end_line=>2, :end_column=>22}},
     ],
@@ -238,6 +246,7 @@ Smoke.add_test(
        :id=>"Metrics/LineLength",
        :path=>"Gemfile",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>81, :end_line=>3, :end_column=>91}},
       {:message=>
@@ -246,6 +255,7 @@ Smoke.add_test(
        :id=>"RSpec/ExpectInHook",
        :path=>"spec/a_spec.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>5, :end_line=>3, :end_column=>10}},
     ],
@@ -269,6 +279,7 @@ Smoke.add_test(
        :id=>"Lint/MultipleCompare",
        :path=>"app.rb",
        :object=>{:severity=>"warning", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>2, :start_column=>4, :end_line=>2, :end_column=>14}},
     ],

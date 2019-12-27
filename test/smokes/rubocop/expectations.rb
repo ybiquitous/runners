@@ -13,6 +13,7 @@ Smoke.add_test(
       :id=>"Lint/LiteralAsCondition",
       :path=>"app/controllers/users_controller.rb",
       :object=>{:severity=>"warning", :corrected=>false},
+      :git_blame_info=>nil,
       :location=>
        {:start_line=>23, :start_column=>8, :end_line=>23, :end_column=>11}},
      {:message=>
@@ -21,6 +22,7 @@ Smoke.add_test(
       :id=>"Lint/ShadowingOuterLocalVariable",
       :path=>"app/controllers/users_controller.rb",
       :object=>{:severity=>"warning", :corrected=>false},
+      :git_blame_info=>nil,
       :location=>
        {:start_line=>27, :start_column=>30, :end_line=>27, :end_column=>30}},
      {:message=>
@@ -29,6 +31,7 @@ Smoke.add_test(
       :id=>"Lint/UselessAssignment",
       :path=>"app/controllers/users_controller.rb",
       :object=>{:severity=>"warning", :corrected=>false},
+      :git_blame_info=>nil,
       :location=>
        {:start_line=>26, :start_column=>5, :end_line=>26, :end_column=>5}},
      {:message=>
@@ -37,6 +40,7 @@ Smoke.add_test(
       :id=>"Style/StringHashKeys",
       :path=>"config/environments/development.rb",
       :object=>{:severity=>"convention", :corrected=>false},
+      :git_blame_info=>nil,
       :location=>
        {:start_line=>21, :start_column=>7, :end_line=>21, :end_column=>21}},
      {:message=>
@@ -45,6 +49,7 @@ Smoke.add_test(
       :id=>"Style/StringHashKeys",
       :path=>"config/environments/test.rb",
       :object=>{:severity=>"convention", :corrected=>false},
+      :git_blame_info=>nil,
       :location=>
        {:start_line=>18, :start_column=>5, :end_line=>18, :end_column=>19}}
     ],
@@ -76,6 +81,7 @@ Smoke.add_test(
         "severity": "convention",
         "corrected": false,
       },
+      "git_blame_info": nil,
     },
     {
       "message": "Put empty method definitions on a single line.",
@@ -95,6 +101,7 @@ Smoke.add_test(
         "severity": "convention",
         "corrected": false,
       },
+      "git_blame_info": nil,
     }
   ],
   analyzer: {
@@ -117,6 +124,7 @@ Smoke.add_test(
         :id=>"Layout/IndentationWidth",
         :path=>"test.rb",
         :object=>{:severity=>"convention", :corrected=>false},
+        :git_blame_info=>nil,
         :location=>
          {:start_line=>2, :start_column=>1, :end_line=>2, :end_column=>1}},
       {:message=>"Tab detected.",
@@ -125,6 +133,7 @@ Smoke.add_test(
        :id=>"Layout/Tab",
        :path=>"test.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
         {:start_line=>2, :start_column=>1, :end_line=>2, :end_column=>1}}],
     analyzer: {
@@ -151,6 +160,7 @@ Smoke.add_test(
        :id=>"Style/FrozenStringLiteralComment",
        :path=>"Gemfile",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
         {:start_line=>1, :start_column=>1, :end_line=>1, :end_column=>1}},
       {:message=>
@@ -159,6 +169,7 @@ Smoke.add_test(
        :id=>"Style/FrozenStringLiteralComment",
        :path=>"test.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
         {:start_line=>1, :start_column=>1, :end_line=>1, :end_column=>1}},
       {:message=>
@@ -168,6 +179,7 @@ Smoke.add_test(
        :id=>"Style/MultilineTernaryOperator",
        :path=>"test.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
         {:start_line=>2, :start_column=>1, :end_line=>2, :end_column=>1}}
     ],
@@ -195,6 +207,7 @@ Smoke.add_test(
        :id=>"Metrics/LineLength",
        :path=>"cat.rb",
        :object=>{:severity=>"convention", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>3, :start_column=>201, :end_line=>3, :end_column=>201}},
     ],
@@ -221,6 +234,7 @@ Smoke.add_test(
        :id=>"Lint/MultipleComparison",
        :path=>"test.rb",
        :object=>{:severity=>"warning", :corrected=>false},
+       :git_blame_info=>nil,
        :location=>
          {:start_line=>2, :start_column=>4, :end_line=>2, :end_column=>14}},
     ],
@@ -265,6 +279,7 @@ Smoke.add_test('with_safe_cops', {
       path: "drink.rb",
       location: { start_line: 12, start_column: 3, end_line: 12, end_column: 8 },
       object: { severity: "warning", corrected: false },
+      git_blame_info: nil,
     },
     {
       message:  "Do not chain ordinary method call after safe navigation operator.",
@@ -273,6 +288,7 @@ Smoke.add_test('with_safe_cops', {
       path: "drink.rb",
       location: { start_line: 18, start_column: 21, end_line: 18, end_column: 27 },
       object: { severity: "warning", corrected: false },
+      git_blame_info: nil,
     }
   ],
   analyzer: { name: 'RuboCop', version: '0.78.0' },
@@ -309,6 +325,7 @@ Smoke.add_test('v0.71_rails', {
       path: "cat.rb",
       location: { start_line: 3, start_column: 201, end_line: 3, end_column: 218 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: 'RuboCop', version: '0.71.0' },
@@ -332,6 +349,7 @@ Smoke.add_test('v0.72_rails', {
       path: "cat.rb",
       location: { start_line: 3, start_column: 201, end_line: 3, end_column: 218 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: 'RuboCop', version: '0.72.0' },
@@ -349,6 +367,7 @@ Smoke.add_test('v0.72_rails_option', {
       path: "cat.rb",
       location: { start_line: 3, start_column: 201, end_line: 3, end_column: 218 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: 'RuboCop', version: '0.72.0' },
@@ -371,6 +390,7 @@ Smoke.add_test("rails_and_performance", {
       path: "app/foo.rb",
       location: { start_line: 1, start_column: 1, end_line: 1, end_column: 9 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
     {
       message: "Do not use `exit` in Rails applications.",
@@ -379,6 +399,7 @@ Smoke.add_test("rails_and_performance", {
       path: "app/foo.rb",
       location: { start_line: 3, start_column: 1, end_line: 3, end_column: 4 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
     {
       message: "Please use `Rails.root.join('path', 'to')` instead.",
@@ -387,6 +408,7 @@ Smoke.add_test("rails_and_performance", {
       path: "app/foo.rb",
       location: { start_line: 2, start_column: 1, end_line: 2, end_column: 33 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "RuboCop", version: "0.78.0" },
@@ -404,6 +426,7 @@ Smoke.add_test("rails_and_performance_old", {
       path: "app/foo.rb",
       location: { start_line: 1, start_column: 1, end_line: 1, end_column: 9 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
     {
       message: "Do not use `exit` in Rails applications.",
@@ -412,6 +435,7 @@ Smoke.add_test("rails_and_performance_old", {
       path: "app/foo.rb",
       location: { start_line: 3, start_column: 1, end_line: 3, end_column: 4 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
     {
       message: "Please use `Rails.root.join('path', 'to')` instead.",
@@ -420,6 +444,7 @@ Smoke.add_test("rails_and_performance_old", {
       path: "app/foo.rb",
       location: { start_line: 2, start_column: 1, end_line: 2, end_column: 33 },
       object: { severity: "convention", corrected: false },
+      git_blame_info: nil,
     },
   ],
   analyzer: { name: "RuboCop", version: "0.67.0" },

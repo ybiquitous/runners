@@ -15,7 +15,8 @@ Smoke.add_test("success", {
         id: "com.goodcheck.hello",
         message: "foo is not a good name...",
         justifications: []
-      }
+      },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -35,6 +36,7 @@ Smoke.add_test("with_ci_config", {
         message: "Foo",
         justifications: []
       },
+      git_blame_info: nil,
       message: "Foo",
       links: [],
       id: "com.sample",
@@ -126,7 +128,8 @@ Smoke.add_test("lowest_deps", {
         id: "com.goodcheck.hello",
         message: "foo is not a good name...",
         justifications: []
-      }
+      },
+      git_blame_info: nil,
     }
   ],
   analyzer: {
@@ -146,6 +149,7 @@ Smoke.add_test("detect_there_is_no_content", {
         message: "Specify frozen_string_literal magic comment.",
         justifications: []
       },
+      git_blame_info: nil,
       message: "Specify frozen_string_literal magic comment.",
       links: [],
       id: "smoke",
@@ -173,6 +177,7 @@ Smoke.add_test("rules_without_pattern", {
         MESSAGE
         justifications: []
       },
+      git_blame_info: nil,
       message: /Check the following documentation when editing this file/,
       links: [],
       id: "com.goodcheck.without_pattern",
