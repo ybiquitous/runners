@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.15.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.16.0...HEAD)
+
+## 0.16.0
+
+[Full diff](https://github.com/sider/runners/compare/0.15.0...0.16.0)
 
 - Add git_blame_info field in the Issue schema [#630](https://github.com/sider/runners/pull/630)
 
