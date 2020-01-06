@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.16.0...HEAD)
 
+- [Brakeman] Quiet output [#647](https://github.com/sider/runners/pull/647)
+
 ## 0.16.0
 
 [Full diff](https://github.com/sider/runners/compare/0.15.0...0.16.0)
