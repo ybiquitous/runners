@@ -32,7 +32,14 @@ module Runners
 
     def analyze(changes)
       # run analysis and return result
-      stdout, stderr, status = capture3(*ruby_analyzer_bin, '--format=json', '--no-exit-on-warn', '--no-exit-on-error')
+      stdout, stderr, status = capture3(
+        *ruby_analyzer_bin,
+        '--format=json',
+        '--no-exit-on-warn',
+        '--no-exit-on-error',
+        '--no-progress',
+        '--quiet',
+      )
       return Results::Failure.new(guid: guid, message: stderr, analyzer: analyzer) unless status.success?
       construct_result(stdout)
     end
