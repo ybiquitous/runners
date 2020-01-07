@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - [HAML-Lint] Bump rubocop-rails from 2.4.0 to 2.4.1 [#629](https://github.com/sider/runners/pull/629)
 - Bump checkstyle from 8.27 to 8.28 in /images/checkstyle [#635](https://github.com/sider/runners/pull/635)
 - Bump typescript from 3.7.2 to 3.7.4 in /images/tyscan [#636](https://github.com/sider/runners/pull/636)
+- Bump typescript from 3.7.2 to 3.7.4 in /images/tslint [#640](https://github.com/sider/runners/pull/640)
 
 ## 0.16.0
 
