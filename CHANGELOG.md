@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - [Brakeman] Quiet output [#647](https://github.com/sider/runners/pull/647)
 - Bump devon_rex images from 2.11.0 to 2.12.0 [#646](https://github.com/sider/runners/pull/646)
+- Bump Cppcheck from 1.89 to 1.90 [#628](https://github.com/sider/runners/pull/628)
 
 ## 0.16.0
 
