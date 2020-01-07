@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - Bump eslint from 6.7.2 to 6.8.0 in /images/eslint [#637](https://github.com/sider/runners/pull/637)
 - Bump phpmd/phpmd from 2.7.0 to 2.8.1 in /images/phpmd [#641](https://github.com/sider/runners/pull/641)
 - Bump stylelint from 12.0.0 to 12.0.1 in /images/stylelint [#639](https://github.com/sider/runners/pull/639)
+- Bump php_codesniffer from 3.5.2 to 3.5.3 in /images/code_sniffer [#642](https://github.com/sider/runners/pull/642)
 
 ## 0.16.0
 
