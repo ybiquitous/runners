@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - Bump ktlint from 0.35.0 to 0.36.0 in /images/ktlint [#638](https://github.com/sider/runners/pull/638)
 - Bump eslint from 6.7.2 to 6.8.0 in /images/eslint [#637](https://github.com/sider/runners/pull/637)
 - Bump phpmd/phpmd from 2.7.0 to 2.8.1 in /images/phpmd [#641](https://github.com/sider/runners/pull/641)
+- Bump stylelint from 12.0.0 to 12.0.1 in /images/stylelint [#639](https://github.com/sider/runners/pull/639)
 
 ## 0.16.0
 
