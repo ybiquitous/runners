@@ -26,7 +26,7 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "ESLint", version: "6.7.2" }
+    analyzer: { name: "ESLint", version: "6.8.0" }
   }
 )
 
@@ -80,12 +80,12 @@ Smoke.add_test(
         Regexp.quote(<<~MESSAGE)
     Oops! Something went wrong! :(
 
-    ESLint: 6.7.2.
+    ESLint: 6.8.0.
 
     ESLint couldn't find the plugin "eslint-plugin-filenames".
   MESSAGE
       ),
-    analyzer: { name: "ESLint", version: "6.7.2" }
+    analyzer: { name: "ESLint", version: "6.8.0" }
   }
 )
 
@@ -220,7 +220,7 @@ Smoke.add_test(
 
 Smoke.add_test(
   "no_files",
-  { guid: "test-guid", timestamp: :_, type: "success", issues: [], analyzer: { name: "ESLint", version: "6.7.2" } }
+  { guid: "test-guid", timestamp: :_, type: "success", issues: [], analyzer: { name: "ESLint", version: "6.8.0" } }
 )
 
 Smoke.add_test(
@@ -325,7 +325,7 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "ESLint", version: "6.7.2" }
+    analyzer: { name: "ESLint", version: "6.8.0" }
   },
   {
     warnings: [
@@ -368,7 +368,7 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "ESLint", version: "6.7.2" }
+    analyzer: { name: "ESLint", version: "6.8.0" }
   }
 )
 
@@ -522,7 +522,7 @@ Smoke.add_test(
 
 Smoke.add_test(
   "default_version_is_used",
-  { guid: "test-guid", timestamp: :_, type: "success", issues: [], analyzer: { name: "ESLint", version: "6.7.2" } }
+  { guid: "test-guid", timestamp: :_, type: "success", issues: [], analyzer: { name: "ESLint", version: "6.8.0" } }
 )
 
 Smoke.add_test(
@@ -553,7 +553,7 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "ESLint", version: "6.7.2" }
+    analyzer: { name: "ESLint", version: "6.8.0" }
   }
 )
 
