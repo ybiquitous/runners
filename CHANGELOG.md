@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.16.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.17.0...HEAD)
+
+## 0.17.0
+
+[Full diff](https://github.com/sider/runners/compare/0.16.0...0.17.0)
 
 - [Brakeman] Quiet output [#647](https://github.com/sider/runners/pull/647)
 - Bump devon_rex images from 2.11.0 to 2.12.0 [#646](https://github.com/sider/runners/pull/646)
