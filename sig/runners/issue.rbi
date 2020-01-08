@@ -8,6 +8,7 @@ class Runners::Issue
   attr_reader git_blame_info: GitBlameInfo?
 
   def initialize: (path: Pathname, location: Location?, id: String, message: String,
-                   ?links: Array<String>, ?object: any, ?schema: any, ?git_blame_info: GitBlameInfo?) -> any
+                   ?links: Array<String>, ?object: any, ?schema: any) -> any
   def as_json: () -> any
+  def add_git_blame_info: (Workspace) -> void
 end

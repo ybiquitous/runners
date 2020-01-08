@@ -21,8 +21,7 @@ class ResultTest < Minitest::Test
         args: [1,2,3]
       },
       schema: nil,
-      git_blame_info: GitBlameInfo.new(commit: "c", original_line: 3, final_line: 5, line_hash: "abc"),
-    )
+    ).tap { |v| v.instance_variable_set(:@git_blame_info, GitBlameInfo.new(commit: "c", original_line: 3, final_line: 5, line_hash: "abc")) }
     result.add_issue Issue.new(
       path: Pathname("foo/bar/baz.rb"),
       location: nil,
@@ -190,6 +189,50 @@ class ResultTest < Minitest::Test
                        analyzer: { name: "Flake8", version: "3.7.9" }
                      })
 
+  end
+
+  def test_add_git_blame_info
+    result = Results::Success.new(guid: SecureRandom.uuid, analyzer: Analyzer.new(name: "RuboCop", version: "1.3.2pre"))
+    result.add_issue Issue.new(
+      path: Pathname("foo/bar/baz.rb"),
+      location: Location.new(start_line: 1),
+      id: "some_error_id",
+      message: "abc def",
+      object: {
+        args: [1, 2, 3]
+      },
+      schema: nil,
+    )
+    with_workspace do |workspace|
+      mock(workspace).range_git_blame_info("foo/bar/baz.rb", 1, 1) do
+        [GitBlameInfo.new(commit: "c1", original_line: 1, final_line: 1, line_hash: "h")]
+      end
+      result.add_git_blame_info(workspace)
+    end
+
+    assert result.valid?
+
+    assert Runners::Schema::Result.success =~ result.as_json
+    assert_unifiable(result.as_json,
+                     {
+                       guid: result.guid,
+                       timestamp: result.timestamp.utc.iso8601,
+                       type: 'success',
+                       issues: [
+                         {
+                           path: "foo/bar/baz.rb",
+                           location: { start_line: 1  },
+                           id: "some_error_id",
+                           message: "abc def",
+                           links: [],
+                           object: {
+                             args: [1, 2, 3],
+                           },
+                           git_blame_info: { commit: "c1", original_line: 1, final_line: 1, line_hash: "h" },
+                         },
+                       ],
+                       analyzer: { name: "RuboCop", version: "1.3.2pre" }
+                     })
   end
 
   def test_null_location_result

@@ -19,8 +19,7 @@ class IssueTest < Minitest::Test
       message: "test message",
       object: ["no such method??"],
       schema: s.object,
-      git_blame_info: GitBlameInfo.new(commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", original_line: 137, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8"),
-    )
+    ).tap { |v| v.instance_variable_set(:@git_blame_info, GitBlameInfo.new(commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", original_line: 137, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8")) }
 
     assert_equal({
       path: "app/models/person.rb",
@@ -105,5 +104,43 @@ class IssueTest < Minitest::Test
       object: nil,
       git_blame_info: nil,
     }, issue.as_json)
+  end
+
+  def test_add_git_blame_info
+    s = StrongJSON.new do
+      let :object, array(string)
+    end
+
+    issue = Issue.new(
+      path: Pathname("app/models/person.rb"),
+      location: Location.new(start_line: 1, start_column: 1, end_line: 1, end_column: 1),
+      id: "foo.bar",
+      message: "test message",
+      object: ["no such method??"],
+      schema: s.object,
+    )
+    with_workspace do |workspace|
+      mock(workspace).range_git_blame_info(issue.path.to_s, issue.location.start_line, issue.location.start_line) do
+        [
+          GitBlameInfo.new(
+            commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1",
+            original_line: 137,
+            final_line: 137,
+            line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8",
+          ),
+        ]
+      end
+      issue.add_git_blame_info(workspace)
+    end
+
+    assert_equal({
+                   path: "app/models/person.rb",
+                   location: { start_line: 1, start_column: 1, end_line: 1, end_column: 1 },
+                   id: "foo.bar",
+                   message: "test message",
+                   links: [],
+                   object: ["no such method??"],
+                   git_blame_info: { commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", original_line: 137, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8" },
+                 }, issue.as_json)
   end
 end
