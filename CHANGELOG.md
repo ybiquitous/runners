@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - Bump stylelint from 12.0.0 to 12.0.1 in /images/stylelint [#639](https://github.com/sider/runners/pull/639)
 - Bump php_codesniffer from 3.5.2 to 3.5.3 in /images/code_sniffer [#642](https://github.com/sider/runners/pull/642)
 - Bump SwiftLint from 0.38.0 to 0.38.1 [#645](https://github.com/sider/runners/pull/645)
+- [HAML-Lint] Bump rubocop from 0.78.0 to 0.79.0 [#650](https://github.com/sider/runners/pull/650)
 
 ## 0.16.0
 
