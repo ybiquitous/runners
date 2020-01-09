@@ -68,6 +68,12 @@ module Runners
         end
         result
       end
+
+      def add_git_blame_info(workspace)
+        issues.each do |issue|
+          issue.add_git_blame_info(workspace)
+        end
+      end
     end
 
     # Result to indicate that processing failed by some error.

@@ -8,7 +8,7 @@ module Runners
     attr_reader :object
     attr_reader :git_blame_info
 
-    def initialize(path:, location:, id:, message:, links: [], object: nil, schema: nil, git_blame_info: nil)
+    def initialize(path:, location:, id:, message:, links: [], object: nil, schema: nil)
       path.instance_of?(Pathname) or
         raise ArgumentError, "#{path.inspect} must be a #{Pathname}"
 
@@ -26,7 +26,6 @@ module Runners
       @message = message
       @links = links
       @object = object
-      @git_blame_info = git_blame_info
     end
 
     def eql?(other)
@@ -57,6 +56,15 @@ module Runners
         object: object,
         git_blame_info: git_blame_info&.to_h,
       )
+    end
+
+    def add_git_blame_info(workspace)
+      loc = location # NOTE: It's required to pass typecheck
+      @git_blame_info = if loc
+                          workspace.range_git_blame_info(path.to_s, loc.start_line, loc.start_line).first
+                        else
+                          nil
+                        end
     end
   end
 end
