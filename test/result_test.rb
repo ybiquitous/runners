@@ -85,7 +85,7 @@ class ResultTest < Minitest::Test
     )
 
     changes = Changes.new(changed_paths: [Pathname("foo/bar/xxx.rb")], unchanged_paths: [Pathname("foo/bar/baz.rb")], untracked_paths: [], patches: nil)
-    result = result.filter_issues(changes)
+    result.filter_issues(changes)
 
     assert result.valid?
 
@@ -156,7 +156,7 @@ class ResultTest < Minitest::Test
       +def f1():
            pass
     DIFF
-    result = result.filter_issues(changes)
+    result.filter_issues(changes)
 
     assert result.valid?
 

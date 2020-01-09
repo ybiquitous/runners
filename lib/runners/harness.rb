@@ -49,8 +49,9 @@ module Runners
               case result
               when Results::Success
                 trace_writer.message "Removing issues from unchanged or untracked files..." do
-                  result.filter_issues(changes).tap do |new_result|
-                    new_result.add_git_blame_info(workspace)
+                  result.tap do |r|
+                    r.filter_issues(changes)
+                    r.add_git_blame_info(workspace)
                   end
                 end
               else
