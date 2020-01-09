@@ -153,7 +153,7 @@ Smoke.add_test(
         location: { start_line: 6, end_line: 9 },
         id: "NoMethods",
         message: "Please do not use methods.",
-        links: %w[https://example.com/phpmd/rules/no-methods],
+        links: [],
         object: nil,
         git_blame_info: nil
       },
@@ -162,7 +162,7 @@ Smoke.add_test(
         location: { start_line: 8, end_line: 11 },
         id: "NoMethods",
         message: "Please do not use methods.",
-        links: %w[https://example.com/phpmd/rules/no-methods],
+        links: [],
         object: nil,
         git_blame_info: nil
       }

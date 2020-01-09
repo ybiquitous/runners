@@ -156,7 +156,7 @@ module Runners
               location: loc,
               id: violation[:rule],
               message: violation.text.strip,
-              links: [violation[:externalInfoUrl]]
+              links: [violation[:externalInfoUrl]].compact,
             )
           end
         end
