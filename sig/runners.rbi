@@ -65,7 +65,7 @@ class Runners::Results::Success < Runners::Results::Base
 
   def initialize: (guid: String, analyzer: Analyzer) -> any
   def add_issue: (Runners::Issue) -> void
-  def (constructor) filter_issues: (Changes) -> instance
+  def filter_issues: (Changes) -> void
   def add_git_blame_info: (Workspace) -> void
 end
 

@@ -62,11 +62,9 @@ module Runners
       end
 
       def filter_issues(changes)
-        result = self.class.new(guid: guid, analyzer: analyzer)
-        issues.each do |issue|
-          result.add_issue(issue) if changes.include?(issue)
+        issues.select! do |issue|
+          changes.include?(issue)
         end
-        result
       end
 
       def add_git_blame_info(workspace)
