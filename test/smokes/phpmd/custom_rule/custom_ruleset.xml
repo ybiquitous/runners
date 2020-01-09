@@ -15,7 +15,7 @@
   <rule name="NoMethods"
         message="Please do not use methods."
         class="custom\rules\NoMethods"
-        externalInfoUrl="https://example.com/phpmd/rules/no-methods">
+        externalInfoUrl="">
     <priority>1</priority>
   </rule>
 </ruleset>
