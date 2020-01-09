@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.17.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.17.1...HEAD)
+
+## 0.17.1
+
+[Full diff](https://github.com/sider/runners/compare/0.17.0...0.17.1)
 
 - Handle the empty externalInfoUrl in phpmd [#657](https://github.com/sider/runners/pull/657)
 - Add #add_git_blame_info [#655](https://github.com/sider/runners/pull/655)
