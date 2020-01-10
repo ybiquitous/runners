@@ -40,7 +40,7 @@ GEM
     concurrent-ruby (1.1.5)
     ffi (1.11.3)
     git_diff_parser (3.2.0)
-    i18n (1.7.1)
+    i18n (1.8.1)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
     jmespath (1.4.0)
