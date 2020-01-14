@@ -1,0 +1,7 @@
+ignored:
+  - DL3002
+  - DL3003
+
+trustedRegistries:
+  - docker.io
+  - my-company.com:5000

@@ -23,6 +23,7 @@ Each analyzer can be available as a Docker image.
 - [Golint](https://hub.docker.com/r/sider/runner_golint)
 - [Go Meta Linter](https://hub.docker.com/r/sider/runner_gometalinter)
 - [Goodcheck](https://hub.docker.com/r/sider/runner_goodcheck)
+- [hadolint](https://hub.docker.com/r/sider/runner_hadolint)
 - [HAML-Lint](https://hub.docker.com/r/sider/runner_haml_lint)
 - [JSHint](https://hub.docker.com/r/sider/runner_jshint)
 - [JavaSee](https://hub.docker.com/r/sider/runner_javasee)

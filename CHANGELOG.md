@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.17.1...HEAD)
 
+- [hadolint] New support [#625](https://github.com/sider/runners/pull/625)
+
 ## 0.17.1
 
 [Full diff](https://github.com/sider/runners/compare/0.17.0...0.17.1)

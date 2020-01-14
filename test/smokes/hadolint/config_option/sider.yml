@@ -1,0 +1,3 @@
+linter:
+  hadolint:
+    config: custom-hadolint.yml

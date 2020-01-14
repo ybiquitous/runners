@@ -1,0 +1,3 @@
+linter:
+  hadolint:
+    target: "src/Dockerfile"

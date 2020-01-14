@@ -1,0 +1,3 @@
+linter:
+  hadolint:
+    ignore: "DL3002"
