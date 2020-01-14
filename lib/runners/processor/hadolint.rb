@@ -47,9 +47,6 @@ module Runners
         Array(config[:ignore]).each do |ignore|
           opts << "--ignore=#{ignore}"
         end
-        analysis_target.each do |target|
-          opts << target
-        end
         opts << "--config=#{config[:config]}" if config[:config]
       end
     end
@@ -63,7 +60,7 @@ module Runners
     end
 
     def run_analyzer
-      stdout, stderr, status = capture3 analyzer_bin, *analyzer_options
+      stdout, stderr, status = capture3 analyzer_bin, *analyzer_options, *analysis_target
       if status.exitstatus == 1 && stdout.strip == "Please provide a Dockerfile"
         add_warning "No Docker file provided"
         return Results::Success.new(guid: guid, analyzer: analyzer)
