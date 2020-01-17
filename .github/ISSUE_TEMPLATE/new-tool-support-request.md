@@ -1,7 +1,7 @@
 ---
 name: New tool support request
 about: Suggest new analysis tool support for this project
-title: Support [ANALISYS_TOOL_NAME]
+title: Support [ANALYSIS_TOOL_NAME]
 labels: enhancement
 assignees: ''
 
@@ -20,7 +20,7 @@ A clear and concise description of any alternative solutions or features you've 
 Add any other context or screenshots about the feature request here.
 
 
-## Support [ANALISYS_TOOL_Name]
+## Support [ANALYSIS_TOOL_Name]
 
 - Source code URL: [URL]
 - Official Site/Document: [URL]
