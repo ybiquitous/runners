@@ -23,7 +23,7 @@ Add any other context or screenshots about the feature request here.
 ## Support [ANALYSIS_TOOL_NAME]
 
 - Source code URL: [URL]
-- Official Site/Document: [URL]
+- Official Site/Documentation: [URL]
 
 ### Supplementary information
 
@@ -39,11 +39,10 @@ This issue is similar to these completed issues.
 
 ## TODO
 
-- [ ] Write smoke test(with some linter's Option)
-- [ ] Add pattern for success end, waring exit, error exit
+- [ ] Write smoke test(with some linter's Option). Add pattern for success end, waring exit, error exit
 - [ ] Add config option
-- [ ] Add test for error exit
-- [ ] Write document
+- [ ] (Optional) Add unit tests for the new analysis tool's `Processor` if needed.
+- [ ] Write documentation accordingly
 - [ ] Add CI setting (https://github.com/sider/runners/blob/master/.circleci/config.yml)
 - [ ] Discuss this Lint tool in this Issue
 - [ ] Fix developer guide if needed (https://github.com/sider/runners#developer-guide)
