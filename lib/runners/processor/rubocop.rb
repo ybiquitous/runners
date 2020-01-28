@@ -22,7 +22,6 @@ module Runners
       )
     end
 
-    # DEPRECATED: Implicit dependencies
     # @see https://help.sider.review/tools/ruby/rubocop#gems
     OPTIONAL_GEMS = [
       GemInstaller::Spec.new(name: "meowcop", version: []),
@@ -46,9 +45,16 @@ module Runners
       GemInstaller::Spec.new(name: "fincop", version: []),
       GemInstaller::Spec.new(name: "rubocop-github", version: []),
       GemInstaller::Spec.new(name: "ezcater_rubocop", version: []),
-      GemInstaller::Spec.new(name: "rubocop-rspec", version: []),
       GemInstaller::Spec.new(name: "rubocop-cask", version: []),
       GemInstaller::Spec.new(name: "rubocop-thread_safety", version: []),
+      # The followings are maintained by rubocop-hq. See https://github.com/rubocop-hq
+      GemInstaller::Spec.new(name: "rubocop-rails", version: []),
+      GemInstaller::Spec.new(name: "rubocop-rspec", version: []),
+      GemInstaller::Spec.new(name: "rubocop-minitest", version: []),
+      GemInstaller::Spec.new(name: "rubocop-performance", version: []),
+      GemInstaller::Spec.new(name: "rubocop-rubycw", version: []),
+      GemInstaller::Spec.new(name: "rubocop-rake", version: []),
+      GemInstaller::Spec.new(name: "rubocop-md", version: []),
     ].freeze
 
     CONSTRAINTS = {

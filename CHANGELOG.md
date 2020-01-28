@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.18.1...HEAD)
 
+- [RuboCop] Add more plugins to OPTIONAL_GEMS [#683](https://github.com/sider/runners/pull/683)
+
 ## 0.18.1
 
 [Full diff](https://github.com/sider/runners/compare/0.18.0...0.18.1)
