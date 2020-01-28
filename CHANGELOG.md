@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.18.0...HEAD)
 
+- [TSLint] Loosen the version constraint allowing v6 [#681](https://github.com/sider/runners/pull/681)
+
 ## 0.18.0
 
 [Full diff](https://github.com/sider/runners/compare/0.17.1...0.18.0)

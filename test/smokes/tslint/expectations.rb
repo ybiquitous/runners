@@ -381,3 +381,24 @@ Smoke.add_test(
     analyzer: nil
   }
 )
+
+Smoke.add_test(
+  "tslint-v6",
+  {
+    guid: "test-guid",
+    timestamp: :_,
+    type: "success",
+    issues: [
+      {
+        id: "no-console",
+        path: "foo.ts",
+        location: { start_line: 1, end_line: 1 },
+        message: "Calls to 'console.log' are not allowed.",
+        links: [],
+        object: nil,
+        git_blame_info: nil
+      }
+    ],
+    analyzer: { name: "TSLint", version: "6.0.0" }
+  }
+)
