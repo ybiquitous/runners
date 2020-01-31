@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - [SwiftLint] Bump SwiftLint from 0.38.1 to 0.38.2 [#669](https://github.com/sider/runners/pull/669)
 - [HAML-Lint] Bump rubocop-rails from 2.4.1 to 2.4.2 [#680](https://github.com/sider/runners/pull/680)
 - [Checkstyle][Security] Bump checkstyle from 8.28 to 8.29 [#685](https://github.com/sider/runners/pull/685)
+- [PHP_CodeSniffer] Bump squizlabs/php_codesniffer from 3.5.3 to 3.5.4 [#686](https://github.com/sider/runners/pull/686)
 
 ## 0.18.1
 
