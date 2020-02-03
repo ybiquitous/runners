@@ -50,21 +50,27 @@ Please follow these instructions.
 
 ### Prerequisites
 
-The latest version recommended.
-
-- Ruby
-- Bundler
-- Docker
+- Ruby (see [`.ruby-version`](.ruby-version))
+- Bundler (see [`Gemfile.lock`](Gemfile.lock))
+- Docker (the latest version recommended)
 
 ### Setup
 
-When checking out the source code, run the following command:
+First, after checking out the source code, run the following command to install Ruby:
+
+```shell
+$ rbenv insall
+```
+
+If you don't want to use [rbenv](https://github.com/rbenv/rbenv), you need to manually install Ruby with the version in the [`.ruby-version`](.ruby-version) file.
+
+Next, let's install gem dependencies via [Bundler](https://bundler.io):
 
 ```shell
 $ bundle install
 ```
 
-Next, run the following command to show available commands in the project:
+Then, run the following command to show available commands in the project:
 
 ```shell
 $ bundle exec rake --tasks
