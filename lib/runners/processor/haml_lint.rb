@@ -196,7 +196,7 @@ module Runners
         *options,
       )
 
-      # @see https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/cli.rb#L110
+      # @see https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/cli.rb#L110
       unless [65, 0].include?(status.exitstatus)
         return Results::Failure.new(guid: guid, message: <<~MESSAGE, analyzer: analyzer)
           stdout:

@@ -8,7 +8,7 @@ Smoke.add_test(
   issues: [
     {
       message: "Avoid defining `class` in attributes hash for static class names",
-      links: %w[https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue],
+      links: %w[https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/linter#classattributewithstaticvalue],
       id: "ClassAttributeWithStaticValue",
       path: "test.haml",
       location: { start_line: 4 },
@@ -16,7 +16,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "haml_lint", version: "0.34.1" }
+  analyzer: { name: "haml_lint", version: "0.34.2" }
 )
 
 Smoke.add_test(
@@ -28,7 +28,7 @@ Smoke.add_test(
     issues: [
       {
         message: "Avoid defining `class` in attributes hash for static class names",
-        links: %w[https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue],
+        links: %w[https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/linter#classattributewithstaticvalue],
         id: "ClassAttributeWithStaticValue",
         path: "test.haml",
         location: { start_line: 4 },
@@ -36,7 +36,7 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "haml_lint", version: "0.34.1" }
+    analyzer: { name: "haml_lint", version: "0.34.2" }
   },
   {
     warnings: [
@@ -61,7 +61,7 @@ Smoke.add_test(
   issues: [
     {
       message: "Lint/UselessAssignment: Useless assignment to variable - `unused_variable`.",
-      links: %w[https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#rubocop],
+      links: %w[https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/linter#rubocop],
       id: "RuboCop",
       path: "test.haml",
       location: { start_line: 3 },
@@ -69,7 +69,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "haml_lint", version: "0.34.1" }
+  analyzer: { name: "haml_lint", version: "0.34.2" }
 )
 
 Smoke.add_test(
@@ -100,7 +100,7 @@ Smoke.add_test(
   issues: [
     {
       message: "Avoid defining `class` in attributes hash for static class names",
-      links: %w[https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue],
+      links: %w[https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/linter#classattributewithstaticvalue],
       id: "ClassAttributeWithStaticValue",
       path: "test.haml",
       location: { start_line: 4 },
@@ -108,7 +108,7 @@ Smoke.add_test(
       git_blame_info: nil
     }
   ],
-  analyzer: { name: "haml_lint", version: "0.34.1" }
+  analyzer: { name: "haml_lint", version: "0.34.2" }
 )
 
 Smoke.add_test(
@@ -120,7 +120,7 @@ Smoke.add_test(
     issues: [
       {
         message: "3 consecutive Ruby scripts can be merged into a single `:ruby` filter",
-        links: %w[https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#consecutivesilentscripts],
+        links: %w[https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/linter#consecutivesilentscripts],
         id: "ConsecutiveSilentScripts",
         path: "hello.haml",
         location: { start_line: 2 },
@@ -137,7 +137,7 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "haml_lint", version: "0.34.1" }
+    analyzer: { name: "haml_lint", version: "0.34.2" }
   }
 )
 
@@ -230,7 +230,7 @@ Smoke.add_test(
     issues: [
       {
         message: "Avoid defining `class` in attributes hash for static class names",
-        links: %w[https://github.com/sds/haml-lint/blob/v0.34.1/lib/haml_lint/linter#classattributewithstaticvalue],
+        links: %w[https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/linter#classattributewithstaticvalue],
         id: "ClassAttributeWithStaticValue",
         path: "test.haml",
         location: { start_line: 1 },
@@ -238,7 +238,7 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "haml_lint", version: "0.34.1" }
+    analyzer: { name: "haml_lint", version: "0.34.2" }
   },
   { warnings: [{ message: "cannot load such file -- rubocop-performance", file: nil }] }
 )
