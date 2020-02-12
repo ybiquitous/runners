@@ -1,4 +1,4 @@
-require_relative "gem_install/expectations"
+Smoke = Runners::Testing::Smoke
 
 Smoke.add_test(
   "sandbox_rails",
@@ -109,8 +109,8 @@ Smoke.add_test(
       {
         message: "Use 2 (not 1) spaces for indentation.",
         links: %w[
-          https://github.com/bbatsov/ruby-style-guide#spaces-indentation
-          https://github.com/rubocop-hq/rubocop/blob/v0.50.0/manual/cops_layout.md#layoutindentationwidth
+          https://rubystyle.guide#spaces-indentation
+          https://github.com/rubocop-hq/rubocop/blob/v0.79.0/manual/cops_layout.md#layoutindentationwidth
         ],
         id: "Layout/IndentationWidth",
         path: "test.rb",
@@ -121,75 +121,41 @@ Smoke.add_test(
       {
         message: "Tab detected.",
         links: %w[
-          https://github.com/bbatsov/ruby-style-guide#spaces-indentation
-          https://github.com/rubocop-hq/rubocop/blob/v0.50.0/manual/cops_layout.md#layouttab
+          https://rubystyle.guide#spaces-indentation
+          https://github.com/rubocop-hq/rubocop/blob/v0.79.0/manual/cops_layout.md#layouttab
         ],
         id: "Layout/Tab",
         path: "test.rb",
         object: { severity: "convention", corrected: false },
         git_blame_info: nil,
         location: { start_line: 2, start_column: 1, end_line: 2, end_column: 1 }
-      }
-    ],
-    analyzer: { name: "RuboCop", version: "0.50.0" }
-  },
-  warnings: [
-    {
-      message: /The 0.50.0 and older versions are deprecated. Sider will drop these versions on January 31, 2020./,
-      file: "Gemfile"
-    },
-    { message: "Style/Tab has the wrong namespace - should be Layout", file: ".rubocop.yml" }
-  ]
-)
-
-Smoke.add_test(
-  "crash",
-  {
-    guid: "test-guid",
-    timestamp: :_,
-    type: "success",
-    issues: [
+      },
       {
-        message: "Missing magic comment `# frozen_string_literal: true`.",
-        links: %w[
-          https://github.com/rubocop-hq/rubocop/blob/v0.50.0/manual/cops_style.md#stylefrozenstringliteralcomment
-        ],
-        id: "Style/FrozenStringLiteralComment",
         path: "Gemfile",
-        object: { severity: "convention", corrected: false },
-        git_blame_info: nil,
-        location: { start_line: 1, start_column: 1, end_line: 1, end_column: 1 }
-      },
-      {
+        location: { start_line: 1, start_column: 1, end_line: 1, end_column: 1 },
+        id: "Style/FrozenStringLiteralComment",
         message: "Missing magic comment `# frozen_string_literal: true`.",
         links: %w[
-          https://github.com/rubocop-hq/rubocop/blob/v0.50.0/manual/cops_style.md#stylefrozenstringliteralcomment
+          https://github.com/rubocop-hq/rubocop/blob/v0.79.0/manual/cops_style.md#stylefrozenstringliteralcomment
         ],
-        id: "Style/FrozenStringLiteralComment",
-        path: "test.rb",
         object: { severity: "convention", corrected: false },
-        git_blame_info: nil,
-        location: { start_line: 1, start_column: 1, end_line: 1, end_column: 1 }
+        git_blame_info: nil
       },
       {
-        message: "Avoid multi-line ternary operators, use `if` or `unless` instead.",
-        links: %w[
-          https://github.com/bbatsov/ruby-style-guide#no-multiline-ternary
-          https://github.com/rubocop-hq/rubocop/blob/v0.50.0/manual/cops_style.md#stylemultilineternaryoperator
-        ],
-        id: "Style/MultilineTernaryOperator",
         path: "test.rb",
+        location: { start_line: 1, start_column: 1, end_line: 1, end_column: 1 },
+        id: "Style/FrozenStringLiteralComment",
+        message: "Missing magic comment `# frozen_string_literal: true`.",
+        links: %w[
+          https://github.com/rubocop-hq/rubocop/blob/v0.79.0/manual/cops_style.md#stylefrozenstringliteralcomment
+        ],
         object: { severity: "convention", corrected: false },
-        git_blame_info: nil,
-        location: { start_line: 2, start_column: 1, end_line: 2, end_column: 1 }
+        git_blame_info: nil
       }
     ],
-    analyzer: { name: "RuboCop", version: "0.50.0" }
+    analyzer: { name: "RuboCop", version: "0.79.0" }
   },
-  warnings: [
-    { message: /The 0.50.0 and older versions are deprecated/, file: "Gemfile" },
-    { message: "RuboCop crashes: An error occurred while Layout/MultilineOperationIndentation cop", file: "test.rb" }
-  ]
+  warnings: [{ message: "Style/Tab has the wrong namespace - should be Layout", file: ".rubocop.yml" }]
 )
 
 Smoke.add_test(
@@ -202,19 +168,18 @@ Smoke.add_test(
       {
         message: "Line is too long. [218/200]",
         links: %w[
-          https://github.com/bbatsov/ruby-style-guide#80-character-limits
-          https://github.com/rubocop-hq/rubocop/blob/v0.49.1/manual/cops_metrics.md#metricslinelength
+          https://rubystyle.guide#80-character-limits
+          https://github.com/rubocop-hq/rubocop/blob/v0.79.0/manual/cops_layout.md#layoutlinelength
         ],
-        id: "Metrics/LineLength",
+        id: "Layout/LineLength",
         path: "cat.rb",
         object: { severity: "convention", corrected: false },
         git_blame_info: nil,
-        location: { start_line: 3, start_column: 201, end_line: 3, end_column: 201 }
+        location: { start_line: 3, start_column: 201, end_line: 3, end_column: 218 }
       }
     ],
-    analyzer: { name: "RuboCop", version: "0.49.1" }
-  },
-  warnings: [{ message: /The 0.49.1 and older versions are deprecated/, file: "Gemfile" }]
+    analyzer: { name: "RuboCop", version: "0.79.0" }
+  }
 )
 
 Smoke.add_test(
@@ -302,18 +267,6 @@ Smoke.add_test(
       { message: "Metrics/LineLength has the wrong namespace - should be Layout", file: "my.rubocop.yml" }
     ]
   }
-)
-
-Smoke.add_test(
-  "using_option_with_incorrect_rubocop_version",
-  {
-    guid: "test-guid",
-    timestamp: :_,
-    type: "failure",
-    message: "invalid option: --safe\nFor usage information, use --help",
-    analyzer: { name: "RuboCop", version: "0.59.2" }
-  },
-  warnings: [{ message: /The 0.59.2 and older versions are deprecated/, file: "Gemfile" }]
 )
 
 Smoke.add_test(
@@ -485,4 +438,36 @@ Smoke.add_test(
     ],
     analyzer: { name: "RuboCop", version: "0.67.0" }
   }
+)
+
+Smoke.add_test(
+  "install_from_sideci.yml_when_installing_old_version_gems",
+  {
+    guid: "test-guid",
+    timestamp: :_,
+    type: "failure",
+    message: <<~TEXT,
+      Failed to install gems. Sider automatically installs gems according to `sideci.yml` and `Gemfile.lock`.
+      You can select the version of gems you want to install via `sideci.yml`.
+      See https://help.sider.review/getting-started/custom-configuration#gems-option
+    TEXT
+    analyzer: nil
+  }
+)
+
+Smoke.add_test(
+  "old_ruocop_is_specified",
+  { guid: "test-guid", timestamp: :_, type: "success", issues: [], analyzer: { name: "RuboCop", version: "0.79.0" } },
+  warnings: [
+    {
+      message: <<~MSG,
+        Sider tried to install `rubocop 0.60.0` according to your `Gemfile.lock`, but it installs `0.79.0` instead.
+        Because `0.60.0` does not satisfy the Sider constraints [\">= 0.61.0\"].
+
+        If you want to use a different version of `rubocop`, update your `Gemfile.lock` to satisfy the constraint or specify the gem version in your `sider.yml`.
+        See https://help.sider.review/getting-started/custom-configuration#gems-option
+      MSG
+      file: nil
+    }
+  ]
 )

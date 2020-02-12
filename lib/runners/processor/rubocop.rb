@@ -58,10 +58,8 @@ module Runners
     ].freeze
 
     CONSTRAINTS = {
-      "rubocop" => [">= 0.35.0"]
+      "rubocop" => [">= 0.61.0"]
     }.freeze
-
-    RECOMMENDED_MINIMUM_VERSION = "0.61.0".freeze
 
     def self.ci_config_section_name
       'rubocop'
@@ -89,7 +87,6 @@ module Runners
       ensure_runner_config_schema(Schema.runner_config) do
         install_gems default_gem_specs, optionals: OPTIONAL_GEMS, constraints: CONSTRAINTS do |versions|
           analyzer
-          add_warning_if_deprecated_version(minimum: RECOMMENDED_MINIMUM_VERSION, file: "Gemfile", deadline: Time.new(2020, 1, 31))
           yield
         end
       end
@@ -114,8 +111,8 @@ module Runners
         --display-style-guide
         --cache=false
         --format=json
+        --no-display-cop-names
       ]
-      opts << "--no-display-cop-names" if support_no_display_cop_names?
 
       # Additional Options
       opts << rails_option(config)
@@ -274,7 +271,6 @@ module Runners
 
     def normalize_message(original_message, links, cop_name)
       original_message.delete_suffix("(" + links.join(", ") + ")").strip
-        .yield_self { |ret| support_no_display_cop_names? ? ret : ret.delete_prefix(cop_name + ": ") }
     end
 
     # @see https://github.com/rubocop-hq/rubocop/blob/v0.72.0/CHANGELOG.md
@@ -285,11 +281,6 @@ module Runners
     # @see https://github.com/rubocop-hq/rubocop/blob/v0.68.0/CHANGELOG.md
     def performance_cops_removed?
       Gem::Version.create(analyzer_version) >= Gem::Version.create("0.68.0")
-    end
-
-    # @see https://github.com/rubocop-hq/rubocop/blob/v0.52.0/CHANGELOG.md
-    def support_no_display_cop_names?
-      Gem::Version.create(analyzer_version) >= Gem::Version.create("0.52.0")
     end
   end
 end
