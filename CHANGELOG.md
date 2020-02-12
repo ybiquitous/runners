@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.18.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.19.0...HEAD)
+
+## 0.19.0
+
+[Full diff](https://github.com/sider/runners/compare/0.18.1...0.19.0)
 
 - [RuboCop] Add more plugins to OPTIONAL_GEMS [#683](https://github.com/sider/runners/pull/683)
 - [Flake8] Add warnings if the analysis tries to use Python 2 [#702](https://github.com/sider/runners/pull/702)
