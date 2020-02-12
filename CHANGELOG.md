@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - [stylelint] Bump stylelint from 12.0.1 to 13.0.0 [#693](https://github.com/sider/runners/pull/693)
 - [TSLint] Bump tslint from 5.20.1 to 6.0.0 [#689](https://github.com/sider/runners/pull/689)
 - [HAML-Lint] Update haml_lint requirement from 0.34.1 to 0.34.2 [#705](https://github.com/sider/runners/pull/705)
+- [ESLint] Drop older versions of ESLint [#721](https://github.com/sider/runners/pull/721)
 
 ## 0.18.1
 
