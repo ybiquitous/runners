@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - [ESLint] Drop older versions of ESLint [#721](https://github.com/sider/runners/pull/721)
 - [RuboCop] Drop older versions of RuboCop [#726](https://github.com/sider/runners/pull/726)
 - Bump devon_rex images from 2.12.0 to 2.14.0 [#727](https://github.com/sider/runners/pull/727)
+- [HAML-Lint] Update rubocop-rspec requirement from 1.37.1 to 1.38.0 [#720](https://github.com/sider/runners/pull/720)
 
 ## 0.18.1
 
