@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - [TSLint] Bump tslint from 5.20.1 to 6.0.0 [#689](https://github.com/sider/runners/pull/689)
 - [HAML-Lint] Update haml_lint requirement from 0.34.1 to 0.34.2 [#705](https://github.com/sider/runners/pull/705)
 - [ESLint] Drop older versions of ESLint [#721](https://github.com/sider/runners/pull/721)
+- [RuboCop] Drop older versions of RuboCop [#726](https://github.com/sider/runners/pull/726)
 
 ## 0.18.1
 
