@@ -93,7 +93,7 @@ Smoke.add_test(
 )
 
 Smoke.add_test(
-  "rubocop-rspec",
+  "optional_gems_are_installed_via_gemfile",
   guid: "test-guid",
   timestamp: :_,
   type: "success",
@@ -104,6 +104,15 @@ Smoke.add_test(
       id: "ClassAttributeWithStaticValue",
       path: "test.haml",
       location: { start_line: 4 },
+      object: { severity: "warning" },
+      git_blame_info: nil
+    },
+    {
+      path: "test.haml",
+      location: { start_line: 5 },
+      id: "RuboCop",
+      message: "Performance/FlatMap: Use `flat_map` instead of `map...flatten`.",
+      links: %w[https://github.com/sds/haml-lint/blob/v0.34.2/lib/haml_lint/linter#rubocop],
       object: { severity: "warning" },
       git_blame_info: nil
     }
