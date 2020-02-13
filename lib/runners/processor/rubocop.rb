@@ -55,6 +55,7 @@ module Runners
       GemInstaller::Spec.new(name: "rubocop-rubycw", version: []),
       GemInstaller::Spec.new(name: "rubocop-rake", version: []),
       GemInstaller::Spec.new(name: "rubocop-md", version: []),
+      GemInstaller::Spec.new(name: "rubocop-sequel", version: []),
     ].freeze
 
     CONSTRAINTS = {
