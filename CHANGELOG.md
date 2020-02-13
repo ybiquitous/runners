@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.19.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.19.1...HEAD)
+
+## 0.19.1
+
+[Full diff](https://github.com/sider/runners/compare/0.19.0...0.19.1)
 
 - Set UserKnownHostsFile to avoid error message [#730](https://github.com/sider/runners/pull/730)
 
