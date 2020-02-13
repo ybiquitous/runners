@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.19.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.19.2...HEAD)
+
+## 0.19.2
+
+[Full diff](https://github.com/sider/runners/compare/0.19.1...0.19.2)
 
 - Add more plugins to OPTIONAL_GEMS in haml_lint.rb [#734](https://github.com/sider/runners/pull/734)
 
