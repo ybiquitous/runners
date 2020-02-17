@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.19.2...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.19.3...HEAD)
+
+## 0.19.3
+
+[Full diff](https://github.com/sider/runners/compare/0.19.2...0.19.3)
 
 - [RuboCop] Add `gitlab-styles` to optional gem list [#743](https://github.com/sider/runners/pull/743)
 
