@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.19.3...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.19.4...HEAD)
+
+## 0.19.4
+
+[Full diff](https://github.com/sider/runners/compare/0.19.3...0.19.4)
 
 - Show Runners version and GUID to trace [#744](https://github.com/sider/runners/pull/744)
 
