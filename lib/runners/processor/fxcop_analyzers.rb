@@ -7,7 +7,7 @@ module Runners
     #parameters
     FXCOP_ANALYZER_VERSION = '2.9.8'.freeze
     ANALYSIS_LOGFILE_PATH = '/tmp/sider_analysis_out.json'.freeze
-    RULE_ID_PATTERN = /CA[0-9]+/
+    RULE_ID_PATTERN = /CA[0-9]+/.freeze
 
     def self.ci_config_section_name
       'fxcop_analyzers'
