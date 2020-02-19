@@ -39,13 +39,7 @@ module Runners
 
       # install FxCop Analyzers from nuget Repository
       cmdline_add_analyzer = ['dotnet', 'add', 'package', 'Microsoft.CodeAnalysis.FxCopAnalyzers', '--version', FXCOP_ANALYZER_VERSION]
-      _, _, status = capture3(*cmdline_add_analyzer)
-      unless status == 0
-        msg = <<~EOS
-        Failed to install FxCop Analyzers. Please check log output.
-        EOS
-        return Results::Failure.new(guid: guid, message: msg, analyzer: analyzer)
-      end
+      _, _, status = capture3!(*cmdline_add_analyzer)
 
       yield
     end
