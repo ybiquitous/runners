@@ -68,7 +68,11 @@ module Runners
             path: relative_path(issue[:file]),
             location: loc,
             id: issue[:rule_id],
-            message: issue[:message])
+            message: issue[:message],
+            object: {
+              level: issue[:level]
+            }
+          )
         end
       end
     end
@@ -81,6 +85,7 @@ module Runners
           i.fetch('results').each do |i2|
             rule_id  = i2.fetch('ruleId')
             message  = i2.fetch('message')
+            level    = i2.fetch('level')
             loc_info = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('region')
             file     = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('uri').sub(/^file:\/\//,'')
 
@@ -93,6 +98,7 @@ module Runners
                 file: file,
                 rule_id: rule_id,
                 message: message,
+                level: level,
                 start_line: loc_info.fetch('startLine'),
                 start_column: loc_info.fetch('startColumn'),
                 end_line: loc_info.fetch('endLine'),
