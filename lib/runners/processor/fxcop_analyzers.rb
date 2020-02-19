@@ -69,6 +69,7 @@ module Runners
             location: loc,
             id: issue[:rule_id],
             message: issue[:message],
+            links: [issue[:link]],
             object: {
               level: issue[:level]
             }
@@ -79,8 +80,16 @@ module Runners
 
     # parse error log file(static analysis log file) from .NET Core Compilers
     def parse_result_file(f)
-      rval = []
       json = JSON.parse(f.read)
+
+      # parse rule information
+      rules = {}
+      json.fetch('runs').each do |i|
+        rules.merge!(i.fetch('rules'))
+      end
+
+      # parse analysis results and extract information
+      rval = []
       json.fetch('runs').each do |i|
         i.fetch('results').each do |i2|
           rule_id = i2.fetch('ruleId')
@@ -88,7 +97,7 @@ module Runners
           level = i2.fetch('level')
           loc_info = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('region')
           file = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('uri').sub(/^file:\/\//, '')
-
+          link = rules.fetch(rule_id).fetch('helpUri')
           # skip issues if the rule id is NOT for FxCop Analyzers
           unless rule_id =~ RULE_ID_PATTERN
             continue
@@ -97,6 +106,7 @@ module Runners
             {
               file: file,
               rule_id: rule_id,
+              link: link,
               message: message,
               level: level,
               start_line: loc_info.fetch('startLine'),

@@ -17,7 +17,7 @@ Smoke.add_test(
           level: 'warning'
         },
         git_blame_info: nil,
-        links: []
+        links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1303-do-not-pass-literals-as-localized-parameters"]
       },
       {
         path: 'Program.cs',
@@ -28,7 +28,7 @@ Smoke.add_test(
           level: 'warning'
         },
         git_blame_info: nil,
-        links: []
+        links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
       }
     ],
     analyzer: { name: 'FxCop Analyzers', version: '2.9.8' }
