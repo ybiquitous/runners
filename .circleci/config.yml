@@ -186,7 +186,7 @@ jobs:
     environment:
       ANALYZER: hadolint
     <<: *runner_job
-  runner_fxcop_analyzer:
+  runner_fxcop_analyzers:
     environment:
       ANALYZER: fxcop_analyzers
     <<: *runner_job
