@@ -31,8 +31,8 @@ module Runners
       _, _, status = capture3(*cmdline_install_dependency)
       unless status == 0
         msg = <<~EOS
-        Failed to restore .NET Core Project. You have to put project file (.csproj) under the analysis root. Please check project structure and Sider config file (sider.yml).
-        Note: We only support a project managed with MSBuild. No support for other build systems. (e.g. Nuke, Cake)
+          Failed to restore .NET Core Project. You have to put project file (.csproj) under the analysis root. Please check project structure and Sider config file (sider.yml).
+          Note: We only support a project managed with MSBuild. No support for other build systems. (e.g. Nuke, Cake)
         EOS
         return Results::Failure.new(guid: guid, message: msg, analyzer: analyzer)
       end
@@ -80,33 +80,33 @@ module Runners
     # parse error log file(static analysis log file) from .NET Core Compilers
     def parse_result_file(f)
       rval = []
-        json = JSON.parse(f.read)
-        json.fetch('runs').each do |i|
-          i.fetch('results').each do |i2|
-            rule_id  = i2.fetch('ruleId')
-            message  = i2.fetch('message')
-            level    = i2.fetch('level')
-            loc_info = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('region')
-            file     = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('uri').sub(/^file:\/\//,'')
+      json = JSON.parse(f.read)
+      json.fetch('runs').each do |i|
+        i.fetch('results').each do |i2|
+          rule_id = i2.fetch('ruleId')
+          message = i2.fetch('message')
+          level = i2.fetch('level')
+          loc_info = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('region')
+          file = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('uri').sub(/^file:\/\//, '')
 
-            # skip issues if the rule id is NOT for FxCop Analyzers
-            unless rule_id =~ RULE_ID_PATTERN
-              continue
-            end
-            rval.append(
-              {
-                file: file,
-                rule_id: rule_id,
-                message: message,
-                level: level,
-                start_line: loc_info.fetch('startLine'),
-                start_column: loc_info.fetch('startColumn'),
-                end_line: loc_info.fetch('endLine'),
-                end_column: loc_info.fetch('endColumn')
-              }
-            )
+          # skip issues if the rule id is NOT for FxCop Analyzers
+          unless rule_id =~ RULE_ID_PATTERN
+            continue
           end
+          rval.append(
+            {
+              file: file,
+              rule_id: rule_id,
+              message: message,
+              level: level,
+              start_line: loc_info.fetch('startLine'),
+              start_column: loc_info.fetch('startColumn'),
+              end_line: loc_info.fetch('endLine'),
+              end_column: loc_info.fetch('endColumn')
+            }
+          )
         end
+      end
       rval
     end
   end
