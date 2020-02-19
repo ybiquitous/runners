@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.19.4...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.20.0...HEAD)
+
+## 0.20.0
+
+[Full diff](https://github.com/sider/runners/compare/0.19.4...0.20.0)
 
 - [RuboCop] Update rubocop requirement from 0.79.0 to 0.80.0 [#752](https://github.com/sider/runners/pull/752)
 - [HAML-Lint] Update rubocop requirement from 0.79.0 to 0.80.0 [#753](https://github.com/sider/runners/pull/753)
