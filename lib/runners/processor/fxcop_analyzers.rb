@@ -90,13 +90,13 @@ module Runners
             end
             rval.append(
               {
-                "file": file,
-                "rule_id": rule_id,
-                "message": message,
-                "start_line": loc_info.fetch('startLine'),
-                "start_column": loc_info.fetch('startColumn'),
-                "end_line": loc_info.fetch('endLine'),
-                "end_column": loc_info.fetch('endColumn')
+                file: file,
+                rule_id: rule_id,
+                message: message,
+                start_line: loc_info.fetch('startLine'),
+                start_column: loc_info.fetch('startColumn'),
+                end_line: loc_info.fetch('endLine'),
+                end_column: loc_info.fetch('endColumn')
               }
             )
           end
