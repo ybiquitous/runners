@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.20.0...HEAD)
 
 - Show stderr of git-blame(1) [#756](https://github.com/sider/runners/pull/756)
+- [GolangCI-Lint] New support [#661](https://github.com/sider/runners/pull/661)
 
 ## 0.20.0
 
@@ -75,7 +76,6 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.17.1...0.18.0)
 
 - [hadolint] New support [#625](https://github.com/sider/runners/pull/625)
-- [GolangCI-Lint] New support [#661](https://github.com/sider/runners/pull/661)
 
 ## 0.17.1
 
