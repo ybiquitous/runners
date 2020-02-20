@@ -49,10 +49,6 @@ module Runners
       cmdline_run_analyzer = ['dotnet', 'build', '--no-incremental', "-property:errorlog=#{ANALYSIS_LOGFILE_PATH}"]
       capture3!(*cmdline_run_analyzer)
 
-      # parse static analysis results
-      unless File.exist?(ANALYSIS_LOGFILE_PATH)
-        return Results::Failure.new(guid: guid, message: 'Static analysis result is missing.', analyzer: analyzer)
-      end
       issues = parse_result_file(File.open("#{ANALYSIS_LOGFILE_PATH}"))
 
       # generate a result instance
