@@ -3,11 +3,16 @@ module Runners
   # https://docs.microsoft.com/en-us/visualstudio/code-quality/install-fxcop-analyzers
   # This is a beta release. We support only repositories that has .csproj file directly under analysis root directory.
   class Processor::FxCop < Processor
-
     #parameters
     FXCOP_ANALYZER_VERSION = ENV['FXCOP_VERSION']
     ANALYSIS_LOGFILE_PATH = '/tmp/sider_analysis_out.json'.freeze
     RULE_ID_PATTERN = /CA[0-9]+/.freeze
+
+    Schema = StrongJSON.new do
+      let :issue, object(
+        severity: string?,
+        )
+    end
 
     def self.ci_config_section_name
       'fxcop'
@@ -68,7 +73,8 @@ module Runners
             links: [issue[:link]],
             object: {
               severity: issue[:level]
-            }
+            },
+            schema: Schema.issue
           )
         end
       end
