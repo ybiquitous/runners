@@ -36,7 +36,8 @@ module Runners
       _, _, status = capture3(*cmdline_install_dependency)
       unless status == 0
         msg = <<~EOS
-          Failed to restore .NET Core Project. You have to put project file (.csproj) under the analysis root. Please check project structure and Sider config file (sider.yml).
+          Failed to restore .NET Core Project. You have to put project file (.csproj) under the analysis root. Please check the project structure and 'root_dir' parameter in #{ci_config_path_name}.
+          See: https://help.sider.review/getting-started/custom-configuration#root_dir-option
           Note: We only support a project managed with MSBuild. No support for other build systems. (e.g. Nuke, Cake)
         EOS
         return Results::Failure.new(guid: guid, message: msg, analyzer: analyzer)
