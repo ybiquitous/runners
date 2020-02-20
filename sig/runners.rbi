@@ -127,6 +127,8 @@ class Runners::Processor
   def push_dir: <'x> (Pathname) { -> 'x } -> 'x
   def current_dir: () -> Pathname
 
+  def self.register_config_schema: (**any) -> void
+  def self.ci_config_section_name: () -> String
   def capture3: (String, *String, **capture3_options) -> [String, String, Process::Status]
   def capture3!: (String, *String, **capture3_options) -> [String, String]
   def capture3_with_retry!: (String, *String, ?tries: Integer) -> [String, String]
@@ -140,7 +142,6 @@ class Runners::Processor
   def add_warning_if_deprecated_version: (minimum: String, ?file: String?, ?deadline: Time?) -> void
   def add_warning_if_deprecated_options: (Array<Symbol>, doc: String) -> void
   def add_warning_for_deprecated_linter: (alternative: String, ?deadline: Time?) -> void
-  def self.ci_config_section_name: () -> String
   def analyzer: -> Analyzer
   def analyzer_name: -> String
   def analyzer_bin: -> String
