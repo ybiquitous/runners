@@ -49,7 +49,7 @@ module Runners
       cmdline_run_analyzer = ['dotnet', 'build', '--no-incremental', "-property:errorlog=#{ANALYSIS_LOGFILE_PATH}"]
       capture3!(*cmdline_run_analyzer)
 
-      issues = parse_result_file(File.open("#{ANALYSIS_LOGFILE_PATH}"))
+      issues = parse_result(File.read(ANALYSIS_LOGFILE_PATH))
 
       # generate a result instance
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
@@ -74,9 +74,9 @@ module Runners
       end
     end
 
-    # parse error log file(static analysis log file) from .NET Core Compilers
-    def parse_result_file(f)
-      json = JSON.parse(f.read)
+    # parse error log (static analysis log) from .NET Core Compilers
+    def parse_result(f)
+      json = JSON.parse(f)
 
       # parse rule information
       rules = {}
