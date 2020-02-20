@@ -2,7 +2,7 @@ module Runners
   # A processor class for FxCop Analyzers
   # https://docs.microsoft.com/en-us/visualstudio/code-quality/install-fxcop-analyzers
   # This is a beta release. We support only repositories that has .csproj file directly under analysis root directory.
-  class Processor::FxCopAnalyzers < Processor
+  class Processor::FxCop < Processor
 
     #parameters
     FXCOP_ANALYZER_VERSION = '2.9.8'.freeze
@@ -10,11 +10,11 @@ module Runners
     RULE_ID_PATTERN = /CA[0-9]+/.freeze
 
     def self.ci_config_section_name
-      'fxcop_analyzers'
+      'fxcop'
     end
 
     def analyzer_name
-      'FxCop Analyzers'
+      'fxcop'
     end
 
     def analyzer_bin
