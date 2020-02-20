@@ -14,7 +14,7 @@ Smoke.add_test(
         id: 'CA1303',
         message: "Method 'void Program.Main(string[] args)' passes a literal string as parameter 'value' of a call to 'void Console.WriteLine(string value)'. Retrieve the following string(s) from a resource table instead: \"Hello World!\".",
         object: {
-          level: 'warning'
+          severity: 'warning'
         },
         git_blame_info: nil,
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1303-do-not-pass-literals-as-localized-parameters"]
@@ -25,7 +25,7 @@ Smoke.add_test(
         id: 'CA1801',
         message: 'Parameter args of method Main is never used. Remove the parameter or use it in the method body.',
         object: {
-          level: 'warning'
+          severity: 'warning'
         },
         git_blame_info: nil,
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
@@ -49,7 +49,7 @@ Smoke.add_test(
         id: 'CA1303',
         message: "Method 'void Program.Main(string[] args)' passes a literal string as parameter 'value' of a call to 'void Console.WriteLine(string value)'. Retrieve the following string(s) from a resource table instead: \"Hello World!\".",
         object: {
-          level: 'warning'
+          severity: 'warning'
         },
         git_blame_info: nil,
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1303-do-not-pass-literals-as-localized-parameters"]
@@ -60,7 +60,7 @@ Smoke.add_test(
         id: 'CA1801',
         message: 'Parameter args of method Main is never used. Remove the parameter or use it in the method body.',
         object: {
-          level: 'warning'
+          severity: 'warning'
         },
         git_blame_info: nil,
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
@@ -84,7 +84,7 @@ Smoke.add_test(
         id: 'CA1303',
         message: "Method 'void Program.Main(string[] args)' passes a literal string as parameter 'value' of a call to 'void Console.WriteLine(string value)'. Retrieve the following string(s) from a resource table instead: \"Hello World!\".",
         object: {
-          level: 'warning'
+          severity: 'warning'
         },
         git_blame_info: nil,
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1303-do-not-pass-literals-as-localized-parameters"]
@@ -95,7 +95,7 @@ Smoke.add_test(
         id: 'CA1801',
         message: 'Parameter args of method Main is never used. Remove the parameter or use it in the method body.',
         object: {
-          level: 'warning'
+          severity: 'warning'
         },
         git_blame_info: nil,
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]

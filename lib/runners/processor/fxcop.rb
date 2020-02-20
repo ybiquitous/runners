@@ -67,7 +67,7 @@ module Runners
             message: issue[:message],
             links: [issue[:link]],
             object: {
-              level: issue[:level]
+              severity: issue[:level]
             }
           )
         end
