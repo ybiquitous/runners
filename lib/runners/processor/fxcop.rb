@@ -79,10 +79,7 @@ module Runners
       json = JSON.parse(f)
 
       # parse rule information
-      rules = {}
-      json.fetch('runs').each do |i|
-        rules.merge!(i.fetch('rules'))
-      end
+      rules = json.fetch('runs').each_with_object({}){|i,v| v.merge!(i.fetch('rules'))}
 
       # parse analysis results and extract information
       rval = []
