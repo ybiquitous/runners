@@ -96,7 +96,7 @@ module Runners
           link = rules.fetch(rule_id).fetch('helpUri')
           # skip issues if the rule id is NOT for FxCop Analyzers
           unless rule_id =~ RULE_ID_PATTERN
-            continue
+            next
           end
           rval.append(
             {
