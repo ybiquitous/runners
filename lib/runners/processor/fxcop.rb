@@ -5,7 +5,7 @@ module Runners
   class Processor::FxCop < Processor
 
     #parameters
-    FXCOP_ANALYZER_VERSION = '2.9.8'.freeze
+    FXCOP_ANALYZER_VERSION = ENV['FXCOP_VERSION']
     ANALYSIS_LOGFILE_PATH = '/tmp/sider_analysis_out.json'.freeze
     RULE_ID_PATTERN = /CA[0-9]+/.freeze
 
