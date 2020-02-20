@@ -15,6 +15,16 @@ RUN cd ${RUNNERS_DIR} && \
     bundle config && \
     bundle install
 
+# cache target analyzer
+USER $RUNNER_USER
+RUN cd && \
+    mkdir dummy_project && \
+    cd dummy_project && \
+    dotnet new console && \
+    dotnet add package Microsoft.CodeAnalysis.FxCopAnalyzers --version 2.9.8 && \
+    cd && \
+    rm -rf dummy_project
+
 # Copy the main source code
 COPY --chown=analyzer_runner:nogroup bin ${RUNNERS_DIR}/bin
 COPY --chown=analyzer_runner:nogroup lib ${RUNNERS_DIR}/lib
