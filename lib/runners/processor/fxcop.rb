@@ -89,7 +89,7 @@ module Runners
           message = i2[:message]
           level = i2[:level]
           loc_info = i2[:locations][0][:resultFile][:region]
-          file = i2[:locations][0][:resultFile][:uri].sub(/^file:\/\//, '')
+          file = i2[:locations][0][:resultFile][:uri].yield_self{|s| URI.parse(s).path}
           link = rules[rule_id.intern][:helpUri]
           # skip issues if the rule id is NOT for FxCop Analyzers
           unless rule_id =~ RULE_ID_PATTERN
