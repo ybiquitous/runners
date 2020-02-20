@@ -76,21 +76,21 @@ module Runners
 
     # parse error log (static analysis log) from .NET Core Compilers
     def parse_result(f)
-      json = JSON.parse(f)
+      json = JSON.parse(f, {:symbolize_names => true})
 
       # parse rule information
-      rules = json.fetch('runs').each_with_object({}){|i,v| v.merge!(i.fetch('rules'))}
+      rules = json[:runs].each_with_object({}){|i,v| v.merge!(i[:rules])}
 
       # parse analysis results and extract information
       rval = []
-      json.fetch('runs').each do |i|
-        i.fetch('results').each do |i2|
-          rule_id = i2.fetch('ruleId')
-          message = i2.fetch('message')
-          level = i2.fetch('level')
-          loc_info = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('region')
-          file = i2.fetch('locations').fetch(0).fetch('resultFile').fetch('uri').sub(/^file:\/\//, '')
-          link = rules.fetch(rule_id).fetch('helpUri')
+      json[:runs].each do |i|
+        i[:results].each do |i2|
+          rule_id = i2[:ruleId]
+          message = i2[:message]
+          level = i2[:level]
+          loc_info = i2[:locations][0][:resultFile][:region]
+          file = i2[:locations][0][:resultFile][:uri].sub(/^file:\/\//, '')
+          link = rules[rule_id.intern][:helpUri]
           # skip issues if the rule id is NOT for FxCop Analyzers
           unless rule_id =~ RULE_ID_PATTERN
             next
@@ -102,10 +102,10 @@ module Runners
               link: link,
               message: message,
               level: level,
-              start_line: loc_info.fetch('startLine'),
-              start_column: loc_info.fetch('startColumn'),
-              end_line: loc_info.fetch('endLine'),
-              end_column: loc_info.fetch('endColumn')
+              start_line: loc_info[:startLine],
+              start_column: loc_info[:startColumn],
+              end_line: loc_info[:endLine],
+              end_column: loc_info[:endColumn]
             }
           )
         end
