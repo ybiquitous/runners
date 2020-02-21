@@ -21,10 +21,6 @@ module Runners
       'fxcop'
     end
 
-    def analyzer_bin
-      'dotnet'
-    end
-
     def analyzer_version
       ENV['FXCOP_VERSION']
     end
