@@ -21,7 +21,7 @@ module Runners
     end
 
     def analyzer_version
-      ENV['FXCOP_VERSION']
+      ENV.fetch('FXCOP_VERSION')
     end
 
     def setup
