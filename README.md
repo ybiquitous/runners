@@ -19,6 +19,7 @@ All analyzers are provided as a Docker image.
 - [cpplint](https://hub.docker.com/r/sider/runner_cpplint)
 - [ESLint](https://hub.docker.com/r/sider/runner_eslint)
 - [Flake8](https://hub.docker.com/r/sider/runner_flake8)
+- [FxCop](https://hub.docker.com/r/sider/runner_fxcop)
 - [go vet](https://hub.docker.com/r/sider/runner_go_vet)
 - [GolangCI-Lint](https://hub.docker.com/r/sider/runner_golangcli_lint)
 - [Golint](https://hub.docker.com/r/sider/runner_golint)
