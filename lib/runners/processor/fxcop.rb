@@ -83,7 +83,34 @@ module Runners
       # parse rule information
       rules = json[:runs].each_with_object({}){|i,v| v.merge!(i[:rules])}
 
-      # parse analysis results and extract information
+      # parse analysis results and return Issue instance
+
+      by_rule = -> (res) { res[:ruleId] =~ RULE_ID_PATTERN}
+      json[:runs].each do |run|
+        run[:results].filter(&by_rule).each do |result|
+          loc_info = result.dig(:locations,0,:resultFile, :region)
+          file = result.dig(:locations, 0, :resultFile, :uri).yield_self{|s| URI.parse(s).path}
+          link = rules[result[:ruleId].intern][:helpUri]
+
+          yield Issue.new(
+            path: relative_path(result.dig(:locations, 0, :resultFile, :uri).yield_self{|s| URI.parse(s).path}),
+            location: Location.new(
+              start_line: issue[:start_line],
+              start_column: issue[:start_column],
+              end_line: issue[:end_line],
+              end_column: issue[:end_column]
+            ),
+            id: issue[:rule_id],
+            message: issue[:message],
+            links: [issue[:link]],
+            object: {
+              severity: issue[:level]
+            },
+            schema: Schema.issue
+          )
+        end
+      end
+
       rval = []
       json[:runs].each do |i|
         i[:results].each do |i2|
