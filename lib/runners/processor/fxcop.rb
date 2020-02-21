@@ -59,7 +59,7 @@ module Runners
 
     # parse static analysis log from .NET Core Compilers and generate Issue instance
     # Output format is SARIF format 1.0
-    # http://json.schemastore.org/sarif-1.0.0
+    # @see http://json.schemastore.org/sarif-1.0.0
     def parse_result(f)
       json = JSON.parse(f, {:symbolize_names => true})
 
