@@ -21,6 +21,7 @@ All analyzers are provided as a Docker image.
 - [Flake8](https://hub.docker.com/r/sider/runner_flake8)
 - [FxCop](https://hub.docker.com/r/sider/runner_fxcop)
 - [go vet](https://hub.docker.com/r/sider/runner_go_vet)
+- [GolangCI-Lint](https://hub.docker.com/r/sider/runner_golangcli_lint)
 - [Golint](https://hub.docker.com/r/sider/runner_golint)
 - [Go Meta Linter](https://hub.docker.com/r/sider/runner_gometalinter)
 - [Goodcheck](https://hub.docker.com/r/sider/runner_goodcheck)
@@ -82,7 +83,7 @@ These commands will help you develop! :wink:
 ### Project structure
 
 ```shell
-$ tree -L 1 -d
+$ tree -F -L 1 -d
 .
 ├── bin
 ├── docs
@@ -91,7 +92,7 @@ $ tree -L 1 -d
 ├── sig
 └── test
 
-5 directories
+6 directories
 ```
 
 - `bin`: Entry point to launch a runner
