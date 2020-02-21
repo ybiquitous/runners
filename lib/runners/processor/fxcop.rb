@@ -4,7 +4,6 @@ module Runners
   # This is a beta release. We support only repositories that has .csproj file directly under analysis root directory.
   class Processor::FxCop < Processor
     #parameters
-    ANALYSIS_LOGFILE_PATH = '/tmp/sider_analysis_out.json'.freeze
     RULE_ID_PATTERN = /CA[0-9]+/.freeze
 
     Schema = StrongJSON.new do
