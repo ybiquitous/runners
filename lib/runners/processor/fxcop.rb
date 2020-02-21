@@ -46,7 +46,7 @@ module Runners
     def analyze(changes)
       # run 'dotnet build' with static analysis module
       output_file = Tempfile.new("fxcop-")
-      cmdline_run_analyzer = ['dotnet', 'build', '--no-incremental', "-property:errorlog=#{output_file.path}"]
+      capture3!('dotnet', 'build', '--no-incremental', "-property:errorlog=#{output_file.path}")
       capture3!(*cmdline_run_analyzer)
 
       # generate a result instance
