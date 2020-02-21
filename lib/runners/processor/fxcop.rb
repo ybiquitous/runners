@@ -37,7 +37,7 @@ module Runners
       end
 
       # install FxCop Analyzers from nuget Repository
-      cmdline_add_analyzer = ['dotnet', 'add', 'package', 'Microsoft.CodeAnalysis.FxCopAnalyzers', '--version', analyzer_version]
+      capture3!('dotnet', 'add', 'package', 'Microsoft.CodeAnalysis.FxCopAnalyzers', '--version', analyzer_version)
       capture3!(*cmdline_add_analyzer)
 
       yield
