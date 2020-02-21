@@ -18,7 +18,7 @@ module Runners
     end
 
     def analyzer_name
-      'fxcop'
+      'FxCop'
     end
 
     def analyzer_version

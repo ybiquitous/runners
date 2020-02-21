@@ -31,7 +31,7 @@ Smoke.add_test(
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
       }
     ],
-    analyzer: { name: 'fxcop', version: '2.9.8' }
+    analyzer: { name: 'FxCop', version: '2.9.8' }
   }
 )
 
@@ -66,7 +66,7 @@ Smoke.add_test(
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
       }
     ],
-    analyzer: { name: 'fxcop', version: '2.9.8' }
+    analyzer: { name: 'FxCop', version: '2.9.8' }
   }
 )
 
@@ -101,7 +101,7 @@ Smoke.add_test(
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
       }
     ],
-    analyzer: { name: 'fxcop', version: '2.9.8' }
+    analyzer: { name: 'FxCop', version: '2.9.8' }
   }
 )
 
@@ -136,7 +136,7 @@ Smoke.add_test(
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
       }
     ],
-    analyzer: { name: 'fxcop', version: '2.9.8' }
+    analyzer: { name: 'FxCop', version: '2.9.8' }
   }
 )
 
@@ -196,6 +196,6 @@ Smoke.add_test(
         links: ["https://docs.microsoft.com/visualstudio/code-quality/ca1801-review-unused-parameters"]
       }
     ],
-    analyzer: { name: 'fxcop', version: '2.9.8' }
+    analyzer: { name: 'FxCop', version: '2.9.8' }
   }
 )
