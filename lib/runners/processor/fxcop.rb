@@ -38,7 +38,6 @@ module Runners
 
       # install FxCop Analyzers from nuget Repository
       capture3!('dotnet', 'add', 'package', 'Microsoft.CodeAnalysis.FxCopAnalyzers', '--version', analyzer_version)
-      capture3!(*cmdline_add_analyzer)
 
       yield
     end
@@ -47,7 +46,6 @@ module Runners
       # run 'dotnet build' with static analysis module
       output_file = Tempfile.new("fxcop-")
       capture3!('dotnet', 'build', '--no-incremental', "-property:errorlog=#{output_file.path}")
-      capture3!(*cmdline_run_analyzer)
 
       # generate a result instance
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
