@@ -50,33 +50,17 @@ module Runners
       cmdline_run_analyzer = ['dotnet', 'build', '--no-incremental', "-property:errorlog=#{output_file.path}"]
       capture3!(*cmdline_run_analyzer)
 
-      issues = parse_result(output_file.read)
-
       # generate a result instance
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
-        issues.each do |issue|
-          loc = Location.new(
-            start_line: issue[:start_line],
-            start_column: issue[:start_column],
-            end_line: issue[:end_line],
-            end_column: issue[:end_column]
-          )
-          result.add_issue Issue.new(
-            path: relative_path(issue[:file]),
-            location: loc,
-            id: issue[:rule_id],
-            message: issue[:message],
-            links: [issue[:link]],
-            object: {
-              severity: issue[:level]
-            },
-            schema: Schema.issue
-          )
+        parse_result(output_file.read) do |issue|
+          result.add_issue(issue)
         end
       end
     end
 
-    # parse error log (static analysis log) from .NET Core Compilers
+    # parse static analysis log from .NET Core Compilers and generate Issue instance
+    # Output format is SARIF format 1.0
+    # http://json.schemastore.org/sarif-1.0.0
     def parse_result(f)
       json = JSON.parse(f, {:symbolize_names => true})
 
@@ -84,62 +68,31 @@ module Runners
       rules = json[:runs].each_with_object({}){|i,v| v.merge!(i[:rules])}
 
       # parse analysis results and return Issue instance
-
-      by_rule = -> (res) { res[:ruleId] =~ RULE_ID_PATTERN}
+      by_rule = -> (res) { res[:ruleId] =~ RULE_ID_PATTERN} # filter for RuleId pattern matching
       json[:runs].each do |run|
         run[:results].filter(&by_rule).each do |result|
-          loc_info = result.dig(:locations,0,:resultFile, :region)
-          file = result.dig(:locations, 0, :resultFile, :uri).yield_self{|s| URI.parse(s).path}
-          link = rules[result[:ruleId].intern][:helpUri]
+          # the analyzer express a target file path as 'file://' format.
+          file_path = result.dig(:locations, 0, :resultFile, :uri).yield_self{|s| URI.parse(s).path}
+          loc_info = result.dig(:locations,0, :resultFile, :region)
 
           yield Issue.new(
-            path: relative_path(result.dig(:locations, 0, :resultFile, :uri).yield_self{|s| URI.parse(s).path}),
+            path: relative_path(file_path),
             location: Location.new(
-              start_line: issue[:start_line],
-              start_column: issue[:start_column],
-              end_line: issue[:end_line],
-              end_column: issue[:end_column]
+              start_line: loc_info[:startLine],
+              start_column: loc_info[:startColumn],
+              end_line: loc_info[:endLine],
+              end_column: loc_info[:endColumn]
             ),
-            id: issue[:rule_id],
-            message: issue[:message],
-            links: [issue[:link]],
+            id: result[:ruleId],
+            message: result[:message],
+            links: [rules[result[:ruleId].intern][:helpUri]],
             object: {
-              severity: issue[:level]
+              severity: result[:level]
             },
             schema: Schema.issue
           )
         end
       end
-
-      rval = []
-      json[:runs].each do |i|
-        i[:results].each do |i2|
-          rule_id = i2[:ruleId]
-          message = i2[:message]
-          level = i2[:level]
-          loc_info = i2.dig(:locations,0,:resultFile, :region)
-          file = i2.dig(:locations, 0, :resultFile, :uri).yield_self{|s| URI.parse(s).path}
-          link = rules[rule_id.intern][:helpUri]
-          # skip issues if the rule id is NOT for FxCop Analyzers
-          unless rule_id =~ RULE_ID_PATTERN
-            next
-          end
-          rval.append(
-            {
-              file: file,
-              rule_id: rule_id,
-              link: link,
-              message: message,
-              level: level,
-              start_line: loc_info[:startLine],
-              start_column: loc_info[:startColumn],
-              end_line: loc_info[:endLine],
-              end_column: loc_info[:endColumn]
-            }
-          )
-        end
-      end
-      rval
     end
   end
 end
