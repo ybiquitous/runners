@@ -46,10 +46,11 @@ module Runners
 
     def analyze(changes)
       # run 'dotnet build' with static analysis module
-      cmdline_run_analyzer = ['dotnet', 'build', '--no-incremental', "-property:errorlog=#{ANALYSIS_LOGFILE_PATH}"]
+      output_file = Tempfile.new("fxcop-")
+      cmdline_run_analyzer = ['dotnet', 'build', '--no-incremental', "-property:errorlog=#{output_file.path}"]
       capture3!(*cmdline_run_analyzer)
 
-      issues = parse_result(File.read(ANALYSIS_LOGFILE_PATH))
+      issues = parse_result(output_file.read)
 
       # generate a result instance
       Results::Success.new(guid: guid, analyzer: analyzer).tap do |result|
