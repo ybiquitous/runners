@@ -84,7 +84,7 @@ module Runners
             ),
             id: result[:ruleId],
             message: result[:message],
-            links: [rules[result[:ruleId].intern][:helpUri]],
+            links: [rules[result[:ruleId].to_sym][:helpUri]],
             object: {
               severity: result[:level]
             },
