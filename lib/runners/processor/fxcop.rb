@@ -4,7 +4,6 @@ module Runners
   # This is a beta release. We support only repositories that has .csproj file directly under analysis root directory.
   class Processor::FxCop < Processor
     #parameters
-    FXCOP_ANALYZER_VERSION = ENV['FXCOP_VERSION']
     ANALYSIS_LOGFILE_PATH = '/tmp/sider_analysis_out.json'.freeze
     RULE_ID_PATTERN = /CA[0-9]+/.freeze
 
@@ -27,7 +26,7 @@ module Runners
     end
 
     def analyzer_version
-      FXCOP_ANALYZER_VERSION
+      ENV['FXCOP_VERSION']
     end
 
     def setup
@@ -44,7 +43,7 @@ module Runners
       end
 
       # install FxCop Analyzers from nuget Repository
-      cmdline_add_analyzer = ['dotnet', 'add', 'package', 'Microsoft.CodeAnalysis.FxCopAnalyzers', '--version', FXCOP_ANALYZER_VERSION]
+      cmdline_add_analyzer = ['dotnet', 'add', 'package', 'Microsoft.CodeAnalysis.FxCopAnalyzers', '--version', analyzer_version]
       capture3!(*cmdline_add_analyzer)
 
       yield
