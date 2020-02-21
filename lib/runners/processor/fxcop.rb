@@ -58,8 +58,8 @@ module Runners
     # parse static analysis log from .NET Core Compilers and generate Issue instance
     # Output format is SARIF format 1.0
     # @see http://json.schemastore.org/sarif-1.0.0
-    def parse_result(f)
-      json = JSON.parse(f, symbolize_names: true)
+    def parse_result(result_json)
+      json = JSON.parse(result_json, symbolize_names: true)
 
       # parse rule information
       rules = json[:runs].each_with_object({}){|i,v| v.merge!(i[:rules])}
