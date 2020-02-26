@@ -15,6 +15,11 @@ module Runners
       "go_vet"
     end
 
+    def setup
+      add_warning_for_deprecated_linter(alternative: "GolangCi-Lint", deadline: Time.new(2_020, 3, 31))
+      yield
+    end
+
     def analyze(changes)
       # NOTE: go_vet cannot output with JSON format, so we use Gometalinter.
       stdout, _, _ = capture3(
