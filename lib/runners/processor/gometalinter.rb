@@ -3,7 +3,29 @@ module Runners
     include Go
 
     Schema = StrongJSON.new do
-      let :runner_config, Schema::BaseConfig.base
+      let :runner_config, Schema::BaseConfig.base.update_fields { |fields|
+        fields.merge!(
+          import_path: string?,
+          install_path: string?,
+          options: object?(
+            config: string?,
+            exclude: string?,
+            include: string?,
+            skip: string?,
+            'cyclo-over': numeric?,
+            'min-confidence': numeric?,
+            'dupl-threshold': numeric?,
+            severity: string?,
+            vendor: boolean?,
+            tests: boolean?,
+            errors: boolean?,
+            'disable-all': boolean?,
+            fast: boolean?,
+            disable: enum?(string, array(string)),
+            enable: enum?(string, array(string)),
+          ),
+        )
+      }
     end
 
     register_config_schema(name: :gometalinter, schema: Schema.runner_config)
@@ -141,7 +163,7 @@ module Runners
           next unless !!v
           "--#{k}"
         when 'disable', 'enable'
-          linter_tool_options(k, v)
+          linter_tool_options(k, Array(v))
         else
           nil
         end
