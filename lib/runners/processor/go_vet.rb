@@ -2,6 +2,12 @@ module Runners
   class Processor::GoVet < Processor
     include Go
 
+    Schema = StrongJSON.new do
+      let :runner_config, Schema::BaseConfig.base
+    end
+
+    register_config_schema(name: :go_vet, schema: Schema.runner_config)
+
     def self.ci_config_section_name
       # Section name in sideci.yml, Generally it is the name of analyzer tool.
       "go_vet"

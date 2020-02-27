@@ -7,6 +7,10 @@ module Runners
     delegate :push_dir, :current_dir, :capture3, :capture3!, :capture3_trace, :capture3_with_retry!, to: :shell
     delegate :env_hash, :push_env_hash, to: :shell
 
+    def self.register_config_schema(**args)
+      Schema::Config.register(**args)
+    end
+
     def initialize(guid:, workspace:, git_ssh_path:, trace_writer:)
       @guid = guid
       @workspace = workspace
