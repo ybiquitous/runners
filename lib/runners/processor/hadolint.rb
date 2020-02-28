@@ -28,35 +28,28 @@ module Runners
       "hadolint"
     end
 
-    def analyze(changes)
-      ensure_runner_config_schema(Schema.runner_config) do |config|
-        @config = config
-        run_analyzer
-      end
+    def analyze(_changes)
+      run_analyzer
     end
 
     private
 
-    def config
-      @config or raise "Must be initialized!"
-    end
-
     def analyzer_options
       [].tap do |opts|
         opts << "--format=json"
-        Array(config[:'trusted-registry']).each do |trusted|
+        Array(ci_section[:'trusted-registry']).each do |trusted|
           opts << "--trusted-registry=#{trusted}"
         end
-        Array(config[:ignore]).each do |ignore|
+        Array(ci_section[:ignore]).each do |ignore|
           opts << "--ignore=#{ignore}"
         end
-        opts << "--config=#{config[:config]}" if config[:config]
+        opts << "--config=#{ci_section[:config]}" if ci_section[:config]
       end
     end
 
     def analysis_target
-      if config[:target]
-        Array(config[:target])
+      if ci_section[:target]
+        Array(ci_section[:target])
       else
         current_dir.glob(DEFAULT_TARGET, File::FNM_EXTGLOB)
           .reject { |path| path.fnmatch?(DEFAULT_TARGET_EXCLUDED, File::FNM_EXTGLOB) }
