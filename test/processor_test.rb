@@ -330,33 +330,6 @@ class ProcessorTest < Minitest::Test
     end
   end
 
-  def test_ensure_runner_config_schema_with_expected_fields
-    with_workspace do |workspace|
-      processor = new_processor(workspace: workspace, config_yaml: <<~YAML)
-        linter:
-          eslint:
-            root_dir: app/bar
-      YAML
-      config = processor.ensure_runner_config_schema(Processor::Eslint::Schema.runner_config) { |c| c }
-      assert_equal(
-        {
-          root_dir: "app/bar",
-          npm_install: nil,
-          dir: nil,
-          ext: nil,
-          config: nil,
-          "ignore-path": nil,
-          "ignore-pattern": nil,
-          "no-ignore": nil,
-          global: nil,
-          quiet: nil,
-          options: nil,
-        },
-        config,
-      )
-    end
-  end
-
   def test_abort_capture3
     with_workspace do |workspace|
       processor = new_processor(workspace: workspace)
