@@ -132,12 +132,6 @@ module Runners
       end
     end
 
-    # @deprecated This method will be removed in favor of `Runners::Config`.
-    # @param schema [StrongJSON]
-    def ensure_runner_config_schema(_schema)
-      yield ci_section
-    end
-
     # Returns e.g. "$.linter.rubocop.gems"
     def build_field_reference_from_path(path)
       path.to_s.sub('$', "$.linter.#{self.class.ci_config_section_name}")
