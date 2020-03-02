@@ -30,7 +30,7 @@ module Runners
     end
 
     def ignore
-      Array(content&.fetch(:ignore))
+      Array(content[:ignore])
     end
 
     private
@@ -58,6 +58,5 @@ module Runners
       message = "The value of the attribute `#{exn.path}` of `#{path_name}` is invalid."
       raise InvalidConfiguration.new(message, input_string)
     end
-
   end
 end

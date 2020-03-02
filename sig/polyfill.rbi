@@ -1,5 +1,6 @@
 class Pathname
-  def self.glob: (Pathname, ?Integer) -> Array<Pathname>
+  def self.glob: (String | Pathname | Array<Pathname> | Array<String>, ?Integer) -> Array<Pathname>
+  def glob: (String | Pathname | Array<Pathname> | Array<String>, ?Integer) -> Array<Pathname>
   def +: (Pathname | String) -> Pathname
   alias / +
   def exist?: -> bool
@@ -39,6 +40,7 @@ extension String (Polyfill)
   def casecmp?: (String) -> bool?
   def delete: (*String) -> String
   def delete_prefix: (String) -> String
+  def lines: (?chomp: bool)-> Array<String>
 end
 
 class Time
@@ -82,6 +84,7 @@ class FileUtils
   def self.install: (String, String, ?any) -> void
   def self.copy_entry: (any, any) -> void
   def self.remove_entry: (String|Pathname, ?bool) -> void
+  def self.rm_rf: (String | Pathname | Array<String> | Array<Pathname>) -> void
 end
 
 class Dir

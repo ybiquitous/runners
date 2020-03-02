@@ -34,6 +34,7 @@ module Runners
 
           config = Config.new(workspace.working_dir)
           @ci_config = config.content
+          remove_ignored_files(config)
           begin
             instance = processor_class.new(guid: guid, workspace: workspace, config: config, git_ssh_path: git_ssh_path&.to_s, trace_writer: trace_writer)
 
@@ -67,6 +68,8 @@ module Runners
       end
     end
 
+    private
+
     def ensure_result
       begin
         yield.tap do |result|
@@ -90,6 +93,41 @@ module Runners
       else
         trace_writer.error "#{exn.message} (#{exn.class})"
       end
+    end
+
+    def remove_ignored_files(config)
+      ignores = config.ignore
+      return if ignores.empty?
+
+      trace_writer.message("Deleting ignored files...") do
+        with_gitignore(ignores) do |list|
+          FileUtils.rm_rf(list)
+          trace_writer.message list.map { |f| f.relative_path_from(working_dir) }.join("\n")
+        end
+      end
+    end
+
+    def with_gitignore(ignores)
+      gitignore = (working_dir / ".gitignore")
+
+      backup = gitignore.file? ? gitignore.read : nil
+      gitignore.write(ignores.join("\n"))
+
+      shell = Shell.new(current_dir: working_dir, trace_writer: trace_writer, env_hash: {})
+      shell.capture3!("git", "init", trace_command_line: false, trace_stdout: false)
+
+      # @see https://git-scm.com/docs/git-check-ignore#_exit_status
+      stdout, = shell.capture3!(
+        "git", "check-ignore", *working_dir.glob("**/*", File::FNM_DOTMATCH).map(&:to_s),
+        trace_command_line: false,
+        trace_stdout: false,
+        is_success: -> (s) { s.exitstatus != 128 },
+      )
+
+      yield stdout.lines(chomp: true).map { |v| Pathname(v) }
+    ensure
+      FileUtils.rm_rf(working_dir / ".git") # NOTE: working_dir is not a Git directory.
+      gitignore.write(backup) if backup
     end
   end
 end

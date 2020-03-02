@@ -188,6 +188,10 @@ class ConfigTest < Minitest::Test
 
   def test_ignore
     mktmpdir do |path|
+      assert_equal [], Runners::Config.new(path).ignore
+    end
+
+    mktmpdir do |path|
       (path / "sider.yml").write("ignore: abc")
       assert_equal %w[abc], Runners::Config.new(path).ignore
     end
