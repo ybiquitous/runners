@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
 - [TyScan] Bump typescript from 3.7.5 to 3.8.3 [#791](https://github.com/sider/runners/pull/791)
 - [Checkstyle] Bump checkstyle from 8.29 to 8.30 [#788](https://github.com/sider/runners/issues/788)
 - [PHP_CodeSniffer] Bump wpcs from 2.2.0 to 2.2.1 [#789](https://github.com/sider/runners/issues/789)
+- [PHPMD] Bump phpmd from 2.8.1 to 2.8.2 [#792](https://github.com/sider/runners/issues/792)
 
 ## 0.20.0
 
