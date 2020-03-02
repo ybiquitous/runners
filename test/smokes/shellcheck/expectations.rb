@@ -370,3 +370,34 @@ Smoke.add_test(
   "option_norc",
   { guid: "test-guid", timestamp: :_, type: "success", issues: [], analyzer: { name: "ShellCheck", version: "0.7.0" } }
 )
+
+# Test specified files with the `ignore` options will be ignored.
+Smoke.add_test(
+  "with_ignore",
+  {
+    guid: "test-guid",
+    timestamp: :_,
+    type: "success",
+    issues: [
+      {
+        path: "abc.bash",
+        location: { start_line: 3, start_column: 3, end_line: 3, end_column: 8 },
+        id: "SC2006",
+        message: "Use $(...) notation instead of legacy backticked `...`.",
+        links: %w[https://github.com/koalaman/shellcheck/wiki/SC2006],
+        object: { code: 2_006, severity: "style", fix: { replacements: :_ } },
+        git_blame_info: nil
+      },
+      {
+        path: "abc.sh",
+        location: { start_line: 3, start_column: 3, end_line: 3, end_column: 8 },
+        id: "SC2006",
+        message: "Use $(...) notation instead of legacy backticked `...`.",
+        links: %w[https://github.com/koalaman/shellcheck/wiki/SC2006],
+        object: { code: 2_006, severity: "style", fix: { replacements: :_ } },
+        git_blame_info: nil
+      }
+    ],
+    analyzer: { name: "ShellCheck", version: "0.7.0" }
+  }
+)

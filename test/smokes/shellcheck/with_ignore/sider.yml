@@ -1,0 +1,4 @@
+ignore:
+  - "*.min.sh"
+  - "*.min.bash"
+  - "dist/**/*.sh"

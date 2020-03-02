@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - [PHPMD] Bump phpmd from 2.8.1 to 2.8.2 [#792](https://github.com/sider/runners/issues/792)
 - [stylelint] Bump stylelint from 13.0.0 to 13.2.0 [#793](https://github.com/sider/runners/issues/793)
 - Bump devon_rex images from 2.14.0 to 2.15.0 [#799](https://github.com/sider/runners/pull/799)
+- Remove specified files via the `ignore` option [#798](https://github.com/sider/runners/pull/798)
 
 ## 0.20.0
 
