@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - Bump devon_rex images from 2.14.0 to 2.15.0 [#799](https://github.com/sider/runners/pull/799)
 - Remove specified files via the `ignore` option [#798](https://github.com/sider/runners/pull/798)
 - [HAML-Lint] Bump haml_lint from 0.34.2 to 0.35.0 [#794](https://github.com/sider/runners/pull/794)
+- [RuboCop] Bump rubocop from 0.80.0 to 0.80.1 [#796](https://github.com/sider/runners/pull/796)
 
 ## 0.20.0
 
