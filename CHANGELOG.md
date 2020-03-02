@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file.
 - [stylelint] Bump stylelint from 13.0.0 to 13.2.0 [#793](https://github.com/sider/runners/issues/793)
 - Bump devon_rex images from 2.14.0 to 2.15.0 [#799](https://github.com/sider/runners/pull/799)
 - Remove specified files via the `ignore` option [#798](https://github.com/sider/runners/pull/798)
+- [HAML-Lint] Bump haml_lint from 0.34.2 to 0.35.0 [#794](https://github.com/sider/runners/pull/794)
 
 ## 0.20.0
 
