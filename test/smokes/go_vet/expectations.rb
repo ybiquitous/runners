@@ -17,13 +17,13 @@ Smoke.add_test(
         git_blame_info: nil
       }
     ],
-    analyzer: { name: "go_vet", version: "3.0.0" }
+    analyzer: { name: "go vet", version: "3.0.0" }
   },
   warnings: [
     {
       message: <<~MSG
         DEPRECATION WARNING!!!
-        The support for go_vet is deprecated. Sider will drop these versions on April 30, 2020.
+        The support for go vet is deprecated. Sider will drop these versions on April 30, 2020.
         Please consider using an alternative tool GolangCi-Lint. See https://help.sider.review/tools/go/govet
       MSG
         .strip,

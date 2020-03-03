@@ -31,30 +31,21 @@ module Runners
       "tyscan" => Constraint.new(">= 0.2.1", "< 1.0.0")
     }.freeze
 
-    DEFAULT_CONFIG_NOT_FOUND_ERROR = <<~MESSAGE.freeze
-      `tyscan.yml` does not exist in your repository.
-
-      To start performing analysis, `tyscan.yml` is required.
-      See also: https://help.sider.review/tools/javascript/tyscan
-    MESSAGE
-
-    def self.ci_config_section_name
-      'tyscan'
-    end
-
-    def analyzer_name
-      "TyScan"
-    end
-
     def setup
-      if !(current_dir + 'tyscan.yml').exist? && ci_section[:config].nil?
-        trace_writer.error DEFAULT_CONFIG_NOT_FOUND_ERROR
-        add_warning DEFAULT_CONFIG_NOT_FOUND_ERROR
+      if !(current_dir + 'tyscan.yml').exist? && config_linter[:config].nil?
+        msg = <<~MESSAGE.freeze
+          `tyscan.yml` does not exist in your repository.
+
+          To start performing analysis, `tyscan.yml` is required.
+          See also: #{analyzer_doc}
+        MESSAGE
+        trace_writer.error msg
+        add_warning msg
         return Results::Success.new(guid: guid, analyzer: analyzer)
       end
 
       begin
-        install_nodejs_deps(DEFAULT_DEPS, constraints: CONSTRAINTS, install_option: ci_section[:npm_install])
+        install_nodejs_deps(DEFAULT_DEPS, constraints: CONSTRAINTS, install_option: config_linter[:npm_install])
       rescue UserError => exn
         return Results::Failure.new(guid: guid, message: exn.message)
       end
@@ -69,8 +60,8 @@ module Runners
 
     def tyscan_test
       args = []
-      args.unshift("-t", ci_section[:tsconfig]) if ci_section[:tsconfig]
-      args.unshift("-c", ci_section[:config]) if ci_section[:config]
+      args.unshift("-t", config_linter[:tsconfig]) if config_linter[:tsconfig]
+      args.unshift("-c", config_linter[:config]) if config_linter[:config]
 
       _, _, status = capture3(nodejs_analyzer_bin, "test", *args)
 
@@ -78,15 +69,15 @@ module Runners
         msg = <<~MESSAGE.chomp
           `tyscan test` failed. It may cause an unintended match.
         MESSAGE
-        add_warning(msg, file: ci_section[:config] || "tyscan.yml")
+        add_warning(msg, file: config_linter[:config] || "tyscan.yml")
       end
     end
 
     def tyscan_scan
       args = []
-      args.unshift(*ci_section[:paths]) if ci_section[:paths]
-      args.unshift("-t", ci_section[:tsconfig]) if ci_section[:tsconfig]
-      args.unshift("-c", ci_section[:config]) if ci_section[:config]
+      args.unshift(*config_linter[:paths]) if config_linter[:paths]
+      args.unshift("-t", config_linter[:tsconfig]) if config_linter[:tsconfig]
+      args.unshift("-c", config_linter[:config]) if config_linter[:config]
 
       stdout, stderr, status = capture3(nodejs_analyzer_bin, "scan", "--json", *args)
 
