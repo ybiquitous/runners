@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.20.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.21.0...HEAD)
+
+## 0.21.0
+
+[Full diff](https://github.com/sider/runners/compare/0.20.0...0.21.0)
 
 - Show stderr of git-blame(1) [#756](https://github.com/sider/runners/pull/756)
 - [GolangCI-Lint] New support [#661](https://github.com/sider/runners/pull/661)
