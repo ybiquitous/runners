@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.21.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.21.1...HEAD)
+
+## 0.21.1
+
+[Full diff](https://github.com/sider/runners/compare/0.21.0...0.21.1)
 
 - [GolangCI-Lint] Warn no Go files instead of failing [#815](https://github.com/sider/runners/pull/815)
 - Improve trace message on start and finish [#816](https://github.com/sider/runners/pull/816)
