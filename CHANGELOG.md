@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - More kindful error message on invalid configuration [#818](https://github.com/sider/runners/pull/818)
 - Add raw content of config file to trace [#819](https://github.com/sider/runners/pull/819)
+- [SCSS-Lint] Add deprecation warning [#820](https://github.com/sider/runners/pull/820)
 
 ## 0.21.1
 
