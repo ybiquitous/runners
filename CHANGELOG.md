@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.21.4...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.21.5...HEAD)
+
+## 0.21.5
+
+[Full diff](https://github.com/sider/runners/compare/0.21.4...0.21.5)
 
 - Do not use base for git-blame(1) [#830](https://github.com/sider/runners/pull/830)
 
