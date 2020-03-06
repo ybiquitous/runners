@@ -85,7 +85,7 @@ class WorkspaceGitTest < Minitest::Test
       info = workspace.range_git_blame_info('test/smokes/haml_lint/expectations.rb', 137, 140)
       assert_equal(
         [
-          GitBlameInfo.new(commit: "abe1cfc294c8d39de7484954bf8c3d7792fd8ad1", original_line: 137, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8"),
+          GitBlameInfo.new(commit: "839d63e3a4b0c9654a501474b5fe922d4f3f8842", original_line: 126, final_line: 137, line_hash: "c57a7c8a63aa22b9aa40625f019fe097c3a23ab8"),
           GitBlameInfo.new(commit: "998bc02a913e3899f3a1cd327e162dd54d489a4b", original_line: 138, final_line: 138, line_hash: "a77048541cecbd797666107ed16818e10cc594cb"),
           GitBlameInfo.new(commit: "998bc02a913e3899f3a1cd327e162dd54d489a4b", original_line: 139, final_line: 139, line_hash: "aa9e4a8125d41d419481f799965c6a8e98392502"),
           GitBlameInfo.new(commit: "998bc02a913e3899f3a1cd327e162dd54d489a4b", original_line: 140, final_line: 140, line_hash: "03ad52e876f71079c3e662b6d5aac4b47f33698c"),
