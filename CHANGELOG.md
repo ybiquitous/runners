@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.21.4...HEAD)
 
+- Do not use base for git-blame(1) [#830](https://github.com/sider/runners/pull/830)
+
 ## 0.21.4
 
 [Full diff](https://github.com/sider/runners/compare/0.21.3...0.21.4)
