@@ -14,7 +14,6 @@ end
 Aufgaben::Bump::Ruby.new do |t|
   t.files = %w[
     .ruby-version
-    .circleci/config.yml
     .github/workflows/bump_analyzers.yml
   ]
 end
@@ -43,10 +42,7 @@ namespace :dockerfile do
   def render_erb(file, analyzer: ENV.fetch('ANALYZER'))
     locals = {
       analyzer: analyzer,
-
-      # TODO: `COPY --chown=${RUNNER_USER}:${RUNNER_GROUP}` format has been available since Docker v19.03.4.
-      #       However, CircleCI does not support the Docker version...
-      chown: "analyzer_runner:nogroup",
+      chown: '${RUNNER_USER}:nogroup',
     }
 
     res = ERB.new(File.read(file), trim_mode: "<>").result_with_hash(locals)
@@ -127,12 +123,12 @@ namespace :docker do
   end
 
   desc 'Run docker push'
-  task :push, [:tag] do |_task, args|
+  task :push do
     sh "docker", "login", "--username", docker_user, "--password", docker_password
     begin
       sh "docker", "push", image_name
-      if args.key? :tag
-        image_name_with_new_tag = image_name(args.fetch(:tag))
+      if ENV["TAG_LATEST"] == "true"
+        image_name_with_new_tag = image_name("latest")
         sh "docker", "tag", image_name, image_name_with_new_tag
         sh "docker", "push", image_name_with_new_tag
       end
