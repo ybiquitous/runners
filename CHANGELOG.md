@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.21.6...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.21.7...HEAD)
+
+## 0.21.7
+
+[Full diff](https://github.com/sider/runners/compare/0.21.6...0.21.7)
 
 - Add Actions `on.push.tags` for `docker push` [#842](https://github.com/sider/runners/pull/842)
 
