@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.21.5...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.21.6...HEAD)
+
+## 0.21.6
+
+[Full diff](https://github.com/sider/runners/compare/0.21.5...0.21.6)
 
 - Do not write the output of git-diff(1) [#837](https://github.com/sider/runners/pull/837)
 - Normalize strings written to `TraceWriter` [#838](https://github.com/sider/runners/pull/838)
