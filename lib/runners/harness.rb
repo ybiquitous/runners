@@ -9,14 +9,14 @@ module Runners
       end
     end
 
-    # @dynamic guid, processor_class, options, working_dir, trace_writer, warnings, ci_config
+    # @dynamic guid, processor_class, options, working_dir, trace_writer, warnings, config
     attr_reader :guid
     attr_reader :processor_class
     attr_reader :options
     attr_reader :working_dir
     attr_reader :trace_writer
     attr_reader :warnings
-    attr_reader :ci_config
+    attr_reader :config
 
     def initialize(guid:, processor_class:, options:, working_dir:, trace_writer:)
       @guid = guid
@@ -31,12 +31,12 @@ module Runners
       ensure_result do
         workspace = Workspace.prepare(options: options, working_dir: working_dir, trace_writer: trace_writer)
         workspace.open do |git_ssh_path, changes|
+          @config = conf = Config.new(workspace.working_dir)
 
-          config = Config.new(workspace.working_dir)
-          @ci_config = config.content
-          remove_ignored_files(config)
+          remove_ignored_files(conf)
+
           begin
-            instance = processor_class.new(guid: guid, workspace: workspace, config: config, git_ssh_path: git_ssh_path, trace_writer: trace_writer)
+            instance = processor_class.new(guid: guid, workspace: workspace, config: conf, git_ssh_path: git_ssh_path, trace_writer: trace_writer)
 
             root_dir_not_found = instance.check_root_dir_exist
             return root_dir_not_found if root_dir_not_found
