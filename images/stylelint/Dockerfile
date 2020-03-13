@@ -8,7 +8,7 @@ FROM sider/devon_rex_npm:master
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
 
 # Install required gems first (due to slow download)
-COPY --chown=${RUNNER_USER}:nogroup Gemfile* analyzers.yml ${RUNNERS_DIR}/
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} Gemfile* analyzers.yml ${RUNNERS_DIR}/
 RUN cd ${RUNNERS_DIR} && \
     bundle config set --global jobs 4 && \
     bundle config set --global retry 3 && \
@@ -17,7 +17,7 @@ RUN cd ${RUNNERS_DIR} && \
     bundle list
 
 # Install the default version
-COPY --chown=${RUNNER_USER}:nogroup images/stylelint/package.json ${RUNNER_USER_HOME}/stylelint_package.json
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/stylelint/package.json ${RUNNER_USER_HOME}/stylelint_package.json
 RUN cd ${RUNNER_USER_HOME} && \
     mkdir stylelint && \
     mv stylelint_package.json stylelint/package.json && \
@@ -36,7 +36,7 @@ RUN cd ${RUNNER_USER_HOME} && \
     cd stylelint-config-recommended.old && \
     npm install stylelint-config-recommended@2
 
-COPY --chown=${RUNNER_USER}:nogroup \
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} \
      images/stylelint/sider_recommended_config.old.yaml \
      images/stylelint/sider_recommended_config.yaml \
      images/stylelint/sider_recommended_stylelintignore \
@@ -44,8 +44,8 @@ COPY --chown=${RUNNER_USER}:nogroup \
 
 
 # Copy the main source code
-COPY --chown=${RUNNER_USER}:nogroup bin ${RUNNERS_DIR}/bin
-COPY --chown=${RUNNER_USER}:nogroup lib ${RUNNERS_DIR}/lib
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} bin ${RUNNERS_DIR}/bin
+COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} lib ${RUNNERS_DIR}/lib
 
 ENV PATH ${RUNNERS_DIR}/bin:${PATH}
 
