@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - [hadolint] Bump hadolint from 1.17.4 to 1.17.5 [#872](https://github.com/sider/runners/pull/872)
 - Show composer and composer packages' versions [#876](https://github.com/sider/runners/pull/876)
 - [PHP_CodeSniffer] Deprecate `version` option [#878](https://github.com/sider/runners/pull/878)
+- [PMD Java] Improve issues result [#880](https://github.com/sider/runners/pull/880)
 
 ## 0.21.7
 
