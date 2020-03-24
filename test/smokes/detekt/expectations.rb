@@ -17,7 +17,7 @@ Smoke.add_test(
     guid: "test-guid",
     timestamp: :_,
     type: "failure",
-    analyzer: { name: "detekt", version: "1.6.0" },
+    analyzer: { name: "detekt", version: "1.7.0" },
     message: "Your detekt configuration is invalid"
   }
 )
@@ -40,7 +40,7 @@ Smoke.add_test(
     guid: "test-guid",
     timestamp: :_,
     type: "success",
-    analyzer: { name: "detekt", version: "1.6.0" },
+    analyzer: { name: "detekt", version: "1.7.0" },
     issues: [
       {
         id: "detekt.EmptyClassBlock",
@@ -88,7 +88,7 @@ Smoke.add_test(
     guid: "test-guid",
     timestamp: :_,
     type: "success",
-    analyzer: { name: "detekt", version: "1.6.0" },
+    analyzer: { name: "detekt", version: "1.7.0" },
     issues: [
       {
         id: "detekt.EmptyClassBlock",
@@ -172,6 +172,27 @@ Smoke.add_test(
           "Caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled.",
         links: [],
         object: { severity: "error" },
+        git_blame_info: nil
+      }
+    ]
+  }
+)
+
+Smoke.add_test(
+  "with_option_includes",
+  {
+    guid: "test-guid",
+    timestamp: :_,
+    type: "success",
+    analyzer: { name: "detekt", version: "1.7.0" },
+    issues: [
+      {
+        id: "detekt.EmptyClassBlock",
+        path: "src/main/App.kt",
+        location: { start_line: 1 },
+        message: "The class or object App is empty.",
+        links: [],
+        object: { severity: "info" },
         git_blame_info: nil
       }
     ]
