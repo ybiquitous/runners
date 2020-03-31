@@ -1,12 +1,3 @@
-type capture3_options = {
-  trace_stdout: bool?,
-  trace_stderr: bool?,
-  trace_command_line: bool?,
-  raise_on_failure: bool?,
-  chdir: Pathname?,
-  is_success: (^(Process::Status) -> bool)?
-}
-
 class Runners::Shell
   attr_reader trace_writer: TraceWriter
   attr_reader env_hash_stack: Array[Hash[String, String?]]
@@ -17,10 +8,10 @@ class Runners::Shell
   def push_dir: [X] (Pathname) { () -> X } -> X
   def push_env_hash: [X] (Hash[String, String?]) { () -> X } -> X
   def env_hash: () -> Hash[String, String?]
-  def capture3: (String, *String, **capture3_options) -> [String, String, Process::Status]
-  def capture3!: (String, *String, **capture3_options) -> [String, String]
+  def capture3: (String, *String, **untyped) -> [String, String, Process::Status]
+  def capture3!: (String, *String, **untyped) -> [String, String]
   def capture3_with_retry!: (String, *String, ?tries: Integer) -> [String, String]
-  def capture3_trace: (String, *String, **capture3_options) -> [String, String, Process::Status]
+  def capture3_trace: (String, *String, **untyped) -> [String, String, Process::Status]
 end
 
 class Runners::Shell::ExecError < SystemError

@@ -92,6 +92,7 @@ module Runners
       end
     end
 
+    # TODO: After migrating to Steep (>= 0.14), use keyword arguments like `trace_stdout: true, ...`
     def capture3_trace(command, *args, **options)
       # @type var options: untyped
       trace_stdout = options.fetch(:trace_stdout, true)
