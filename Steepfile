@@ -7,6 +7,7 @@ target :lib do
   check "lib/runners/cli.rb"
   check "lib/runners/config.rb"
   check "lib/runners/errors.rb"
+  check "lib/runners/shell.rb"
   # TODO: Add checking...
 
   # FIXME: Cannot resolve errors about `Struct`.
