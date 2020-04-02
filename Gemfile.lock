@@ -78,7 +78,7 @@ GEM
     strong_json (2.1.0)
     thor (1.0.1)
     thread_safe (0.3.6)
-    tzinfo (1.2.6)
+    tzinfo (1.2.7)
       thread_safe (~> 0.1)
     unification_assertion (0.0.1)
       minitest (~> 5)
