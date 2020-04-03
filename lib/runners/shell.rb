@@ -101,11 +101,12 @@ module Runners
       raise_on_failure = options.fetch(:raise_on_failure, false)
       chdir = options[:chdir] || current_dir
       is_success = options.fetch(:is_success) { ->(status) { status.success? } }
+      stdin_data = options.fetch(:stdin_data, nil)
 
       command_line = [command] + args
       trace_writer.command_line(command_line) if trace_command_line
 
-      Open3.capture3(env_hash, command, *args, { chdir: chdir.to_s }).tap do |stdout_str, stderr_str, status|
+      Open3.capture3(env_hash, command, *args, chdir: chdir.to_s, stdin_data: stdin_data).tap do |stdout_str, stderr_str, status|
         trace_writer.stdout stdout_str if trace_stdout
         trace_writer.stderr stderr_str if trace_stderr
 
