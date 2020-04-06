@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.22.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.22.2...HEAD)
+
+## 0.22.2
+
+[Full diff](https://github.com/sider/runners/compare/0.22.1...0.22.2)
 
 - Fix Ignoring to support many files in the `ignore` configuration [#936](https://github.com/sider/runners/pull/936)
 - \[remark-lint] More relax constraints [#943](https://github.com/sider/runners/pull/943)
