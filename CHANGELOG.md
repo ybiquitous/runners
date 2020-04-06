@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.22.1...HEAD)
 
+- Fix Ignoring to support many files in the `ignore` configuration [#936](https://github.com/sider/runners/pull/936)
+
 ## 0.22.1
 
 [Full diff](https://github.com/sider/runners/compare/0.22.0...0.22.1)
