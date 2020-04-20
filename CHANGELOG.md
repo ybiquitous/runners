@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 [Full diff](https://github.com/sider/runners/compare/0.22.4...HEAD)
 
 - [LanguageTool] New support [#787](https://github.com/sider/runners/pull/787)
+- Bump devon_rex images from 2.16.1 to master [#978](https://github.com/sider/runners/pull/978)
 
 ## 0.22.4
 
