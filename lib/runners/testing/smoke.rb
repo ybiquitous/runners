@@ -117,6 +117,10 @@ module Runners
 
       @tests = {}
 
+      def self.tests
+        @tests
+      end
+
       # Comma-separated value is also available.
       def self.only?(name)
         value = ENV["ONLY"]
@@ -127,21 +131,27 @@ module Runners
         end
       end
 
-      def self.add_test(name, result, **others)
+      def self.add_test(name, type:, guid: "test-guid", timestamp: :_,
+                        issues: nil, message: nil, analyzer: nil,
+                        class: nil, backtrace: nil, inspect: nil,
+                        warnings: [], ci_config: :_, version: :_)
         return unless only? name
 
-        others[:warnings] ||= []
-        others[:ci_config] ||= :_
-        others[:version] ||= :_
+        optional = {
+          issues: issues,
+          message: message,
+          analyzer: analyzer,
+          class: binding.local_variable_get(:class),
+          backtrace: backtrace,
+          inspect: inspect,
+        }.compact
 
-        @tests[name] = {
-          result: result,
-          **others,
+        tests[name] = {
+          result: { guid: guid, timestamp: timestamp, type: type, **optional },
+          warnings: warnings,
+          ci_config: ci_config,
+          version: version,
         }
-      end
-
-      def self.tests
-        @tests
       end
     end
   end
