@@ -10,12 +10,12 @@ New supported:
 
 - **LanguageTool** [#787](https://github.com/sider/runners/pull/787)
 
-Bump-up environments:
+Updated environments:
 
 - **Ruby** 2.6.6 -> 2.7.1 [#985](https://github.com/sider/runners/pull/985)
 - **devon_rex** 2.16.1 -> 2.17.0 [#978](https://github.com/sider/runners/pull/978) [#1038](https://github.com/sider/runners/pull/1038)
 
-Bump-up tools:
+Updated tools:
 
 - **Checkstyle** 8.30 -> 8.32 [#920](https://github.com/sider/runners/pull/920) [#1028](https://github.com/sider/runners/pull/1028)
 - **detekt** 1.7.0 -> 1.8.0 [#986](https://github.com/sider/runners/pull/986)
@@ -32,7 +32,7 @@ Bump-up tools:
 - **SwiftLint** 0.39.1 -> 0.39.2 [#938](https://github.com/sider/runners/pull/938)
 - **TSLint** 6.0.0 -> 6.1.2 [#1008](https://github.com/sider/runners/pull/1008)
 
-Others:
+Misc:
 
 - Extend the deadline for deprecated Go tools [#1002](https://github.com/sider/runners/pull/1002)
 - **Checkstyle** Shorten official issue ID [#1035](https://github.com/sider/runners/pull/1035)
