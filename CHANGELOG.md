@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.23.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.23.1...HEAD)
+
+## 0.23.1
+
+[Full diff](https://github.com/sider/runners/compare/0.23.0...0.23.1)
 
 - **SwiftLint** Improve error handling [#1063](https://github.com/sider/runners/pull/1063)
 - Log issues count [#1064](https://github.com/sider/runners/pull/1064)
