@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.23.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.23.2...HEAD)
+
+## 0.23.2
+
+[Full diff](https://github.com/sider/runners/compare/0.23.1...0.23.2)
 
 - **SwiftLint** Delete unchanged files [#1069](https://github.com/sider/runners/pull/1069)
 - Ensure `Processor#analyzer` initialization [#1067](https://github.com/sider/runners/pull/1067)
