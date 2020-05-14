@@ -49,7 +49,7 @@ Updated tools:
 - **Goodcheck** 2.5.0 -> 2.5.1 [#916](https://github.com/sider/runners/pull/916)
 - **hadolint** 1.17.5 -> 1.17.6 [#1025](https://github.com/sider/runners/pull/1025)
 - **PHP_CodeSniffer** 3.5.4 -> 3.5.5 [#1032](https://github.com/sider/runners/pull/1032)
-- **PMD Java** 6.21.0 -> 6.22.0 [#922](https://github.com/sider/runners/pull/922) [#1029](https://github.com/sider/runners/pull/1029)
+- **PMD Java** 6.21.0 -> 6.23.0 [#922](https://github.com/sider/runners/pull/922) [#1029](https://github.com/sider/runners/pull/1029)
 - **Reek** 5.6.0 -> 6.0.0 [#919](https://github.com/sider/runners/pull/919)
 - **remark-lint** 7.0.1 -> 8.0.0 [#921](https://github.com/sider/runners/pull/921) [#926](https://github.com/sider/runners/pull/926)
   - Note that `remark-cli` is used as the main package [#1039](https://github.com/sider/runners/pull/1039)
