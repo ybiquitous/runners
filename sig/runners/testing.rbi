@@ -12,10 +12,10 @@ class Runners::Testing::Smoke
   def expectations: -> Pathname
   def initialize: (Array<String>) -> any
   def run: () -> void
-  def run_test: (String, any, IO) -> Symbol
+  def run_test: (TestParams, IO) -> Symbol
   def unify_result: (any, any, IO) -> bool
   def with_data_container: <'x> { () -> 'x } -> 'x
-  def command_line: (String) -> String
+  def command_line: (TestParams) -> String
   def system!: (*String) -> void
   def colored_pretty_inspect: (any) -> String
 
@@ -32,7 +32,28 @@ class Runners::Testing::Smoke
                       ?warnings: Array<Hash<Symbol, any>>,
                       ?ci_config: Hash<Symbol, any> | Symbol,
                       ?version: String | Symbol) -> void
-  def self.tests: -> Hash<String, any>
+  def self.add_offline_test: (String, type: String,
+                              ?guid: String | Symbol,
+                              ?timestamp: String | Symbol,
+                              ?issues: Array<Hash<Symbol, any>> | Symbol | nil,
+                              ?message: String | Symbol | Regexp | nil,
+                              ?analyzer: Hash<Symbol, any> | Symbol | nil,
+                              ?class: String | Symbol | nil,
+                              ?backtrace: Array<String> | Symbol | nil,
+                              ?inspect: String | Regexp | Symbol | nil,
+                              ?warnings: Array<Hash<Symbol, any>>,
+                              ?ci_config: Hash<Symbol, any> | Symbol,
+                              ?version: String | Symbol) -> void
+  def self.build_pattern: (**any) -> Hash<Symbol, any>
+  def self.tests: -> Array<TestParams>
 end
 
 Runners::Testing::Smoke::PROJECT_PATH: String
+
+class Runners::Testing::Smoke::TestParams
+  attr_accessor name: String
+  attr_accessor pattern: Hash<Symbol, any>
+  attr_accessor offline: bool
+
+  def initialize: (name: String, pattern: Hash<Symbol, any>, offline: bool) -> any
+end

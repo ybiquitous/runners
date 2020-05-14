@@ -13,6 +13,8 @@ module Runners
 
       PROJECT_PATH = "/project".freeze
 
+      TestParams = Struct.new(:name, :pattern, :offline, keyword_init: true)
+
       attr_reader :argv
 
       def docker_image
@@ -34,11 +36,11 @@ module Runners
       def run
         load expectations.to_s
 
-        results = Parallel.map(self.class.tests, in_processes: ENV["JOBS"]&.to_i) do |name, pattern|
+        results = Parallel.map(self.class.tests, in_processes: ENV["JOBS"]&.to_i) do |params|
           out = StringIO.new(''.dup)
-          result = run_test(name, pattern, out)
+          result = run_test(params, out)
           print out.string
-          [result, name]
+          [result, params.name]
         end
 
         abort "❌ No smoke tests!" if results.empty?
@@ -59,8 +61,8 @@ module Runners
         end
       end
 
-      def run_test(name, pattern, out)
-        commandline = command_line(name)
+      def run_test(params, out)
+        commandline = command_line(params)
         out.puts "$ #{commandline}"
         reader = JSONSEQ::Reader.new(io: StringIO.new(`#{commandline}`), decoder: -> (json) { JSON.parse(json, symbolize_names: true) })
         traces = reader.each_object.to_a
@@ -73,7 +75,7 @@ module Runners
           Schema::Result.envelope =~ object
         }
 
-        unify_result(result, pattern, out) ? :passed : :failed
+        unify_result(result, params.pattern, out) ? :passed : :failed
       end
 
       def unify_result(result, pattern, out)
@@ -99,10 +101,13 @@ module Runners
         ok
       end
 
-      def command_line(name)
-        smoke_target = (expectations.parent / name).realpath
+      def command_line(params)
+        smoke_target = (expectations.parent / params.name).realpath
         runners_options = JSON.dump(source: { head: PROJECT_PATH })
-        commands = %W[docker run --rm --mount type=bind,source=#{smoke_target},target=#{PROJECT_PATH} --env RUNNERS_OPTIONS='#{runners_options}' #{docker_image} test-guid]
+        commands = %W[docker run --rm --mount type=bind,source=#{smoke_target},target=#{PROJECT_PATH} --env RUNNERS_OPTIONS='#{runners_options}']
+        commands << "--network=none" if params.offline
+        commands << docker_image
+        commands << params.pattern.dig(:result, :guid)
         commands.join(" ")
       end
 
@@ -114,7 +119,7 @@ module Runners
         hash.awesome_inspect(indent: 2, index: false)
       end
 
-      @tests = {}
+      @tests = []
 
       def self.tests
         @tests
@@ -136,20 +141,46 @@ module Runners
                         warnings: [], ci_config: :_, version: :_)
         return unless only? name
 
+        pattern = build_pattern(type: type, guid: guid, timestamp: timestamp,
+          issues: issues, message: message, analyzer: analyzer,
+          class: binding.local_variable_get(:class), backtrace: backtrace, inspect: inspect,
+          warnings: warnings, ci_config: ci_config, version: version
+        )
+
+        tests << TestParams.new(name: name, pattern: pattern, offline: false)
+      end
+
+      def self.add_offline_test(name, type:, guid: "test-guid", timestamp: :_,
+                                issues: nil, message: nil, analyzer: nil,
+                                class: nil, backtrace: nil, inspect: nil,
+                                warnings: [], ci_config: :_, version: :_)
+        return unless only? name
+
+        pattern = build_pattern(
+          type: type, guid: guid, timestamp: timestamp,
+          issues: issues, message: message, analyzer: analyzer,
+          class: binding.local_variable_get(:class), backtrace: backtrace, inspect: inspect,
+          warnings: warnings, ci_config: ci_config, version: version
+        )
+
+        tests << TestParams.new(name: name, pattern: pattern, offline: true)
+      end
+
+      def self.build_pattern(**fields)
         optional = {
-          issues: issues,
-          message: message,
-          analyzer: analyzer,
-          class: binding.local_variable_get(:class),
-          backtrace: backtrace,
-          inspect: inspect,
+          issues: fields.fetch(:issues),
+          message: fields.fetch(:message),
+          analyzer: fields.fetch(:analyzer),
+          class: fields.fetch(:class),
+          backtrace: fields.fetch(:backtrace),
+          inspect: fields.fetch(:inspect),
         }.compact
 
-        tests[name] = {
-          result: { guid: guid, timestamp: timestamp, type: type, **optional },
-          warnings: warnings,
-          ci_config: ci_config,
-          version: version,
+        {
+          result: { guid: fields.fetch(:guid), timestamp: fields.fetch(:timestamp), type: fields.fetch(:type), **optional },
+          warnings: fields.fetch(:warnings),
+          ci_config: fields.fetch(:ci_config),
+          version: fields.fetch(:version),
         }
       end
     end

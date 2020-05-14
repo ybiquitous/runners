@@ -1,6 +1,6 @@
 s = Runners::Testing::Smoke
 
-s.add_test(
+s.add_offline_test(
   "success",
   type: "success",
   issues: [
@@ -17,7 +17,7 @@ s.add_test(
   analyzer: { name: "Misspell", version: "0.3.4" }
 )
 
-s.add_test(
+s.add_offline_test(
   "locale",
   type: "success",
   issues: [
@@ -53,7 +53,7 @@ MSG
   ]
 )
 
-s.add_test(
+s.add_offline_test(
   "ignore",
   type: "success",
   issues: [
@@ -70,7 +70,7 @@ s.add_test(
   analyzer: { name: "Misspell", version: "0.3.4" }
 )
 
-s.add_test(
+s.add_offline_test(
   "analyze_specific_targets",
   type: "success",
   issues: [
@@ -133,7 +133,7 @@ s.add_test(
   warnings: [{ message: /DEPRECATION WARNING!!!\nThe `\$\.linter\.misspell\.targets` option/, file: "sideci.yml" }]
 )
 
-s.add_test(
+s.add_offline_test(
   "exclude_targets",
   type: "success",
   issues: [
@@ -213,7 +213,7 @@ s.add_test(
   analyzer: { name: "Misspell", version: "0.3.4" }
 )
 
-s.add_test(
+s.add_offline_test(
   "broken_sideci_yml",
   type: "failure",
   message:
@@ -221,7 +221,7 @@ s.add_test(
   analyzer: :_
 )
 
-s.add_test(
+s.add_offline_test(
   "option_target",
   type: "success",
   issues: [
