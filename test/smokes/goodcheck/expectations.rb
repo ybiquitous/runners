@@ -1,6 +1,6 @@
 s = Runners::Testing::Smoke
 
-s.add_test(
+s.add_offline_test(
   "success",
   type: "success",
   issues: [
@@ -17,7 +17,7 @@ s.add_test(
   analyzer: { name: "Goodcheck", version: "2.5.1" }
 )
 
-s.add_test(
+s.add_offline_test(
   "with_ci_config",
   type: "success",
   issues: [
@@ -34,7 +34,7 @@ s.add_test(
   analyzer: { name: "Goodcheck", version: "2.5.1" }
 )
 
-s.add_test(
+s.add_offline_test(
   "no_config_file",
   type: "success",
   issues: [],
@@ -53,14 +53,14 @@ MESSAGE
   ]
 )
 
-s.add_test(
+s.add_offline_test(
   "invalid_config_file",
   type: "failure",
   message: "Invalid config: TypeError at $.rules[0]: expected=rule, value=\"id:foo\"",
   analyzer: { name: "Goodcheck", version: "2.5.1" }
 )
 
-s.add_test(
+s.add_offline_test(
   "with_invalid_ci_config",
   type: "failure",
   message:
@@ -68,7 +68,7 @@ s.add_test(
   analyzer: :_
 )
 
-s.add_test(
+s.add_offline_test(
   "warning_config_file",
   type: "success",
   issues: [],
@@ -82,7 +82,7 @@ s.add_test(
   ]
 )
 
-s.add_test(
+s.add_offline_test(
   "deprecated-options",
   type: "success",
   issues: [],
@@ -107,7 +107,7 @@ s.add_test(
   analyzer: { name: "Goodcheck", version: "1.0.0" }
 )
 
-s.add_test(
+s.add_offline_test(
   "detect_there_is_no_content",
   type: "success",
   issues: [
@@ -124,7 +124,7 @@ s.add_test(
   analyzer: { name: "Goodcheck", version: "2.5.1" }
 )
 
-s.add_test(
+s.add_offline_test(
   "rules_without_pattern",
   type: "success",
   issues: [
