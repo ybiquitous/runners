@@ -16,6 +16,32 @@ class ShellTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_chdir
+    mktmpdir do |path|
+      shell = Shell.new(current_dir: path, trace_writer: trace_writer, env_hash: {})
+      assert_equal path, shell.current_dir
+
+      (path / "foo").tap(&:mkpath)
+      ret = shell.chdir(path / "foo") do |dir|
+        assert_equal(path / "foo", dir)
+        assert_equal(path / "foo", shell.current_dir)
+
+        # Nested
+        (dir / "bar").tap(&:mkpath)
+        shell.chdir(dir / "bar") do |dir2|
+          assert_equal(dir / "bar", dir2)
+          assert_equal(dir / "bar", shell.current_dir)
+        end
+
+        assert_equal(path / "foo", shell.current_dir)
+        "Hi."
+      end
+      assert_equal "Hi.", ret
+
+      assert_equal path, shell.current_dir
+    end
+  end
+
   def test_capture3_trace
     mktmpdir do |path|
       shell = Shell.new(current_dir: path, trace_writer: trace_writer, env_hash: {})

@@ -36,26 +36,25 @@ module Runners
       end
     end
 
-    # @dynamic trace_writer, dir_stack, env_hash_stack
+    # @dynamic trace_writer, current_dir, env_hash_stack
     attr_reader :trace_writer
-    attr_reader :dir_stack
+    attr_reader :current_dir
     attr_reader :env_hash_stack
 
     def initialize(current_dir:, trace_writer:, env_hash:)
       @trace_writer = trace_writer
-      @dir_stack = [current_dir]
+      @current_dir = current_dir
       @env_hash_stack = [env_hash]
     end
 
-    def current_dir
-      dir_stack.last or raise "Empty dir stack"
-    end
-
-    def push_dir(dir)
-      dir_stack.push dir
-      yield
+    def chdir(dir)
+      backup = @current_dir
+      Dir.chdir(dir.to_path) do |path|
+        @current_dir = Pathname(path)
+        yield @current_dir
+      end
     ensure
-      dir_stack.pop
+      @current_dir = backup
     end
 
     def push_env_hash(env)

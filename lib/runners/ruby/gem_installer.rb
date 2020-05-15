@@ -31,7 +31,7 @@ module Runners
         trace_writer.header "Installing gems..."
 
         Bundler.with_unbundled_env do
-          shell.push_dir gem_home do
+          shell.chdir gem_home do
             install_args = use_local ? %w[--local] : []
             shell.capture3!("bundle", "install", *install_args)
             shell.capture3!("bundle", "list")

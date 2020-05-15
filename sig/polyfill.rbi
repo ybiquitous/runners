@@ -105,6 +105,7 @@ end
 class Dir
   def self.mktmpdir: <'a> { (String) -> 'a } -> 'a
                    | () -> String
+  def self.chdir: <'a> (String) { (String) -> 'a } -> 'a
 end
 
 class URI
