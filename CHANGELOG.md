@@ -8,14 +8,22 @@ All notable changes to this project will be documented in this file.
 
 Updated environments:
 
+- **devon_rex** 2.18.0 -> 2.19.0 [#1110](https://github.com/sider/runners/pull/1110)
+
 Updated tools:
 
+- **stylelint** 13.3.3 -> 13.4.1 [#1108](https://github.com/sider/runners/pull/1108)
+- **detekt** 1.8.0 -> 1.9.1 [#1098](https://github.com/sider/runners/pull/1098)
+- **GolangCI-Lint** 1.26.0 -> 1.27.0 [#1096](https://github.com/sider/runners/pull/1096)
+- **JSHint** 2.11.0 -> 2.11.1 [#1095](https://github.com/sider/runners/pull/1095)
+- **Querly** 1.0.0 -> 1.1.0 [#1094](https://github.com/sider/runners/pull/1094)
 - **Flake8** 3.7.9 -> 3.8.1 [#1090](https://github.com/sider/runners/pull/1090)
 - **RuboCop** 0.82.0 -> 0.83.0 [#1089](https://github.com/sider/runners/pull/1089)
 
 Misc:
 
 - Bump typescript from 3.8.3 to 3.9.2
+  - [#1097](https://github.com/sider/runners/pull/1097)
   - [#1093](https://github.com/sider/runners/pull/1093)
 - Add :use_local not to attempt to fetch gems remotely [#1078](https://github.com/sider/runners/pull/1078)
 - Add top-level `Bugsnag.notify` [#1086](https://github.com/sider/runners/pull/1086)
