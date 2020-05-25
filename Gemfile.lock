@@ -46,7 +46,7 @@ GEM
     jmespath (1.4.0)
     jsonseq (0.2.0)
     language_server-protocol (3.14.0.1)
-    lefthook (0.7.1)
+    lefthook (0.7.2)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
