@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.25.3...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.25.4...HEAD)
+
+## 0.25.4
+
+[Full diff](https://github.com/sider/runners/compare/0.25.3...0.25.4)
 
 - Generated ignoring file sometimes is missing [#1150](https://github.com/sider/runners/pull/1150)
 
