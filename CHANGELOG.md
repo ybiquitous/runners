@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.25.5...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.25.6...HEAD)
+
+## 0.25.6
+
+[Full diff](https://github.com/sider/runners/compare/0.25.5...0.25.6)
 
 - **remark-lint** Fix handling `fatal` output [#1156](https://github.com/sider/runners/pull/1156)
 
