@@ -84,6 +84,7 @@ jobs:
           - phinder
           - phpmd
           - pmd_java
+          - pylint
           - querly
           - rails_best_practices
           - reek
