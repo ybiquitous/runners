@@ -8,7 +8,7 @@ See also another related project, called [devon_rex](https://github.com/sider/de
 
 <!-- prettier-ignore-start -->
 <!-- AUTO-GENERATED-CONTENT:START (analyzers) -->
-All 37 analyzers are provided as a Docker image:
+All 38 analyzers are provided as a Docker image:
 
 | Name | Links | Status |
 |:-----|:------|:------:|
@@ -36,6 +36,7 @@ All 37 analyzers are provided as a Docker image:
 | Phinder | [docker](https://hub.docker.com/r/sider/runner_phinder), [source](https://github.com/sider/phinder), [doc](https://help.sider.review/tools/php/phinder) | ✅ |
 | PHP_CodeSniffer | [docker](https://hub.docker.com/r/sider/runner_code_sniffer), [source](https://github.com/squizlabs/PHP_CodeSniffer), [doc](https://help.sider.review/tools/php/codesniffer) | ✅ |
 | PHPMD | [docker](https://hub.docker.com/r/sider/runner_phpmd), [source](https://github.com/phpmd/phpmd), [doc](https://help.sider.review/tools/php/phpmd) | ✅ |
+| PMD CPD | [docker](https://hub.docker.com/r/sider/runner_pmd_cpd), [source](https://github.com/pmd/pmd), [doc](https://help.sider.review/tools/others/pmd-cpd) | ✅ |
 | PMD Java | [docker](https://hub.docker.com/r/sider/runner_pmd_java), [source](https://github.com/pmd/pmd), [doc](https://help.sider.review/tools/java/pmd) | ✅ |
 | Pylint | [docker](https://hub.docker.com/r/sider/runner_pylint), [source](https://github.com/PyCQA/pylint), [doc](https://help.sider.review/tools/python/pylint) | ✅ |
 | Querly | [docker](https://hub.docker.com/r/sider/runner_querly), [source](https://github.com/soutaro/querly), [doc](https://help.sider.review/tools/ruby/querly) | ✅ |
