@@ -16,6 +16,15 @@ module Runners
       Schema::Config.register(**args)
     end
 
+    # TODO: Keep the following schemas for the backward compatibility.
+    RemovedGoToolSchema = StrongJSON.new do
+      # @type self: StrongJSON
+      let :config, any?
+    end
+    register_config_schema(name: :golint, schema: RemovedGoToolSchema.config)
+    register_config_schema(name: :go_vet, schema: RemovedGoToolSchema.config)
+    register_config_schema(name: :gometalinter, schema: RemovedGoToolSchema.config)
+
     def initialize(guid:, working_dir:, config:, git_ssh_path:, trace_writer:)
       @guid = guid
       @working_dir = working_dir
@@ -47,6 +56,13 @@ module Runners
     end
 
     def setup
+      # TODO: Keep the following schemas for the backward compatibility.
+      if ["golint", "go_vet", "gometalinter"].any? { |id| config.linter?(id) }
+        add_warning <<~MSG, file: config.path_name
+          The `golint`, `go_vet`, and `gometalinter` options in your `#{config.path_name}` has been unsupported. Please remove them.
+        MSG
+      end
+
       trace_writer.message "No setup..."
       yield
     end

@@ -23,6 +23,7 @@ Updated tools:
 Misc:
 
 - **Cppcheck** Add `bug-hunting` option [#1166](https://github.com/sider/runners/pull/1166)
+- Drop deprecated Golint, Govet, and GoMetaLinter [#1164](https://github.com/sider/runners/pull/1164)
 
 ## 0.27.0
 

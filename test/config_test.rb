@@ -33,6 +33,7 @@ class ConfigTest < Minitest::Test
       YAML
       assert_equal(
         { linter: {
+          golint: nil, go_vet: nil, gometalinter: nil,
           brakeman: nil,
           checkstyle: nil,
           code_sniffer: nil,
@@ -64,10 +65,7 @@ class ConfigTest < Minitest::Test
           },
           flake8: nil,
           fxcop: nil,
-          go_vet: nil,
           golangci_lint: nil,
-          golint: nil,
-          gometalinter: nil,
           goodcheck: nil,
           hadolint: nil,
           rubocop: nil,
@@ -237,6 +235,40 @@ class ConfigTest < Minitest::Test
     mktmpdir do |path|
       (path / "sider.yml").write("")
       assert_equal({}, Runners::Config.new(path).linter("eslint"))
+    end
+  end
+
+  def test_linter?
+    mktmpdir do |path|
+      (path / "sider.yml").write(<<~YAML)
+        linter:
+          eslint: { root_dir: "src" }
+      YAML
+      config = Runners::Config.new(path)
+      assert config.linter?("eslint")
+      refute config.linter?("foo")
+
+      (path / "sider.yml").write("")
+      refute Runners::Config.new(path).linter?("foo")
+    end
+  end
+
+  def test_removed_go_tools_do_not_break
+    mktmpdir do |path|
+      (path / "sider.yml").write(<<~YAML)
+        linter:
+          golint:
+            root_dir: src/
+          go_vet:
+            root_dir: lib/
+          gometalinter:
+            root_dir: module/
+            import_path: foo
+      YAML
+      config = Runners::Config.new(path)
+      assert_equal({ root_dir: "src/" }, config.linter("golint"))
+      assert_equal({ root_dir: "lib/" }, config.linter("go_vet"))
+      assert_equal({ root_dir: "module/", import_path: "foo" }, config.linter("gometalinter"))
     end
   end
 end
