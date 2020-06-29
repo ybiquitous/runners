@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.29.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.29.2...HEAD)
+
+## 0.29.2
+
+[Full diff](https://github.com/sider/runners/compare/0.29.1...0.29.2)
 
 - **Rails Best Practices** Re-challenge to fix invalid line number [#1240](https://github.com/sider/runners/pull/1240)
 
