@@ -31,8 +31,9 @@ Misc:
 - Allow `location(start_line,start_column)` format [#1257](https://github.com/sider/runners/pull/1257)
 - **ESLint** Add `target` option instead of `dir` option [#1264](https://github.com/sider/runners/pull/1264)
 - **ESLint** Pre-install popular configs and plugins [#1271](https://github.com/sider/runners/pull/1271)
-- **HAML-Lint** Add `target` option [#1265](https://github.com/sider/runners/pull/1265)
 - **ESLint** Update the default configuration [#1270](https://github.com/sider/runners/pull/1270)
+- **HAML-Lint** Add `target` option [#1265](https://github.com/sider/runners/pull/1265)
+- **stylelint** Pre-install popular configs and plugins [#1272](https://github.com/sider/runners/pull/1272)
 
 ## 0.29.3
 
