@@ -26,8 +26,7 @@ Misc:
 
 - Use Docker BuildKit [#1245](https://github.com/sider/runners/pull/1245)
 - Fix Kotlin file extensions [#1252](https://github.com/sider/runners/pull/1252)
-- **PHPMD** Support the comma-separated list options as array [#1253](https://github.com/sider/runners/pull/1253)
-- **Misspell** Support `ignore` option as array [#1255](https://github.com/sider/runners/pull/1255)
+- Increase :tries and :sleep of Retryable for git-fetch(1) [#1279](https://github.com/sider/runners/pull/1279)
 - Allow `location(start_line,start_column)` format [#1257](https://github.com/sider/runners/pull/1257)
 - **ESLint** Add `target` option instead of `dir` option [#1264](https://github.com/sider/runners/pull/1264)
 - **ESLint** Pre-install popular configs and plugins [#1271](https://github.com/sider/runners/pull/1271)
@@ -35,8 +34,9 @@ Misc:
 - **Flake8** Support `target` and `config` options [#1287](https://github.com/sider/runners/pull/1287)
 - **GolangCI-Lint** Add `severity` and `replacement` to issue result [#1268](https://github.com/sider/runners/pull/1268)
 - **HAML-Lint** Add `target` option [#1265](https://github.com/sider/runners/pull/1265)
+- **Misspell** Support `ignore` option as array [#1255](https://github.com/sider/runners/pull/1255)
+- **PHPMD** Support the comma-separated list options as array [#1253](https://github.com/sider/runners/pull/1253)
 - **stylelint** Pre-install popular configs and plugins [#1272](https://github.com/sider/runners/pull/1272)
-- Increase :tries and :sleep of Retryable for git-fetch(1) [#1279](https://github.com/sider/runners/pull/1279)
 
 ## 0.29.3
 
