@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.29.3...HEAD)
 
+New supported:
+
+- **Clang-Tidy** [#1254](https://github.com/sider/runners/pull/1254)
+
 Updated environments:
 
 - **devon_rex** 2.20.0 -> 2.22.0 [#1244](https://github.com/sider/runners/pull/1244) [#1278](https://github.com/sider/runners/pull/1278)
