@@ -1,6 +1,6 @@
 > Explain a summary, purpose, or background for this change.
 
-> Link related issues or pull requests, e.g. "Fix #<ISSUE_ID>", "Related to #<PULL_NUMBER>", or "None."
+> Link related issues or pull requests, e.g. `Fix #123`, `Related to #456`, or `None`.
 
 > Check the following items (please remove needless items).
 
