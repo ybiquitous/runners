@@ -15,7 +15,9 @@ s.add_test(
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: true },
-      git_blame_info: nil
+      git_blame_info: {
+        commit: :_, line_hash: "48ee9fdb6490aadc28bbb90cee75350be54532de", original_line: 18, final_line: 18
+      }
     }
   ],
   analyzer: { name: "PHP_CodeSniffer", version: default_version }
@@ -32,7 +34,9 @@ s.add_test(
       message: "A closing tag is not permitted at the end of a PHP file",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: true },
-      git_blame_info: nil
+      git_blame_info: {
+        commit: :_, line_hash: "48ee9fdb6490aadc28bbb90cee75350be54532de", original_line: 6, final_line: 6
+      }
     }
   ],
   analyzer: { name: "PHP_CodeSniffer", version: default_version },
@@ -64,7 +68,9 @@ s.add_test(
       message: "Missing doc comment for function foo()",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: false },
-      git_blame_info: nil
+      git_blame_info: {
+        commit: :_, line_hash: "d17640b09a222cb552b20361eb18540d7d3029f0", original_line: 2, final_line: 2
+      }
     }
   ],
   analyzer: { name: "PHP_CodeSniffer", version: default_version }
@@ -81,7 +87,9 @@ s.add_test(
       message: 'Consider putting global function "foo" in a static class',
       links: [],
       object: { type: "WARNING", severity: 5, fixable: false },
-      git_blame_info: nil
+      git_blame_info: {
+        commit: :_, line_hash: "d17640b09a222cb552b20361eb18540d7d3029f0", original_line: 2, final_line: 2
+      }
     },
     {
       path: "src/test.php",
@@ -90,7 +98,9 @@ s.add_test(
       message: "Missing doc comment for function foo()",
       links: [],
       object: { type: "ERROR", severity: 5, fixable: false },
-      git_blame_info: nil
+      git_blame_info: {
+        commit: :_, line_hash: "d17640b09a222cb552b20361eb18540d7d3029f0", original_line: 2, final_line: 2
+      }
     }
   ],
   analyzer: { name: "PHP_CodeSniffer", version: default_version }
