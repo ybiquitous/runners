@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.31.0...HEAD)
 
+Breaking changes:
+
+- **ktlint** Support `jvm_deps` and remove `cli`, `gradle`, `maven` [#1364](https://github.com/sider/runners/pull/1364)
+
 Updated tools:
 
 - **ESLint** 7.5.0 -> 7.6.0 [#1368](https://github.com/sider/runners/pull/1368)
