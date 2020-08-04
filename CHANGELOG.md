@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.32.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.32.1...HEAD)
+
+## 0.32.1
+
+[Full diff](https://github.com/sider/runners/compare/0.32.0...0.32.1)
 
 - **Rails Best Practices** Improve error message [#1371](https://github.com/sider/runners/pull/1371)
 
