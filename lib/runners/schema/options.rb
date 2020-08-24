@@ -8,7 +8,7 @@ module Runners
         base: string?,
         git_url: string,
         git_url_userinfo: string?,
-        pull_number: number?,
+        refspec: enum?(string, array(string)),
       )
 
       let :payload, object(
