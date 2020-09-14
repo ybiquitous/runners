@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.34.1...HEAD)
 
+- **Cppcheck** Run multiple threads with the `-j` option [#1462](https://github.com/sider/runners/pull/1462)
+
 ## 0.34.1
 
 [Full diff](https://github.com/sider/runners/compare/0.34.0...0.34.1)
