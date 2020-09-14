@@ -14,6 +14,7 @@ Updated tools:
 Misc:
 
 - **Cppcheck** Run multiple threads with the `-j` option [#1462](https://github.com/sider/runners/pull/1462)
+- Replace ENTRYPOINT with docker-entrypoint.sh [#1463](https://github.com/sider/runners/pull/1463)
 
 ## 0.34.1
 
