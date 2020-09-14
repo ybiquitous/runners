@@ -8,7 +8,7 @@
 
 > Check the following items.
 
-<!-- Please remove this section if needless. -->
+<!-- Please remove this section or items if needless. -->
 
 - [ ] Add a new [changelog](https://github.com/sider/runners/blob/master/CHANGELOG.md) entry if this change is notable.
 
