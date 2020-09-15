@@ -19,6 +19,7 @@ Misc:
 
 - **Cppcheck** Run multiple threads with the `-j` option [#1462](https://github.com/sider/runners/pull/1462)
 - **RuboCop** Add `standard` to optional gem list [#1479](https://github.com/sider/runners/pull/1479)
+- **RuboCop** Improve warning messages [#1480](https://github.com/sider/runners/pull/1480)
 - Replace ENTRYPOINT with docker-entrypoint.sh [#1463](https://github.com/sider/runners/pull/1463)
 
 ## 0.34.1
