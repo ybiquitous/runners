@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.35.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.36.0...HEAD)
+
+## 0.36.0
+
+[Full diff](https://github.com/sider/runners/compare/0.35.0...0.36.0)
 
 - **ESLint** Add `eslint-plugin-vue` to default package list [#1521](https://github.com/sider/runners/pull/1521)
 - **RuboCop** Update optional gem list [#1506](https://github.com/sider/runners/pull/1506)
