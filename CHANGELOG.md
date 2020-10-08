@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.36.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.36.1...HEAD)
+
+## 0.36.1
+
+[Full diff](https://github.com/sider/runners/compare/0.36.0...0.36.1)
 
 - **Misspell** Allow `string` type for `target` option [#1536](https://github.com/sider/runners/pull/1536)
 
