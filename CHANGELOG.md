@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.36.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.36.2...HEAD)
+
+## 0.36.2
+
+[Full diff](https://github.com/sider/runners/compare/0.36.1...0.36.2)
 
 - **RuboCop** Update constraint for v1.0.0 [#1580](https://github.com/sider/runners/pull/1580)
 
