@@ -11,6 +11,7 @@ ENV["DOCKER_BUILDKIT"] = "1"
 
 Aufgaben::Release.new do |t|
   t.files = ["lib/runners/version.rb"]
+  t.default_branch = "0.36.x"
 end
 
 Aufgaben::Bump::Ruby.new do |t|
