@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 Notable:
 
 - Drop Python 2 support [#1579](https://github.com/sider/runners/pull/1579)
+- **cpplint** Enable new recommended configuration [#1585](https://github.com/sider/runners/pull/1585)
 
 Updated environments:
 
