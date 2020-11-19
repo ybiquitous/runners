@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.37.2...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.38.0...HEAD)
+
+## 0.38.0
+
+[Full diff](https://github.com/sider/runners/compare/0.37.2...0.38.0)
 
 - Use `GIT_SSH_COMMAND` instead of `GIT_SSH` [#1648](https://github.com/sider/runners/pull/1648)
 - **PHP_CodeSniffer** Allow array for `extensions` and `ignore` options [#1650](https://github.com/sider/runners/pull/1650)
