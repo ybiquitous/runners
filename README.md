@@ -172,7 +172,7 @@ analyzer_runner@838f831e5aa7:/work$ rubocop .
 We check the types of our Ruby source files via [RBS](https://github.com/ruby/rbs) and [Steep](https://github.com/soutaro/steep).
 
 ```shell-session
-$ bundle exec steep check
+$ bundle exec steep check [files_or_directories...]
 ```
 
 To update the third-party gems' RBS, run:
