@@ -15,6 +15,7 @@ Updated tools:
 - **Checkstyle** 8.36.2 -> 8.38 [#1685](https://github.com/sider/runners/pull/1685)
 - **CoffeeLint** 1.16.0 -> 4.1.2 [#1690](https://github.com/sider/runners/pull/1690)
 - **GolangCI-Lint** 1.32.1 -> 1.33.0 [#1680](https://github.com/sider/runners/pull/1680)
+- **stylelint** 13.7.2 -> 13.8.0 [#1670](https://github.com/sider/runners/pull/1670)
 
 ## 0.38.1
 
