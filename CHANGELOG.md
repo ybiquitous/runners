@@ -12,6 +12,7 @@ Updated environments:
 
 Updated tools:
 
+- **Checkstyle** 8.36.2 -> 8.38 [#1685](https://github.com/sider/runners/pull/1685)
 - **CoffeeLint** 1.16.0 -> 4.1.2 [#1690](https://github.com/sider/runners/pull/1690)
 
 ## 0.38.1
