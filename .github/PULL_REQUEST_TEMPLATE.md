@@ -6,6 +6,6 @@
 
 <!-- E.g. Fix #123, Related to #456, or None etc. -->
 
-> Check the followings.
+> Check the following.
 
 - [ ] Add a new entry to [CHANGELOG.md](https://github.com/sider/runners/blob/master/CHANGELOG.md) if this change is notable.
