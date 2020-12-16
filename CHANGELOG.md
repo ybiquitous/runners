@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.39.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.39.1...HEAD)
+
+## 0.39.1
+
+[Full diff](https://github.com/sider/runners/compare/0.39.0...0.39.1)
 
 - Set `error` to Bugsnag severity [#1758](https://github.com/sider/runners/pull/1758)
 - Add `Runners::Workspace::Git::Error` class [#1759](https://github.com/sider/runners/pull/1759)
