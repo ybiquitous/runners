@@ -11,5 +11,7 @@ module Runners
                      ?end_column: (Numeric | String)?) -> void
 
     def as_json: () -> Hash[Symbol, Integer?]
+
+    def include_line?: (Integer) -> bool
   end
 end
