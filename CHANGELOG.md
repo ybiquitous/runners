@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.39.3...HEAD)
 
+- Remove unused `locale` gem [#1817](https://github.com/sider/runners/pull/1817)
+
 ## 0.39.3
 
 [Full diff](https://github.com/sider/runners/compare/0.39.2...0.39.3)
