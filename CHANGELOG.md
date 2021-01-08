@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.40.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.40.2...HEAD)
+
+## 0.40.2
+
+[Full diff](https://github.com/sider/runners/compare/0.40.1...0.40.2)
 
 - **ESLint** Add `eslint-config-react-app` as pre-installed [#1902](https://github.com/sider/runners/pull/1902)
 - Fix checking unsupported tools [#1911](https://github.com/sider/runners/pull/1911)
