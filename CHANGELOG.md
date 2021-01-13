@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.40.2...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.40.3...HEAD)
+
+## 0.40.3
+
+[Full diff](https://github.com/sider/runners/compare/0.40.2...0.40.3)
 
 - **RuboCop** Fix issue links for rubydoc.info [#1925](https://github.com/sider/runners/pull/1925)
 - Relax Bundler requirement [#1917](https://github.com/sider/runners/pull/1917)
