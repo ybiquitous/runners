@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.40.3...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.40.4...HEAD)
+
+## 0.40.4
+
+[Full diff](https://github.com/sider/runners/compare/0.40.3...0.40.4)
 
 - Rename `duration_in_sec` to `duration_in_ms` for `finish` trace [#1930](https://github.com/sider/runners/pull/1930)
 
