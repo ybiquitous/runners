@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.40.4...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.40.5...HEAD)
+
+## 0.40.5
+
+[Full diff](https://github.com/sider/runners/compare/0.40.4...0.40.5)
 
 - **ESLint** Add `@vue/eslint-config-typescript` to pre-installed packages [#1934](https://github.com/sider/runners/pull/1934)
 - **ShellCheck** Exclude directories named `*.sh` [#1935](https://github.com/sider/runners/pull/1935)
