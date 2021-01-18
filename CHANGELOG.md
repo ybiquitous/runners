@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.40.5...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.40.6...HEAD)
+
+## 0.40.6
+
+[Full diff](https://github.com/sider/runners/compare/0.40.5...0.40.6)
 
 - **ESLint** Add `eslint-plugin-cypress` to pre-installed packages [#1936](https://github.com/sider/runners/pull/1936)
 - **RuboCop** Revert rubydoc.info links [#1942](https://github.com/sider/runners/pull/1942)
