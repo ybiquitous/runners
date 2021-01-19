@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.40.6...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.40.7...HEAD)
+
+## 0.40.7
+
+[Full diff](https://github.com/sider/runners/compare/0.40.6...0.40.7)
 
 - Make internal changes for the `Runners::Config` class [#1950](https://github.com/sider/runners/pull/1950) [#1951](https://github.com/sider/runners/pull/1951) [#1952](https://github.com/sider/runners/pull/1952)
 
