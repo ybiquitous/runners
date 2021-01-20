@@ -6,7 +6,9 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.40.7...HEAD)
 
-- Bump devon_rex images from 2.30.1 to master [#1954](https://github.com/sider/runners/pull/1954)
+Updated environments:
+
+- **devon_rex** 2.30.1 -> master [#1954](https://github.com/sider/runners/pull/1954)
 
 Updated tools:
 
