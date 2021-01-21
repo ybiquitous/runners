@@ -17,6 +17,10 @@ Updated tools:
 - **Querly** 1.1.0 -> 1.2.0 [#1807](https://github.com/sider/runners/pull/1807)
 - **SwiftLint** 0.41.0 -> 0.42.0 [#1750](https://github.com/sider/runners/pull/1750)
 
+Misc:
+
+- Improve behavior about `Changes` class [#1955](https://github.com/sider/runners/pull/1955)
+
 ## 0.40.7
 
 [Full diff](https://github.com/sider/runners/compare/0.40.6...0.40.7)
