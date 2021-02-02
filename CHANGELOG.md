@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.41.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.41.1...HEAD)
+
+## 0.41.1
+
+[Full diff](https://github.com/sider/runners/compare/0.41.0...0.41.1)
 
 - Suppress verbose message of `git init` [#2006](https://github.com/sider/runners/pull/2006)
 
