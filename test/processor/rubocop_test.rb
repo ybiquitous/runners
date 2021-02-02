@@ -36,7 +36,7 @@ class Runners::Processor::RuboCopTest < Minitest::Test
       assert_links = ->(expected, actual) {
         assert_equal expected, subject.send(:build_cop_links, actual)
         expected.each do |url|
-          assert_equal "200", Net::HTTP.get_response(URI(url)).code, url
+          assert_includes ["200", "202"], Net::HTTP.get_response(URI(url)).code, url
         end
       }
 
@@ -72,7 +72,6 @@ class Runners::Processor::RuboCopTest < Minitest::Test
       assert_links.call %w[https://docs.rubocop.org/rubocop-packaging/cops_packaging.html#packagingbundlersetupintests], "Packaging/BundlerSetupInTests"
 
       # extensions...
-      skip "<https://www.rubydoc.info> is unavailable now. Please remove this skip if the website will recover."
       assert_links.call %w[
         https://www.rubydoc.info/gems/chefstyle/RuboCop/Cop/Chef/Ruby/GemspecRequireRubygems
         https://github.com/chef/chefstyle
