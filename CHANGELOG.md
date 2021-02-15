@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.42.0...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.42.1...HEAD)
+
+## 0.42.1
+
+[Full diff](https://github.com/sider/runners/compare/0.42.0...0.42.1)
 
 - **GolangCI-Lint** Fix too short timeout value [#2063](https://github.com/sider/runners/pull/2063)
 
