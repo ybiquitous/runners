@@ -9,6 +9,10 @@ module Runners
       Schema::Config.register(name: name, schema: schema)
     end
 
+    def self.config_example
+      raise NotImplementedError, name
+    end
+
     attr_reader :guid, :working_dir, :config, :shell, :trace_writer, :warnings
 
     def_delegators :@shell,
