@@ -1,4 +1,4 @@
-![Build](https://github.com/sider/runners/workflows/Build/badge.svg)
+[![Build](https://github.com/sider/runners/workflows/Build/badge.svg)](https://github.com/sider/runners/actions/workflows/build.yml?query=branch%3Amaster)
 
 # Sider Runners
 
