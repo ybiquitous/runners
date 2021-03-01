@@ -22,6 +22,7 @@ Misc:
 - Remove *removed* Go tools from `sider.yml` [#2099](https://github.com/sider/runners/pull/2099)
 - Add `Runners::ConfigGenerator` class [#2029](https://github.com/sider/runners/pull/2029)
 - **Metrics FileInfo** Modify target file generation [#2100](https://github.com/sider/runners/pull/2100)
+- **GolangCI-Lint** Remove `DEFAULT_TARGET` [#2103](https://github.com/sider/runners/pull/2103)
 
 ## 0.43.0
 
