@@ -25,7 +25,7 @@ module Runners
       capture3!("git", "commit-graph", "write", "--reachable", "--changed-paths", "--no-progress")
 
       target_files = Pathname.glob("**/*", File::FNM_DOTMATCH).filter do |path|
-        path.file? && !path.fnmatch?("**/.git/*", File::FNM_DOTMATCH)
+        path.file? && !path.fnmatch?(".git/**", File::FNM_DOTMATCH)
       end
 
       analyze_last_committed_at(target_files)
@@ -64,7 +64,7 @@ module Runners
     def analyze_lines_of_code(targets)
       text_files = targets.select { |f| text_file?(f) }
       text_files.each_slice(1000) do |files|
-        stdout, _ = capture3!("wc", "-l", *files)
+        stdout, _ = capture3!("wc", "-l", *files, trace_stdout: false)
         lines = stdout.lines(chomp: true)
 
         # `wc` command outputs total count when we pass multiple targets. remove it if exist
@@ -85,7 +85,7 @@ module Runners
 
     def analyze_last_committed_at(targets)
       trace_writer.message "Analyzing last commit time..." do
-        targets.each do |target|
+        Parallel.each(targets, in_threads: 8) do |target|
           stdout, _ = capture3!("git", "log", "-1", "--format=format:%aI", "--", target, trace_stdout: false, trace_command_line: false)
           last_committed_at[target] = stdout
         end
