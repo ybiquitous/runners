@@ -92,9 +92,10 @@ linter:
 #       - "**/vendor/**"
 #     includes:
 #       - "**/important/**"
-#     input:
+#     target:
 #       - src/
 #       - test/
+#     parallel: true
 
 #   # ESLint example. See https://help.sider.review/tools/javascript/eslint
 #   eslint:
