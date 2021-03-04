@@ -2,7 +2,7 @@
 # NOTE: DO *NOT* EDIT THIS FILE. IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE.
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-FROM sider/devon_rex_npm:2.40.6
+FROM sider/devon_rex_npm:master
 
 
 ARG RUNNERS_DIR=${RUNNER_USER_HOME}/runners
@@ -20,6 +20,11 @@ RUN cd "${RUNNERS_DIR}" && \
     echo 'Checking if the Bundler version is expected...' && \
     lockfile_bundler_version=$(bundle exec ruby -e 'puts Bundler.locked_gems.bundler_version') && \
     bundle version | grep "Bundler version ${lockfile_bundler_version}"
+
+# TODO: Wait for npm 7. See #1963
+USER root
+RUN npm install --global npm@6
+USER $RUNNER_USER
 
 # Install the default version
 COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/coffeelint/package.json ${RUNNER_USER_HOME}/coffeelint_package.json
