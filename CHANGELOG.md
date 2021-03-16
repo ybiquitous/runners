@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.45.0...HEAD)
 
+- Loosen unsatisfied constraints for npm packages [#2171](https://github.com/sider/runners/pull/2171)
+
 ## 0.45.0
 
 [Full diff](https://github.com/sider/runners/compare/0.44.1...0.45.0)
