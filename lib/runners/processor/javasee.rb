@@ -2,15 +2,14 @@ module Runners
   class Processor::Javasee < Processor
     include Java
 
-    Schema = _ = StrongJSON.new do
-      # @type self: SchemaClass
+    SCHEMA = _ = StrongJSON.new do
+      extend Schema::ConfigTypes
 
-      let :runner_config, Schema::BaseConfig.base.update_fields { |hash|
-        hash.merge!({
-          dir: enum?(string, array(string)),
-          config: string?,
-        })
-      }
+      # @type self: SchemaClass
+      let :config, base(
+        dir: target,
+        config: string?,
+      )
 
       let :rule, object(
         id: string,
@@ -19,7 +18,7 @@ module Runners
       )
     end
 
-    register_config_schema(name: :javasee, schema: Schema.runner_config)
+    register_config_schema(name: :javasee, schema: SCHEMA.config)
 
     DEFAULT_CONFIG_FILE = "javasee.yml".freeze
 
@@ -85,7 +84,7 @@ module Runners
           id: hash[:rule][:id],
           message: hash[:rule][:message],
           object: hash[:rule],
-          schema: Schema.rule
+          schema: SCHEMA.rule
         )
       end
     end

@@ -2,15 +2,14 @@ module Runners
   class Processor::Phinder < Processor
     include PHP
 
-    Schema = _ = StrongJSON.new do
-      # @type self: SchemaClass
+    SCHEMA = _ = StrongJSON.new do
+      extend Schema::ConfigTypes
 
-      let :runner_config, Schema::BaseConfig.base.update_fields { |fields|
-        fields.merge!({
-                        rule: string?,
-                        php: string?,
-                      })
-      }
+      # @type self: SchemaClass
+      let :config, base(
+        rule: string?,
+        php: string?,
+      )
 
       let :issue, object(
         id: string,
@@ -19,7 +18,7 @@ module Runners
       )
     end
 
-    register_config_schema(name: :phinder, schema: Schema.runner_config)
+    register_config_schema(name: :phinder, schema: SCHEMA.config)
 
     DEFAULT_RULE_FILE = "phinder.yml".freeze
 
@@ -96,7 +95,7 @@ module Runners
                 message: issue[:rule][:message],
                 justifications: Array(issue[:justifications]),
               },
-              schema: Schema.issue,
+              schema: SCHEMA.issue,
             )
           end
         end

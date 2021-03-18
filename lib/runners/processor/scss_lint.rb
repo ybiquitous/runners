@@ -2,17 +2,16 @@ module Runners
   class Processor::ScssLint < Processor
     include Ruby
 
-    Schema = _ = StrongJSON.new do
-      # @type self: SchemaClass
+    SCHEMA = _ = StrongJSON.new do
+      extend Schema::ConfigTypes
 
-      let :runner_config, Schema::BaseConfig.base.update_fields { |fields|
-        fields.merge!(
-          config: string?,
-        )
-      }
+      # @type self: SchemaClass
+      let :config, base(
+        config: string?,
+      )
     end
 
-    register_config_schema(name: :scss_lint, schema: Schema.runner_config)
+    register_config_schema(name: :scss_lint, schema: SCHEMA.config)
 
     # https://github.com/brigade/scss-lint#exit-status-codes
     EXIT_CODE_FILES_NOT_EXIST = 80
