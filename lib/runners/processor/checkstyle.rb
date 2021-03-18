@@ -8,7 +8,8 @@ module Runners
       # @type self: SchemaClass
       let :config, java(
         config: string?,
-        dir: target,
+        target: target,
+        dir: target, # alias for `target`
         exclude: enum?(
           string,
           array(enum(string, object(pattern: string), object(string: string))),
@@ -33,7 +34,7 @@ module Runners
         jvm_deps:
           - [com.github.sevntu-checkstyle, sevntu-checks, 1.37.1]
         config: custom-checkstyle.xml
-        dir: src/
+        target: src/
         exclude: vendor/
         ignore: [warning, info]
         properties: custom-checkstyle.properties
@@ -53,7 +54,7 @@ module Runners
     def analyze(changes)
       delete_unchanged_files(changes, only: ["*.java"])
 
-      target = Array(config_linter[:dir] || DEFAULT_TARGET)
+      target = Array(config_linter[:target] || config_linter[:dir] || DEFAULT_TARGET)
       capture3(analyzer_bin, *checkstyle_args, *target)
 
       xml_root =

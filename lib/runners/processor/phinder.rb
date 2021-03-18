@@ -8,7 +8,8 @@ module Runners
       # @type self: SchemaClass
       let :config, base(
         rule: string?,
-        php: string?,
+        target: string?,
+        php: string?, # alias for `target`
       )
 
       let :issue, object(
@@ -26,13 +27,13 @@ module Runners
       <<~'YAML'
         root_dir: project/
         rule: rules/
-        php: src/
+        target: src/
       YAML
     end
 
     private def test_phinder_config
       args = []
-      args.push("--config", config_linter[:rule]) if config_linter[:rule]
+      args << "--config" << config_linter[:rule] if config_linter[:rule]
 
       _, stderr, status = capture3(analyzer_bin, "test", *args)
 
@@ -63,8 +64,10 @@ module Runners
 
     private def run_phinder
       args = []
-      args.push("--config", config_linter[:rule]) if config_linter[:rule]
-      args << config_linter[:php] if config_linter[:php]
+      args << "--config" << config_linter[:rule] if config_linter[:rule]
+
+      target = config_linter[:target] || config_linter[:php]
+      args << target if target
 
       stdout, stderr, status = capture3(analyzer_bin, "find", "-f", "json", *args)
 

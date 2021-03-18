@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Remove deprecated `linter.{id}.options` [#2190](https://github.com/sider/runners/pull/2190) [#2193](https://github.com/sider/runners/pull/2193)
 - Simplify `sider.yml` schema [#2192](https://github.com/sider/runners/pull/2192)
 - Secure `pip install` [#2194](https://github.com/sider/runners/pull/2194)
+- Introduce common option `target` [#2191](https://github.com/sider/runners/pull/2191)
 
 ## 0.45.0
 

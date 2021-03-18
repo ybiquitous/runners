@@ -35,7 +35,8 @@ module Runners
 
       let :config, base(
         'minimum-tokens': numeric?,
-        files: target,
+        target: target,
+        files: target, # alias for `target`
         language: enum?(available_languages, array(available_languages)),
         encoding: string?,
         'skip-duplicate-files': boolean?,
@@ -65,7 +66,7 @@ module Runners
     end
 
     DEFAULT_MINIMUM_TOKENS = 100
-    DEFAULT_FILES = ".".freeze
+    DEFAULT_TARGET = ".".freeze
     DEFAULT_LANGUAGE = ["cpp", "cs", "ecmascript", "go", "java", "kotlin", "php", "python", "ruby", "swift"].freeze
 
     register_config_schema(name: :pmd_cpd, schema: SCHEMA.config)
@@ -74,7 +75,7 @@ module Runners
       <<~'YAML'
         root_dir: project/
         minimum-tokens: 70
-        files: src/
+        target: src/
         language: [ecmascript, ruby]
         encoding: ISO-8859-1
         skip-duplicate-files: true
@@ -183,7 +184,7 @@ module Runners
     end
 
     def option_files
-      Array(config_linter[:files] || DEFAULT_FILES).map { |v| ["--files", v] }.flatten
+      Array(config_linter[:target] || config_linter[:files] || DEFAULT_TARGET).flat_map { |v| ["--files", v] }
     end
 
     def option_encoding

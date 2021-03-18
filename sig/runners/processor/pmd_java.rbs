@@ -11,7 +11,7 @@ module Runners
     SCHEMA: SchemaClass
 
     DEFAULT_RULESET: String
-    DEFAULT_DIR: String
+    DEFAULT_TARGET: String
 
     private
 

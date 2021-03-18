@@ -12,7 +12,7 @@ module Runners
     SCHEMA: SchemaClass
 
     DEFAULT_MINIMUM_TOKENS: Integer
-    DEFAULT_FILES: String
+    DEFAULT_TARGET: String
     DEFAULT_LANGUAGE: Array[String]
 
     attr_accessor force_option_skip_lexical_errors: bool
