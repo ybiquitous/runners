@@ -6,9 +6,21 @@ module Runners
       # @type self: SchemaClass
       let :issue, object(
         lines_of_code: integer?,
-        last_committed_at: string
+        last_committed_at: string,
+        number_of_commits: integer,
+        occurrence: integer,
+        additions: integer,
+        deletions: integer
       )
     end
+
+    # Basically, the code churn is the number of times or the sum of added/deleted lines a file has changed within a specified period of time.
+    # Like other products, we adopt the last 90 days before the latest commit date. However, if a project is not so active and has only
+    # a few commits in a month, the churn values fluctuate on the scatter plot (churn v.s quality metrics) due to ambiguity of the small number of commits.
+    # A relative value of churn becomes stable as comparing the values across a certain number of files. So we also take 100 commits into account
+    # when there are not enough commits in 90 days.
+    CHURN_PERIOD_IN_DAYS = 90
+    CHURN_COMMIT_COUNT = 100
 
     def analyzer_version
       Runners::VERSION
@@ -24,7 +36,7 @@ module Runners
       # This improves the performance of access to Git metadata for a large repository.
       # You can see the efficacy here: https://github.com/sider/runners/issues/2028#issuecomment-776534408
       trace_writer.message "Generating pre-computed Git metadata cache..." do
-        capture3!("git", "commit-graph", "write", "--reachable", "--changed-paths", trace_stdout: false, trace_command_line: false)
+        git("commit-graph", "write", "--reachable", "--changed-paths")
       end
 
       target_files = Pathname.glob("**/*", File::FNM_DOTMATCH).filter do |path|
@@ -33,19 +45,21 @@ module Runners
 
       analyze_last_committed_at(target_files)
       analyze_lines_of_code(target_files)
+      number_of_commits = analyze_code_churn
 
       Results::Success.new(
         guid: guid,
         analyzer: analyzer,
-        issues: target_files.map { |path| generate_issue(path) }
+        issues: target_files.map { |path| generate_issue(path, number_of_commits) }
       )
     end
 
     private
 
-    def generate_issue(path)
+    def generate_issue(path, number_of_commits)
       loc = lines_of_code[path]
       commit = last_committed_at.fetch(path)
+      churn = code_churn.fetch(path, { occurrence: 0, additions: 0, deletions: 0 })
 
       Issue.new(
         path: path,
@@ -54,7 +68,11 @@ module Runners
         message: "#{path}: loc = #{loc || "(no info)"}, last commit datetime = #{commit}",
         object: {
           lines_of_code: loc,
-          last_committed_at: commit
+          last_committed_at: commit,
+          number_of_commits: number_of_commits,
+          occurrence: churn[:occurrence],
+          additions: churn[:additions],
+          deletions: churn[:deletions]
         },
         schema: SCHEMA.issue
       )
@@ -91,10 +109,65 @@ module Runners
     def analyze_last_committed_at(targets)
       trace_writer.message "Analyzing last commit time..." do
         Parallel.each(targets, in_threads: 8) do |target|
-          stdout, _ = capture3!("git", "log", "-1", "--format=format:%aI", "--", target, trace_stdout: false, trace_command_line: false)
+          stdout, _ = git("log", "-1", "--format=format:%aI", "--", target)
           last_committed_at[target] = stdout
         end
       end
+    end
+
+    def code_churn
+      @code_churn ||= {}
+    end
+
+    def analyze_code_churn
+      trace_writer.message "Analyzing code churn..." do
+        commits_by_num = commit_summary_within("--max-count", CHURN_COMMIT_COUNT.to_s)
+        days_ago = (commits_by_num[:latest_time] - CHURN_PERIOD_IN_DAYS * 60 * 60 * 24).iso8601
+        commits_by_time = commit_summary_within("--since", days_ago)
+        outlive_commits = commits_by_num[:count] > commits_by_time[:count] ? commits_by_num : commits_by_time
+
+        stdout, _ = git("log", "--reverse", "--format=format:#", "--numstat", "#{outlive_commits[:oldest_sha]}..HEAD")
+        lines = stdout.lines(chomp: true)
+        number_of_commits = lines.count("#")
+
+        lines.each do |line|
+          adds, dels, fname = line.split("\t")
+          if adds && dels && fname
+            fname = Pathname(fname)
+            code_churn[fname] = calc_churn(code_churn[fname], adds, dels)
+          end
+        end
+
+        number_of_commits
+      end
+    end
+
+    def calc_churn(churn, adds, dels)
+      churn ||= { occurrence: 0, additions: 0, deletions: 0 }
+      churn[:occurrence] += 1
+      churn[:additions] += adds == "-" ? 0 : Integer(adds)
+      churn[:deletions] += dels == "-" ? 0 : Integer(dels)
+      churn
+    end
+
+    def commit_summary_within(*args_range)
+      stdout, _ = git("log", "--format=format:%H|%cI", *args_range)
+      lines = stdout.lines(chomp: true)
+      latest_line = lines.first or raise "Required log line: #{lines.size} lines"
+      oldest_line = lines.last or raise "Required log line: #{lines.size} lines"
+      latest_sha, latest_time = latest_line.split("|")
+      oldest_sha, oldest_time = oldest_line.split("|")
+      raise "Required sha in the latest line: #{latest_line}" unless latest_sha
+      raise "Required time in the latest line: #{latest_line}" unless latest_time
+      raise "Required sha in the oldest line: #{oldest_line}" unless oldest_sha
+      raise "Required time in the oldest line: #{oldest_line}" unless oldest_time
+      {
+        count: lines.size,
+        latest_sha: latest_sha,
+        latest_time: Time.parse(latest_time),
+        oldest_sha: oldest_sha,
+        oldest_time: Time.parse(oldest_time),
+      }
     end
 
     # There may not be a perfect method to discriminate file type.
@@ -133,7 +206,7 @@ module Runners
     #  * A text file having a non-well-known extension. (e.g. foo.my_original_extension )
     def text_files
       @text_files ||= Set[].tap do |result|
-        stdout, _ = capture3!("git", "ls-files", "--eol", "--error-unmatch", trace_stdout: false, trace_command_line:false)
+        stdout, _ = git("ls-files", "--eol", "--error-unmatch")
         stdout.each_line(chomp: true) do |line|
           fields = line.split(" ")
           type = (fields[1] or raise)
@@ -147,6 +220,10 @@ module Runners
 
     def text_file?(target)
       text_files.include?(target)
+    end
+
+    def git(*args)
+      capture3!("git", *args, trace_stdout: false, trace_command_line: false)
     end
   end
 end

@@ -7,9 +7,13 @@ module Runners
     end
     SCHEMA: SchemaClass
 
+    CHURN_PERIOD_IN_DAYS: Integer
+
+    CHURN_COMMIT_COUNT: Integer
+
     private
 
-    def generate_issue: (Pathname)-> Issue
+    def generate_issue: (Pathname, Integer)-> Issue
 
     def lines_of_code: () -> Hash[Pathname, Integer]
 
@@ -19,8 +23,26 @@ module Runners
 
     def analyze_last_committed_at: (Array[Pathname]) -> void
 
+    def code_churn: () -> Hash[Pathname, Hash[Symbol, Integer]]
+
+    def analyze_code_churn: () -> Integer
+
+    def calc_churn: (Hash[Symbol, Integer], String, String) -> Hash[Symbol, Integer]
+
+    type commit_summary = {
+      count: Integer,
+      latest_sha: String,
+      latest_time: Time,
+      oldest_sha: String,
+      oldest_time: Time,
+    }
+
+    def commit_summary_within: (*String) -> commit_summary
+
     def text_files: () -> Set[Pathname]
 
     def text_file?: (Pathname) -> bool
+
+    def git: (*Shell::command_argument) -> [String, String]
   end
 end
