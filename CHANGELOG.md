@@ -17,6 +17,7 @@ Updated environments:
 
 Updated tools:
 
+- **CoffeeLint** 4.1.3 -> 4.1.4 [#2248](https://github.com/sider/runners/pull/2248)
 - **Cppcheck** 2.3 -> 2.4.1 [#2229](https://github.com/sider/runners/pull/2229)
 - **ktlint** 0.39.0 -> 0.41.0 [#2205](https://github.com/sider/runners/pull/2205)
 - **RuboCop** 1.11.0 -> 1.12.0 [#2240](https://github.com/sider/runners/pull/2240)
