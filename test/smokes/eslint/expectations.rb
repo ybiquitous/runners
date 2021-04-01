@@ -1,6 +1,6 @@
 s = Runners::Testing::Smoke
 
-default_version = "7.22.0"
+default_version = "7.23.0"
 
 s.add_test(
   "no_config",
@@ -540,7 +540,7 @@ s.add_test(
   "package_lock_without_package_json",
   type: "success",
   issues: [],
-  analyzer: { name: "ESLint", version: "7.22.0" }
+  analyzer: { name: "ESLint", version: default_version }
 )
 
 s.add_test(
