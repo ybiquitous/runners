@@ -39,7 +39,7 @@ module Runners
       YAML
     end
 
-    def analyzer_version
+    def extract_version!(*)
       pmd_version
     end
 
