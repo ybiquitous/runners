@@ -33,7 +33,7 @@ Updated tools:
 
 Misc:
 
-- **ESLint** Re-provide new recommended configuration [#2157](https://github.com/sider/runners/pull/2150)
+- **ESLint** Re-provide new recommended configuration [#2250](https://github.com/sider/runners/pull/2250)
 - **PMD Java** Provide new recommended configuration [#2296](https://github.com/sider/runners/pull/2296)
 - **Slim-Lint** Support Sass by default [#2297](https://github.com/sider/runners/pull/2297)
 - **Rails Best Practices** Mark deprecated [#2357](https://github.com/sider/runners/pull/2357)
