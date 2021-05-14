@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.48.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.48.2...HEAD)
+
+## 0.48.2
+
+[Full diff](https://github.com/sider/runners/compare/0.48.1...0.48.2)
 
 - Address too long warning message [#2377](https://github.com/sider/runners/pull/2377)
 
