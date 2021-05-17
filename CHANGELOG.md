@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.48.2...HEAD)
 
+Misc:
+
+- **ESLint** Enable new recommended configuration [#2321](https://github.com/sider/runners/pull/2321)
+
 ## 0.48.2
 
 [Full diff](https://github.com/sider/runners/compare/0.48.1...0.48.2)
