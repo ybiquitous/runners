@@ -6,10 +6,18 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.49.1...HEAD)
 
+Features:
+
+- Introduce Secret Scanning [#2418](https://github.com/sider/runners/pull/2418)
+
 Updated environments:
 
 - **devon_rex** 2.43.2 -> 2.43.3 [#2417](https://github.com/sider/runners/pull/2417) ([diff](https://github.com/sider/devon_rex/compare/2.43.2...2.43.3))
 - **Bundler** 2.2.18 -> 2.2.19 [#2417](https://github.com/sider/runners/pull/2417)
+
+Misc:
+
+- `Runners::Analyzers#github` may return `nil` [#2420](https://github.com/sider/runners/pull/2420)
 
 ## 0.49.1
 
@@ -19,10 +27,6 @@ Updated environments:
 
 - **devon_rex** 2.43.1 -> 2.43.2 [#2399](https://github.com/sider/runners/pull/2399) ([diff](https://github.com/sider/devon_rex/compare/2.43.1...2.43.2))
 - **Bundler** 2.2.17 -> 2.2.18 [#2399](https://github.com/sider/runners/pull/2399)
-
-Misc:
-
-- `Runners::Analyzers#github` may return `nil` [#2420](https://github.com/sider/runners/pull/2420)
 
 ## 0.49.0
 
