@@ -90,8 +90,8 @@ module Runners
       analyzers.doc(analyzer_id)
     end
 
-    def analyzer_github
-      analyzers.github(analyzer_id)
+    def analyzer_github(id = analyzer_id)
+      analyzers.github(id) or raise "`#{id}` has no GitHub URL"
     end
 
     def analyzer
@@ -158,9 +158,8 @@ module Runners
     def missing_config_file_result(file)
       add_warning <<~MSG, file: file
         Sider could not find the required configuration file `#{file}`.
-        Please create the file according to the following documents:
-        - #{analyzer_github}
-        - #{analyzer_doc}
+        Please create the file according to the document:
+        #{analyzer_doc}
       MSG
 
       Results::Success.new(guid: guid, analyzer: analyzer)
