@@ -4,16 +4,8 @@ plugins {
 
 repositories {
     mavenCentral()
-
-    jcenter {
-        content {
-            // just allow to include kotlinx projects
-            // detekt needs 'kotlinx-html' for the html report
-            includeGroup "org.jetbrains.kotlinx"
-        }
-    }
 }
 
 dependencies {
-    implementation "io.gitlab.arturbosch.detekt:detekt-cli:1.16.0"
+    implementation "io.gitlab.arturbosch.detekt:detekt-cli:1.17.1"
 }
