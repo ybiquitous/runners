@@ -1,0 +1,10 @@
+ConfigurationNotChecked
+cstyleCast
+noExplicitConstructor
+redundantAssignment
+redundantInitialization
+toomanyconfigs
+uninitMemberVar
+unusedFunction
+unusedStructMember
+useStlAlgorithm
