@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.50.1...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.50.2...HEAD)
+
+## 0.50.2
+
+[Full diff](https://github.com/sider/runners/compare/0.50.1...0.50.2)
 
 - **Secret Scan** Fix `NotImplementedError` with `Runners::ConfigGenerator` [#2462](https://github.com/sider/runners/pull/2462)
 
