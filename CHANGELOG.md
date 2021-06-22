@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.50.3...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.50.4...HEAD)
+
+## 0.50.4
+
+[Full diff](https://github.com/sider/runners/compare/0.50.3...0.50.4)
 
 - Publish Docker images to Amazon ECR Public [#2465](https://github.com/sider/runners/pull/2465) [#2468](https://github.com/sider/runners/pull/2468)
 
