@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.50.4...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.50.5...HEAD)
+
+## 0.50.5
+
+[Full diff](https://github.com/sider/runners/compare/0.50.4...0.50.5)
 
 - Increase XX:MaxRAMPercentage for Java tools [#2470](https://github.com/sider/runners/pull/2470)
 
