@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.50.5...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.50.6...HEAD)
+
+## 0.50.6
+
+[Full diff](https://github.com/sider/runners/compare/0.50.5...0.50.6)
+
+- Fix npm install error with dependencies option and private dependencies [#2499](https://github.com/sider/runners/pull/2499)
 
 Updated environments:
 
