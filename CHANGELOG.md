@@ -6,12 +6,6 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.50.6...HEAD)
 
-## 0.50.6
-
-[Full diff](https://github.com/sider/runners/compare/0.50.5...0.50.6)
-
-- Fix npm install error with dependencies option and private dependencies [#2499](https://github.com/sider/runners/pull/2499)
-
 Updated environments:
 
 - **devon_rex** 2.44.2 -> 2.45.2 [#2490](https://github.com/sider/runners/pull/2490) [#2496](https://github.com/sider/runners/pull/2496) ([diff](https://github.com/sider/devon_rex/compare/2.44.2...2.45.2))
@@ -37,6 +31,12 @@ Misc:
 - Use git-clone(1) and git-sparse-checkout(1) for faster download [#2495](https://github.com/sider/runners/pull/2495)
 - Remove unused `meowcop` dependency and RuboCop configuration files [#2497](https://github.com/sider/runners/pull/2497)
 - Add the documentation URL to `Metrics Code Clone`, `Metrics Complexity` and `Metrics File Info` [#2498](https://github.com/sider/runners/pull/2498)
+
+## 0.50.6
+
+[Full diff](https://github.com/sider/runners/compare/0.50.5...0.50.6)
+
+- Fix npm install error with dependencies option and private dependencies [#2499](https://github.com/sider/runners/pull/2499)
 
 ## 0.50.5
 
