@@ -6,9 +6,11 @@ module Runners
 
     def self.children: () -> Hash[Symbol, singleton(Processor)]
 
-    def self.register_config_schema: (StrongJSON::_Schema[untyped]) -> void
+    def self.register_config_schema: (StrongJSON::_Schema[untyped], ?name: Symbol) -> void
 
     def self.config_example: () -> String
+
+    def self.metrics?: () -> bool
 
     attr_reader guid: String
     attr_reader working_dir: Pathname
