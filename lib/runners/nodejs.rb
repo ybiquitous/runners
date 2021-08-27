@@ -67,7 +67,9 @@ module Runners
               trace_writer.message "Backing up `#{package_json_path.basename}` before installing dependencies..."
               package_json_path.rename(backup)
             end
-            npm_install(*deps)
+            package_json_path.write("{}")
+            npm_install(*deps, flags: ["--no-package-lock"])
+            package_json_path.delete
           ensure
             if backup.exist?
               trace_writer.message "Restoring `#{package_json_path.basename}`..."

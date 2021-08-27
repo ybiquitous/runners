@@ -26,9 +26,11 @@ RUN cd "${RUNNERS_DIR}" && \
 COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/tyscan/package.json ${RUNNERS_DEPS_DIR}/
 RUN cd "${RUNNERS_DEPS_DIR}" && \
     npm install --strict-peer-deps --ignore-scripts --engine-strict --no-progress --no-save && \
-    rm package*.json
+    rm package*.json && \
+    # We can't use NODE_PATH
+    # See the details here: https://github.com/sider/runners/issues/2636
+    ln -s "${RUNNERS_DEPS_DIR}"/node_modules "${RUNNER_USER_HOME}"
 ENV PATH ${RUNNERS_DEPS_DIR}/node_modules/.bin:${PATH}
-ENV NODE_PATH ${RUNNERS_DEPS_DIR}/node_modules:${NODE_PATH}
 
 # Copy the main source code
 COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} exe ${RUNNERS_DIR}/exe

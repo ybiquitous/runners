@@ -26,9 +26,11 @@ RUN cd "${RUNNERS_DIR}" && \
 COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/remark_lint/package.json ${RUNNERS_DEPS_DIR}/
 RUN cd "${RUNNERS_DEPS_DIR}" && \
     npm install --strict-peer-deps --ignore-scripts --engine-strict --no-progress --no-save && \
-    rm package*.json
+    rm package*.json && \
+    # We can't use NODE_PATH
+    # See the details here: https://github.com/sider/runners/issues/2636
+    ln -s "${RUNNERS_DEPS_DIR}"/node_modules "${RUNNER_USER_HOME}"
 ENV PATH ${RUNNERS_DEPS_DIR}/node_modules/.bin:${PATH}
-ENV NODE_PATH ${RUNNERS_DEPS_DIR}/node_modules:${NODE_PATH}
 
 COPY --chown=${RUNNER_USER}:${RUNNER_GROUP} images/remark_lint/sider_recommended_remark_lint.yml ${RUNNER_USER_HOME}/
 
