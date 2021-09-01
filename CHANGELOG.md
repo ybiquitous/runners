@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 Updated tools:
 
+- **CoffeeLint** 5.0.1 -> 5.0.2 [#2631](https://github.com/sider/runners/pull/2631)
 - **GolangCI-Lint** 1.41.1 -> 1.42.0 [#2619](https://github.com/sider/runners/pull/2619)
 - **Pylint** 2.9.6 -> 2.10.2 [#2621](https://github.com/sider/runners/pull/2621)
 
