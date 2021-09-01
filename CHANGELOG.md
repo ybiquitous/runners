@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.53.3...HEAD)
 
+Updated tools:
+
+- **GolangCI-Lint** 1.41.1 -> 1.42.0 [#2619](https://github.com/sider/runners/pull/2619)
+
 Misc:
 
 - **Metrics** Filter out package directories from being analyzed by default [#2553](https://github.com/sider/runners/pull/2553)
