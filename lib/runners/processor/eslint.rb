@@ -199,8 +199,9 @@ module Runners
       elsif no_linting_files?(stderr)
         Results::Success.new(guid: guid, analyzer: analyzer)
       elsif no_eslint_config?(stderr)
-        trace_writer.message "Retrying with the default configuration file because no configuration files were found..."
-        FileUtils.copy_file(DEFAULT_ESLINT_CONFIG, ".eslintrc.js")
+        config_file_name = Gem::Version.new(analyzer_version) >= Gem::Version.new("6.8.0") ? ".eslintrc.cjs" : ".eslintrc.js"
+        trace_writer.message "Retrying with the default configuration file (copied to `#{config_file_name}`) because no configuration files were found..."
+        FileUtils.copy_file(DEFAULT_ESLINT_CONFIG, config_file_name)
         run_analyzer
       else
         Results::Failure.new(guid: guid, analyzer: analyzer)

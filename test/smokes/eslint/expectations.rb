@@ -792,3 +792,24 @@ s.add_test(
   issues: [],
   analyzer: { name: "ESLint", version: "7.28.0" }
 )
+
+# ESLint upper v6.8.0 supports ESM
+# See https://github.com/sider/runners/pull/2649
+s.add_test(
+  "esm",
+  type: "success",
+  issues: [
+    {
+      id: "eqeqeq",
+      message: "Expected '===' and instead saw '=='.",
+      path: "index.js",
+      links: ["https://eslint.org/docs/rules/eqeqeq"],
+      location: { start_line: 1, start_column: 15, end_line: 1, end_column: 17 },
+      object: { severity: "warn", category: "Best Practices", recommended: false },
+      git_blame_info: {
+        commit: :_, line_hash: "6d7664674a58626a18571a7015a6a2e9b99f7c3d", original_line: 1, final_line: 1
+      }
+    },
+  ],
+  analyzer: { name: "ESLint", version: default_version }
+)

@@ -18,6 +18,7 @@ Updated tools:
 
 Misc:
 
+- **ESLint** Fix loading config file with ESM mode [#2649](https://github.com/sider/runners/pull/2649)
 - **Metrics** Filter out package directories from being analyzed by default [#2553](https://github.com/sider/runners/pull/2553)
 - Change `node_modules` resolution to fix `NODE_PATH` issue [#2638](https://github.com/sider/runners/pull/2638)
 
