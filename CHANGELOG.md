@@ -12,6 +12,7 @@ Updated tools:
 - **GolangCI-Lint** 1.41.1 -> 1.42.0 [#2619](https://github.com/sider/runners/pull/2619)
 - **hadolint** 2.6.0 -> 2.7.0 [#2639](https://github.com/sider/runners/pull/2639)
 - **PMD CPD** 6.37.0 -> 6.38.0 [#2647](https://github.com/sider/runners/pull/2647)
+- **PMD Java** 6.37.0 -> 6.38.0 [#2648](https://github.com/sider/runners/pull/2648)
 - **Pylint** 2.9.6 -> 2.10.2 [#2621](https://github.com/sider/runners/pull/2621)
 - **RuboCop** 1.19.1 -> 1.20.0 [#2640](https://github.com/sider/runners/pull/2640)
 
