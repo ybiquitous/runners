@@ -4,7 +4,7 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 FROM golangci/golangci-lint:v1.42.0 as golangci-lint
 
-FROM sider/devon_rex_go:2.45.9
+FROM sider/devon_rex_go:2.45.10
 
 
 ENV RUNNERS_DEPS_DIR ${RUNNER_USER_HOME}/dependencies
