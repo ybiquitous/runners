@@ -1,6 +1,6 @@
 s = Runners::Testing::Smoke
 
-default_version = "1.18.0"
+default_version = "1.18.1"
 
 s.add_test(
   "with_broken_sider_yml",
