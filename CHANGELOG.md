@@ -12,6 +12,7 @@ Updated environments:
 
 Updated tools:
 
+- **Checkstyle** 8.45.1 -> 9.0 [#2661](https://github.com/sider/runners/pull/2661)
 - **CoffeeLint** 5.0.1 -> 5.0.2 [#2631](https://github.com/sider/runners/pull/2631)
 - **detekt** 1.18.0 -> 1.18.1 [#2662](https://github.com/sider/runners/pull/2662)
 - **GolangCI-Lint** 1.41.1 -> 1.42.0 [#2619](https://github.com/sider/runners/pull/2619)
