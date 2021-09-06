@@ -20,6 +20,7 @@ Updated tools:
 - **PMD Java** 6.37.0 -> 6.38.0 [#2648](https://github.com/sider/runners/pull/2648)
 - **Pylint** 2.9.6 -> 2.10.2 [#2621](https://github.com/sider/runners/pull/2621)
 - **RuboCop** 1.19.1 -> 1.20.0 [#2640](https://github.com/sider/runners/pull/2640)
+- **Slim-Lint** 0.22.0 -> 0.22.1 [#2663](https://github.com/sider/runners/pull/2663)
 
 Misc:
 
