@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.53.5...HEAD)
 
+- Revert `cakephp/cakephp-codesniffer` update [#2666](https://github.com/sider/runners/pull/2666)
+
 ## 0.53.5
 
 [Full diff](https://github.com/sider/runners/compare/0.53.4...0.53.5)
