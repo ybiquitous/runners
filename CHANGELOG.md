@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-[Full diff](https://github.com/sider/runners/compare/0.53.5...HEAD)
+[Full diff](https://github.com/sider/runners/compare/0.53.6...HEAD)
+
+## 0.53.6
+
+[Full diff](https://github.com/sider/runners/compare/0.53.5...0.53.6)
 
 - Revert `cakephp/cakephp-codesniffer` update [#2666](https://github.com/sider/runners/pull/2666)
 
