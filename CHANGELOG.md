@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.53.4...HEAD)
 
+- Fix Runners version manually 0.53.0 -> 0.53.4 [#2664](https://github.com/sider/runners/pull/2664)
+
 ## 0.53.4
 
 [Full diff](https://github.com/sider/runners/compare/0.53.3...0.53.4)
