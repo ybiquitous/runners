@@ -83,6 +83,20 @@ rules:
     justification:
       - When all `pmd-*` packages have the same version.
 
+  - id: sider.runners.vfile_reporter_json
+    pattern:
+      regexp: |-
+        "vfile-reporter-json": "3.(.*).(.*)"
+    glob: "**/package.json"
+    message: |
+      **DO NOT MERGE!**
+
+      `vfile-reporter-json` does not support lower than `v10.0.0` of `remark-cli`
+
+      * See details on [runners/pull#2592 (comment)](https://github.com/sider/runners/pull/2592#issuecomment-916623939)
+    justification:
+      - When we can drop the lower than v10.0.0 of reamark-cli.
+
 import:
   - https://github.com/sider/goodcheck-rules/archive/refs/tags/v0.0.3.tar.gz
 
