@@ -167,6 +167,8 @@ updates:
     open-pull-requests-limit: 10
     versioning-strategy: increase
     labels: ["dependencies", "language: php"]
+    ignore:
+      - dependency-name: "cakephp/cakephp-codesniffer" # We cannot support CakePHP 4.x still. See #748
 
   - package-ecosystem: composer
     directory: "/images/phinder"
