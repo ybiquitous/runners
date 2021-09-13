@@ -97,6 +97,14 @@ rules:
     justification:
       - When we can drop the lower than v10.0.0 of reamark-cli.
 
+  - id: sider.runners.schema.config.one_or_more_strings
+    pattern:
+      - enum?(string, array(string))
+      - enum?(array(string), string)
+    glob: lib/**/*.rb
+    message: |
+      Use [one_or_more_strings?](https://github.com/sider/runners/blob/ee5e32a7b86a5911293b112d7d0aab8c5cf66c8c/lib/runners/schema/config.rb#L6-L8) instead.
+
 import:
   - https://github.com/sider/goodcheck-rules/archive/refs/tags/v0.0.3.tar.gz
 
