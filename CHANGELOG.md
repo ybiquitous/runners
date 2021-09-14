@@ -11,6 +11,10 @@ Updated tools:
 - **GolangCI-Lint** 1.42.0 -> 1.42.1 [#2673](https://github.com/sider/runners/pull/2673)
 - **remark-lint** 9.0.0 -> 10.0.0 (remark-cli) [#2592](https://github.com/sider/runners/pull/2592)
 
+Misc:
+
+- Relax `required_ruby_version` [#2676](https://github.com/sider/runners/pull/2676)
+
 ## 0.53.6
 
 [Full diff](https://github.com/sider/runners/compare/0.53.5...0.53.6)
