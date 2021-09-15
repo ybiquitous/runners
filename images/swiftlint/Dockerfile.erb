@@ -2,7 +2,7 @@ FROM sider/devon_rex_swift:2.45.10
 
 <%= render_erb 'images/Dockerfile.base.erb' %>
 
-ARG SWIFTLINT_VERSION=0.43.1
+ARG SWIFTLINT_VERSION=0.44.0
 
 # Build SwiftLint
 RUN cd /tmp && \
