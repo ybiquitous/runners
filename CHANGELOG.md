@@ -14,6 +14,7 @@ Updated tools:
 
 Misc:
 
+- **Checkstyle** Add `NoWhitespaceBeforeCaseDefaultColon` to Sider recommended rules [#2681](https://github.com/sider/runners/pull/2681)
 - Relax `required_ruby_version` [#2676](https://github.com/sider/runners/pull/2676)
 
 ## 0.53.6
