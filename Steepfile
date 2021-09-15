@@ -14,6 +14,7 @@ target :lib do
   library "optparse"
   library "erb"
   library "rubygems"
+  library "tempfile"
   library "strong_json"
   library "retryable"
   library "nokogiri"

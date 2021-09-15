@@ -95,6 +95,18 @@
           (::String | nil) <: ::String
             nil <: ::String
     code: Ruby::MethodBodyTypeMismatch
+- file: lib/runners/io/aws_s3.rb
+  diagnostics:
+  - range:
+      start:
+        line: 23
+        character: 27
+      end:
+        line: 23
+        character: 30
+    severity: ERROR
+    message: Type `singleton(::Tempfile)` does not have method `new`
+    code: Ruby::NoMethod
 - file: lib/runners/issue.rb
   diagnostics:
   - range:
@@ -315,6 +327,20 @@
                   ::Object <: ::String
                     ::BasicObject <: ::String
     code: Ruby::ArgumentTypeMismatch
+  - range:
+      start:
+        line: 204
+        character: 23
+      end:
+        line: 204
+        character: 74
+    severity: ERROR
+    message: |-
+      Cannot find compatible overloading of method `create` of type `singleton(::Tempfile)`
+      Method types:
+        def create: (?::String, ?(::String | nil), ?mode: ::Integer, **untyped) -> ::File
+                  | [A] (?::String, ?(::String | nil), ?mode: ::Integer, **untyped) { (::File) -> A } -> A
+    code: Ruby::UnresolvedOverloading
   - range:
       start:
         line: 231
