@@ -47,6 +47,15 @@ updates:
     open-pull-requests-limit: 10
     labels: ["dependencies", "language: misc"]
 
+  - package-ecosystem: docker
+    directory: "/images/actionlint"
+    schedule:
+      interval: weekly
+      time: "09:00"
+      timezone: Asia/Tokyo
+    open-pull-requests-limit: 10
+    labels: ["dependencies", "language: misc"]
+
   # Java
   - package-ecosystem: gradle
     directory: "/images/checkstyle"
@@ -226,6 +235,15 @@ updates:
       timezone: Asia/Tokyo
     open-pull-requests-limit: 10
     labels: ["dependencies", "language: python"]
+
+  - package-ecosystem: pip
+    directory: "/images/actionlint"
+    schedule:
+      interval: weekly
+      time: "09:00"
+      timezone: Asia/Tokyo
+    open-pull-requests-limit: 10
+    labels: ["dependencies", "language: misc"]
 
   # Ruby
   - package-ecosystem: bundler

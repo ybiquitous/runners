@@ -74,6 +74,7 @@ require "runners/schema/result"
 
 # processors
 require "runners/processor"
+require "runners/processor/actionlint"
 require "runners/processor/brakeman"
 require "runners/processor/checkstyle"
 require "runners/processor/clang_tidy"

@@ -1,0 +1,10 @@
+---
+name: Success
+
+on: click
+
+jobs:
+  some_test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hello world

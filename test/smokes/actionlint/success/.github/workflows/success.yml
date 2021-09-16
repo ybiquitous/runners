@@ -1,0 +1,14 @@
+---
+name: Success
+
+on:
+  push:
+    tags: ["**"]
+
+jobs:
+  some_test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hello world
+
+unexpected_key:

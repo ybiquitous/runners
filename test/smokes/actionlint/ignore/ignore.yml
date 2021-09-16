@@ -1,0 +1,8 @@
+on: click
+jobs:
+  prepare:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'prepare'
+    unexpected: value

@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 [Full diff](https://github.com/sider/runners/compare/0.53.6...HEAD)
 
+New supported:
+
+- **actionlint** [#2650](https://github.com/sider/runners/pull/2650)
+
 Updated tools:
 
 - **GolangCI-Lint** 1.42.0 -> 1.42.1 [#2673](https://github.com/sider/runners/pull/2673)

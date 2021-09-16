@@ -6,6 +6,16 @@
 # Customize each tool. If analyses fail, try adjusting each option referencing the following example.
 linter:
 
+#   # actionlint example. See https://help.sider.review/tools/others/actionlint
+#   actionlint:
+#     root_dir: project/
+#     target:
+#       - .github/workflows/one_workflow.yml
+#       - .github/workflows/another_workflow.yml
+#     ignore:
+#       - "job .* needs job"
+#       - "unknown Webhook event"
+
 #   # Brakeman example. See https://help.sider.review/tools/ruby/brakeman
 #   brakeman:
 #     root_dir: project/

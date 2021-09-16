@@ -39,6 +39,7 @@ class ConfigTest < Minitest::Test
     assert_equal(
       {
         linter: {
+          actionlint: nil,
           brakeman: nil,
           checkstyle: nil,
           clang_tidy: nil,

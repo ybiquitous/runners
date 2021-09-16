@@ -9,10 +9,11 @@ See also another related project, called [devon_rex](https://github.com/sider/de
 ## Supported analyzers
 
 <!-- AUTO-GENERATED-CONTENT:START (analyzers) -->
-All **40** analyzers are provided as a Docker image:
+All **41** analyzers are provided as a Docker image:
 
 | Name | Links | Status |
 |:-----|:------|:------:|
+| actionlint | [docker](https://hub.docker.com/r/sider/runner_actionlint), [source](https://github.com/rhysd/actionlint), [doc](https://help.sider.review/tools/others/actionlint) | 🔨 |
 | Brakeman | [docker](https://hub.docker.com/r/sider/runner_brakeman), [source](https://github.com/presidentbeef/brakeman), [doc](https://help.sider.review/tools/ruby/brakeman), [website](https://brakemanscanner.org) | ✅ |
 | Checkstyle | [docker](https://hub.docker.com/r/sider/runner_checkstyle), [source](https://github.com/checkstyle/checkstyle), [doc](https://help.sider.review/tools/java/checkstyle), [website](https://checkstyle.org) | ✅ |
 | Clang-Tidy | [docker](https://hub.docker.com/r/sider/runner_clang_tidy), [source](https://github.com/llvm/llvm-project), [doc](https://help.sider.review/tools/cplusplus/clang-tidy), [website](https://clang.llvm.org/extra/clang-tidy) | 🔨 |

@@ -1,0 +1,10 @@
+on: push
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - run: print('${{ runner.os }}')
+        shell: python
+      # ERROR: Undefined variable
+      - run: print(hello)
+        shell: python

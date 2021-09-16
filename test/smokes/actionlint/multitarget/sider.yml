@@ -1,0 +1,5 @@
+linter:
+  actionlint:
+    target:
+      - onclick.yml
+      - unexpected_key.yml

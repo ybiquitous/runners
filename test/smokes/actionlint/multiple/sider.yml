@@ -1,0 +1,3 @@
+linter:
+  actionlint:
+    target: multiple.yml

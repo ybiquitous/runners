@@ -1,0 +1,12 @@
+---
+name: Shellcheck Issue
+
+on:
+  push:
+    tags: ["**"]
+
+jobs:
+  some_test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo path is $PWD

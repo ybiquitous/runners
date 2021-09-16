@@ -5,16 +5,16 @@ class AnalyzersTest < Minitest::Test
 
   def test_each
     id, analyzer = analyzers.each.next
-    assert_equal :brakeman, id
-    assert_equal "Brakeman", analyzer[:name]
+    assert_equal :actionlint, id
+    assert_equal "actionlint", analyzer[:name]
   end
 
   def test_each_block
     called = false
 
     analyzers.each do |id, analyzer|
-      assert_equal :brakeman, id
-      assert_equal "Brakeman", analyzer[:name]
+      assert_equal :actionlint, id
+      assert_equal "actionlint", analyzer[:name]
       called = true
       break
     end
@@ -24,7 +24,7 @@ class AnalyzersTest < Minitest::Test
 
   def test_map
     names = analyzers.map { |id, analyzer| "#{id} => #{analyzer[:name]}" }
-    assert_equal "brakeman => Brakeman", names.first
+    assert_equal "actionlint => actionlint", names.first
   end
 
   def test_size

@@ -132,6 +132,24 @@
     message: 'Method parameters are incompatible with declaration `(*::String, ?flags:
       ::Array[::String], ?subcommand: ::String) -> void`'
     code: Ruby::MethodArityMismatch
+- file: lib/runners/processor/actionlint.rb
+  diagnostics:
+  - range:
+      start:
+        line: 46
+        character: 8
+      end:
+        line: 46
+        character: 24
+    severity: ERROR
+    message: |-
+      Cannot allow method body have type `::Array[(::String | ::Array[::String] | [])]` because declared as type `::Array[::String]`
+        ::Array[(::String | ::Array[::String] | [])] <: ::Array[::String]
+          (::String | ::Array[::String] | []) <: ::String
+            ::Array[::String] <: ::String
+              ::Object <: ::String
+                ::BasicObject <: ::String
+    code: Ruby::MethodBodyTypeMismatch
 - file: lib/runners/processor/checkstyle.rb
   diagnostics:
   - range:

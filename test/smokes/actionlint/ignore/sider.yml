@@ -1,0 +1,6 @@
+linter:
+  actionlint:
+    target: ignore.yml
+    ignore:
+      - 'unexpected key'
+      - 'job ".*" needs job'

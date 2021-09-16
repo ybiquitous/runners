@@ -1,5 +1,10 @@
 analyzers:
   # In alphabetical order.
+  actionlint:
+    name: actionlint
+    github: rhysd/actionlint
+    doc: tools/others/actionlint
+    beta: true
   brakeman:
     name: Brakeman
     github: presidentbeef/brakeman

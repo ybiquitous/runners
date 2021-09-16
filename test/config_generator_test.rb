@@ -23,12 +23,14 @@ class ConfigGeneratorTest < Minitest::Test
       id
     end
 
-    end_line = 417
+    # end_line specifies where the value "linter" of yaml key ends.
+    # When adding new runner, change this number, otherwise BrokenYAML can happen.
+    end_line = 427
     assert_yaml "test_generate_with_tools.yml",
                 tools: tools,
                 comment_out_lines: [9..end_line, (end_line + 3)..(end_line + 7), (end_line + 10)..(end_line + 14)],
                 assert_config: ->(config) {
-                  assert_equal [:brakeman, :checkstyle, :clang_tidy, :code_sniffer, :coffeelint, :cppcheck, :cpplint, :detekt,
+                  assert_equal [:actionlint, :brakeman, :checkstyle, :clang_tidy, :code_sniffer, :coffeelint, :cppcheck, :cpplint, :detekt,
                                 :eslint, :flake8, :fxcop, :golangci_lint, :goodcheck, :hadolint, :haml_lint, :javasee, :jshint,
                                 :ktlint, :languagetool, :metrics, :misspell, :phinder, :phpmd, :pmd_cpd, :pmd_java, :pylint, :querly,
                                 :rails_best_practices, :reek, :remark_lint, :rubocop, :scss_lint, :shellcheck, :slim_lint,

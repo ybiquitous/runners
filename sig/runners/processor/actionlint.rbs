@@ -1,0 +1,23 @@
+module Runners
+  class Processor::Actionlint < Processor
+    class SchemaClass < StrongJSON
+      include Schema::ConfigTypes
+
+      def config: () -> StrongJSON::Type::Object[untyped]
+      def issue: () -> StrongJSON::Type::Object[untyped]
+    end
+    SCHEMA: SchemaClass
+    ALLOWED_ERRORS: Array[String]
+    SHELLCHECK_MESSAGE_FORMAT: Regexp
+    PYFLAKES_MESSAGE_FORMAT: Regexp
+
+    private
+
+    def analyzer_options: () -> Array[String]
+
+    def parse_result: (String) -> Array[Issue]
+
+    def find_shellcheck_issue: (String) -> Hash[Symbol, untyped]
+    def find_pyflakes_issue: (String) -> Hash[Symbol, untyped]
+  end
+end
