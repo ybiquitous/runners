@@ -1,0 +1,9 @@
+plugins:
+  remark-preset-lint-sider: true
+  remark-validate-links: true
+  remark-lint-no-dead-urls:
+    skipUrlPatterns:
+      - https://github.com/sider/runners/pull
+      - https://github.com/sider/runners/issues
+      - https://github.com/sider/runners/compare
+      - https://github.com/sider/devon_rex/compare
