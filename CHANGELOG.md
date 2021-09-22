@@ -10,6 +10,10 @@ New supported:
 
 - **actionlint** [#2650](https://github.com/sider/runners/pull/2650)
 
+Notable changes:
+
+- **Rails Best Practices** Drop support [#2701](https://github.com/sider/runners/pull/2701)
+
 Updated tools:
 
 - **GolangCI-Lint** 1.42.0 -> 1.42.1 [#2673](https://github.com/sider/runners/pull/2673)

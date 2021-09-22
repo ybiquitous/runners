@@ -1,5 +1,0 @@
-linter:
-  rails_best_practices:
-    exclude:
-      - app/assets
-      - db

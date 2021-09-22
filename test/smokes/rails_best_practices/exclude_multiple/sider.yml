@@ -1,3 +1,0 @@
-linter:
-  rails_best_practices:
-    exclude: "bar.rb,_\\d+\\.rb"

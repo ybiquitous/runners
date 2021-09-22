@@ -46,7 +46,6 @@ jobs:
           - pmd_java
           - pylint
           - querly
-          - rails_best_practices
           - reek
           - remark_lint
           - rubocop

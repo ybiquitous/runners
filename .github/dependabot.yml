@@ -287,16 +287,6 @@ updates:
     labels: ["dependencies", "language: ruby"]
 
   - package-ecosystem: bundler
-    directory: "/images/rails_best_practices"
-    schedule:
-      interval: weekly
-      time: "09:00"
-      timezone: Asia/Tokyo
-    open-pull-requests-limit: 10
-    versioning-strategy: increase
-    labels: ["dependencies", "language: ruby"]
-
-  - package-ecosystem: bundler
     directory: "/images/reek"
     schedule:
       interval: weekly

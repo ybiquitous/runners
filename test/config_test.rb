@@ -81,7 +81,6 @@ class ConfigTest < Minitest::Test
           pmd_java: nil,
           pylint: nil,
           querly: nil,
-          rails_best_practices: nil,
           reek: nil,
           remark_lint: nil,
           scss_lint: nil,
