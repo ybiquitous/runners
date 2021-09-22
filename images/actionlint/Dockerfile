@@ -2,7 +2,7 @@
 # NOTE: DO *NOT* EDIT THIS FILE. IT IS GENERATED.
 # PLEASE UPDATE Dockerfile.erb INSTEAD OF THIS FILE.
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-FROM rhysd/actionlint:1.6.3 as actionlint
+FROM rhysd/actionlint:1.6.4 as actionlint
 FROM koalaman/shellcheck:v0.7.2 as shellcheck
 
 

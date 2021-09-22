@@ -1,6 +1,6 @@
 s = Runners::Testing::Smoke
 
-default_version = "1.6.3"
+default_version = "1.6.4"
 
 # empty yaml file reports issue about missing section
 s.add_test(
