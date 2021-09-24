@@ -1,6 +1,6 @@
 s = Runners::Testing::Smoke
 
-default_version = "2.10.2"
+default_version = "2.11.1"
 
 s.add_test(
   "success",
@@ -13,6 +13,22 @@ s.add_test(
   "failure",
   type: "success",
   issues: [
+    {
+      id: "consider-using-f-string",
+      path: "bad.py",
+      location: { start_line: 3, start_column: 15 },
+      message: "Formatting a regular string which could be a f-string",
+      object: {
+        severity: "convention",
+        "message-id": "C0209",
+        module: "bad",
+        obj: ""
+      },
+      links: [],
+      git_blame_info: {
+        commit: :_, line_hash: "d114f06295e290e37f11d1dbadbac862d2dc0071", original_line: 3, final_line: 3
+      }
+    },
     {
       id: "missing-module-docstring",
       path: "bad.py",

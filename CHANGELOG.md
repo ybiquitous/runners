@@ -17,6 +17,7 @@ Notable changes:
 Updated tools:
 
 - **GolangCI-Lint** 1.42.0 -> 1.42.1 [#2673](https://github.com/sider/runners/pull/2673)
+- **pylint** 2.10.2 -> 2.11.1 [#2690](https://github.com/sider/runners/pull/2690)
 - **remark-lint** 9.0.0 -> 10.0.0 (remark-cli) [#2592](https://github.com/sider/runners/pull/2592)
 - **SwiftLint** 0.43.1 -> 0.44.0 [#2680](https://github.com/sider/runners/pull/2680)
 
