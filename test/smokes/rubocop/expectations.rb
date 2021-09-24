@@ -1,6 +1,6 @@
 s = Runners::Testing::Smoke
 
-default_version = "1.20.0"
+default_version = "1.21.0"
 
 s.add_test(
   "sandbox_rails",
@@ -296,11 +296,11 @@ s.add_test(
   type: "success",
   issues: [
     {
-      message: "Missing top-level class documentation comment.",
+      message: "Missing top-level documentation comment for `class Cat`.",
       links: %w[https://docs.rubocop.org/rubocop/cops_style.html#styledocumentation],
       id: "Style/Documentation",
       path: "app.rb",
-      location: { start_line: 3, start_column: 1, end_line: 3, end_column: 5 },
+      location: { start_line: 3, start_column: 1, end_line: 3, end_column: 9 },
       object: { severity: "convention", corrected: false },
       git_blame_info: {
         commit: :_, line_hash: "11d2b5872a5f698502da96fb40bac6646c939b27", original_line: 3, final_line: 3
