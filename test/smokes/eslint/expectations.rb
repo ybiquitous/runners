@@ -490,7 +490,7 @@ s.add_test(
       id: "@typescript-eslint/no-unused-vars",
       message: "'x' is assigned a value but never used.",
       links: %w[
-        https://github.com/typescript-eslint/typescript-eslint/blob/v4.31.1/packages/eslint-plugin/docs/rules/no-unused-vars.md
+        https://github.com/typescript-eslint/typescript-eslint/blob/v4.31.2/packages/eslint-plugin/docs/rules/no-unused-vars.md
       ],
       path: "index.ts",
       location: { start_line: 1, start_column: 7, end_line: 1, end_column: 8 },
@@ -809,7 +809,7 @@ s.add_test(
       git_blame_info: {
         commit: :_, line_hash: "6d7664674a58626a18571a7015a6a2e9b99f7c3d", original_line: 1, final_line: 1
       }
-    },
+    }
   ],
   analyzer: { name: "ESLint", version: default_version }
 )
