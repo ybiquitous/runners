@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 New supported:
 
-- **actionlint** [#2650](https://github.com/sider/runners/pull/2650)
+- **actionlint** [#2650](https://github.com/sider/runners/pull/2650), [#2702](https://github.com/sider/runners/pull/2702)
 
 Notable changes:
 
