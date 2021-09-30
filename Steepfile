@@ -1,6 +1,6 @@
 target :lib do
   signature "sig"
-  repo_path "vendor/rbs/gem_rbs_collection/gems"
+  repo_path ".gem_rbs_collection"
 
   check "exe/*"
   check "lib"

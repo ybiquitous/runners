@@ -1,0 +1,140 @@
+---
+sources:
+- name: ruby/gem_rbs_collection
+  remote: https://github.com/ruby/gem_rbs_collection.git
+  revision: main
+  repo_dir: gems
+path: ".gem_rbs_collection"
+gems:
+- name: pathname
+  version: '0'
+  source:
+    type: stdlib
+- name: logger
+  version: '0'
+  source:
+    type: stdlib
+- name: mutex_m
+  version: '0'
+  source:
+    type: stdlib
+- name: date
+  version: '0'
+  source:
+    type: stdlib
+- name: monitor
+  version: '0'
+  source:
+    type: stdlib
+- name: singleton
+  version: '0'
+  source:
+    type: stdlib
+- name: tsort
+  version: '0'
+  source:
+    type: stdlib
+- name: time
+  version: '0'
+  source:
+    type: stdlib
+- name: set
+  version: '0'
+  source:
+    type: stdlib
+- name: activesupport
+  version: '6.0'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 81ace2c598ec871572beee5792e2a2781b35e762
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: ast
+  version: '2.4'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 81ace2c598ec871572beee5792e2a2781b35e762
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: cgi
+  version: '0'
+  source:
+    type: stdlib
+- name: erb
+  version: '0'
+  source:
+    type: stdlib
+- name: fileutils
+  version: '0'
+  source:
+    type: stdlib
+- name: forwardable
+  version: '0'
+  source:
+    type: stdlib
+- name: json
+  version: '0'
+  source:
+    type: stdlib
+- name: jsonseq
+  version: 0.2.0
+  source:
+    type: rubygems
+- name: listen
+  version: '3.2'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 81ace2c598ec871572beee5792e2a2781b35e762
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: nokogiri
+  version: '1.11'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 81ace2c598ec871572beee5792e2a2781b35e762
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: parallel
+  version: '1.20'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 81ace2c598ec871572beee5792e2a2781b35e762
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: rainbow
+  version: '3.0'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 81ace2c598ec871572beee5792e2a2781b35e762
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: retryable
+  version: '3.0'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 81ace2c598ec871572beee5792e2a2781b35e762
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: runners
+  version: 0.53.6
+  source:
+    type: rubygems
+- name: steep
+  version: 0.46.0
+  source:
+    type: rubygems
+- name: strong_json
+  version: 2.1.2
+  source:
+    type: rubygems
+- name: strscan
+  version: '0'
+  source:
+    type: stdlib
