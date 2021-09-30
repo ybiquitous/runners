@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: true
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
@@ -27,8 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: true
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
